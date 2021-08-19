@@ -1,4 +1,3 @@
-import 'package:bedayat/UI/screens/login/login.dart';
 import 'package:bedayat/UI/screens/register/register.dart';
 import 'package:flutter/material.dart';
 
