@@ -13,6 +13,10 @@ class ActionButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
+<<<<<<< HEAD
+=======
+          elevation: 0,
+>>>>>>> e42aafec72c24a98ec52d54662673ac4f747c558
           primary: AppColors.primaryColor,
           minimumSize: Size(
             deviceWidth * 0.9,
@@ -25,7 +29,11 @@ class ActionButton extends StatelessWidget {
         child: Text(
           label!,
           style: TextStyle(
+<<<<<<< HEAD
             fontSize: 17,
+=======
+            fontSize: 15,
+>>>>>>> e42aafec72c24a98ec52d54662673ac4f747c558
             fontWeight: FontWeight.w600,
             color: Colors.white,
           ),
