@@ -1,15 +1,46 @@
 class AppImages {
+  static const appintrduuctionlogo = 'assets/images/introductionLogo.png';
+  static const appintroImage1 = 'assets/images/introImage1.png';
+  static const appintroCover = 'assets/images/introCover.png';
   static const appLogo = 'assets/images/logo.png';
-<<<<<<< HEAD
   static const appSubLogo = 'assets/images/subLogo.png';
   static const appEmailIcon = 'assets/images/email.png';
   static const appPasswordIcon = 'assets/images/password.png';
   static const appPhoneIcon = 'assets/images/phone.png';
-  static const appBranch = 'assets/images/branch.png';
+  static const appBranchEven = 'assets/images/branch_even.png';
+  static const appBranchOdd = 'assets/images/branch_odd.png';
   static const appUser = 'assets/images/user.png';
-=======
-  static const appEmailIcon = 'assets/images/email.png';
-  static const appPasswordIcon = 'assets/images/password.png';
-  static const appPhoneIcon = 'assets/images/phone.png';
->>>>>>> e42aafec72c24a98ec52d54662673ac4f747c558
+  static const appMap = 'assets/images/map.png';
+  static const appEmergecey = 'assets/images/emergency.png';
+  static const appUpload = 'assets/images/upload.png';
+  static const appMadaBank = 'assets/images/mada.png';
+  static const appStcpayBank = 'assets/images/bank.png';
+  static const appConfirmRegistration = 'assets/images/confirm.png';
+  static const appCurve = 'assets/images/curve.png';
+  static const appCurveSvg = 'assets/images/curve.svg';
+  static const appNoification = 'assets/images/notification.png';
+  static const appDrawer = 'assets/images/drawer.png';
+  static const appcarouselImg1 = 'assets/images/carousel_Img_1.png';
+  static const appchild = 'assets/images/child.png';
+  static const appSmallBarcode = 'assets/images/small_barcode.png';
+  static const appBarcode = 'assets/images/barcode.png';
+  static const appShareIcon = 'assets/images/share_icon.png';
+  static const appAccountIcon = 'assets/images/account.svg';
+  static const appHomeIcon = 'assets/images/home.svg';
+  static const appProfileIcon = 'assets/images/profile.svg';
+  static const appReport = 'assets/images/report.svg';
+  static const appGallery = 'assets/images/gallery.svg';
+  static const appHappy = 'assets/images/happy.svg';
+  static const appSilent = 'assets/images/silent.svg';
+  static const appSad = 'assets/images/sad.svg';
+  static const appFullFood = 'assets/images/full_food.svg';
+  static const apphalfFood = 'assets/images/half_food.svg';
+  static const appHalfWater = 'assets/images/half_water.svg';
+  static const appHalfSleep = 'assets/images/half_sleep.svg';
+  static const appFullSleep = 'assets/images/full_sleep.svg';
+  static const appTimer = 'assets/images/timer.svg';
+  static const appTempratre = 'assets/images/temprature.svg';
+  static const appCalender = 'assets/images/calender.svg';
+  static const appsmallcalender = 'assets/images/small_calender.svg';
+  static const appSmallTimer = 'assets/images/small_timer.svg';
 }

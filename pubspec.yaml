@@ -22,9 +22,16 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.2
+  dio: ^4.0.0
+  get: ^4.3.8
+  image_picker: ^0.8.3+3
+  carousel_slider: ^4.0.0
+  smooth_page_indicator: ^1.0.0+2
+  flutter_svg: ^0.22.0
+
   flutter:
     sdk: flutter
-  get: ^4.3.8
+  introduction_screen: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -32,10 +39,6 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-<<<<<<< HEAD
-=======
-
->>>>>>> e42aafec72c24a98ec52d54662673ac4f747c558
 # The following section is specific to Flutter.
 flutter:
 
@@ -48,20 +51,10 @@ flutter:
   assets:
     - assets/images/
   #   - images/a_dot_ham.jpeg
-<<<<<<< HEAD
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-=======
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
->>>>>>> e42aafec72c24a98ec52d54662673ac4f747c558
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

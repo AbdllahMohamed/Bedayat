@@ -13,9 +13,9 @@ class RegisterStepOneScreen extends StatefulWidget {
 class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _email = new TextEditingController();
-
-  TextEditingController _password = new TextEditingController();
+  TextEditingController _phoneController = new TextEditingController();
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _passwordController = new TextEditingController();
 
   bool _obscureText = true;
 
@@ -26,26 +26,24 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
     });
   }
 
-  Register() async {
-    // if (!_formKey.currentState!.validate()) {
-    //   return;
-    // }
-    // String error = await authController.Register(_email.text, _password.text);
+  registerStepOne() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
 
-    // if (error != "") {
-    //   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
-    // } else {
-    //   Get.to(HomeScreen());
-    // }
-
-    Get.to(RegisterStepTwoScreen());
+    Get.to(RegisterStepTwoScreen(
+      phoneController: _phoneController.text,
+      emailController: _emailController.text,
+      passwordController: _passwordController.text,
+    ));
   }
 
   @override
   void dispose() {
     super.dispose();
-    _email.dispose();
-    _password.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
   }
 
   @override
@@ -68,17 +66,6 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 50),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Image.asset(
-                      //       AppImages.appSubLogo,
-                      //     ),
-                      //     // Container(
-                      //     //   width: 200,
-                      //     // )
-                      //   ],
-                      // ),
                       Image.asset(
                         AppImages.appSubLogo,
                       ),
@@ -125,14 +112,15 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
-                        controller: _email,
+                        controller: _phoneController,
+                        keyboardType: TextInputType.number,
                         validator: (val) {
                           if (val!.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
-                          // else if (!val.isEmail) {
-                          //   return 'البريد الالكترونى';
-                          // }
+                          if (val.length < 8) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
                         },
                         decoration: InputDecoration(
                           prefixIcon: Image.asset(AppImages.appPhoneIcon),
@@ -141,14 +129,13 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                         ),
                       ),
                       TextFormField(
-                        controller: _email,
+                        controller: _emailController,
                         validator: (val) {
                           if (val!.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
+                          } else if (!val.isEmail) {
+                            return 'البريد الالكترونى غير صالح';
                           }
-                          // else if (!val.isEmail) {
-                          //   return 'البريد الالكترونى';
-                          // }
                         },
                         decoration: InputDecoration(
                           prefixIcon: Image.asset(AppImages.appEmailIcon),
@@ -157,7 +144,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                         ),
                       ),
                       TextFormField(
-                        controller: _password,
+                        controller: _passwordController,
                         obscureText: _obscureText,
                         validator: (val) {
                           if (val!.isEmpty) {
@@ -171,7 +158,6 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                           prefixIcon: Image.asset(AppImages.appPasswordIcon),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              // Based on passwordVisible state choose the icon
                               _obscureText
                                   ? Icons.visibility_off
                                   : Icons.visibility,
@@ -204,7 +190,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                       ActionButton(
                           label: 'التالى',
                           onPressed: () async {
-                            Register();
+                            registerStepOne();
                           }),
                     ],
                   ),
