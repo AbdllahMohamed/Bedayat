@@ -23,6 +23,7 @@ class AppImages {
   static const appcarouselImg1 = 'assets/images/carousel_Img_1.png';
   static const appchild = 'assets/images/child.png';
   static const appSmallBarcode = 'assets/images/small_barcode.png';
+  static const appSmallBarcodeSVg = 'assets/images/small_barcode.svg';
   static const appBarcode = 'assets/images/barcode.png';
   static const appShareIcon = 'assets/images/share_icon.png';
   static const appAccountIcon = 'assets/images/account.svg';
@@ -43,4 +44,5 @@ class AppImages {
   static const appCalender = 'assets/images/calender.svg';
   static const appsmallcalender = 'assets/images/small_calender.svg';
   static const appSmallTimer = 'assets/images/small_timer.svg';
+  static const applogout = 'assets/images/logout.png';
 }

@@ -1,4 +1,5 @@
 import 'package:bedayat/app_colors/app_colors.dart';
+import 'package:bedayat/app_images/app_images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,24 +31,44 @@ class _SliderImageDetailsState extends State<SliderImageDetails> {
               SizedBox(
                 height: 15,
               ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: Icon(
-                    Icons.close,
-                    size: 30,
-                  ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 28.0,
+                  right: 15,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      AppImages.appLogo,
+                      width: 106,
+                      height: 56,
+                    ),
+                    Spacer(),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        icon: Icon(
+                          Icons.close,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
-              Image.network(
-                widget.imagePath,
-                fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  widget.imagePath,
+                  fit: BoxFit.cover,
+                ),
               ),
               SizedBox(
                 height: 15,

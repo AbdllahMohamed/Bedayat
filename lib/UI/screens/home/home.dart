@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:bedayat/UI/screens/app_drawer/app_drawer.dart';
+import 'package:bedayat/UI/screens/notification.dart/notification.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
 import 'package:bedayat/UI/screens/slider_image_details/sllider_image_details.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
@@ -24,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final SliderImagesController sliderImagesController =
       Get.put(SliderImagesController());
   final ChildernController childernController = Get.put(ChildernController());
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey(); // Create a key
 
   CarouselController buttonCarouselController = CarouselController();
   late final PageController controller;
@@ -59,7 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
     var _deviceWidth = MediaQuery.of(context).size.width;
     var _devicHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      key: _scaffoldkey,
       backgroundColor: Colors.white,
+      drawer: AppDrawer(),
       body: SafeArea(
         child: Directionality(
           textDirection: TextDirection.rtl,
@@ -93,18 +98,28 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 56,
                       ),
                       Spacer(),
-                      Image.asset(
-                        AppImages.appNoification,
-                        width: 20,
-                        height: 20,
+                      InkWell(
+                        onTap: () {
+                          Get.to(NotificationScreen());
+                        },
+                        child: Image.asset(
+                          AppImages.appNoification,
+                          width: 20,
+                          height: 20,
+                        ),
                       ),
                       SizedBox(
                         width: 50,
                       ),
-                      Image.asset(
-                        AppImages.appDrawer,
-                        width: 18,
-                        height: 21,
+                      InkWell(
+                        onTap: () {
+                          _scaffoldkey.currentState!.openDrawer();
+                        },
+                        child: Image.asset(
+                          AppImages.appDrawer,
+                          width: 18,
+                          height: 21,
+                        ),
                       ),
                       SizedBox(
                         width: 15,
@@ -662,8 +677,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   padding:
                                                       const EdgeInsets.only(
                                                           left: 15.0, top: 5),
-                                                  child: Image.asset(
-                                                    AppImages.appSmallBarcode,
+                                                  child: SvgPicture.asset(
+                                                    AppImages
+                                                        .appSmallBarcodeSVg,
                                                     width: 30,
                                                     height: 30,
                                                     fit: BoxFit.cover,
@@ -680,7 +696,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 45.0, left: 5),
+                                          top: 45.0, left: 5, right: 5),
                                       child: circularImageWithBorder(
                                         imgPath:
                                             "$imagesBaseUrl${childernController.childernList[i].profilePic!.replaceAll('public', 'storage')}",

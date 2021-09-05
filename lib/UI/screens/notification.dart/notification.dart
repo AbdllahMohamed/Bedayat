@@ -24,14 +24,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
             child: Stack(
               children: [
                 Positioned(
-                    top: 0,
-                    child: SvgPicture.asset(
-                      AppImages.appCurveSvg,
-                      color: AppColors.primaryColor,
-                      width: 215,
-                      height: _devicHeight,
-                      fit: BoxFit.fitHeight,
-                    )),
+                  top: -50,
+                  left: -45,
+                  bottom: -30,
+                  child: Image.asset(
+                    AppImages.appCurve,
+                    width: 215,
+                    height: 500 * 4,
+                    fit: BoxFit.fitHeight,
+                    color: AppColors.primaryColor,
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 28.0,

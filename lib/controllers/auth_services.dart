@@ -1,3 +1,4 @@
+import 'package:bedayat/UI/screens/login/login.dart';
 import 'package:bedayat/services/auth_services.dart';
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
@@ -48,6 +49,6 @@ class AuthController extends GetxController {
   void logut() {
     final box = GetStorage();
     box.remove('token');
-    Get.offAll(IntroductionScreen());
+    Get.offAll(LoginScreen());
   }
 }

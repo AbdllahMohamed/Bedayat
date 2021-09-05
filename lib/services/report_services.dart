@@ -17,11 +17,10 @@ class ReportServices {
               return status! < 500;
             }));
     List<Report> temp = [];
+    print('report');
     print(response.data);
     //response.data.forEach((e) => temp.add(Report.fromJson(e)));
     temp.add(Report.fromJson(response.data));
-
-    print(temp[0].tempratureDegree);
 
     return temp;
     //return null;

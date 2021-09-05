@@ -30,6 +30,7 @@ dependencies:
   flutter_svg: ^0.22.0
   get_storage: ^2.0.3
   qr_flutter: ^4.0.0
+  google_maps_flutter: ^2.0.8
   flutter:
     sdk: flutter
   introduction_screen: ^2.1.0

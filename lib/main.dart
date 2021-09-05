@@ -1,14 +1,27 @@
+import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:bedayat/UI/screens/login/login.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/controllers/app_bindings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
-  runApp(MyApp());
+var token;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await GetStorage.init();
+  final box = GetStorage();
+  var token = box.read('token');
+
+  runApp(MyApp(
+    token: token,
+  ));
 }
 
 class MyApp extends StatelessWidget {
+  final token;
+  MyApp({this.token});
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -19,7 +32,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'GESSTWO',
         colorScheme: ColorScheme.light(primary: AppColors.primaryColor),
       ),
-      home: LoginScreen(),
+      home: token != null ? BottomNavigationWidget() : LoginScreen(),
     );
   }
 }
