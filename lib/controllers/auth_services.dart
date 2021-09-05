@@ -21,34 +21,34 @@ class AuthController extends GetxController {
     return loginError;
   }
 
-  Future<String> register({
-    String? name,
-    String? email,
-    String? password,
-    String? phone,
-    String? countryId,
-  }) async {
-    var registerError = "";
-    try {
-      loadingProcess(true);
-      registerError = await UsersServices.register(
-        name: name,
-        email: email,
-        password: password,
-        phone: phone,
-        countryId: countryId,
-      );
-    } catch (e) {
-      registerError = 'من فضلك حاول مرة اخرى';
-    } finally {
-      loadingProcess(false);
-    }
-    return registerError;
-  }
+  // Future<String> register({
+  //   String? name,
+  //   String? email,
+  //   String? password,
+  //   String? phone,
+  //   String? countryId,
+  // }) async {
+  //   var registerError = "";
+  //   try {
+  //     loadingProcess(true);
+  //     registerError = await UsersServices.register(
+  //       name: name,
+  //       email: email,
+  //       password: password,
+  //       phone: phone,
+  //       countryId: countryId,
+  //     );
+  //   } catch (e) {
+  //     registerError = 'من فضلك حاول مرة اخرى';
+  //   } finally {
+  //     loadingProcess(false);
+  //   }
+  //   return registerError;
+  // }
 
-  void logut() {
-    final box = GetStorage();
-    box.remove('token');
-    Get.offAll(LoginScreen());
-  }
+  // void logut() {
+  //   final box = GetStorage();
+  //   box.remove('token');
+  //   Get.offAll(LoginScreen());
+  // }
 }

@@ -1,3 +1,4 @@
+import 'package:bedayat/UI/screens/events/events.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_services.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,13 @@ class AppDrawer extends StatelessWidget {
                   'القائمة الرئيسية',
                   style: TextStyle(fontSize: 23),
                 ),
+              ),
+              DrawerItem(
+                label: 'الاحداث القادمة',
+                imagePath: AppImages.applogout,
+                onTap: () {
+                  Get.to(EventsScreen());
+                },
               ),
               DrawerItem(
                 label: 'تسجيل الخروج',

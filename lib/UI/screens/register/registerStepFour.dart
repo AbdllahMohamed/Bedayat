@@ -9,18 +9,20 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegisterStepFourScreen extends StatefulWidget {
+  final String nameController;
   final String phoneController;
   final String emailController;
   final String passwordController;
   final String location;
-  final int selectedIndex;
+  final int selectedBranchIndex;
 
   const RegisterStepFourScreen({
+    required this.nameController,
     required this.phoneController,
     required this.emailController,
     required this.passwordController,
     required this.location,
-    required this.selectedIndex,
+    required this.selectedBranchIndex,
   });
   @override
   _RegisterStepFourScreenState createState() => _RegisterStepFourScreenState();
@@ -33,14 +35,14 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
   @override
   void initState() {
     super.initState();
-    print(widget.selectedIndex);
-    groupController.fetchGroups(widget.selectedIndex);
-    teacherController.fetchTeachers(widget.selectedIndex);
+    print(widget.selectedBranchIndex);
+    groupController.fetchGroups(widget.selectedBranchIndex);
+    teacherController.fetchTeachers(widget.selectedBranchIndex);
   }
 
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _nameController = TextEditingController();
+  TextEditingController _childNameController = TextEditingController();
   TextEditingController _emergencyNumberController = TextEditingController();
   TextEditingController _anthorNotesController = TextEditingController();
   TextEditingController _sensitificController = TextEditingController();
@@ -48,8 +50,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
   TextEditingController _phoneOneController = TextEditingController();
   TextEditingController _emailTwoController = TextEditingController();
   TextEditingController _phoneTwoController = TextEditingController();
-
-  bool _obscureText = true;
 
   List<int> _ages = [1, 2, 3, 4];
   String _selectedAge = 'الفئة العمرية';
@@ -66,19 +66,46 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
 
   late final XFile? _familyCardPhoto;
   late final XFile? _vaccinationCertificate;
+  late final XFile? _doctuumnet;
 
   registerStepFour() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-
-    Get.to(RegisterStepFiveScreen());
+    if (_familyCardPhoto == null ||
+        _vaccinationCertificate == null ||
+        _doctuumnet == null) {
+      Get.defaultDialog(
+          title: "حدث خطأ ما", middleText: 'يرجى التأكد من جميع البيانات');
+    } else {
+      Get.to(RegisterStepFiveScreen(
+        nameController: widget.nameController,
+        phoneController: widget.phoneController,
+        emailController: widget.emailController,
+        passwordController: widget.passwordController,
+        location: widget.location,
+        selectedBranchIndex: widget.selectedBranchIndex,
+        childNameController: _childNameController.text,
+        selectedAge: _selectedAge,
+        selectedType: _selectedType,
+        emergencyNumberController: _emergencyNumberController.text,
+        anthorNotesController: _anthorNotesController.text,
+        sensitificController: _sensitificController.text,
+        emailOneController: _emailOneController.text,
+        phoneOneController: _phoneOneController.text,
+        emailTwoController: _emailTwoController.text,
+        phoneTwoController: _phoneTwoController.text,
+        familyCardPhoto: _familyCardPhoto,
+        vaccinationCertificate: _vaccinationCertificate,
+        doctuumnet: _doctuumnet,
+      ));
+    }
   }
 
   @override
   void dispose() {
     super.dispose();
-    _nameController.dispose();
+    _childNameController.dispose();
     _emergencyNumberController.dispose();
     _anthorNotesController.dispose();
     _emailOneController.dispose();
@@ -265,7 +292,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         height: 10,
                       ),
                       TextFormField(
-                        controller: _nameController,
+                        controller: _childNameController,
                         validator: (val) {
                           if (val!.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
@@ -828,52 +855,58 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        height: 80,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: AppColors.borderColor,
+                      InkWell(
+                        onTap: () async {
+                          _doctuumnet = await _picker.pickImage(
+                              source: ImageSource.gallery);
+                        },
+                        child: Container(
+                          height: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: AppColors.borderColor,
+                            ),
                           ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    right: 23.0,
-                                    top: 6,
-                                    bottom: 6,
-                                  ),
-                                  child: Text(
-                                    'بطاقة العائلة',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: AppColors.titleColor,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                      right: 23.0,
+                                      top: 6,
+                                      bottom: 6,
+                                    ),
+                                    child: Text(
+                                      'بطاقة العائلة',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: AppColors.titleColor,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 10.0),
-                                  child: Text(
-                                    'ارفق صورة بطاقة العائلة',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: AppColors.accentColor,
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Text(
+                                      'ارفق صورة بطاقة العائلة',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: AppColors.accentColor,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15.0),
-                              child: Image.asset(AppImages.appUpload),
-                            ),
-                          ],
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: Image.asset(AppImages.appUpload),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(

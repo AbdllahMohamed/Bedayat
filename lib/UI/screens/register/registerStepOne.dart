@@ -13,6 +13,7 @@ class RegisterStepOneScreen extends StatefulWidget {
 class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  TextEditingController _nameController = new TextEditingController();
   TextEditingController _phoneController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
@@ -32,6 +33,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
     }
 
     Get.to(RegisterStepTwoScreen(
+      nameController: _nameController.text,
       phoneController: _phoneController.text,
       emailController: _emailController.text,
       passwordController: _passwordController.text,
@@ -41,6 +43,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
   @override
   void dispose() {
     super.dispose();
+    _nameController.dispose();
     _phoneController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -112,19 +115,19 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
-                        controller: _phoneController,
+                        controller: _nameController,
                         keyboardType: TextInputType.number,
                         validator: (val) {
                           if (val!.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
-                          if (val.length < 8) {
+                          if (val.length < 3) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
                         decoration: InputDecoration(
-                          prefixIcon: Image.asset(AppImages.appPhoneIcon),
-                          hintText: 'رقم الجوال',
+                          prefixIcon: Icon(Icons.person),
+                          hintText: 'الاسم',
                           hintStyle: TextStyle(color: AppColors.accentColor),
                         ),
                       ),
@@ -143,6 +146,24 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                           hintStyle: TextStyle(color: AppColors.accentColor),
                         ),
                       ),
+                      TextFormField(
+                        controller: _phoneController,
+                        keyboardType: TextInputType.number,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                          if (val.length < 8) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon: Image.asset(AppImages.appPhoneIcon),
+                          hintText: 'رقم الجوال',
+                          hintStyle: TextStyle(color: AppColors.accentColor),
+                        ),
+                      ),
+
                       TextFormField(
                         controller: _passwordController,
                         obscureText: _obscureText,

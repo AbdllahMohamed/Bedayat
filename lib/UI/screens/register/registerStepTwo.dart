@@ -1,18 +1,22 @@
 import 'dart:async';
 
+import 'package:bedayat/UI/screens/register/registerStepThree.dart';
 import 'package:bedayat/helpers/location.dart';
 import 'package:flutter/material.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RegisterStepTwoScreen extends StatefulWidget {
+  final String nameController;
   final String phoneController;
   final String emailController;
   final String passwordController;
 
   RegisterStepTwoScreen({
+    required this.nameController,
     required this.phoneController,
     required this.emailController,
     required this.passwordController,
@@ -23,18 +27,20 @@ class RegisterStepTwoScreen extends StatefulWidget {
 }
 
 class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
+  String location = '3.14';
   registerStepTwo() async {
-    // if (location == '') {
-    //   Get.defaultDialog(title: "حدث خطأ ما", middleText: 'يجب اختيار الموقع');
-    //   return;
-    // } else {
-    //   Get.to(RegisterStepThreeScreen(
-    //     phoneController: widget.phoneController,
-    //     emailController: widget.emailController,
-    //     passwordController: widget.passwordController,
-    //     location: location,
-    //   ));
-    // }
+    if (location == '') {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: 'يجب اختيار الموقع');
+      return;
+    } else {
+      Get.to(RegisterStepThreeScreen(
+        nameController: widget.nameController,
+        phoneController: widget.phoneController,
+        emailController: widget.emailController,
+        passwordController: widget.passwordController,
+        location: location,
+      ));
+    }
   }
 
   Completer<GoogleMapController> _controller = Completer();
@@ -128,6 +134,14 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: AppColors.primaryColor,
+          onPressed: () {},
+          label: Text('حدد موقعك'),
+          icon: Icon(
+            Icons.location_on,
+            color: Colors.white,
+          )),
     );
   }
 }

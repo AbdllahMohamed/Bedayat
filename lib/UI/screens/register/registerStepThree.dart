@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RegisterStepThreeScreen extends StatefulWidget {
+  final String nameController;
   final String phoneController;
   final String emailController;
   final String passwordController;
   final String location;
 
   RegisterStepThreeScreen({
+    required this.nameController,
     required this.phoneController,
     required this.emailController,
     required this.passwordController,
@@ -25,19 +27,20 @@ class RegisterStepThreeScreen extends StatefulWidget {
 }
 
 class _RegisterStepThreeScreenState extends State<RegisterStepThreeScreen> {
-  int? selectedIndex;
+  int? selectedBranchIndex;
   final BranchController branchController = Get.put(BranchController());
   registerStepThreeS() async {
-    if (selectedIndex == null) {
+    if (selectedBranchIndex == null) {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: 'يجب اختيار الفرع');
       return;
     } else {
       Get.to(RegisterStepFourScreen(
+        nameController: widget.nameController,
         phoneController: widget.phoneController,
         emailController: widget.emailController,
         passwordController: widget.passwordController,
         location: widget.location,
-        selectedIndex: selectedIndex!,
+        selectedBranchIndex: selectedBranchIndex!,
       ));
     }
   }
@@ -123,7 +126,7 @@ class _RegisterStepThreeScreenState extends State<RegisterStepThreeScreen> {
                                 return InkWell(
                                   onTap: () {
                                     setState(() {
-                                      selectedIndex = index;
+                                      selectedBranchIndex = index;
                                     });
                                   },
                                   child: Container(
@@ -132,10 +135,12 @@ class _RegisterStepThreeScreenState extends State<RegisterStepThreeScreen> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
                                       border: Border.all(
-                                        color: selectedIndex == index
+                                        color: selectedBranchIndex == index
                                             ? AppColors.primaryColor
                                             : Colors.grey,
-                                        width: selectedIndex == index ? 2 : 1,
+                                        width: selectedBranchIndex == index
+                                            ? 2
+                                            : 1,
                                       ),
                                     ),
                                     child: Row(

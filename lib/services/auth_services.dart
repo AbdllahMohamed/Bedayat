@@ -41,12 +41,30 @@ class UsersServices {
     return loginError;
   }
 
-  static Future<String> register(
-      {String? name,
-      String? email,
-      String? password,
-      String? phone,
-      String? countryId}) async {
+  static Future<String> register({
+    String? username,
+    String? email,
+    String? phone,
+    String? password,
+    String? countryId,
+    String? childname,
+    String? ageGroup,
+    String? gender,
+    String? emergencyNumber,
+    String? parentOneRealation,
+    String? parentOneEmail,
+    String? parentOnePhone,
+    String? countrparentOnePhoneyId,
+    String? parentTwoRealation,
+    String? parentTwoEmail,
+    String? parentTwoPhone,
+    String? userId,
+    String? teacherId,
+    String? groupId,
+    String? familyCard,
+    String? vaccinationCertificate,
+    String? document,
+  }) async {
     var registerError = "";
 
     Dio dio = new Dio();
@@ -54,11 +72,26 @@ class UsersServices {
     Response response = await dio.post(
       "$baseUrl/register",
       data: {
-        "name": name,
+        "username": username,
         "email": email,
-        "password": password,
         "phone": phone,
-        "country_id": countryId,
+        "password": password,
+        "name": childname,
+        "age_group": ageGroup,
+        "gender": gender,
+        "emergency_number": emergencyNumber,
+        "parent_one_realation": parentOneRealation,
+        "parent_one_email": parentOneEmail,
+        "parent_one_phone": parentOnePhone,
+        "parent_two_realation": parentTwoRealation,
+        "parent_two_email": parentTwoEmail,
+        "parent_two_phone": parentTwoPhone,
+        "user_id": userId,
+        "teacher_id": teacherId,
+        "group_id": groupId,
+        "family_card": familyCard,
+        "vaccination_certificate": vaccinationCertificate,
+        "document": document,
       },
       options: Options(
           headers: {
