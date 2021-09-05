@@ -3,9 +3,9 @@
    <application
         android:label="bedayat"
         android:icon="@mipmap/ic_launcher"
-        android:requestLegacyExternalStorage="true"
-        
-        >
+        android:requestLegacyExternalStorage="true">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyD_CcpbFjFZK6gm3BstV9AhHypkRTQWPew"/>     
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
