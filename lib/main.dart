@@ -1,12 +1,8 @@
-import 'package:bedayat/UI/events/events.dart';
-import 'package:bedayat/UI/screens/home/home.dart';
-import 'package:bedayat/UI/screens/onboarding/onboarding.dart';
-import 'package:bedayat/UI/screens/report/report.dart';
+import 'package:bedayat/UI/screens/login/login.dart';
+import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/controllers/app_bindings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'UI/screens/bottom_navigation/bottom_navigation.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,8 +17,9 @@ class MyApp extends StatelessWidget {
       initialBinding: AppBinding(),
       theme: ThemeData(
         fontFamily: 'GESSTWO',
+        colorScheme: ColorScheme.light(primary: AppColors.primaryColor),
       ),
-      home: EventsScreen(),
+      home: LoginScreen(),
     );
   }
 }

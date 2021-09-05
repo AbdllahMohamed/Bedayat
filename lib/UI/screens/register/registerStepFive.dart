@@ -138,13 +138,25 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                   color: AppColors.selectedPaymentColor,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: Text(
-                                  'شهر \n${packageController.packageList[i].price!} \nريال',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                  ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      '${packageController.packageList[i].title!} \n',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${packageController.packageList[i].price!} \nريال',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

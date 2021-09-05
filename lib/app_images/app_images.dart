@@ -33,7 +33,7 @@ class AppImages {
   static const appHappy = 'assets/images/happy.svg';
   static const appSilent = 'assets/images/silent.svg';
   static const appSad = 'assets/images/sad.svg';
-  static const appFullFood = 'assets/images/full_food.svg';
+  static const appFullFood = 'assets/images/full_eat.svg';
   static const apphalfFood = 'assets/images/half_food.svg';
   static const appHalfWater = 'assets/images/half_water.svg';
   static const appHalfSleep = 'assets/images/half_sleep.svg';

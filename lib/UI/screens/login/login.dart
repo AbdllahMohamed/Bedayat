@@ -1,7 +1,11 @@
+import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
+import 'package:bedayat/UI/screens/events/events.dart';
+import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/screens/register/registerStepOne.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:bedayat/controllers/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +15,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  AuthController authController = Get.put(AuthController());
+
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _email = new TextEditingController();
@@ -30,13 +36,14 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    // String error = await authController.login(_email.text, _password.text);
+    String error = await authController.login(_email.text, _password.text);
 
-    // if (error != "") {
-    //   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
-    // } else {
-    //   Get.to(HomeScreen());
-    // }
+    if (error != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
+    } else {
+      //Get.offAll(EventsScreen());
+      Get.offAll(BottomNavigationWidget());
+    }
   }
 
   @override
@@ -81,10 +88,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         validator: (val) {
                           if (val!.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
+                          } else if (!val.isEmail) {
+                            return 'البريد الالكترونى غير صالح';
                           }
-                          // else if (!val.isEmail) {
-                          //   return 'البريد الالكترونى';
-                          // }
                         },
                         decoration: InputDecoration(
                           prefixIcon: Image.asset(AppImages.appEmailIcon),
@@ -111,7 +117,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              // Based on passwordVisible state choose the icon
                               _obscureText
                                   ? Icons.visibility_off
                                   : Icons.visibility,
@@ -130,23 +135,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 40,
                       ),
-                      // Obx(() {
-                      //   // ignore: unrelated_type_equality_checks
-                      //   return authController.loadingProcess == true
-                      //       ? Center(child: CircularProgressIndicator())
-                      //       : ActionButton(
-                      //           label: 'تسجيل الدخول',
-                      //           onPressed: () async {
-                      //             login();
-                      //           });
-                      // }),
-
-                      ActionButton(
-                          label: 'دخول',
-                          onPressed: () async {
-                            login();
-                          }),
-
+                      Obx(() {
+                        // ignore: unrelated_type_equality_checks
+                        return authController.loadingProcess == true
+                            ? Center(child: CircularProgressIndicator())
+                            : ActionButton(
+                                label: 'دخول',
+                                onPressed: () async {
+                                  login();
+                                });
+                      }),
                       SizedBox(
                         height: 25,
                       ),
