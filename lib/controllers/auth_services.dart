@@ -46,9 +46,9 @@ class AuthController extends GetxController {
   //   return registerError;
   // }
 
-  // void logut() {
-  //   final box = GetStorage();
-  //   box.remove('token');
-  //   Get.offAll(LoginScreen());
-  // }
+  void logut() {
+    final box = GetStorage();
+    box.remove('token');
+    Get.offAll(LoginScreen());
+  }
 }
