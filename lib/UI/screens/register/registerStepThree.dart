@@ -11,14 +11,14 @@ class RegisterStepThreeScreen extends StatefulWidget {
   final String phoneController;
   final String emailController;
   final String passwordController;
-  final String location;
+  // final String location;
 
   RegisterStepThreeScreen({
     required this.nameController,
     required this.phoneController,
     required this.emailController,
     required this.passwordController,
-    required this.location,
+    //required this.location,
   });
 
   @override
@@ -39,7 +39,7 @@ class _RegisterStepThreeScreenState extends State<RegisterStepThreeScreen> {
         phoneController: widget.phoneController,
         emailController: widget.emailController,
         passwordController: widget.passwordController,
-        location: widget.location,
+        //location: widget.location,
         selectedBranchIndex: selectedBranchIndex!,
       ));
     }
@@ -111,9 +111,13 @@ class _RegisterStepThreeScreenState extends State<RegisterStepThreeScreen> {
                     Obx(
                       () => branchController.loadingProcess.value
                           ? Center(
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                    AppColors.accentColor),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 130),
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      AppColors.accentColor),
+                                ),
                               ),
                             )
                           : ListView.builder(
@@ -126,7 +130,8 @@ class _RegisterStepThreeScreenState extends State<RegisterStepThreeScreen> {
                                 return InkWell(
                                   onTap: () {
                                     setState(() {
-                                      selectedBranchIndex = index;
+                                      selectedBranchIndex = branchController
+                                          .departmentsList[index].id;
                                     });
                                   },
                                   child: Container(
@@ -135,10 +140,14 @@ class _RegisterStepThreeScreenState extends State<RegisterStepThreeScreen> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
                                       border: Border.all(
-                                        color: selectedBranchIndex == index
+                                        color: selectedBranchIndex ==
+                                                branchController
+                                                    .departmentsList[index].id
                                             ? AppColors.primaryColor
                                             : Colors.grey,
-                                        width: selectedBranchIndex == index
+                                        width: selectedBranchIndex ==
+                                                branchController
+                                                    .departmentsList[index].id
                                             ? 2
                                             : 1,
                                       ),

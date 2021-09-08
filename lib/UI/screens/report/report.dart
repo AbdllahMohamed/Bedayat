@@ -1,10 +1,7 @@
 import 'dart:core';
-
 import 'package:bedayat/controllers/gallery_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
 import 'package:bedayat/UI/screens/report/components/activity.dart';
 import 'package:bedayat/UI/screens/report/components/evaluation.dart';
 import 'package:bedayat/UI/screens/report/components/gallery.dart';
@@ -100,7 +97,7 @@ class _ReportScreenState extends State<ReportScreen>
                         padding: const EdgeInsets.only(top: 15.0, right: 25),
                         child: Row(
                           children: [
-                            SvgPicture.asset(
+                            Image.asset(
                               AppImages.appReport,
                               color: AppColors.primaryColor,
                             ),
@@ -160,7 +157,7 @@ class _ReportScreenState extends State<ReportScreen>
                           ),
                         ),
                         Tab(
-                          child: SvgPicture.asset(
+                          child: Image.asset(
                             AppImages.appGallery,
                             width: 25,
                             color: AppColors.primaryColor,
@@ -183,64 +180,76 @@ class _ReportScreenState extends State<ReportScreen>
                     ),
                   ),
                 )
-              : Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      EvaluationWidget(
-                          newletter: reportController.reportsList[0].newLetter!,
-                          knowTheLetter:
-                              reportController.reportsList[0].knowTheLetter!,
-                          knowTheLetterSound: reportController
-                              .reportsList[0].knowtheLetterSound!,
-                          masteredWriteLetter: reportController
-                              .reportsList[0].masteredWriteLetter!,
-                          enjoyWitharkan:
-                              reportController.reportsList[0].enjoyWitharkan!,
-                          masteredTheActivity: reportController
-                              .reportsList[0].masteredTheActivity!,
-                          organizeAfterPlay: reportController
-                              .reportsList[0].organizeAfterPlay!,
-                          enjoyWithArtActivity: reportController
-                              .reportsList[0].enjoyWithArtActivity!,
-                          helpHimeselfInArtActivity: reportController
-                              .reportsList[0].helpHimeselfInArtActivity!,
-                          enjoyWithTheStory: reportController
-                              .reportsList[0].enjoyWithTheStory!),
-                      ActivityWidget(
-                        enjoyWithMorningActivity: reportController
-                            .reportsList[0].enjoyWithMorningActivity!,
-                        loveSharingWithFriends: reportController
-                            .reportsList[0].loveSharingWithFriends!,
-                        sayWelcome: reportController.reportsList[0].sayWelcome!,
-                        enjoyWithhalqa:
-                            reportController.reportsList[0].enjoyWithhalqa!,
-                        sayWehda: reportController.reportsList[0].sayWehda!,
-                        listeningToQuran:
-                            reportController.reportsList[0].listeningToQuran!,
-                        reapeatAyat:
-                            reportController.reportsList[0].reapeatAyat!,
+              : reportController.reportsList.length == 0
+                  ? Center(
+                      child: Text(
+                        'لاتوجد بيانات',
+                        style: TextStyle(
+                            fontSize: 22, color: AppColors.accentColor),
                       ),
-                      GeneralWidget(
-                        moodSatus: reportController.reportsList[0].moodSatus!,
-                        foodStatus: reportController.reportsList[0].foodStatus!,
-                        drinkStatus:
-                            reportController.reportsList[0].drinkStatus!,
-                        sleepStatus:
-                            reportController.reportsList[0].sleepStatus!,
-                        sleepdration:
-                            reportController.reportsList[0].sleepdration!,
-                        tempratureDegree:
-                            reportController.reportsList[0].tempratureDegree!,
+                    )
+                  : Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          EvaluationWidget(
+                              newletter:
+                                  reportController.reportsList[0].newLetter!,
+                              knowTheLetter: reportController
+                                  .reportsList[0].knowTheLetter!,
+                              knowTheLetterSound: reportController
+                                  .reportsList[0].knowtheLetterSound!,
+                              masteredWriteLetter: reportController
+                                  .reportsList[0].masteredWriteLetter!,
+                              enjoyWitharkan: reportController
+                                  .reportsList[0].enjoyWitharkan!,
+                              masteredTheActivity: reportController
+                                  .reportsList[0].masteredTheActivity!,
+                              organizeAfterPlay: reportController
+                                  .reportsList[0].organizeAfterPlay!,
+                              enjoyWithArtActivity: reportController
+                                  .reportsList[0].enjoyWithArtActivity!,
+                              helpHimeselfInArtActivity: reportController
+                                  .reportsList[0].helpHimeselfInArtActivity!,
+                              enjoyWithTheStory: reportController
+                                  .reportsList[0].enjoyWithTheStory!),
+                          ActivityWidget(
+                            enjoyWithMorningActivity: reportController
+                                .reportsList[0].enjoyWithMorningActivity!,
+                            loveSharingWithFriends: reportController
+                                .reportsList[0].loveSharingWithFriends!,
+                            sayWelcome:
+                                reportController.reportsList[0].sayWelcome!,
+                            enjoyWithhalqa:
+                                reportController.reportsList[0].enjoyWithhalqa!,
+                            sayWehda: reportController.reportsList[0].sayWehda!,
+                            listeningToQuran: reportController
+                                .reportsList[0].listeningToQuran!,
+                            reapeatAyat:
+                                reportController.reportsList[0].reapeatAyat!,
+                          ),
+                          GeneralWidget(
+                            moodSatus:
+                                reportController.reportsList[0].moodSatus!,
+                            foodStatus:
+                                reportController.reportsList[0].foodStatus!,
+                            drinkStatus:
+                                reportController.reportsList[0].drinkStatus!,
+                            sleepStatus:
+                                reportController.reportsList[0].sleepStatus!,
+                            sleepdration:
+                                reportController.reportsList[0].sleepdration!,
+                            tempratureDegree: reportController
+                                .reportsList[0].tempratureDegree!,
+                          ),
+                          GalleryWidget(
+                            galleryController: galleryController,
+                            childId: reportController.reportsList[0].childId!,
+                          )
+                        ],
                       ),
-                      GalleryWidget(
-                        galleryController: galleryController,
-                        childId: reportController.reportsList[0].childId!,
-                      )
-                    ],
-                  ),
-                )),
+                    )),
         ),
       ),
     );

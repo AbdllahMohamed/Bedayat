@@ -39,22 +39,29 @@ class _GalleryWidgetState extends State<GalleryWidget> {
               ),
             ),
           )
-        : GridView.builder(
-            padding: EdgeInsets.only(top: 20),
-            itemCount: widget.galleryController.galleryList.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 5,
-              childAspectRatio: 3 / 2,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              print(
-                  "$imagesBaseUrl${widget.galleryController.galleryList[index].img!.replaceAll('public', 'storage')}");
-              return ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.network(
-                      "$imagesBaseUrl${widget.galleryController.galleryList[index].img!.replaceAll('public', 'storage')}"));
-            },
-          ));
+        : widget.galleryController.galleryList.length == 0
+            ? Center(
+                child: Text(
+                  'لاتوجد بيانات',
+                  style: TextStyle(fontSize: 22, color: AppColors.accentColor),
+                ),
+              )
+            : GridView.builder(
+                padding: EdgeInsets.only(top: 20),
+                itemCount: widget.galleryController.galleryList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 5,
+                  childAspectRatio: 3 / 2,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  print(
+                      "$imagesBaseUrl${widget.galleryController.galleryList[index].img!.replaceAll('public', 'storage')}");
+                  return ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                          "$imagesBaseUrl${widget.galleryController.galleryList[index].img!.replaceAll('public', 'storage')}"));
+                },
+              ));
   }
 }

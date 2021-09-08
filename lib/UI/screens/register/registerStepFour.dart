@@ -1,10 +1,13 @@
+import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/screens/register/registerStepFive.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/group_Controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,7 +16,7 @@ class RegisterStepFourScreen extends StatefulWidget {
   final String phoneController;
   final String emailController;
   final String passwordController;
-  final String location;
+  // final String location;
   final int selectedBranchIndex;
 
   const RegisterStepFourScreen({
@@ -21,7 +24,7 @@ class RegisterStepFourScreen extends StatefulWidget {
     required this.phoneController,
     required this.emailController,
     required this.passwordController,
-    required this.location,
+    //required this.location,
     required this.selectedBranchIndex,
   });
   @override
@@ -51,43 +54,54 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
   TextEditingController _emailTwoController = TextEditingController();
   TextEditingController _phoneTwoController = TextEditingController();
 
-  List<int> _ages = [1, 2, 3, 4];
+  List<int> _ages = [1, 2, 3, 4, 5, 6, 7, 8];
   String _selectedAge = 'الفئة العمرية';
-  String _selectedAgeError = '';
 
-  List<String> _types = ['Male', 'Female'];
-  String _selectedType = ' الجنس';
-  String _selectedTypeError = '';
+  List<String> _types = ['ولد', 'بنت'];
+  String _selectedType = 'الجنس';
+
+  List<String> _relations = ['اب', 'عم'];
+  String _selectedRelationsOne = 'صلة القرابة';
+  String _selectedRelationsTwo = 'صلة القرابة';
 
   bool _isSensitific = false;
   bool _isFilming = false;
 
   final ImagePicker _picker = ImagePicker();
 
-  late final XFile? _familyCardPhoto;
-  late final XFile? _vaccinationCertificate;
-  late final XFile? _doctuumnet;
+  XFile? _familyCardPhoto = XFile('');
+  XFile? _vaccinationCertificate = XFile('');
+  XFile? _doctuumnet = XFile('');
 
+  int? selectedGroupIndex;
+  int? selectedTeacherIndex;
   registerStepFour() async {
     if (!_formKey.currentState!.validate()) {
       return;
-    }
-    if (_familyCardPhoto == null ||
-        _vaccinationCertificate == null ||
-        _doctuumnet == null) {
-      Get.defaultDialog(
-          title: "حدث خطأ ما", middleText: 'يرجى التأكد من جميع البيانات');
+    } else if (_familyCardPhoto!.path.isEmpty ||
+        _vaccinationCertificate!.path.isEmpty ||
+        _doctuumnet!.path.isEmpty ||
+        _selectedType == 'الجنس' ||
+        _selectedAge == 'الفئة العمرية') {
+      await Get.defaultDialog(
+          title: "حدث خطأ ما", middleText: 'يرجى التأكد من اختيار الصور');
+      return;
+    } else if (selectedGroupIndex == null || selectedTeacherIndex == null) {
+      await Get.defaultDialog(
+          title: "حدث خطأ ما",
+          middleText: 'يرجى التأكد من اختيار الفصل و المعلم');
     } else {
       Get.to(RegisterStepFiveScreen(
         nameController: widget.nameController,
         phoneController: widget.phoneController,
         emailController: widget.emailController,
         passwordController: widget.passwordController,
-        location: widget.location,
         selectedBranchIndex: widget.selectedBranchIndex,
         childNameController: _childNameController.text,
         selectedAge: _selectedAge,
         selectedType: _selectedType,
+        selectedRelationsOne: _selectedRelationsOne,
+        selectedRelationsTwo: _selectedRelationsTwo,
         emergencyNumberController: _emergencyNumberController.text,
         anthorNotesController: _anthorNotesController.text,
         sensitificController: _sensitificController.text,
@@ -98,6 +112,8 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
         familyCardPhoto: _familyCardPhoto,
         vaccinationCertificate: _vaccinationCertificate,
         doctuumnet: _doctuumnet,
+        groupId: selectedGroupIndex!,
+        techerId: selectedTeacherIndex!,
       ));
     }
   }
@@ -201,23 +217,44 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                 child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     itemCount: groupController.groupList.length,
-                                    itemBuilder: (context, i) {
-                                      print(groupController.groupList.length);
-                                      return Container(
-                                        width: 100,
-                                        height: 40,
-                                        margin: EdgeInsets.only(left: 5),
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          color: AppColors.primaryColor,
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        child: Text(
-                                          groupController.groupList[i].title!,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 17,
+                                    itemBuilder: (context, index) {
+                                      return InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedGroupIndex = groupController
+                                                .groupList[index].id;
+                                            print(selectedGroupIndex);
+                                          });
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          height: 40,
+                                          margin: EdgeInsets.only(left: 5),
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            color: AppColors.primaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            border: Border.all(
+                                              color: selectedGroupIndex !=
+                                                      groupController
+                                                          .groupList[index].id
+                                                  ? AppColors.primaryColor
+                                                  : Colors.grey,
+                                              width: selectedGroupIndex ==
+                                                      groupController
+                                                          .groupList[index].id
+                                                  ? 2
+                                                  : 1,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            groupController
+                                                .groupList[index].title!,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 17,
+                                            ),
                                           ),
                                         ),
                                       );
@@ -242,52 +279,73 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                 physics: NeverScrollableScrollPhysics(),
                                 itemCount: teacherController.teacherList.length,
                                 itemBuilder: (_, index) {
-                                  return Container(
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.grey[300]!,
+                                  return InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedTeacherIndex = teacherController
+                                            .teacherList[index].id;
+                                        print(selectedTeacherIndex);
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: selectedTeacherIndex ==
+                                                  teacherController
+                                                      .teacherList[index].id
+                                              ? AppColors.primaryColor
+                                              : Colors.grey,
+                                          width: selectedTeacherIndex ==
+                                                  teacherController
+                                                      .teacherList[index].id
+                                              ? 2
+                                              : 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Image.asset(AppImages.appUser),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                teacherController
-                                                    .teacherList[index].name!,
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: AppColors.titleColor,
-                                                ),
-                                              ),
-                                              Text(
-                                                teacherController
-                                                    .teacherList[index]
-                                                    .description!,
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: AppColors.accentColor,
-                                                ),
-                                              ),
-                                            ],
+                                      child: Row(
+                                        children: [
+                                          circularImageWithBorder(
+                                            imgPath:
+                                                "$imagesBaseUrl${teacherController.teacherList[index].profileImg!.replaceAll('public', 'storage')}",
                                           ),
-                                        ),
-                                      ],
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  teacherController
+                                                      .teacherList[index].name!,
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: AppColors.titleColor,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  teacherController
+                                                      .teacherList[index]
+                                                      .description!,
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color:
+                                                        AppColors.accentColor,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 }),
                       ),
-
                       SizedBox(
                         height: 10,
                       ),
@@ -296,7 +354,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         validator: (val) {
                           if (val!.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
-                          } else if (val.length <= 3) {
+                          } else if (val.length <= 2) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
@@ -318,97 +376,102 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       Row(
                         children: [
                           Expanded(
-                            child: DropdownButton(
-                              iconEnabledColor: Color(0xffAA9E9E),
-                              isExpanded: true,
-                              iconSize: 30,
-                              underline: Divider(
-                                thickness: 1,
-                                color: AppColors.accentColor.withOpacity(0.5),
-                              ),
-                              icon: Padding(
-                                padding: EdgeInsets.only(bottom: 20),
-                                child: Icon(Icons.arrow_drop_down),
-                              ),
-                              hint: Padding(
-                                padding: const EdgeInsets.only(bottom: 15.0),
-                                child: Text(
-                                  _selectedAge,
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.accentColor,
-                                  ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: DropdownButton(
+                                iconEnabledColor: Color(0xffAA9E9E),
+                                isExpanded: true,
+                                iconSize: 30,
+                                underline: Divider(
+                                  thickness: 1,
+                                  color: AppColors.accentColor.withOpacity(0.5),
                                 ),
-                              ),
-                              onChanged: (newValue) {
-                                setState(() {
-                                  _selectedAge = newValue.toString();
-                                });
-                              },
-                              items: _ages.map((country) {
-                                return DropdownMenuItem(
-                                  child: new Text(
-                                    country.toString(),
+                                icon: Padding(
+                                  padding: EdgeInsets.only(bottom: 20),
+                                  child: Icon(Icons.arrow_drop_down),
+                                ),
+                                hint: Padding(
+                                  padding: const EdgeInsets.only(bottom: 15.0),
+                                  child: Text(
+                                    _selectedAge,
+                                    maxLines: 2,
                                     style: TextStyle(
-                                      color: Color(0xff707070),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.accentColor,
                                     ),
                                   ),
-                                  value: country.toString(),
-                                );
-                              }).toList(),
+                                ),
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    _selectedAge = newValue.toString();
+                                  });
+                                },
+                                items: _ages.map((country) {
+                                  return DropdownMenuItem(
+                                    child: new Text(
+                                      country.toString(),
+                                      style: TextStyle(
+                                        color: Color(0xff707070),
+                                      ),
+                                    ),
+                                    value: country.toString(),
+                                  );
+                                }).toList(),
+                              ),
                             ),
                           ),
                           SizedBox(
                             width: 10,
                           ),
                           Expanded(
-                            child: DropdownButton(
-                              iconEnabledColor: Color(0xffAA9E9E),
-                              isExpanded: true,
-                              iconSize: 30,
-                              underline: Divider(
-                                thickness: 1,
-                                color: AppColors.accentColor.withOpacity(0.5),
-                              ),
-                              icon: Padding(
-                                padding: EdgeInsets.only(bottom: 20),
-                                child: Icon(Icons.arrow_drop_down),
-                              ),
-                              hint: Padding(
-                                padding: const EdgeInsets.only(bottom: 15.0),
-                                child: Text(
-                                  _selectedType,
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.accentColor,
-                                  ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: DropdownButton(
+                                iconEnabledColor: Color(0xffAA9E9E),
+                                isExpanded: true,
+                                iconSize: 30,
+                                underline: Divider(
+                                  thickness: 1,
+                                  color: AppColors.accentColor.withOpacity(0.5),
                                 ),
-                              ),
-                              onChanged: (newValue) {
-                                setState(() {
-                                  _selectedType = newValue.toString();
-                                });
-                              },
-                              items: _types.map((type) {
-                                return DropdownMenuItem(
-                                  child: new Text(
-                                    type,
+                                icon: Padding(
+                                  padding: EdgeInsets.only(bottom: 20),
+                                  child: Icon(Icons.arrow_drop_down),
+                                ),
+                                hint: Padding(
+                                  padding: const EdgeInsets.only(bottom: 15.0),
+                                  child: Text(
+                                    _selectedType,
+                                    maxLines: 2,
                                     style: TextStyle(
-                                      color: Color(0xff707070),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.accentColor,
                                     ),
                                   ),
-                                  value: type,
-                                );
-                              }).toList(),
+                                ),
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    _selectedType = newValue.toString();
+                                  });
+                                },
+                                items: _types.map((type) {
+                                  return DropdownMenuItem(
+                                    child: new Text(
+                                      type,
+                                      style: TextStyle(
+                                        color: Color(0xff707070),
+                                      ),
+                                    ),
+                                    value: type,
+                                  );
+                                }).toList(),
+                              ),
                             ),
                           ),
                         ],
                       ),
-
                       TextFormField(
                         controller: _emergencyNumberController,
                         keyboardType: TextInputType.number,
@@ -444,21 +507,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       SizedBox(
                         height: 10,
                       ),
-                      // _selectedCountryError != '' &&
-                      //         _selectedCountry == 'اختر الدولة'
-                      //     ? Row(
-                      //         mainAxisAlignment: MainAxisAlignment.start,
-                      //         children: [
-                      //           Text(
-                      //             _selectedCountryError,
-                      //             textAlign: TextAlign.right,
-                      //             style: TextStyle(
-                      //                 color: Colors.red[700], fontSize: 12),
-                      //           ),
-                      //         ],
-                      //       )
-                      //     : Text(''),
-
                       SizedBox(
                         height: 10,
                       ),
@@ -520,7 +568,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                           hintStyle: TextStyle(color: AppColors.accentColor),
                         ),
                       ),
-
                       SizedBox(
                         height: 25,
                       ),
@@ -572,7 +619,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         hint: Padding(
                           padding: const EdgeInsets.only(bottom: 15.0),
                           child: Text(
-                            _selectedType,
+                            _selectedRelationsOne,
                             maxLines: 2,
                             style: TextStyle(
                               fontSize: 18,
@@ -582,15 +629,11 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                           ),
                         ),
                         onChanged: (newValue) {
-                          // setState(() {
-                          //   _selectedCountry = newValue.toString();
-                          //   final item = countryController.countriesList
-                          //       .firstWhere(
-                          //           (e) => e.title == _selectedCountry);
-                          //   selectedCountryId = item.id.toString();
-                          // });
+                          setState(() {
+                            _selectedRelationsOne = newValue.toString();
+                          });
                         },
-                        items: _types.map((type) {
+                        items: _relations.map((type) {
                           return DropdownMenuItem(
                             child: new Text(
                               type,
@@ -602,7 +645,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                           );
                         }).toList(),
                       ),
-
                       TextFormField(
                         controller: _emailOneController,
                         validator: (val) {
@@ -668,7 +710,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         hint: Padding(
                           padding: const EdgeInsets.only(bottom: 15.0),
                           child: Text(
-                            _selectedType,
+                            _selectedRelationsTwo,
                             maxLines: 2,
                             style: TextStyle(
                               fontSize: 18,
@@ -678,15 +720,11 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                           ),
                         ),
                         onChanged: (newValue) {
-                          // setState(() {
-                          //   _selectedCountry = newValue.toString();
-                          //   final item = countryController.countriesList
-                          //       .firstWhere(
-                          //           (e) => e.title == _selectedCountry);
-                          //   selectedCountryId = item.id.toString();
-                          // });
+                          setState(() {
+                            _selectedRelationsTwo = newValue.toString();
+                          });
                         },
-                        items: _types.map((type) {
+                        items: _relations.map((type) {
                           return DropdownMenuItem(
                             child: new Text(
                               type,
@@ -698,7 +736,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                           );
                         }).toList(),
                       ),
-
                       TextFormField(
                         controller: _emailTwoController,
                         validator: (val) {
@@ -740,11 +777,11 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       SizedBox(
                         height: 30,
                       ),
-
                       InkWell(
                         onTap: () async {
                           _familyCardPhoto = await _picker.pickImage(
                               source: ImageSource.gallery);
+                          setState(() {});
                         },
                         child: Container(
                           height: 80,
@@ -789,7 +826,12 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
-                                child: Image.asset(AppImages.appUpload),
+                                child: SvgPicture.asset(
+                                  AppImages.appUploadSvg,
+                                  color: (_familyCardPhoto!.path.isEmpty)
+                                      ? AppColors.accentColor
+                                      : AppColors.primaryColor,
+                                ),
                               ),
                             ],
                           ),
@@ -802,6 +844,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         onTap: () async {
                           _vaccinationCertificate = await _picker.pickImage(
                               source: ImageSource.gallery);
+                          setState(() {});
                         },
                         child: Container(
                           height: 80,
@@ -825,7 +868,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                       bottom: 6,
                                     ),
                                     child: Text(
-                                      'بطاقة العائلة',
+                                      'شهادات التطعيمات',
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: AppColors.titleColor,
@@ -835,7 +878,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                   Padding(
                                     padding: const EdgeInsets.only(right: 10.0),
                                     child: Text(
-                                      'ارفق صورة بطاقة العائلة',
+                                      'ارفق صورة شهادات التطعيمات',
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: AppColors.accentColor,
@@ -846,7 +889,12 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
-                                child: Image.asset(AppImages.appUpload),
+                                child: SvgPicture.asset(
+                                  AppImages.appUploadSvg,
+                                  color: (_vaccinationCertificate!.path.isEmpty)
+                                      ? AppColors.accentColor
+                                      : AppColors.primaryColor,
+                                ),
                               ),
                             ],
                           ),
@@ -859,6 +907,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         onTap: () async {
                           _doctuumnet = await _picker.pickImage(
                               source: ImageSource.gallery);
+                          setState(() {});
                         },
                         child: Container(
                           height: 80,
@@ -882,7 +931,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                       bottom: 6,
                                     ),
                                     child: Text(
-                                      'بطاقة العائلة',
+                                      'صورة الطفل',
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: AppColors.titleColor,
@@ -892,7 +941,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                   Padding(
                                     padding: const EdgeInsets.only(right: 10.0),
                                     child: Text(
-                                      'ارفق صورة بطاقة العائلة',
+                                      'ارفق صورة الطفل',
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: AppColors.accentColor,
@@ -903,7 +952,12 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
-                                child: Image.asset(AppImages.appUpload),
+                                child: SvgPicture.asset(
+                                  AppImages.appUploadSvg,
+                                  color: (_doctuumnet!.path.isEmpty)
+                                      ? AppColors.accentColor
+                                      : AppColors.primaryColor,
+                                ),
                               ),
                             ],
                           ),
@@ -918,7 +972,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                           registerStepFour();
                         },
                       ),
-
                       SizedBox(
                         height: 15,
                       ),

@@ -10,6 +10,7 @@ import 'package:bedayat/controllers/childern_controller.dart';
 import 'package:bedayat/controllers/slider_image_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -66,24 +67,32 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.white,
       drawer: AppDrawer(),
       body: SafeArea(
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(0),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(0),
+          child: Directionality(
+            textDirection: TextDirection.rtl,
             child: Stack(
               children: <Widget>[
-                Positioned(
-                  top: -50,
-                  left: -45,
-                  bottom: -30,
-                  child: Image.asset(
-                    AppImages.appCurve,
-                    width: 215,
-                    height: 500 * 4,
-                    fit: BoxFit.fitHeight,
-                    color: AppColors.primaryColor,
-                  ),
-                ),
+                kIsWeb
+                    ? Positioned(
+                        top: -200,
+                        left: -160,
+                        bottom: -200,
+                        child: Image.asset(
+                          AppImages.appCurve,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      )
+                    : Positioned(
+                        top: -200,
+                        left: -85,
+                        bottom: -200,
+                        child: SvgPicture.asset(
+                          AppImages.appCurveSvg,
+                          color: AppColors.primaryColor,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 28.0,
@@ -108,9 +117,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 20,
                         ),
                       ),
-                      SizedBox(
-                        width: 50,
-                      ),
+                      kIsWeb
+                          ? SizedBox(
+                              width: 180,
+                            )
+                          : SizedBox(
+                              width: 80,
+                            ),
                       InkWell(
                         onTap: () {
                           _scaffoldkey.currentState!.openDrawer();
@@ -143,98 +156,109 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         )
-                      : Padding(
-                          padding: const EdgeInsets.only(top: 100.0),
-                          child: Container(
-                            width: _deviceWidth,
-                            height: 240,
-                            child: PageView.builder(
-                                allowImplicitScrolling: true,
-                                physics: BouncingScrollPhysics(),
-                                itemCount: sliderImagesController
-                                    .sliderImagesList.length,
-                                controller: controller,
-                                itemBuilder: (_, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      print(
-                                          "$imagesBaseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}");
-
-                                      Get.to(SliderImageDetails(
-                                        imagePath:
-                                            "$imagesBaseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
-                                        title: sliderImagesController
-                                            .sliderImagesList[index].title!,
-                                        description: sliderImagesController
-                                            .sliderImagesList[index].content!,
-                                      ));
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 12,
-                                      ),
-                                      child: Stack(
-                                        fit: StackFit.expand,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: Image.network(
-                                              "$imagesBaseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
-                                              fit: BoxFit.cover,
-                                            ),
+                      : sliderImagesController.sliderImagesList.length == 0
+                          ? Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 200.0),
+                                child: Text(
+                                  'لاتوجد بيانات',
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      color: AppColors.accentColor),
+                                ),
+                              ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(top: 100.0),
+                              child: Container(
+                                width: _deviceWidth,
+                                height: 240,
+                                child: PageView.builder(
+                                    allowImplicitScrolling: true,
+                                    physics: BouncingScrollPhysics(),
+                                    itemCount: sliderImagesController
+                                        .sliderImagesList.length,
+                                    controller: controller,
+                                    itemBuilder: (_, index) {
+                                      return InkWell(
+                                        onTap: () {
+                                          Get.to(SliderImageDetails(
+                                            imagePath:
+                                                "$imagesBaseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
+                                            title: sliderImagesController
+                                                .sliderImagesList[index].title!,
+                                            description: sliderImagesController
+                                                .sliderImagesList[index]
+                                                .content!,
+                                          ));
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
                                           ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(0x670c0c0c),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 60,
-                                            right: 30,
-                                            child: Container(
-                                              width: 300,
-                                              child: Text(
-                                                sliderImagesController
-                                                    .sliderImagesList[index]
-                                                    .title!,
-                                                overflow: TextOverflow.clip,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
+                                          child: Stack(
+                                            fit: StackFit.expand,
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                child: Image.network(
+                                                  "$imagesBaseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
+                                                  fit: BoxFit.cover,
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 120,
-                                            right: 30,
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 8),
-                                              width: 350,
-                                              child: Text(
-                                                sliderImagesController
-                                                    .sliderImagesList[index]
-                                                    .content!,
-                                                overflow: TextOverflow.clip,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12,
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color: Color(0x670c0c0c),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
                                                 ),
                                               ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                }),
-                          ),
-                        ),
+                                              Positioned(
+                                                top: 60,
+                                                right: 30,
+                                                child: Container(
+                                                  width: 300,
+                                                  child: Text(
+                                                    sliderImagesController
+                                                        .sliderImagesList[index]
+                                                        .title!,
+                                                    overflow: TextOverflow.clip,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                top: 120,
+                                                right: 30,
+                                                child: Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 8),
+                                                  width: 350,
+                                                  child: Text(
+                                                    sliderImagesController
+                                                        .sliderImagesList[index]
+                                                        .content!,
+                                                    overflow: TextOverflow.clip,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                              ),
+                            ),
                 ),
                 Obx(() => Padding(
                       padding: const EdgeInsets.only(top: 315.0, right: 180),
@@ -269,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.only(top: 100.0),
                           child: Container(
                             width: _deviceWidth,
-                            height: 240,
+                            height: _devicHeight,
                             child: Center(
                               child: CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation<Color>(
@@ -279,433 +303,456 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         )
-                      : Padding(
-                          padding: const EdgeInsets.only(
-                            top: 420.0,
-                            left: 5,
-                            bottom: 25,
-                          ),
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: BouncingScrollPhysics(),
-                              itemCount: childernController.childernList.length,
-                              itemBuilder: (_, i) {
-                                print(
-                                    "$imagesBaseUrl${childernController.childernList[i].profilePic!.replaceAll('public', 'storage')}");
-                                return Stack(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        showModalBottomSheet<void>(
-                                          context: context,
-                                          backgroundColor: Colors.transparent,
-                                          isScrollControlled: true,
-                                          builder: (BuildContext context) {
-                                            return Stack(
-                                              alignment: Alignment.topCenter,
-                                              children: <Widget>[
-                                                Container(
-                                                  margin:
-                                                      EdgeInsets.only(top: 40),
-                                                  width: double.infinity,
-                                                  height: _devicHeight - 140,
-                                                  color: Colors.transparent,
-                                                  child: Container(
-                                                    padding: EdgeInsets.only(
-                                                      left: 10,
-                                                      right: 10,
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15),
-                                                    ),
-                                                    child: Card(
-                                                        color: Colors.white,
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: <Widget>[
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .only(
-                                                                top: 70,
-                                                                left: 20,
-                                                                right: 20,
-                                                              ),
-                                                              child: Column(
-                                                                children: <
-                                                                    Widget>[
-                                                                  Text(
-                                                                    childernController
-                                                                        .childernList[
-                                                                            i]
-                                                                        .name!,
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontSize:
-                                                                          20,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
+                      : childernController.childernList.length == 0
+                          ? Center(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      top: 450,
+                                    ),
+                                    child: Text(
+                                      'لاتوجد بيانات',
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          color: AppColors.accentColor),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      top: _devicHeight * 0.3,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(
+                                top: 420.0,
+                                left: 5,
+                                bottom: 25,
+                              ),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount:
+                                      childernController.childernList.length,
+                                  itemBuilder: (_, i) {
+                                    return Stack(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            showModalBottomSheet<void>(
+                                              context: context,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              isScrollControlled: true,
+                                              builder: (BuildContext context) {
+                                                return Stack(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 40),
+                                                      width: double.infinity,
+                                                      height:
+                                                          _devicHeight - 140,
+                                                      color: Colors.transparent,
+                                                      child: Container(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                          left: 10,
+                                                          right: 10,
+                                                        ),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                        ),
+                                                        child: Card(
+                                                            color: Colors.white,
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: <
+                                                                  Widget>[
+                                                                Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .only(
+                                                                    top: 70,
+                                                                    left: 20,
+                                                                    right: 20,
                                                                   ),
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        right:
-                                                                            18.0,
-                                                                        top: 5),
-                                                                    child: Text(
-                                                                      'اداء ${childernController.childernList[i].name!} اليوم',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: AppColors
-                                                                            .accentColor,
-                                                                        fontSize:
-                                                                            13,
+                                                                  child: Column(
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Text(
+                                                                        childernController
+                                                                            .childernList[i]
+                                                                            .name!,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              20,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                  ),
-                                                                  Directionality(
-                                                                    textDirection:
-                                                                        TextDirection
-                                                                            .rtl,
-                                                                    child:
-                                                                        Stack(
-                                                                      children: [
-                                                                        SliderTheme(
-                                                                          data:
-                                                                              SliderThemeData(
-                                                                            trackHeight:
-                                                                                10,
-                                                                            thumbShape:
-                                                                                RoundSliderThumbShape(
-                                                                              enabledThumbRadius: 6,
-                                                                              elevation: 0,
+                                                                      Padding(
+                                                                        padding: const EdgeInsets.only(
+                                                                            right:
+                                                                                18.0,
+                                                                            top:
+                                                                                5),
+                                                                        child:
+                                                                            Text(
+                                                                          'اليوم ${childernController.childernList[i].name!} اداء',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                AppColors.accentColor,
+                                                                            fontSize:
+                                                                                13,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Directionality(
+                                                                        textDirection:
+                                                                            TextDirection.rtl,
+                                                                        child:
+                                                                            Stack(
+                                                                          children: [
+                                                                            SliderTheme(
+                                                                              data: SliderThemeData(
+                                                                                trackHeight: 10,
+                                                                                thumbShape: RoundSliderThumbShape(
+                                                                                  enabledThumbRadius: 6,
+                                                                                  elevation: 0,
+                                                                                ),
+                                                                                overlayShape: RoundSliderOverlayShape(
+                                                                                  overlayRadius: 20.0,
+                                                                                ),
+                                                                              ),
+                                                                              child: Slider(
+                                                                                value: 75,
+                                                                                onChanged: (v) {},
+                                                                                min: 1,
+                                                                                max: 100,
+                                                                                activeColor: Color(0xff22A8A4),
+                                                                                focusNode: FocusNode(),
+                                                                                inactiveColor: Color(0xffF5F5F5),
+                                                                              ),
                                                                             ),
-                                                                            overlayShape:
-                                                                                RoundSliderOverlayShape(
-                                                                              overlayRadius: 20.0,
+                                                                            // Positioned(
+                                                                            //   left:
+                                                                            //       6,
+                                                                            //   top:
+                                                                            //       6,
+                                                                            //   child:
+                                                                            //       Container(
+                                                                            //     width:
+                                                                            //         30,
+                                                                            //     height:
+                                                                            //         30,
+                                                                            //     alignment:
+                                                                            //         Alignment.center,
+                                                                            //     decoration:
+                                                                            //         BoxDecoration(
+                                                                            //       shape: BoxShape.circle,
+                                                                            //       color: const Color(0xffffffff),
+                                                                            //       boxShadow: [
+                                                                            //         BoxShadow(
+                                                                            //           color: const Color(0x29000000),
+                                                                            //           offset: Offset(0, 3),
+                                                                            //           blurRadius: 6,
+                                                                            //         ),
+                                                                            //       ],
+                                                                            //     ),
+                                                                            //     child:
+                                                                            //         Text(
+                                                                            //       _currentRangeValues.end.ceil().toString(),
+                                                                            //     ),
+                                                                            //   ),
+                                                                            // ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          Get.to(
+                                                                            ReportScreen(
+                                                                              name: childernController.childernList[i].name,
+                                                                              classNmber: childernController.childernList[i].ageGroup,
+                                                                              image: "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                                                             ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              320,
+                                                                          height:
+                                                                              35,
+                                                                          alignment:
+                                                                              Alignment.center,
+                                                                          padding:
+                                                                              EdgeInsets.all(8),
+                                                                          margin:
+                                                                              EdgeInsets.only(
+                                                                            right:
+                                                                                15,
+                                                                            top:
+                                                                                15,
+                                                                          ),
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            border:
+                                                                                Border.all(
+                                                                              color: AppColors.primaryColor,
+                                                                            ),
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(8),
                                                                           ),
                                                                           child:
-                                                                              Slider(
-                                                                            value:
-                                                                                75,
-                                                                            onChanged:
-                                                                                (v) {},
-                                                                            min:
-                                                                                1,
-                                                                            max:
-                                                                                100,
-                                                                            activeColor:
-                                                                                Color(0xff22A8A4),
-                                                                            focusNode:
-                                                                                FocusNode(),
-                                                                            inactiveColor:
-                                                                                Color(0xffF5F5F5),
+                                                                              Text(
+                                                                            'عرض التقرير اليومى',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: AppColors.primaryColor,
+                                                                            ),
                                                                           ),
-                                                                        ),
-                                                                        // Positioned(
-                                                                        //     left:
-                                                                        //         6,
-                                                                        //     top:
-                                                                        //         6,
-                                                                        //     child:
-                                                                        //         Container(
-                                                                        //       width: 30,
-                                                                        //       height: 30,
-                                                                        //       alignment: Alignment.center,
-                                                                        //       decoration: BoxDecoration(
-                                                                        //         shape: BoxShape.circle,
-                                                                        //         color: const Color(0xffffffff),
-                                                                        //         boxShadow: [
-                                                                        //           BoxShadow(
-                                                                        //             color: const Color(0x29000000),
-                                                                        //             offset: Offset(0, 3),
-                                                                        //             blurRadius: 6,
-                                                                        //           ),
-                                                                        //         ],
-                                                                        //       ),
-                                                                        //       child: Text(_currentRangeValues.end.ceil().toString()),
-                                                                        //     )),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      Get.to(
-                                                                        ReportScreen(
-                                                                          name: childernController
-                                                                              .childernList[i]
-                                                                              .name,
-                                                                          classNmber: childernController
-                                                                              .childernList[i]
-                                                                              .ageGroup,
-                                                                          image:
-                                                                              "$imagesBaseUrl${childernController.childernList[i].profilePic!.replaceAll('public', 'storage')}",
-                                                                        ),
-                                                                      );
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          320,
-                                                                      height:
-                                                                          35,
-                                                                      alignment:
-                                                                          Alignment
-                                                                              .center,
-                                                                      padding:
-                                                                          EdgeInsets.all(
-                                                                              8),
-                                                                      margin: EdgeInsets
-                                                                          .only(
-                                                                        right:
-                                                                            15,
-                                                                        top: 15,
-                                                                      ),
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        border:
-                                                                            Border.all(
-                                                                          color:
-                                                                              AppColors.primaryColor,
-                                                                        ),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(8),
-                                                                      ),
-                                                                      child:
-                                                                          Text(
-                                                                        'عرض التقرير اليومى',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color:
-                                                                              AppColors.primaryColor,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 15,
-                                                                  ),
-                                                                  QrImage(
-                                                                    data: childernController
-                                                                        .childernList[
-                                                                            i]
-                                                                        .createdAt!,
-                                                                    version:
-                                                                        QrVersions
-                                                                            .auto,
-                                                                    size: 200.0,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 15,
-                                                                  ),
-                                                                  Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Text(
-                                                                        'مشاركة',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color:
-                                                                              Color(0xff818080),
                                                                         ),
                                                                       ),
                                                                       SizedBox(
-                                                                        width:
-                                                                            20,
+                                                                        height:
+                                                                            15,
                                                                       ),
-                                                                      Image
-                                                                          .asset(
-                                                                        AppImages
-                                                                            .appShareIcon,
+                                                                      QrImage(
+                                                                        data: childernController
+                                                                            .childernList[i]
+                                                                            .createdAt!,
+                                                                        version:
+                                                                            QrVersions.auto,
+                                                                        size:
+                                                                            200.0,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            15,
+                                                                      ),
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'مشاركة',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: Color(0xff818080),
+                                                                            ),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                20,
+                                                                          ),
+                                                                          Image
+                                                                              .asset(
+                                                                            AppImages.appShareIcon,
+                                                                          )
+                                                                        ],
                                                                       )
                                                                     ],
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            )
-                                                          ],
-                                                        )),
-                                                  ),
-                                                ),
-                                                circularImageWithBorder(
-                                                  imgPath:
-                                                      "$imagesBaseUrl${childernController.childernList[i].profilePic!.replaceAll('public', 'storage')}",
-                                                ),
-                                              ],
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            )),
+                                                      ),
+                                                    ),
+                                                    circularImageWithBorder(
+                                                      imgPath:
+                                                          "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                    ),
+                                                  ],
+                                                );
+                                              },
                                             );
                                           },
-                                        );
-                                      },
-                                      child: Container(
-                                        width: _deviceWidth,
-                                        margin:
-                                            EdgeInsets.only(right: 50, top: 15),
-                                        padding: EdgeInsets.only(
-                                          bottom: 10,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5.0),
-                                          color: const Color(0xffffffff),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: const Color(0x29a7a6a6),
-                                              offset: Offset(0, 3),
-                                              blurRadius: 6,
+                                          child: Container(
+                                            width: _deviceWidth,
+                                            margin: EdgeInsets.only(
+                                                right: 50, top: 15),
+                                            padding: EdgeInsets.only(
+                                              bottom: 10,
                                             ),
-                                          ],
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 45.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 18.0, top: 10),
-                                                child: Text(
-                                                  childernController
-                                                      .childernList[i].name!,
-                                                  style: TextStyle(
-                                                    color: AppColors.titleColor,
-                                                    fontSize: 20,
-                                                  ),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              color: const Color(0xffffffff),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color:
+                                                      const Color(0x29a7a6a6),
+                                                  offset: Offset(0, 3),
+                                                  blurRadius: 6,
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 18.0, top: 5),
-                                                child: Text(
-                                                  'اداء ${childernController.childernList[i].name!} اليوم',
-                                                  style: TextStyle(
-                                                    color:
-                                                        AppColors.accentColor,
-                                                    fontSize: 13,
-                                                  ),
-                                                ),
-                                              ),
-                                              Stack(
+                                              ],
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 45.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  SliderTheme(
-                                                    data: SliderThemeData(
-                                                      trackHeight: 10,
-                                                      thumbShape:
-                                                          RoundSliderThumbShape(
-                                                        enabledThumbRadius: 6,
-                                                        elevation: 0,
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 18.0,
+                                                            top: 10),
+                                                    child: Text(
+                                                      childernController
+                                                          .childernList[i]
+                                                          .name!,
+                                                      style: TextStyle(
+                                                        color: AppColors
+                                                            .titleColor,
+                                                        fontSize: 20,
                                                       ),
-                                                      overlayShape:
-                                                          RoundSliderOverlayShape(
-                                                        overlayRadius: 20.0,
-                                                      ),
-                                                    ),
-                                                    child: Slider(
-                                                      value: 75,
-                                                      onChanged: (v) {},
-                                                      min: 0,
-                                                      max: 100,
-                                                      activeColor:
-                                                          Color(0xff22A8A4),
-                                                      inactiveColor:
-                                                          Color(0xffF5F5F5),
                                                     ),
                                                   ),
-                                                  // Positioned(
-                                                  //     left: 6,
-                                                  //     top: 6,
-                                                  //     child: Container(
-                                                  //       width: 30,
-                                                  //       height: 30,
-                                                  //       alignment:
-                                                  //           Alignment.center,
-                                                  //       decoration:
-                                                  //           BoxDecoration(
-                                                  //         shape:
-                                                  //             BoxShape.circle,
-                                                  //         color: const Color(
-                                                  //             0xffffffff),
-                                                  //         boxShadow: [
-                                                  //           BoxShadow(
-                                                  //             color: const Color(
-                                                  //                 0x29000000),
-                                                  //             offset:
-                                                  //                 Offset(0, 3),
-                                                  //             blurRadius: 6,
-                                                  //           ),
-                                                  //         ],
-                                                  //       ),
-                                                  //       child: Text(
-                                                  //           _currentRangeValues
-                                                  //               .end
-                                                  //               .ceil()
-                                                  //               .toString()),
-                                                  //     )),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 18.0,
+                                                            top: 5),
+                                                    child: Text(
+                                                      'اداء ${childernController.childernList[i].name!} اليوم',
+                                                      style: TextStyle(
+                                                        color: AppColors
+                                                            .accentColor,
+                                                        fontSize: 13,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Stack(
+                                                    children: [
+                                                      SliderTheme(
+                                                        data: SliderThemeData(
+                                                          trackHeight: 10,
+                                                          thumbShape:
+                                                              RoundSliderThumbShape(
+                                                            enabledThumbRadius:
+                                                                6,
+                                                            elevation: 0,
+                                                          ),
+                                                          overlayShape:
+                                                              RoundSliderOverlayShape(
+                                                            overlayRadius: 20.0,
+                                                          ),
+                                                        ),
+                                                        child: Slider(
+                                                          value: 75,
+                                                          onChanged: (v) {},
+                                                          min: 0,
+                                                          max: 100,
+                                                          activeColor:
+                                                              Color(0xff22A8A4),
+                                                          inactiveColor:
+                                                              Color(0xffF5F5F5),
+                                                        ),
+                                                      ),
+                                                      // Positioned(
+                                                      //   left: 6,
+                                                      //   top: 6,
+                                                      //   child: Container(
+                                                      //     width: 30,
+                                                      //     height: 30,
+                                                      //     alignment:
+                                                      //         Alignment.center,
+                                                      //     decoration: BoxDecoration(
+                                                      //       shape: BoxShape.circle,
+                                                      //       color: const Color(
+                                                      //           0xffffffff),
+                                                      //       boxShadow: [
+                                                      //         BoxShadow(
+                                                      //           color: const Color(
+                                                      //               0x29000000),
+                                                      //           offset:
+                                                      //               Offset(0, 3),
+                                                      //           blurRadius: 6,
+                                                      //         ),
+                                                      //       ],
+                                                      //     ),
+                                                      //     child: Text(
+                                                      //         _currentRangeValues
+                                                      //             .end
+                                                      //             .ceil()
+                                                      //             .toString()),
+                                                      //   ),
+                                                      // ),
+                                                    ],
+                                                  ),
+                                                  Container(
+                                                    padding: EdgeInsets.all(5),
+                                                    margin: EdgeInsets.only(
+                                                        right: 15, top: 5),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          color: AppColors
+                                                              .primaryColor,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8)),
+                                                    child: Text(
+                                                      'عرض التقرير اليومى',
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .primaryColor),
+                                                    ),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.bottomLeft,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 15.0,
+                                                              top: 5),
+                                                      child: SvgPicture.asset(
+                                                        AppImages
+                                                            .appSmallBarcodeSVg,
+                                                        width: 30,
+                                                        height: 30,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 4,
+                                                  ),
                                                 ],
                                               ),
-                                              Container(
-                                                padding: EdgeInsets.all(5),
-                                                margin: EdgeInsets.only(
-                                                    right: 15, top: 5),
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: AppColors
-                                                          .primaryColor,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8)),
-                                                child: Text(
-                                                  'عرض التقرير اليومى',
-                                                  style: TextStyle(
-                                                      color: AppColors
-                                                          .primaryColor),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: Alignment.bottomLeft,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 15.0, top: 5),
-                                                  child: SvgPicture.asset(
-                                                    AppImages
-                                                        .appSmallBarcodeSVg,
-                                                    width: 30,
-                                                    height: 30,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 4,
-                                              ),
-                                            ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 45.0, left: 5, right: 5),
-                                      child: circularImageWithBorder(
-                                        imgPath:
-                                            "$imagesBaseUrl${childernController.childernList[i].profilePic!.replaceAll('public', 'storage')}",
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }),
-                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 60.0, left: 5, right: 5),
+                                          child: circularImageWithBorder(
+                                            imgPath:
+                                                "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                            ),
                 ),
               ],
             ),

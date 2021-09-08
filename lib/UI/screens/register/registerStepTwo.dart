@@ -1,13 +1,16 @@
 import 'dart:async';
 
+import 'package:bedayat/UI/screens/map/map.dart';
 import 'package:bedayat/UI/screens/register/registerStepThree.dart';
 import 'package:bedayat/helpers/location.dart';
 import 'package:flutter/material.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class RegisterStepTwoScreen extends StatefulWidget {
   final String nameController;
@@ -27,27 +30,48 @@ class RegisterStepTwoScreen extends StatefulWidget {
 }
 
 class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
-  String location = '3.14';
   registerStepTwo() async {
-    if (location == '') {
-      Get.defaultDialog(title: "حدث خطأ ما", middleText: 'يجب اختيار الموقع');
-      return;
-    } else {
-      Get.to(RegisterStepThreeScreen(
+    Location location = new Location();
+
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData _locationData;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _locationData = await location.getLocation();
+
+    Get.to(
+      MapScreen(
+        latitude: _locationData.latitude!,
+        longitude: _locationData.longitude!,
         nameController: widget.nameController,
         phoneController: widget.phoneController,
         emailController: widget.emailController,
         passwordController: widget.passwordController,
-        location: location,
-      ));
-    }
+      ),
+    );
   }
 
   Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 19,
+    zoom: 9,
   );
 
   @override
@@ -110,9 +134,15 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                       fontWeight: FontWeight.w300,
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 450,
+                    height: 500,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     child: GoogleMap(
                       mapType: MapType.normal,
                       initialCameraPosition: _kGooglePlex,
@@ -123,7 +153,7 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                   ),
                   SizedBox(height: 15),
                   ActionButton(
-                      label: 'التالى',
+                      label: 'حدد موقعك',
                       onPressed: () async {
                         registerStepTwo();
                       }),
@@ -134,14 +164,6 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: AppColors.primaryColor,
-          onPressed: () {},
-          label: Text('حدد موقعك'),
-          icon: Icon(
-            Icons.location_on,
-            color: Colors.white,
-          )),
     );
   }
 }

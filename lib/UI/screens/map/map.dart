@@ -1,75 +1,113 @@
-// import 'package:flutter/material.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:bedayat/UI/screens/register/registerStepThree.dart';
+import 'package:bedayat/app_colors/app_colors.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-// class MapScreen extends StatefulWidget {
-//   final double latitude;
-//   final double longitude;
+class MapScreen extends StatefulWidget {
+  final double latitude;
+  final double longitude;
+  final String nameController;
+  final String phoneController;
+  final String emailController;
+  final String passwordController;
+  MapScreen({
+    required this.latitude,
+    required this.longitude,
+    required this.nameController,
+    required this.phoneController,
+    required this.emailController,
+    required this.passwordController,
+  });
 
-//   final bool isSelecting;
+  @override
+  _MapScreenState createState() => _MapScreenState();
+}
 
-//   MapScreen({
-//     required this.latitude,
-//     required this.longitude,
-//     required this.isSelecting,
-//   });
+class _MapScreenState extends State<MapScreen> {
+  late List<Marker> myMarker;
+  late LatLng selectedPoint;
+  @override
+  void initState() {
+    super.initState();
+    selectedPoint = LatLng(
+      widget.latitude,
+      widget.longitude,
+    );
+    myMarker = [
+      Marker(
+        markerId: MarkerId('m1'),
+        infoWindow: InfoWindow(title: 'الموقع'),
+        position: LatLng(
+          widget.latitude,
+          widget.longitude,
+        ),
+      ),
+    ];
+  }
 
-//   @override
-//   _MapScreenState createState() => _MapScreenState();
-// }
+  _handelTap(tappedPoint) {
+    setState(
+      () {
+        myMarker = [];
 
-// class _MapScreenState extends State<MapScreen> {
-//   late LatLng _pickedLocation;
+        myMarker.add(Marker(
+          markerId: MarkerId(
+            tappedPoint.toString(),
+          ),
+          position: tappedPoint,
+        ));
 
-//   void _selectLocation(LatLng position) {
-//     setState(() {
-//       _pickedLocation = position;
-//     });
-//   }
+        selectedPoint = tappedPoint;
+        print(selectedPoint);
+      },
+    );
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Theme.of(context).hoverColor,
-//         title: Text(
-//           'من فضلك قم بتحديد المكان',
-//         ),
-//         centerTitle: true,
-//         actions: <Widget>[
-//           if (widget.isSelecting)
-//             IconButton(
-//               icon: Icon(
-//                 Icons.check,
-//                 color: _pickedLocation != null
-//                     ? Theme.of(context).accentColor
-//                     : Theme.of(context).hoverColor,
-//               ),
-//               onPressed: _pickedLocation == null
-//                   ? null
-//                   : () {
-//                       Navigator.of(context).pop(_pickedLocation);
-//                     },
-//             ),
-//         ],
-//       ),
-//       body: GoogleMap(
-//         initialCameraPosition: CameraPosition(
-//           target: LatLng(
-//             widget.latitude,
-//             widget.longitude,
-//           ),
-//           zoom: 16,
-//         ),
-//         onTap: widget.isSelecting ? _selectLocation : null,
-//         // markers: Marker(
-//         //           markerId: MarkerId('m1'),
-//         //           position: _pickedLocation ??
-//         //               LatLng(
-//         //                 widget.latitude,
-//         //                 widget.longitude,
-//         //               ),
-//         //         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.primaryColor,
+        automaticallyImplyLeading: false,
+        title: Text(
+          'من فضلك قم بتحديد موقعك',
+        ),
+        centerTitle: true,
+      ),
+      body: GoogleMap(
+        initialCameraPosition: CameraPosition(
+          target: LatLng(
+            widget.latitude,
+            widget.longitude,
+          ),
+          zoom: 10,
+        ),
+        onTap: _handelTap,
+        markers: Set.from(myMarker),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.primaryColor,
+        onPressed: () async {
+          print(selectedPoint.latitude);
+          print(selectedPoint.longitude);
+          Get.to(
+            RegisterStepThreeScreen(
+              // location: selectedPoint.latitude.toString(),
+              // longitude: selectedPoint.longitude,
+              nameController: widget.nameController,
+              phoneController: widget.phoneController,
+              emailController: widget.emailController,
+              passwordController: widget.passwordController,
+            ),
+          );
+        },
+        child: Icon(
+          Icons.forward_rounded,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+}

@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 class TeachersServices {
   static Future<List<Teacher>?> getAll(int? groupId) async {
     try {
-      Response response = await Dio().get("$baseUrl/groups/$groupId/teachers");
+      Response response = await Dio().get("$baseUrl/groups/17/teachers");
       List<Teacher> temp = [];
       response.data['data'].forEach((e) => temp.add(Teacher.fromJson(e)));
 

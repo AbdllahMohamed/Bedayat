@@ -22,11 +22,13 @@ class _SliderImageDetailsState extends State<SliderImageDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
             child: Directionality(
           textDirection: TextDirection.rtl,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 height: 15,
@@ -63,11 +65,14 @@ class _SliderImageDetailsState extends State<SliderImageDetails> {
               SizedBox(
                 height: 20,
               ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.network(
-                  widget.imagePath,
-                  fit: BoxFit.cover,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.network(
+                    widget.imagePath,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               SizedBox(

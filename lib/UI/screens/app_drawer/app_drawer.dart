@@ -29,7 +29,7 @@ class AppDrawer extends StatelessWidget {
               ),
               DrawerItem(
                 label: 'الاحداث القادمة',
-                imagePath: AppImages.applogout,
+                imagePath: AppImages.appEvents,
                 onTap: () {
                   Get.to(EventsScreen());
                 },
@@ -69,13 +69,15 @@ class DrawerItem extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: Image.asset(
                     imagePath!,
-                    scale: 0.95,
+                    height: 30,
+                    width: 30,
                   ),
                 ),
                 SizedBox(
@@ -83,6 +85,7 @@ class DrawerItem extends StatelessWidget {
                 ),
                 Text(
                   label!,
+                  textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 17),
                 )
               ],

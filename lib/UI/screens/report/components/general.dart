@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -38,53 +39,44 @@ class GeneralWidget extends StatelessWidget {
             height: 15,
           ),
           MoodSatusItem(
-            label: 'الصباح',
-            firstImagePath: AppImages.appHappy,
-            secondImagePath: AppImages.appSilent,
-            thirdImagePath: AppImages.appSad,
-            firstImageColor:
-                moodSatus == 'low' ? AppColors.primaryColor : Color(0xffC5C3C3),
-            secondImageColor: moodSatus == 'meduim'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-            thirdImageColor: moodSatus == 'high'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-          ),
+              label: 'الصباح',
+              firstImagePath: moodSatus == 'low'
+                  ? AppImages.appHappyColored
+                  : AppImages.appHappyNormal,
+              secondImagePath: moodSatus == 'meduim'
+                  ? AppImages.appSilentColored
+                  : AppImages.appSilentNormal,
+              thirdImagePath: moodSatus == 'high'
+                  ? AppImages.appSadColored
+                  : AppImages.appSadNormal),
           SizedBox(
             height: 15,
           ),
           MoodSatusItem(
-            label: 'الظهر',
-            firstImagePath: AppImages.appHappy,
-            secondImagePath: AppImages.appSilent,
-            thirdImagePath: AppImages.appSad,
-            firstImageColor:
-                moodSatus == 'low' ? AppColors.primaryColor : Color(0xffC5C3C3),
-            secondImageColor: moodSatus == 'meduim'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-            thirdImageColor: moodSatus == 'high'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-          ),
+              label: 'الظهر',
+              firstImagePath: moodSatus == 'low'
+                  ? AppImages.appHappyColored
+                  : AppImages.appHappyNormal,
+              secondImagePath: moodSatus == 'meduim'
+                  ? AppImages.appSilentColored
+                  : AppImages.appSilentNormal,
+              thirdImagePath: moodSatus == 'high'
+                  ? AppImages.appSadColored
+                  : AppImages.appSadNormal),
           SizedBox(
             height: 15,
           ),
           MoodSatusItem(
-            label: 'العصر',
-            firstImagePath: AppImages.appHappy,
-            secondImagePath: AppImages.appSilent,
-            thirdImagePath: AppImages.appSad,
-            firstImageColor:
-                moodSatus == 'low' ? AppColors.primaryColor : Color(0xffC5C3C3),
-            secondImageColor: moodSatus == 'meduim'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-            thirdImageColor: moodSatus == 'high'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-          ),
+              label: 'العصر',
+              firstImagePath: moodSatus == 'low'
+                  ? AppImages.appHappyColored
+                  : AppImages.appHappyNormal,
+              secondImagePath: moodSatus == 'meduim'
+                  ? AppImages.appSilentColored
+                  : AppImages.appSilentNormal,
+              thirdImagePath: moodSatus == 'high'
+                  ? AppImages.appSadColored
+                  : AppImages.appSadNormal),
           SizedBox(
             height: 20,
           ),
@@ -100,54 +92,45 @@ class GeneralWidget extends StatelessWidget {
           ),
           FoodStatusItem(
             label: 'الافطار',
-            firstImagePath: AppImages.appFullFood,
-            secondImagePath: AppImages.appFullFood,
-            thirdImagePath: AppImages.apphalfFood,
-            firstImageColor: foodStatus == 'low'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-            secondImageColor: foodStatus == 'meduim'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-            thirdImageColor: foodStatus == 'high'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
+            firstImagePath: foodStatus == 'low'
+                ? AppImages.applowFoodColored
+                : AppImages.appLowFoodNormal,
+            secondImagePath: foodStatus == 'meduim'
+                ? AppImages.appMeduimFoodColored
+                : AppImages.appMeduimFoodNormal,
+            thirdImagePath: foodStatus == 'high'
+                ? AppImages.appHighFoodColored
+                : AppImages.appHighFoodNormal,
           ),
           SizedBox(
             height: 15,
           ),
           FoodStatusItem(
             label: 'الغداء ',
-            firstImagePath: AppImages.appFullFood,
-            secondImagePath: AppImages.appFullFood,
-            thirdImagePath: AppImages.apphalfFood,
-            firstImageColor: foodStatus == 'low'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-            secondImageColor: foodStatus == 'meduim'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-            thirdImageColor: foodStatus == 'high'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
+            firstImagePath: foodStatus == 'low'
+                ? AppImages.applowFoodColored
+                : AppImages.appLowFoodNormal,
+            secondImagePath: foodStatus == 'meduim'
+                ? AppImages.appMeduimFoodColored
+                : AppImages.appMeduimFoodNormal,
+            thirdImagePath: foodStatus == 'high'
+                ? AppImages.appHighFoodColored
+                : AppImages.appHighFoodNormal,
           ),
           SizedBox(
             height: 15,
           ),
           FoodStatusItem(
             label: 'وجبة خفيفة',
-            firstImagePath: AppImages.appFullFood,
-            secondImagePath: AppImages.appFullFood,
-            thirdImagePath: AppImages.apphalfFood,
-            firstImageColor: foodStatus == 'low'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-            secondImageColor: foodStatus == 'meduim'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-            thirdImageColor: foodStatus == 'high'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
+            firstImagePath: foodStatus == 'low'
+                ? AppImages.applowFoodColored
+                : AppImages.appLowFoodNormal,
+            secondImagePath: foodStatus == 'meduim'
+                ? AppImages.appMeduimFoodColored
+                : AppImages.appMeduimFoodNormal,
+            thirdImagePath: foodStatus == 'high'
+                ? AppImages.appHighFoodColored
+                : AppImages.appHighFoodNormal,
           ),
           SizedBox(
             height: 20,
@@ -164,28 +147,24 @@ class GeneralWidget extends StatelessWidget {
           ),
           DrinkStatusItem(
             label: 'المياه',
-            firstImagePath: AppImages.appHalfWater,
-            secondImagePath: AppImages.appHalfWater,
-            firstImageColor: sleepStatus == 'low'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-            secondImageColor: sleepStatus == 'high'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
+            firstImagePath: drinkStatus == 'low'
+                ? AppImages.appLowDrinkColored
+                : AppImages.appLowDrinkNormal,
+            secondImagePath: drinkStatus == 'high'
+                ? AppImages.appHighDrinkColored
+                : AppImages.appHighDrinkNormal,
           ),
           SizedBox(
             height: 15,
           ),
           DrinkStatusItem(
             label: 'الحليب',
-            firstImagePath: AppImages.appHalfWater,
-            secondImagePath: AppImages.appHalfWater,
-            firstImageColor: sleepStatus == 'low'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-            secondImageColor: sleepStatus == 'high'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
+            firstImagePath: drinkStatus == 'low'
+                ? AppImages.appLowDrinkColored
+                : AppImages.appLowDrinkNormal,
+            secondImagePath: drinkStatus == 'high'
+                ? AppImages.appHighDrinkColored
+                : AppImages.appHighDrinkNormal,
           ),
           SizedBox(
             height: 20,
@@ -202,15 +181,13 @@ class GeneralWidget extends StatelessWidget {
           ),
           SleepStatusItem(
             label: 'القيلولة',
-            firstImagePath: AppImages.appHalfSleep,
-            secondImagePath: AppImages.appFullSleep,
+            firstImagePath: sleepStatus == 'low'
+                ? AppImages.appLowSleepColored
+                : AppImages.appLowSleepNormal,
+            secondImagePath: sleepStatus == 'high'
+                ? AppImages.appHighSleepColored
+                : AppImages.appHighSleepNormal,
             thirdImagePath: AppImages.appTimer,
-            firstImageColor: sleepStatus == 'low'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
-            secondImageColor: sleepStatus == 'high'
-                ? AppColors.primaryColor
-                : Color(0xffC5C3C3),
             sleepDuration: sleepdration.toString(),
           ),
           SizedBox(
@@ -242,18 +219,13 @@ class MoodSatusItem extends StatelessWidget {
   String firstImagePath;
   String secondImagePath;
   String thirdImagePath;
-  Color firstImageColor;
-  Color secondImageColor;
-  Color thirdImageColor;
+
   MoodSatusItem({
     Key? key,
     required this.label,
     required this.firstImagePath,
     required this.secondImagePath,
     required this.thirdImagePath,
-    required this.firstImageColor,
-    required this.secondImageColor,
-    required this.thirdImageColor,
   }) : super(key: key);
 
   @override
@@ -275,11 +247,10 @@ class MoodSatusItem extends StatelessWidget {
         Spacer(),
         Expanded(
           flex: 1,
-          child: SvgPicture.asset(
+          child: Image.asset(
             firstImagePath,
             width: 25,
             height: 25,
-            color: firstImageColor,
           ),
         ),
         SizedBox(
@@ -287,11 +258,10 @@ class MoodSatusItem extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: SvgPicture.asset(
+          child: Image.asset(
             secondImagePath,
             width: 25,
             height: 25,
-            color: secondImageColor,
           ),
         ),
         SizedBox(
@@ -299,11 +269,10 @@ class MoodSatusItem extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: SvgPicture.asset(
+          child: Image.asset(
             thirdImagePath,
             width: 25,
             height: 25,
-            color: thirdImageColor,
           ),
         ),
         Spacer(),
@@ -319,18 +288,13 @@ class FoodStatusItem extends StatelessWidget {
   String firstImagePath;
   String secondImagePath;
   String thirdImagePath;
-  Color firstImageColor;
-  Color secondImageColor;
-  Color thirdImageColor;
+
   FoodStatusItem({
     Key? key,
     required this.label,
     required this.firstImagePath,
     required this.secondImagePath,
     required this.thirdImagePath,
-    required this.firstImageColor,
-    required this.secondImageColor,
-    required this.thirdImageColor,
   }) : super(key: key);
 
   @override
@@ -352,11 +316,10 @@ class FoodStatusItem extends StatelessWidget {
         Spacer(),
         Expanded(
           flex: 1,
-          child: SvgPicture.asset(
+          child: Image.asset(
             firstImagePath,
             width: 50,
             height: 50,
-            color: firstImageColor,
           ),
         ),
         SizedBox(
@@ -364,11 +327,10 @@ class FoodStatusItem extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: SvgPicture.asset(
+          child: Image.asset(
             secondImagePath,
             width: 50,
             height: 50,
-            color: secondImageColor,
           ),
         ),
         SizedBox(
@@ -378,11 +340,10 @@ class FoodStatusItem extends StatelessWidget {
           flex: 1,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 5.0),
-            child: SvgPicture.asset(
+            child: Image.asset(
               thirdImagePath,
               width: 25,
               height: 25,
-              color: thirdImageColor,
             ),
           ),
         ),
@@ -398,14 +359,11 @@ class DrinkStatusItem extends StatelessWidget {
   String label;
   String firstImagePath;
   String secondImagePath;
-  Color firstImageColor;
-  Color secondImageColor;
+
   DrinkStatusItem({
     required this.label,
     required this.firstImagePath,
     required this.secondImagePath,
-    required this.firstImageColor,
-    required this.secondImageColor,
   });
 
   @override
@@ -427,11 +385,10 @@ class DrinkStatusItem extends StatelessWidget {
         Spacer(),
         Expanded(
           flex: 1,
-          child: SvgPicture.asset(
+          child: Image.asset(
             firstImagePath,
             width: 30,
             height: 30,
-            color: firstImageColor,
           ),
         ),
         SizedBox(
@@ -439,11 +396,10 @@ class DrinkStatusItem extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: SvgPicture.asset(
+          child: Image.asset(
             secondImagePath,
             width: 30,
             height: 30,
-            color: secondImageColor,
           ),
         ),
         SizedBox(
@@ -459,12 +415,11 @@ class DrinkStatusItem extends StatelessWidget {
 // ignore: must_be_immutable
 class SleepStatusItem extends StatelessWidget {
   String label;
-  String sleepDuration;
   String firstImagePath;
   String secondImagePath;
   String thirdImagePath;
-  Color firstImageColor;
-  Color secondImageColor;
+  String sleepDuration;
+
   SleepStatusItem({
     Key? key,
     required this.label,
@@ -472,8 +427,6 @@ class SleepStatusItem extends StatelessWidget {
     required this.firstImagePath,
     required this.secondImagePath,
     required this.thirdImagePath,
-    required this.firstImageColor,
-    required this.secondImageColor,
   }) : super(key: key);
 
   @override
@@ -495,11 +448,10 @@ class SleepStatusItem extends StatelessWidget {
         Spacer(),
         Expanded(
           flex: 1,
-          child: SvgPicture.asset(
+          child: Image.asset(
             firstImagePath,
             width: 25,
             height: 25,
-            color: firstImageColor,
           ),
         ),
         SizedBox(
@@ -507,11 +459,10 @@ class SleepStatusItem extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: SvgPicture.asset(
+          child: Image.asset(
             secondImagePath,
             width: 25,
             height: 25,
-            color: secondImageColor,
           ),
         ),
         SizedBox(
@@ -551,9 +502,7 @@ class TempratureItem extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 20,
-        ),
+        Spacer(),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
           child: SvgPicture.asset(
@@ -562,9 +511,7 @@ class TempratureItem extends StatelessWidget {
             height: 30,
           ),
         ),
-        SizedBox(
-          width: 20,
-        ),
+        Spacer(),
         Spacer(),
         Spacer(),
         TempratureWidget(

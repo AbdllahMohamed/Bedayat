@@ -116,7 +116,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                       SizedBox(height: 10),
                       TextFormField(
                         controller: _nameController,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
                         validator: (val) {
                           if (val!.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
@@ -163,7 +163,6 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                           hintStyle: TextStyle(color: AppColors.accentColor),
                         ),
                       ),
-
                       TextFormField(
                         controller: _passwordController,
                         obscureText: _obscureText,
@@ -197,17 +196,6 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                       SizedBox(
                         height: 35,
                       ),
-                      // Obx(() {
-                      //   // ignore: unrelated_type_equality_checks
-                      //   return authController.loadingProcess == true
-                      //       ? Center(child: CircularProgressIndicator())
-                      //       : ActionButton(
-                      //           label: 'تسجيل الدخول',
-                      //           onPressed: () async {
-                      //             Register();
-                      //           });
-                      // }),
-
                       ActionButton(
                           label: 'التالى',
                           onPressed: () async {
