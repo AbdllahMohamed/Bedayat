@@ -1,5 +1,4 @@
 import 'package:bedayat/app_colors/app_colors.dart';
-import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/gallery_controller.dart';
 import 'package:flutter/material.dart';

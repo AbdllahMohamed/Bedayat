@@ -13,9 +13,6 @@ class NotificationScreen extends StatefulWidget {
 class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
-    var _deviceWidth = MediaQuery.of(context).size.width;
-    var _devicHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -98,9 +95,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         ),
                         child: Row(
                           children: [
-                            circularImageWithBorder(
-                              imgPath: AppImages.appchild,
-                            ),
+                            // circularImageWithBorder(
+                            //   imgPath: AppImages.appchild,
+                            // ),
                             SizedBox(
                               width: 20,
                             ),

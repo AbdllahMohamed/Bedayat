@@ -1,7 +1,5 @@
 import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
-import 'package:bedayat/UI/screens/events/events.dart';
-import 'package:bedayat/UI/screens/home/home.dart';
-import 'package:bedayat/UI/screens/register/registerStepOne.dart';
+import 'package:bedayat/UI/screens/register/register_step_one.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';

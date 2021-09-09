@@ -1,4 +1,4 @@
-import 'package:bedayat/UI/screens/register/registerStepFour.dart';
+import 'package:bedayat/UI/screens/register/register_step_four.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
@@ -89,7 +89,7 @@ class _RegisterStepThreeScreenState extends State<RegisterStepThreeScreen> {
                             ),
                           ),
                           child: Text(
-                            '3/5',
+                            '3/6',
                             style: TextStyle(
                               fontSize: 20,
                             ),
@@ -120,66 +120,80 @@ class _RegisterStepThreeScreenState extends State<RegisterStepThreeScreen> {
                                 ),
                               ),
                             )
-                          : ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount:
-                                  branchController.departmentsList.length,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      selectedBranchIndex = branchController
-                                          .departmentsList[index].id;
-                                    });
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    height: 65,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                        color: selectedBranchIndex ==
-                                                branchController
-                                                    .departmentsList[index].id
-                                            ? AppColors.primaryColor
-                                            : Colors.grey,
-                                        width: selectedBranchIndex ==
-                                                branchController
-                                                    .departmentsList[index].id
-                                            ? 2
-                                            : 1,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                          ),
-                                          child: Image.asset(index.isEven
-                                              ? AppImages.appBranchOdd
-                                              : AppImages.appBranchEven),
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            branchController
-                                                .departmentsList[index].title!,
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              color: AppColors.titleColor,
-                                            ),
-                                          ),
-                                        )
-                                      ],
+                          : branchController.branchsList.length == 0
+                              ? Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 130.0),
+                                    child: Text(
+                                      'لاتوجد بيانات',
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          color: AppColors.accentColor),
                                     ),
                                   ),
-                                );
-                              },
-                            ),
+                                )
+                              : ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount:
+                                      branchController.branchsList.length,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          selectedBranchIndex = branchController
+                                              .branchsList[index].id;
+                                        });
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        height: 65,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          border: Border.all(
+                                            color: selectedBranchIndex ==
+                                                    branchController
+                                                        .branchsList[index].id
+                                                ? AppColors.primaryColor
+                                                : Colors.grey,
+                                            width: selectedBranchIndex ==
+                                                    branchController
+                                                        .branchsList[index].id
+                                                ? 2
+                                                : 1,
+                                          ),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                              ),
+                                              child: Image.asset(index.isEven
+                                                  ? AppImages.appBranchOdd
+                                                  : AppImages.appBranchEven),
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                branchController
+                                                    .branchsList[index].title!,
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: AppColors.titleColor,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                     ),
                     SizedBox(height: 20),
                     ActionButton(

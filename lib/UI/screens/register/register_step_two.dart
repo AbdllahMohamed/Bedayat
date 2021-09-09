@@ -1,13 +1,9 @@
 import 'dart:async';
-
-import 'package:bedayat/UI/screens/map/map.dart';
-import 'package:bedayat/UI/screens/register/registerStepThree.dart';
-import 'package:bedayat/helpers/location.dart';
+import 'package:bedayat/UI/screens/map/register_map.dart';
 import 'package:flutter/material.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -56,7 +52,7 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
     _locationData = await location.getLocation();
 
     Get.to(
-      MapScreen(
+      RegisterMapScreen(
         latitude: _locationData.latitude!,
         longitude: _locationData.longitude!,
         nameController: widget.nameController,
@@ -116,7 +112,7 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                           ),
                         ),
                         child: Text(
-                          '2/5',
+                          '2/6',
                           style: TextStyle(
                             fontSize: 20,
                           ),

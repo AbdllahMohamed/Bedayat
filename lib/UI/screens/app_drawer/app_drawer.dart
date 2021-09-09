@@ -1,3 +1,4 @@
+import 'package:bedayat/UI/screens/add_child/add_child_step_one.dart';
 import 'package:bedayat/UI/screens/events/events.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_services.dart';
@@ -26,6 +27,13 @@ class AppDrawer extends StatelessWidget {
                   'القائمة الرئيسية',
                   style: TextStyle(fontSize: 23),
                 ),
+              ),
+              DrawerItem(
+                label: 'اضافة طفل',
+                imagePath: AppImages.appChildIcon,
+                onTap: () {
+                  Get.to(AddChildStepOneScreen());
+                },
               ),
               DrawerItem(
                 label: 'الاحداث القادمة',

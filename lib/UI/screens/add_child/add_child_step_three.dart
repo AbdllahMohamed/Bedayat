@@ -1,5 +1,5 @@
+import 'package:bedayat/UI/screens/add_child/add_child_step_four.dart';
 import 'package:bedayat/UI/screens/home/home.dart';
-import 'package:bedayat/UI/screens/register/registerStepFive.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
@@ -7,31 +7,31 @@ import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/group_Controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class RegisterStepFourScreen extends StatefulWidget {
-  final String nameController;
-  final String phoneController;
-  final String emailController;
-  final String passwordController;
+class AddChildStepThreeScreen extends StatefulWidget {
+  // final String nameController;
+  // final String phoneController;
+  // final String emailController;
+  // final String passwordController;
   // final String location;
   final int selectedBranchIndex;
 
-  const RegisterStepFourScreen({
-    required this.nameController,
-    required this.phoneController,
-    required this.emailController,
-    required this.passwordController,
+  const AddChildStepThreeScreen({
+    // required this.nameController,
+    // required this.phoneController,
+    // required this.emailController,
+    // required this.passwordController,
     //required this.location,
     required this.selectedBranchIndex,
   });
   @override
-  _RegisterStepFourScreenState createState() => _RegisterStepFourScreenState();
+  _AddChildStepThreeScreenState createState() =>
+      _AddChildStepThreeScreenState();
 }
 
-class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
+class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
   final GroupController groupController = Get.put(GroupController());
   final TeacherController teacherController = Get.put(TeacherController());
 
@@ -51,6 +51,8 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
   TextEditingController _sensitificController = TextEditingController();
   TextEditingController _emailOneController = TextEditingController();
   TextEditingController _phoneOneController = TextEditingController();
+  TextEditingController _relationsOneController = TextEditingController();
+  TextEditingController _relationsTwoController = TextEditingController();
   TextEditingController _emailTwoController = TextEditingController();
   TextEditingController _phoneTwoController = TextEditingController();
 
@@ -59,10 +61,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
 
   List<String> _types = ['ولد', 'بنت'];
   String _selectedType = 'الجنس';
-
-  List<String> _relations = ['اب', 'عم'];
-  String _selectedRelationsOne = 'صلة القرابة';
-  String _selectedRelationsTwo = 'صلة القرابة';
 
   bool _isSensitific = false;
   bool _isFilming = false;
@@ -75,7 +73,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
 
   int? selectedGroupIndex;
   int? selectedTeacherIndex;
-  registerStepFour() async {
+  addChildStepThree() async {
     if (!_formKey.currentState!.validate()) {
       return;
     } else if (_familyCardPhoto!.path.isEmpty ||
@@ -91,17 +89,17 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
           title: "حدث خطأ ما",
           middleText: 'يرجى التأكد من اختيار الفصل و المعلم');
     } else {
-      Get.to(RegisterStepFiveScreen(
-        nameController: widget.nameController,
-        phoneController: widget.phoneController,
-        emailController: widget.emailController,
-        passwordController: widget.passwordController,
+      Get.to(AddChildStepFourScreen(
+        // nameController: widget.nameController,
+        // phoneController: widget.phoneController,
+        // emailController: widget.emailController,
+        // passwordController: widget.passwordController,
         selectedBranchIndex: widget.selectedBranchIndex,
         childNameController: _childNameController.text,
         selectedAge: _selectedAge,
         selectedType: _selectedType,
-        selectedRelationsOne: _selectedRelationsOne,
-        selectedRelationsTwo: _selectedRelationsTwo,
+        selectedRelationsOne: _relationsOneController.text,
+        selectedRelationsTwo: _relationsTwoController.text,
         emergencyNumberController: _emergencyNumberController.text,
         anthorNotesController: _anthorNotesController.text,
         sensitificController: _sensitificController.text,
@@ -158,7 +156,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'التسجيل',
+                            'اضافة طفل',
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.w300,
@@ -176,7 +174,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                               ),
                             ),
                             child: Text(
-                              '4/5',
+                              '3/5',
                               style: TextStyle(
                                 fontSize: 20,
                               ),
@@ -212,54 +210,71 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                   ),
                                 ),
                               )
-                            : Container(
-                                height: 45,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: groupController.groupList.length,
-                                    itemBuilder: (context, index) {
-                                      return InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            selectedGroupIndex = groupController
-                                                .groupList[index].id;
-                                            print(selectedGroupIndex);
-                                          });
-                                        },
-                                        child: Container(
-                                          width: 100,
-                                          height: 40,
-                                          margin: EdgeInsets.only(left: 5),
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                            color: AppColors.primaryColor,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            border: Border.all(
-                                              color: selectedGroupIndex !=
-                                                      groupController
-                                                          .groupList[index].id
-                                                  ? AppColors.primaryColor
-                                                  : Colors.grey,
-                                              width: selectedGroupIndex ==
-                                                      groupController
-                                                          .groupList[index].id
-                                                  ? 2
-                                                  : 1,
+                            : groupController.groupList.length == 0
+                                ? Center(
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(top: 200.0),
+                                      child: Text(
+                                        'لاتوجد بيانات',
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            color: AppColors.accentColor),
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    height: 45,
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:
+                                            groupController.groupList.length,
+                                        itemBuilder: (context, index) {
+                                          return InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                selectedGroupIndex =
+                                                    groupController
+                                                        .groupList[index].id;
+                                                print(selectedGroupIndex);
+                                              });
+                                            },
+                                            child: Container(
+                                              width: 100,
+                                              height: 40,
+                                              margin: EdgeInsets.only(left: 5),
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: AppColors.primaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                  color: selectedGroupIndex !=
+                                                          groupController
+                                                              .groupList[index]
+                                                              .id
+                                                      ? AppColors.primaryColor
+                                                      : Colors.grey,
+                                                  width: selectedGroupIndex ==
+                                                          groupController
+                                                              .groupList[index]
+                                                              .id
+                                                      ? 2
+                                                      : 1,
+                                                ),
+                                              ),
+                                              child: Text(
+                                                groupController
+                                                    .groupList[index].title!,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 17,
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                          child: Text(
-                                            groupController
-                                                .groupList[index].title!,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 17,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }),
-                              ),
+                                          );
+                                        }),
+                                  ),
                       ),
                       SizedBox(
                         height: 15,
@@ -273,78 +288,97 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                   ),
                                 ),
                               )
-                            : ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: teacherController.teacherList.length,
-                                itemBuilder: (_, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedTeacherIndex = teacherController
-                                            .teacherList[index].id;
-                                        print(selectedTeacherIndex);
-                                      });
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: selectedTeacherIndex ==
-                                                  teacherController
-                                                      .teacherList[index].id
-                                              ? AppColors.primaryColor
-                                              : Colors.grey,
-                                          width: selectedTeacherIndex ==
-                                                  teacherController
-                                                      .teacherList[index].id
-                                              ? 2
-                                              : 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          circularImageWithBorder(
-                                            imgPath:
-                                                "$imagesBaseUrl${teacherController.teacherList[index].profileImg!.replaceAll('public', 'storage')}",
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  teacherController
-                                                      .teacherList[index].name!,
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: AppColors.titleColor,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  teacherController
-                                                      .teacherList[index]
-                                                      .description!,
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    color:
-                                                        AppColors.accentColor,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                            : teacherController.teacherList.length == 0
+                                ? Center(
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(top: 200.0),
+                                      child: Text(
+                                        'لاتوجد بيانات',
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            color: AppColors.accentColor),
                                       ),
                                     ),
-                                  );
-                                }),
+                                  )
+                                : ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemCount:
+                                        teacherController.teacherList.length,
+                                    itemBuilder: (_, index) {
+                                      return InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedTeacherIndex =
+                                                teacherController
+                                                    .teacherList[index].id;
+                                            print(selectedTeacherIndex);
+                                          });
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: selectedTeacherIndex ==
+                                                      teacherController
+                                                          .teacherList[index].id
+                                                  ? AppColors.primaryColor
+                                                  : Colors.grey,
+                                              width: selectedTeacherIndex ==
+                                                      teacherController
+                                                          .teacherList[index].id
+                                                  ? 2
+                                                  : 1,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              circularImageWithBorder(
+                                                imgPath:
+                                                    "$imagesBaseUrl${teacherController.teacherList[index].profileImg!.replaceAll('public', 'storage')}",
+                                              ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      teacherController
+                                                          .teacherList[index]
+                                                          .name!,
+                                                      style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: AppColors
+                                                            .titleColor,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      teacherController
+                                                          .teacherList[index]
+                                                          .description!,
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: AppColors
+                                                            .accentColor,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }),
                       ),
                       SizedBox(
                         height: 10,
@@ -512,13 +546,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       ),
                       TextFormField(
                         controller: _anthorNotesController,
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          } else if (val.length <= 10) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          }
-                        },
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey[300]!),
@@ -604,46 +631,24 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       SizedBox(
                         height: 15,
                       ),
-                      DropdownButton(
-                        iconEnabledColor: Color(0xffAA9E9E),
-                        isExpanded: true,
-                        iconSize: 30,
-                        underline: Divider(
-                          thickness: 1,
-                          color: AppColors.accentColor.withOpacity(0.5),
-                        ),
-                        icon: Padding(
-                          padding: EdgeInsets.only(bottom: 20),
-                          child: Icon(Icons.arrow_drop_down),
-                        ),
-                        hint: Padding(
-                          padding: const EdgeInsets.only(bottom: 15.0),
-                          child: Text(
-                            _selectedRelationsOne,
-                            maxLines: 2,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.accentColor,
-                            ),
+                      TextFormField(
+                        controller: _relationsOneController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'صلة القرابة',
+                          prefixIcon: Icon(
+                            Icons.family_restroom,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
                           ),
                         ),
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectedRelationsOne = newValue.toString();
-                          });
-                        },
-                        items: _relations.map((type) {
-                          return DropdownMenuItem(
-                            child: new Text(
-                              type,
-                              style: TextStyle(
-                                color: Color(0xff707070),
-                              ),
-                            ),
-                            value: type,
-                          );
-                        }).toList(),
                       ),
                       TextFormField(
                         controller: _emailOneController,
@@ -695,46 +700,24 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       SizedBox(
                         height: 15,
                       ),
-                      DropdownButton(
-                        iconEnabledColor: Color(0xffAA9E9E),
-                        isExpanded: true,
-                        iconSize: 30,
-                        underline: Divider(
-                          thickness: 1,
-                          color: AppColors.accentColor.withOpacity(0.5),
-                        ),
-                        icon: Padding(
-                          padding: EdgeInsets.only(bottom: 20),
-                          child: Icon(Icons.arrow_drop_down),
-                        ),
-                        hint: Padding(
-                          padding: const EdgeInsets.only(bottom: 15.0),
-                          child: Text(
-                            _selectedRelationsTwo,
-                            maxLines: 2,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.accentColor,
-                            ),
+                      TextFormField(
+                        controller: _relationsTwoController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'صلة القرابة',
+                          prefixIcon: Icon(
+                            Icons.family_restroom,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
                           ),
                         ),
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectedRelationsTwo = newValue.toString();
-                          });
-                        },
-                        items: _relations.map((type) {
-                          return DropdownMenuItem(
-                            child: new Text(
-                              type,
-                              style: TextStyle(
-                                color: Color(0xff707070),
-                              ),
-                            ),
-                            value: type,
-                          );
-                        }).toList(),
                       ),
                       TextFormField(
                         controller: _emailTwoController,
@@ -826,11 +809,10 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
-                                child: SvgPicture.asset(
-                                  AppImages.appUploadSvg,
-                                  color: (_familyCardPhoto!.path.isEmpty)
-                                      ? AppColors.accentColor
-                                      : AppColors.primaryColor,
+                                child: Image.asset(
+                                  (_familyCardPhoto!.path.isEmpty)
+                                      ? AppImages.appUploadNormal
+                                      : AppImages.appUploadColored,
                                 ),
                               ),
                             ],
@@ -889,11 +871,10 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
-                                child: SvgPicture.asset(
-                                  AppImages.appUploadSvg,
-                                  color: (_vaccinationCertificate!.path.isEmpty)
-                                      ? AppColors.accentColor
-                                      : AppColors.primaryColor,
+                                child: Image.asset(
+                                  (_vaccinationCertificate!.path.isEmpty)
+                                      ? AppImages.appUploadNormal
+                                      : AppImages.appUploadColored,
                                 ),
                               ),
                             ],
@@ -952,11 +933,10 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
-                                child: SvgPicture.asset(
-                                  AppImages.appUploadSvg,
-                                  color: (_doctuumnet!.path.isEmpty)
-                                      ? AppColors.accentColor
-                                      : AppColors.primaryColor,
+                                child: Image.asset(
+                                  (_doctuumnet!.path.isEmpty)
+                                      ? AppImages.appUploadNormal
+                                      : AppImages.appUploadColored,
                                 ),
                               ),
                             ],
@@ -969,7 +949,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       ActionButton(
                         label: 'التالى',
                         onPressed: () {
-                          registerStepFour();
+                          addChildStepThree();
                         },
                       ),
                       SizedBox(

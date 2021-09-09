@@ -29,6 +29,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialBinding: AppBinding(),
       theme: ThemeData(
+        primaryColor: AppColors.primaryColor,
+        accentColor: AppColors.accentColor,
+        scaffoldBackgroundColor: Colors.white,
         fontFamily: 'GESSTWO',
         colorScheme: ColorScheme.light(primary: AppColors.primaryColor),
       ),

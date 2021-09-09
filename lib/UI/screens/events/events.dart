@@ -1,7 +1,3 @@
-import 'package:bedayat/UI/screens/report/components/activity.dart';
-import 'package:bedayat/UI/screens/report/components/evaluation.dart';
-import 'package:bedayat/UI/screens/report/components/gallery.dart';
-import 'package:bedayat/UI/screens/report/components/general.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/controllers/event_Controller.dart';
 import 'package:flutter/material.dart';

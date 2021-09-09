@@ -1,17 +1,17 @@
-import 'package:bedayat/UI/screens/register/registerStepThree.dart';
+import 'package:bedayat/UI/screens/register/register_step_three.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapScreen extends StatefulWidget {
+class RegisterMapScreen extends StatefulWidget {
   final double latitude;
   final double longitude;
   final String nameController;
   final String phoneController;
   final String emailController;
   final String passwordController;
-  MapScreen({
+  RegisterMapScreen({
     required this.latitude,
     required this.longitude,
     required this.nameController,
@@ -21,10 +21,10 @@ class MapScreen extends StatefulWidget {
   });
 
   @override
-  _MapScreenState createState() => _MapScreenState();
+  _RegisterMapScreenState createState() => _RegisterMapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _RegisterMapScreenState extends State<RegisterMapScreen> {
   late List<Marker> myMarker;
   late LatLng selectedPoint;
   @override

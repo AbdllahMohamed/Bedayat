@@ -1,12 +1,14 @@
-import 'package:bedayat/UI/screens/register/registerStepSix.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/package_Controller.dart';
+import 'package:bedayat/payment_web_view/payment_web_view.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RegisterStepFiveScreen extends StatefulWidget {
   final String nameController;
@@ -80,36 +82,48 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     'STC Pay',
   ];
   int? selectedBankIndex;
-
+  var _url = 'https://flutter.dev';
   registerStepFive() async {
-    String error = await authController.register(
-      username: widget.nameController,
-      email: widget.emailController,
-      phone: widget.phoneController,
-      password: widget.passwordController,
-      childname: widget.childNameController,
-      ageGroup: widget.selectedAge,
-      gender: widget.selectedType == 'ولد' ? 'male' : 'female',
-      emergencyNumber: widget.emergencyNumberController,
-      parentOneRealation: widget.selectedRelationsOne,
-      parentOneEmail: widget.emailOneController,
-      parentOnePhone: widget.phoneOneController,
-      parentTwoRealation: widget.selectedRelationsTwo,
-      parentTwoEmail: widget.emailTwoController,
-      parentTwoPhone: widget.phoneTwoController,
-      userId: "1",
-      teacherId: widget.techerId.toString(),
-      groupId: widget.groupId.toString(),
-      familyCard: widget.familyCardPhoto,
-      vaccinationCertificate: widget.vaccinationCertificate,
-      document: widget.doctuumnet!,
-    );
+    // String error = await authController.register(
+    //   username: widget.nameController,
+    //   email: widget.emailController,
+    //   phone: widget.phoneController,
+    //   password: widget.passwordController,
+    //   childname: widget.childNameController,
+    //   ageGroup: widget.selectedAge,
+    //   gender: widget.selectedType == 'ولد' ? 'male' : 'female',
+    //   emergencyNumber: widget.emergencyNumberController,
+    //   parentOneRealation: widget.selectedRelationsOne,
+    //   parentOneEmail: widget.emailOneController,
+    //   parentOnePhone: widget.phoneOneController,
+    //   parentTwoRealation: widget.selectedRelationsTwo,
+    //   parentTwoEmail: widget.emailTwoController,
+    //   parentTwoPhone: widget.phoneTwoController,
+    //   userId: "1",
+    //   teacherId: widget.techerId.toString(),
+    //   groupId: widget.groupId.toString(),
+    //   familyCard: widget.familyCardPhoto,
+    //   vaccinationCertificate: widget.vaccinationCertificate,
+    //   document: widget.doctuumnet!,
+    // );
 
-    if (error != "") {
-      Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
-    } else {
-      Get.to(RegisterStepSixScreen());
-    }
+    // if (error != "") {
+    //   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
+    // } else {
+    //   Get.to(PaymentWebViewScreen());
+    // }
+    !kIsWeb ? Get.to(PaymentWebViewScreen()) : _launchURL();
+  }
+
+  void _launchURL() async {
+    await canLaunch(_url)
+        ? await launch(
+            _url,
+            forceSafariVC: true,
+            forceWebView: true,
+            webOnlyWindowName: '_self',
+          )
+        : throw 'Could not launch $_url';
   }
 
   @override
@@ -159,7 +173,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                           ),
                         ),
                         child: Text(
-                          '5/5',
+                          '5/6',
                           style: TextStyle(
                             fontSize: 20,
                           ),
@@ -215,7 +229,10 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                     return InkWell(
                                       onTap: () {
                                         setState(() {
-                                          selectedPackageIndex = index;
+                                          selectedPackageIndex =
+                                              packageController
+                                                      .packageList[index].id! -
+                                                  1;
                                         });
                                       },
                                       child: Container(
@@ -228,11 +245,19 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                           borderRadius:
                                               BorderRadius.circular(8),
                                           border: Border.all(
-                                            color: selectedPackageIndex == index
+                                            color: selectedPackageIndex ==
+                                                    packageController
+                                                            .packageList[index]
+                                                            .id! -
+                                                        1
                                                 ? AppColors.primaryColor
                                                 : Colors.grey,
-                                            width: selectedPackageIndex == index
-                                                ? 2
+                                            width: selectedPackageIndex ==
+                                                    packageController
+                                                            .packageList[index]
+                                                            .id! -
+                                                        1
+                                                ? 3
                                                 : 1,
                                           ),
                                         ),

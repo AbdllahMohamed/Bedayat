@@ -32,8 +32,9 @@ dependencies:
   qr_flutter: ^4.0.0
   google_maps_flutter: ^2.0.8
   location: ^4.3.0
-  geolocator: ^7.6.0
   google_maps_flutter_web: ^0.3.0+4
+  webview_flutter: ^2.0.12
+  url_launcher: ^6.0.10
   flutter:
     sdk: flutter
   introduction_screen: ^2.1.0

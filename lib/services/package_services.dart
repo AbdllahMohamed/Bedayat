@@ -7,7 +7,9 @@ class PackagesServices {
     try {
       Response response = await Dio().get("$baseUrl/packages");
       List<Package> temp = [];
+      print(response.data);
       response.data['data'].forEach((e) => temp.add(Package.fromJson(e)));
+      print(response.data);
 
       return temp;
     } catch (e) {

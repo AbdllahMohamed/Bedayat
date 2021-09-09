@@ -3,7 +3,7 @@ import 'package:bedayat/services/branch_services.dart';
 import 'package:get/get.dart';
 
 class BranchController extends GetxController {
-  var departmentsList = <Branch>[].obs;
+  var branchsList = <Branch>[].obs;
   var loadingProcess = false.obs;
 
   @override
@@ -15,9 +15,9 @@ class BranchController extends GetxController {
   void fetchBranches() async {
     try {
       loadingProcess(true);
-      var departments = await BranchesServices.getAll();
-      if (departments != null) {
-        departmentsList.value = departments;
+      var branches = await BranchesServices.getAll();
+      if (branches != null) {
+        branchsList.value = branches;
       }
     } finally {
       loadingProcess(false);

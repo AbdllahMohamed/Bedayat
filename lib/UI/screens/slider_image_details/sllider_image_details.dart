@@ -21,6 +21,8 @@ class SliderImageDetails extends StatefulWidget {
 class _SliderImageDetailsState extends State<SliderImageDetails> {
   @override
   Widget build(BuildContext context) {
+    var _deviceWidth = MediaQuery.of(context).size.width;
+    var _devicHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -72,6 +74,8 @@ class _SliderImageDetailsState extends State<SliderImageDetails> {
                   child: Image.network(
                     widget.imagePath,
                     fit: BoxFit.cover,
+                    width: _deviceWidth,
+                    height: _devicHeight / 2,
                   ),
                 ),
               ),
