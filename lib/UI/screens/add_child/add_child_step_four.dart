@@ -1,12 +1,15 @@
+import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
 import 'package:bedayat/UI/screens/register/register_step_six.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/package_controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AddChildStepFourScreen extends StatefulWidget {
   final int selectedBranchIndex;
@@ -70,6 +73,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
     'STC Pay',
   ];
   int? selectedBankIndex = 0;
+  var _url = 'https://hyperpay.docs.oppwa.com/tutorials/integration-guide';
 
   addChildStepFour() async {
     String error = await authController.addChild(
@@ -95,8 +99,19 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
     if (error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      Get.offAll(RegisterStepSixScreen());
+      !kIsWeb ? Get.to(PaymentWebViewScreen()) : _launchURL();
     }
+  }
+
+  void _launchURL() async {
+    await canLaunch(_url)
+        ? await launch(
+            _url,
+            forceSafariVC: true,
+            forceWebView: true,
+            webOnlyWindowName: '_self',
+          )
+        : throw 'Could not launch $_url';
   }
 
   @override
