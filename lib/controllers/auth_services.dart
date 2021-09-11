@@ -77,6 +77,56 @@ class AuthController extends GetxController {
     return registerError;
   }
 
+  Future<String> addChild({
+    String? childname,
+    String? ageGroup,
+    String? gender,
+    String? emergencyNumber,
+    String? parentOneRealation,
+    String? parentOneEmail,
+    String? parentOnePhone,
+    String? parentTwoRealation,
+    String? parentTwoEmail,
+    String? parentTwoPhone,
+    String? userId,
+    String? teacherId,
+    String? groupId,
+    XFile? familyCard,
+    XFile? vaccinationCertificate,
+    XFile? document,
+  }) async {
+    var registerError = "";
+    try {
+      loadingProcess(true);
+
+      registerError = await UsersServices.addchild(
+        childname: childname,
+        ageGroup: ageGroup,
+        gender: gender,
+        emergencyNumber: emergencyNumber,
+        parentOneRealation: parentOneRealation,
+        parentOneEmail: parentOneEmail,
+        parentOnePhone: parentOnePhone,
+        parentTwoRealation: parentTwoRealation,
+        parentTwoEmail: parentTwoEmail,
+        parentTwoPhone: parentTwoPhone,
+        userId: userId,
+        teacherId: teacherId,
+        groupId: groupId,
+        familyCard: familyCard,
+        vaccinationCertificate: vaccinationCertificate,
+        document: document,
+      );
+    } catch (e) {
+      print('e');
+      print(e);
+      registerError = 'من فضلك حاول مرة اخرى';
+    } finally {
+      loadingProcess(false);
+    }
+    return registerError;
+  }
+
   void logut() {
     final box = GetStorage();
     box.remove('token');

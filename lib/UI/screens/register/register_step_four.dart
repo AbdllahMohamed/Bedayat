@@ -4,7 +4,7 @@ import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
-import 'package:bedayat/controllers/group_Controller.dart';
+import 'package:bedayat/controllers/group_controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -74,6 +74,11 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
   int? selectedTeacherIndex;
   registerStepFour() async {
     if (!_formKey.currentState!.validate()) {
+      return;
+    } else if (_selectedType == 'الجنس' || _selectedAge == 'الفئة العمرية') {
+      await Get.defaultDialog(
+          title: "حدث خطأ ما",
+          middleText: 'يرجى التأكد من اختيار الجنس والفئة العمرية');
       return;
     } else if (_familyCardPhoto!.path.isEmpty ||
         _vaccinationCertificate!.path.isEmpty ||

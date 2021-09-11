@@ -21,7 +21,8 @@ class PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: WebView(
-        initialUrl: 'https://flutter.dev',
+        initialUrl:
+            'https://hyperpay.docs.oppwa.com/tutorials/integration-guide',
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );

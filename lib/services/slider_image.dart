@@ -5,7 +5,6 @@ import 'package:get_storage/get_storage.dart';
 
 class SliderImagesServices {
   static Future<List<SliderImage>?> getAll() async {
-    print("token request " + GetStorage().read('token'));
     Response response = await Dio().get(
       "$baseUrl/slider",
       options: Options(

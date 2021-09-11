@@ -39,15 +39,26 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       )
                     : Positioned(
-                        top: -200,
-                        left: -85,
-                        bottom: -200,
+                        top: -_devicHeight * 0.4,
+                        left: -_deviceWidth * 0.3,
+                        bottom: -_devicHeight * 0.2,
                         child: SvgPicture.asset(
                           AppImages.appCurveSvg,
+                          width: _deviceWidth,
                           color: AppColors.primaryColor,
                           fit: BoxFit.fitHeight,
                         ),
                       ),
+                // Positioned(
+                //     top: -200,
+                //     left: -85,
+                //     bottom: -200,
+                //     child: SvgPicture.asset(
+                //       AppImages.appCurveSvg,
+                //       color: AppColors.primaryColor,
+                //       fit: BoxFit.fitHeight,
+                //     ),
+                //   ),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 28.0,

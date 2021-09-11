@@ -1,31 +1,34 @@
+import 'dart:ui';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bedayat/controllers/notification_cotroller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
-class NotificationScreen extends StatefulWidget {
-  @override
-  _NotificationScreenState createState() => _NotificationScreenState();
-}
+class NotificationScreen extends StatelessWidget {
+  final NotificationController notificationController =
+      Get.put(NotificationController());
 
-class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
+    var _deviceWidth = MediaQuery.of(context).size.width;
+    var _devicHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(0),
+          controller: notificationController.scrollController,
           child: Directionality(
             textDirection: TextDirection.rtl,
             child: Stack(
-              children: [
+              children: <Widget>[
                 kIsWeb
                     ? Positioned(
                         top: -200,
-                        left: -240,
+                        left: -160,
                         bottom: -200,
                         child: Image.asset(
                           AppImages.appCurve,
@@ -33,15 +36,27 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         ),
                       )
                     : Positioned(
-                        top: -200,
-                        left: -85,
-                        bottom: -200,
+                        top: -_devicHeight * 0.4,
+                        left: -_deviceWidth * 0.3,
+                        bottom: -_devicHeight * 0.2,
                         child: SvgPicture.asset(
                           AppImages.appCurveSvg,
+                          width: _deviceWidth,
                           color: AppColors.primaryColor,
                           fit: BoxFit.fitHeight,
                         ),
                       ),
+
+                // Positioned(
+                //     top: -400,
+                //     left: -100,
+                //     bottom: -500,
+                //     child: SvgPicture.asset(
+                //       AppImages.appCurveSvg,
+                //       color: AppColors.primaryColor,
+                //       fit: BoxFit.fitHeight,
+                //     ),
+                //   ),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 28.0,
@@ -55,76 +70,134 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         width: 106,
                         height: 56,
                       ),
+                      Spacer(),
                     ],
-                  ),
-                ),
-                Positioned(
-                  top: 100,
-                  right: 20,
-                  child: Text(
-                    'الإشعارات',
-                    style: TextStyle(
-                      fontSize: 28,
-                      color: AppColors.titleColor,
-                    ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: 150.0,
-                    left: 5,
-                    bottom: 25,
+                    top: 100.0,
+                    right: 20,
                   ),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: 10,
-                    itemBuilder: (_, i) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.0),
-                          color: const Color(0xffffffff),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0x29a7a6a6),
-                              offset: Offset(0, 3),
-                              blurRadius: 6,
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            // circularImageWithBorder(
-                            //   imgPath: AppImages.appchild,
-                            // ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'حفل خلال يوم السبت المقبل',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      color: AppColors.titleColor),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text('رنا مجدى',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color: AppColors.accentColor))
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
+                  child: Text(
+                    'الاشعارات',
+                    style: TextStyle(
+                      color: AppColors.titleColor,
+                      fontSize: 28,
                     ),
                   ),
-                )
+                ),
+                Obx(
+                  () {
+                    return notificationController.loadingProcess.value
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 100.0),
+                            child: Container(
+                              width: _deviceWidth,
+                              height: _devicHeight,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    AppColors.accentColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : notificationController.notificationList.length == 0
+                            ? Center(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 200.0),
+                                      child: Text(
+                                        'لاتوجد بيانات',
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            color: AppColors.accentColor),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        top: _devicHeight * 0.7,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 150.0,
+                                    left: 5,
+                                    bottom: 25,
+                                  ),
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: BouncingScrollPhysics(),
+                                    itemCount: notificationController
+                                        .notificationList.length,
+                                    itemBuilder: (_, i) => Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                          color: const Color(0xffffffff),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: const Color(0x29a7a6a6),
+                                              offset: Offset(0, 3),
+                                              blurRadius: 6,
+                                            ),
+                                          ],
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            // circularImageWithBorder(
+                                            //   imgPath: AppImages.appchild,
+                                            // ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  notificationController
+                                                      .notificationList[i]
+                                                      .title!,
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      color:
+                                                          AppColors.titleColor),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  notificationController
+                                                      .notificationList[i]
+                                                      .content!,
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color:
+                                                        AppColors.accentColor,
+                                                  ),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                  },
+                ),
               ],
             ),
           ),
@@ -137,7 +210,65 @@ class _NotificationScreenState extends State<NotificationScreen> {
 Widget circularImageWithBorder({String? imgPath}) {
   return CircleAvatar(
     backgroundColor: Colors.transparent,
+    backgroundImage: NetworkImage(imgPath!),
+    radius: 40,
+  );
+}
+
+/*
+Widget circularImageWithBorder({String? imgPath}) {
+  return CircleAvatar(
+    backgroundColor: Colors.transparent,
     backgroundImage: AssetImage(imgPath!),
     radius: 40,
   );
 }
+
+
+
+Obx(
+                  () => notificationController.loadingProcess.value
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 100.0),
+                          child: Container(
+                            width: _deviceWidth,
+                            height: _devicHeight,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColors.accentColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : notificationController.notificationList.length == 0
+                          ? Center(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 200.0),
+                                    child: Text(
+                                      'لاتوجد بيانات',
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          color: AppColors.accentColor),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: _devicHeight * 0.6),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(
+                                top: 150.0,
+                                left: 5,
+                                bottom: 25,
+                              ),
+                              child: ,
+                            ),
+                )
+                */

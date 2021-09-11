@@ -1,9 +1,9 @@
+import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_services.dart';
-import 'package:bedayat/controllers/package_Controller.dart';
-import 'package:bedayat/payment_web_view/payment_web_view.dart';
+import 'package:bedayat/controllers/package_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -82,7 +82,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     'STC Pay',
   ];
   int? selectedBankIndex;
-  var _url = 'https://flutter.dev';
+  var _url = 'https://hyperpay.docs.oppwa.com/tutorials/integration-guide';
   registerStepFive() async {
     // String error = await authController.register(
     //   username: widget.nameController,

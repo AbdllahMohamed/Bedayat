@@ -2,7 +2,7 @@ import 'package:bedayat/UI/screens/register/register_step_four.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:bedayat/controllers/branch_Controller.dart';
+import 'package:bedayat/controllers/branch_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

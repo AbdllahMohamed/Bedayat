@@ -2,25 +2,12 @@ import 'package:bedayat/UI/screens/add_child/add_child_step_three.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:bedayat/controllers/branch_Controller.dart';
+import 'package:bedayat/controllers/add_child_controller.dart';
+import 'package:bedayat/controllers/branch_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddChildStepTwoScreen extends StatefulWidget {
-  // final String nameController;
-  // final String phoneController;
-  // final String emailController;
-  // final String passwordController;
-  // // final String location;
-
-  // AddChildStepTwoScreen({
-  //   required this.nameController,
-  //   required this.phoneController,
-  //   required this.emailController,
-  //   required this.passwordController,
-  //   //required this.location,
-  // });
-
   @override
   _AddChildStepTwoScreenState createState() => _AddChildStepTwoScreenState();
 }
@@ -28,18 +15,30 @@ class AddChildStepTwoScreen extends StatefulWidget {
 class _AddChildStepTwoScreenState extends State<AddChildStepTwoScreen> {
   int? selectedBranchIndex;
   final BranchController branchController = Get.put(BranchController());
+  final AddChildController addChildController = Get.put(AddChildController());
+
   addChildStepTwo() async {
     if (selectedBranchIndex == null) {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: 'يجب اختيار الفرع');
       return;
     } else {
       Get.to(AddChildStepThreeScreen(
-        // nameController: widget.nameController,
-        // phoneController: widget.phoneController,
-        // emailController: widget.emailController,
-        // passwordController: widget.passwordController,
-        //location: widget.location,
         selectedBranchIndex: selectedBranchIndex!,
+        emergaceyNumber:
+            addChildController.addChildList[0].emergencyNumber ?? "",
+        anthorNotesController: addChildController.addChildList[0].notes ?? "",
+        relationsOneController:
+            addChildController.addChildList[0].parentOneRealation ?? "",
+        emailOneController:
+            addChildController.addChildList[0].parentOneEmail ?? "",
+        phoneOneController:
+            addChildController.addChildList[0].parentOnePhone ?? "",
+        relationsTwoController:
+            addChildController.addChildList[0].parentTwoRealation ?? "",
+        emailTwoController:
+            addChildController.addChildList[0].parentTwoEmail ?? "",
+        phoneTwoController:
+            addChildController.addChildList[0].parentTwoPhone ?? "",
       ));
     }
   }

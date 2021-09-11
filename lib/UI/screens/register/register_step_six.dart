@@ -1,4 +1,4 @@
-import 'package:bedayat/UI/screens/login/login.dart';
+import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:flutter/material.dart';
@@ -69,13 +69,13 @@ class _RegisterStepSixScreenState extends State<RegisterStepSixScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 4),
+                    SizedBox(height: MediaQuery.of(context).size.height / 5),
                     Center(
                         child: Image.asset(AppImages.appConfirmRegistration)),
                     SizedBox(height: 10),
                     Center(
                       child: Text(
-                        'تم التسجيل بنجاح',
+                        'تم اضافة طفلك بنجاح',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w200,
@@ -85,7 +85,7 @@ class _RegisterStepSixScreenState extends State<RegisterStepSixScreen> {
                     SizedBox(height: 20),
                     InkWell(
                       onTap: () {
-                        Get.offAll(LoginScreen());
+                        Get.offAll(BottomNavigationWidget());
                       },
                       child: Center(
                         child: Container(
@@ -96,7 +96,7 @@ class _RegisterStepSixScreenState extends State<RegisterStepSixScreen> {
                               color: AppColors.primaryColor,
                               borderRadius: BorderRadius.circular(8)),
                           child: Text(
-                            'سجل دخول الان',
+                            'العودة للقائمة الرئسية',
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,

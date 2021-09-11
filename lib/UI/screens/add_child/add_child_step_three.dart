@@ -4,27 +4,34 @@ import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
-import 'package:bedayat/controllers/group_Controller.dart';
+import 'package:bedayat/controllers/add_child_controller.dart';
+import 'package:bedayat/controllers/group_controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddChildStepThreeScreen extends StatefulWidget {
-  // final String nameController;
-  // final String phoneController;
-  // final String emailController;
-  // final String passwordController;
-  // final String location;
   final int selectedBranchIndex;
+  final String emergaceyNumber;
 
+  final String relationsOneController;
+  final String relationsTwoController;
+  final String anthorNotesController;
+  final String emailOneController;
+  final String phoneOneController;
+  final String emailTwoController;
+  final String phoneTwoController;
   const AddChildStepThreeScreen({
-    // required this.nameController,
-    // required this.phoneController,
-    // required this.emailController,
-    // required this.passwordController,
-    //required this.location,
     required this.selectedBranchIndex,
+    required this.emergaceyNumber,
+    required this.relationsOneController,
+    required this.relationsTwoController,
+    required this.anthorNotesController,
+    required this.emailOneController,
+    required this.phoneOneController,
+    required this.emailTwoController,
+    required this.phoneTwoController,
   });
   @override
   _AddChildStepThreeScreenState createState() =>
@@ -34,27 +41,45 @@ class AddChildStepThreeScreen extends StatefulWidget {
 class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
   final GroupController groupController = Get.put(GroupController());
   final TeacherController teacherController = Get.put(TeacherController());
-
-  @override
-  void initState() {
-    super.initState();
-    print(widget.selectedBranchIndex);
-    groupController.fetchGroups(widget.selectedBranchIndex);
-    teacherController.fetchTeachers(widget.selectedBranchIndex);
-  }
+  final AddChildController addChildController = Get.put(AddChildController());
 
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _childNameController = TextEditingController();
-  TextEditingController _emergencyNumberController = TextEditingController();
-  TextEditingController _anthorNotesController = TextEditingController();
   TextEditingController _sensitificController = TextEditingController();
-  TextEditingController _emailOneController = TextEditingController();
-  TextEditingController _phoneOneController = TextEditingController();
-  TextEditingController _relationsOneController = TextEditingController();
-  TextEditingController _relationsTwoController = TextEditingController();
-  TextEditingController _emailTwoController = TextEditingController();
-  TextEditingController _phoneTwoController = TextEditingController();
+  late TextEditingController _emergencyNumberController;
+  late TextEditingController _anthorNotesController;
+  late TextEditingController _emailOneController;
+  late TextEditingController _phoneOneController;
+  late TextEditingController _relationsOneController;
+  late TextEditingController _relationsTwoController;
+  late TextEditingController _emailTwoController;
+  late TextEditingController _phoneTwoController;
+
+  @override
+  void initState() {
+    super.initState();
+    groupController.fetchGroups(widget.selectedBranchIndex);
+    teacherController.fetchTeachers(widget.selectedBranchIndex);
+
+    _emergencyNumberController =
+        TextEditingController(text: widget.emergaceyNumber);
+    _anthorNotesController =
+        TextEditingController(text: widget.anthorNotesController);
+
+    _relationsOneController =
+        TextEditingController(text: widget.relationsOneController);
+    _emailOneController =
+        TextEditingController(text: widget.emailOneController);
+    _phoneOneController =
+        TextEditingController(text: widget.phoneOneController);
+    _relationsTwoController =
+        TextEditingController(text: widget.relationsTwoController);
+    _emailTwoController =
+        TextEditingController(text: widget.emailTwoController);
+    _phoneTwoController =
+        TextEditingController(text: widget.phoneTwoController);
+  }
 
   List<int> _ages = [1, 2, 3, 4, 5, 6, 7, 8];
   String _selectedAge = 'الفئة العمرية';
@@ -76,6 +101,15 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
   addChildStepThree() async {
     if (!_formKey.currentState!.validate()) {
       return;
+    } else if (selectedGroupIndex == null || selectedTeacherIndex == null) {
+      await Get.defaultDialog(
+          title: "حدث خطأ ما",
+          middleText: 'يرجى التأكد من اختيار الفصل و المعلم');
+    } else if (_selectedType == 'الجنس' || _selectedAge == 'الفئة العمرية') {
+      await Get.defaultDialog(
+          title: "حدث خطأ ما",
+          middleText: 'يرجى التأكد من اختيار الفئة العمرية والجنس');
+      return;
     } else if (_familyCardPhoto!.path.isEmpty ||
         _vaccinationCertificate!.path.isEmpty ||
         _doctuumnet!.path.isEmpty ||
@@ -84,16 +118,8 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
       await Get.defaultDialog(
           title: "حدث خطأ ما", middleText: 'يرجى التأكد من اختيار الصور');
       return;
-    } else if (selectedGroupIndex == null || selectedTeacherIndex == null) {
-      await Get.defaultDialog(
-          title: "حدث خطأ ما",
-          middleText: 'يرجى التأكد من اختيار الفصل و المعلم');
     } else {
       Get.to(AddChildStepFourScreen(
-        // nameController: widget.nameController,
-        // phoneController: widget.phoneController,
-        // emailController: widget.emailController,
-        // passwordController: widget.passwordController,
         selectedBranchIndex: widget.selectedBranchIndex,
         childNameController: _childNameController.text,
         selectedAge: _selectedAge,
@@ -213,8 +239,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                             : groupController.groupList.length == 0
                                 ? Center(
                                     child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(top: 200.0),
+                                      padding: const EdgeInsets.only(top: 80.0),
                                       child: Text(
                                         'لاتوجد بيانات',
                                         style: TextStyle(
@@ -291,8 +316,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                             : teacherController.teacherList.length == 0
                                 ? Center(
                                     child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(top: 200.0),
+                                      padding: const EdgeInsets.only(top: 80.0),
                                       child: Text(
                                         'لاتوجد بيانات',
                                         style: TextStyle(
@@ -578,23 +602,31 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                           )
                         ],
                       ),
-                      TextFormField(
-                        controller: _sensitificController,
-                        readOnly: _isSensitific,
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          hintText: 'فضلا اخبرنا نوع الحساسية الخاصة بطفلك',
-                          hintStyle: TextStyle(color: AppColors.accentColor),
-                        ),
-                      ),
+                      _isSensitific
+                          ? TextFormField(
+                              controller: _sensitificController,
+                              decoration: InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[300]!),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[300]!),
+                                ),
+                                border: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[300]!),
+                                ),
+                                hintText:
+                                    'فضلا اخبرنا نوع الحساسية الخاصة بطفلك',
+                                hintStyle:
+                                    TextStyle(color: AppColors.accentColor),
+                              ),
+                            )
+                          : SizedBox(
+                              height: 5,
+                            ),
                       SizedBox(
                         height: 25,
                       ),
@@ -765,6 +797,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                           _familyCardPhoto = await _picker.pickImage(
                               source: ImageSource.gallery);
                           setState(() {});
+                          print(_familyCardPhoto!.path);
                         },
                         child: Container(
                           height: 80,
@@ -827,6 +860,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                           _vaccinationCertificate = await _picker.pickImage(
                               source: ImageSource.gallery);
                           setState(() {});
+                          print(_vaccinationCertificate!.path);
                         },
                         child: Container(
                           height: 80,
@@ -889,6 +923,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                           _doctuumnet = await _picker.pickImage(
                               source: ImageSource.gallery);
                           setState(() {});
+                          print(_doctuumnet!.path);
                         },
                         child: Container(
                           height: 80,

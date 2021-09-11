@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   CarouselController buttonCarouselController = CarouselController();
   late final PageController controller;
+  final scrollController = ScrollController();
 
   //RangeValues _currentRangeValues = const RangeValues(0, 75);
   int _currentPage = 0;
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
+    childernController.fetchchildern();
     controller = PageController(viewportFraction: 1, keepPage: true);
     if (sliderImagesController.sliderImagesList.length > 1) {
       Timer.periodic(Duration(seconds: 2), (Timer timer) {
@@ -55,6 +56,16 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       });
     }
+
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        print("scrollController.position.pixels");
+        print(scrollController.position.pixels);
+        print("scrollController.position.maxScrollExtent");
+        print(scrollController.position.maxScrollExtent);
+      }
+    });
   }
 
   @override
@@ -67,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: AppDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
+          controller: scrollController,
           padding: EdgeInsets.all(0),
           child: Directionality(
             textDirection: TextDirection.rtl,
@@ -83,11 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       )
                     : Positioned(
-                        top: -200,
-                        left: -85,
-                        bottom: -200,
+                        top: -_devicHeight * 0.4,
+                        left: -_deviceWidth * 0.3,
+                        bottom: -_devicHeight * 0.2,
                         child: SvgPicture.asset(
                           AppImages.appCurveSvg,
+                          width: _deviceWidth,
                           color: AppColors.primaryColor,
                           fit: BoxFit.fitHeight,
                         ),

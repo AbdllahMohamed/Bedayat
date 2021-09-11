@@ -3,17 +3,12 @@ import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_services.dart';
-import 'package:bedayat/controllers/package_Controller.dart';
+import 'package:bedayat/controllers/package_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddChildStepFourScreen extends StatefulWidget {
-  // final String nameController;
-  // final String phoneController;
-  // final String emailController;
-  // final String passwordController;
-  //final String location;
   final int selectedBranchIndex;
   final String childNameController;
   final String selectedAge;
@@ -36,11 +31,6 @@ class AddChildStepFourScreen extends StatefulWidget {
 
   const AddChildStepFourScreen({
     Key? key,
-    // required this.nameController,
-    // required this.phoneController,
-    // required this.emailController,
-    // required this.passwordController,
-    //required this.location,
     required this.selectedBranchIndex,
     required this.childNameController,
     required this.selectedAge,
@@ -79,14 +69,10 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
     'مدى',
     'STC Pay',
   ];
-  int? selectedBankIndex;
+  int? selectedBankIndex = 0;
 
   addChildStepFour() async {
-    String error = await authController.register(
-      // username: widget.nameController,
-      // email: widget.emailController,
-      // phone: widget.phoneController,
-      // password: widget.passwordController,
+    String error = await authController.addChild(
       childname: widget.childNameController,
       ageGroup: widget.selectedAge,
       gender: widget.selectedType == 'ولد' ? 'male' : 'female',
@@ -104,11 +90,12 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
       vaccinationCertificate: widget.vaccinationCertificate,
       document: widget.doctuumnet!,
     );
+    print(error);
 
     if (error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      Get.to(RegisterStepSixScreen());
+      Get.offAll(RegisterStepSixScreen());
     }
   }
 

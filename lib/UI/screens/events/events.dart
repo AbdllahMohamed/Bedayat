@@ -1,5 +1,5 @@
 import 'package:bedayat/UI/widgets/actionButton.dart';
-import 'package:bedayat/controllers/event_Controller.dart';
+import 'package:bedayat/controllers/event_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

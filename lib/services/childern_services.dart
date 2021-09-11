@@ -5,7 +5,6 @@ import 'package:get_storage/get_storage.dart';
 
 class ChildrenServices {
   static Future<List<Child>?> getAll() async {
-    print("${GetStorage().read('token')}");
     Response response = await Dio().get("$baseUrl/children",
         options: Options(
             headers: {
@@ -18,8 +17,7 @@ class ChildrenServices {
               return status! < 500;
             }));
     List<Child> temp = [];
-    print('children');
-    print(response.data);
+
     response.data['data'].forEach((e) => temp.add(Child.fromJson(e)));
 
     return temp;
