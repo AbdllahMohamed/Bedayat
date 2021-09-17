@@ -55,11 +55,11 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   print(
-                      "$imagesBaseUrl${widget.galleryController.galleryList[index].img!.replaceAll('public', 'storage')}");
+                      "$baseUrl${widget.galleryController.galleryList[index].img!.replaceAll('public', 'storage')}");
                   return ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.network(
-                          "$imagesBaseUrl${widget.galleryController.galleryList[index].img!.replaceAll('public', 'storage')}"));
+                          "$baseUrl${widget.galleryController.galleryList[index].img!.replaceAll('public', 'storage')}"));
                 },
               ));
   }

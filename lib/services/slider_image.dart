@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 class SliderImagesServices {
   static Future<List<SliderImage>?> getAll() async {
     Response response = await Dio().get(
-      "$baseUrl/slider",
+      "$baseApiUrl/slider",
       options: Options(
         headers: {
           "Authorization": "Bearer ${GetStorage().read('token')}",

@@ -196,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         onTap: () {
                                           Get.to(SliderImageDetails(
                                             imagePath:
-                                                "$imagesBaseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
+                                                "$baseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
                                             title: sliderImagesController
                                                 .sliderImagesList[index].title!,
                                             description: sliderImagesController
@@ -215,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(10.0),
                                                 child: Image.network(
-                                                  "$imagesBaseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
+                                                  "$baseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -511,7 +511,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                 ReportScreen(
                                                                                   name: childernController.childernList[i].name,
                                                                                   classNmber: childernController.childernList[i].ageGroup,
-                                                                                  image: "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                                                  image: "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                                                                 ),
                                                                               );
                                                                             },
@@ -582,7 +582,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         ),
                                                         circularImageWithBorder(
                                                           imgPath:
-                                                              "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                              "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                                         ),
                                                       ],
                                                     );
@@ -767,7 +767,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   top: 60.0, left: 5, right: 5),
                                               child: circularImageWithBorder(
                                                 imgPath:
-                                                    "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                    "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                               ),
                                             ),
                                           ],
@@ -929,7 +929,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                 ReportScreen(
                                                                                   name: childernController.childernList[i].name,
                                                                                   classNmber: childernController.childernList[i].ageGroup,
-                                                                                  image: "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                                                  image: "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                                                                 ),
                                                                               );
                                                                             },
@@ -1000,7 +1000,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         ),
                                                         circularImageWithBorder(
                                                           imgPath:
-                                                              "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                              "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                                         ),
                                                       ],
                                                     );
@@ -1185,7 +1185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   top: 60.0, left: 5, right: 5),
                                               child: circularImageWithBorder(
                                                 imgPath:
-                                                    "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                    "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                               ),
                                             ),
                                           ],

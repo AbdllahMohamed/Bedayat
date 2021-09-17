@@ -94,29 +94,29 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
           middleText: 'يرجى التأكد من اختيار الفصل و المعلم');
     } else {
       Get.to(RegisterStepFiveScreen(
-        nameController: widget.nameController,
-        phoneController: widget.phoneController,
-        emailController: widget.emailController,
-        passwordController: widget.passwordController,
-        selectedBranchIndex: widget.selectedBranchIndex,
-        childNameController: _childNameController.text,
-        selectedAge: _selectedAge,
-        selectedType: _selectedType,
-        selectedRelationsOne: _relationsOneController.text,
-        selectedRelationsTwo: _relationsTwoController.text,
-        emergencyNumberController: _emergencyNumberController.text,
-        anthorNotesController: _anthorNotesController.text,
-        sensitificController: _sensitificController.text,
-        emailOneController: _emailOneController.text,
-        phoneOneController: _phoneOneController.text,
-        emailTwoController: _emailTwoController.text,
-        phoneTwoController: _phoneTwoController.text,
-        familyCardPhoto: _familyCardPhoto,
-        vaccinationCertificate: _vaccinationCertificate,
-        doctuumnet: _doctuumnet,
-        groupId: selectedGroupIndex!,
-        techerId: selectedTeacherIndex!,
-      ));
+          // nameController: widget.nameController,
+          // phoneController: widget.phoneController,
+          // emailController: widget.emailController,
+          // passwordController: widget.passwordController,
+          // selectedBranchIndex: widget.selectedBranchIndex,
+          // childNameController: _childNameController.text,
+          // selectedAge: _selectedAge,
+          // selectedType: _selectedType,
+          // selectedRelationsOne: _relationsOneController.text,
+          // selectedRelationsTwo: _relationsTwoController.text,
+          // emergencyNumberController: _emergencyNumberController.text,
+          // anthorNotesController: _anthorNotesController.text,
+          // sensitificController: _sensitificController.text,
+          // emailOneController: _emailOneController.text,
+          // phoneOneController: _phoneOneController.text,
+          // emailTwoController: _emailTwoController.text,
+          // phoneTwoController: _phoneTwoController.text,
+          // familyCardPhoto: _familyCardPhoto,
+          // vaccinationCertificate: _vaccinationCertificate,
+          // doctuumnet: _doctuumnet,
+          // groupId: selectedGroupIndex!,
+          // techerId: selectedTeacherIndex!,
+          ));
     }
   }
 
@@ -335,7 +335,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                             children: [
                                               circularImageWithBorder(
                                                 imgPath:
-                                                    "$imagesBaseUrl${teacherController.teacherList[index].profileImg!.replaceAll('public', 'storage')}",
+                                                    "$baseUrl${teacherController.teacherList[index].profileImg!.replaceAll('public', 'storage')}",
                                               ),
                                               SizedBox(
                                                 width: 10,

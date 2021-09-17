@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 class PackagesServices {
   static Future<List<Package>?> getAll() async {
     try {
-      Response response = await Dio().get("$baseUrl/packages");
+      Response response = await Dio().get("$baseApiUrl/packages");
       List<Package> temp = [];
       print(response.data);
       response.data['data'].forEach((e) => temp.add(Package.fromJson(e)));

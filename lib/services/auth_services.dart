@@ -15,7 +15,7 @@ class UsersServices {
     Dio dio = new Dio();
 
     Response response = await dio.post(
-      "$baseUrl/login",
+      "$baseApiUrl/login",
       data: {
         "email": email,
         "password": password,
@@ -99,7 +99,7 @@ class UsersServices {
           await MultipartFile.fromFile(document.path, filename: documentFile),
     });
     Response response = await dio.post(
-      "$baseUrl/register",
+      "$baseApiUrl/register",
       data: formData,
       options: Options(
           headers: {
@@ -172,7 +172,7 @@ class UsersServices {
           await MultipartFile.fromFile(document.path, filename: documentFile),
     });
     Response response = await dio.post(
-      "$baseUrl/addchild",
+      "$baseApiUrl/addchild",
       data: formData,
       options: Options(
           headers: {

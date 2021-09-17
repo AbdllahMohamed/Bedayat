@@ -7,7 +7,7 @@ class NotificationsServices {
   static Future<List<Notifications>?> getAll() async {
     try {
       Response response = await Dio().get(
-        "$baseUrl/notifications",
+        "$baseApiUrl/notifications",
         options: Options(
           headers: {
             "Authorization": "Bearer ${GetStorage().read('token')}",

@@ -1,2 +1,2 @@
-String baseUrl = 'https://dcc1-154-130-179-26.ngrok.io/api';
-String imagesBaseUrl = 'https://dcc1-154-130-179-26.ngrok.io/';
+String baseApiUrl = 'https://0450-154-133-118-79.ngrok.io/api';
+String baseUrl = 'https://0450-154-133-118-79.ngrok.io';

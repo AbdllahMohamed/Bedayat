@@ -5,7 +5,7 @@ import 'package:get_storage/get_storage.dart';
 
 class EventsServices {
   static Future<List<Event>?> getAll([String? selectedData]) async {
-    Response response = await Dio().get("$baseUrl/events?date=$selectedData",
+    Response response = await Dio().get("$baseApiUrl/events?date=$selectedData",
         options: Options(
             headers: {
               "Authorization": "Bearer ${GetStorage().read('token')}",

@@ -5,7 +5,7 @@ import 'package:get_storage/get_storage.dart';
 
 class AddChildServices {
   static Future<List<AddChild>?> getAll() async {
-    Response response = await Dio().get("$baseUrl/lastchild",
+    Response response = await Dio().get("$baseApiUrl/lastchild",
         options: Options(
             headers: {
               "Authorization": "Bearer ${GetStorage().read('token')}",

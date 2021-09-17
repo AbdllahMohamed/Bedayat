@@ -7,6 +7,7 @@ import 'package:bedayat/controllers/gallery_controller.dart';
 import 'package:bedayat/controllers/group_controller.dart';
 import 'package:bedayat/controllers/notification_cotroller.dart';
 import 'package:bedayat/controllers/package_controller.dart';
+import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:bedayat/controllers/report_controller.dart';
 import 'package:bedayat/controllers/slider_image_controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
@@ -29,5 +30,6 @@ class AppBinding implements Bindings {
     Get.lazyPut<PackageController>(() => PackageController(), fenix: true);
     Get.lazyPut<NotificationController>(() => NotificationController(),
         fenix: true);
+    Get.lazyPut<PaymentController>(() => PaymentController(), fenix: true);
   }
 }

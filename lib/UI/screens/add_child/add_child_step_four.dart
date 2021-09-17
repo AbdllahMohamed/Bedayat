@@ -99,7 +99,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
     if (error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      !kIsWeb ? Get.to(PaymentWebViewScreen()) : _launchURL();
+      // !kIsWeb ? Get.to(PaymentWebViewScreen()) : _launchURL();
     }
   }
 

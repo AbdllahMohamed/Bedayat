@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'UI/screens/register/register_step_five.dart';
+
 var token;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +37,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'GESSTWO',
         colorScheme: ColorScheme.light(primary: AppColors.primaryColor),
       ),
-      home: token != null ? BottomNavigationWidget() : LoginScreen(),
+      //home: token != null ? BottomNavigationWidget() : LoginScreen(),
+      home: RegisterStepFiveScreen(),
     );
   }
 }

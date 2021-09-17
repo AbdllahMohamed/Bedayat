@@ -363,7 +363,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                                             children: [
                                               circularImageWithBorder(
                                                 imgPath:
-                                                    "$imagesBaseUrl${teacherController.teacherList[index].profileImg!.replaceAll('public', 'storage')}",
+                                                    "$baseUrl${teacherController.teacherList[index].profileImg!.replaceAll('public', 'storage')}",
                                               ),
                                               SizedBox(
                                                 width: 10,

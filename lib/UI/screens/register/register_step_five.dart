@@ -4,64 +4,66 @@ import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/package_controller.dart';
+import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RegisterStepFiveScreen extends StatefulWidget {
-  final String nameController;
-  final String phoneController;
-  final String emailController;
-  final String passwordController;
-  //final String location;
-  final int selectedBranchIndex;
-  final String childNameController;
-  final String selectedAge;
-  final String selectedType;
-  final String selectedRelationsOne;
-  final String selectedRelationsTwo;
-  final String emergencyNumberController;
-  final String anthorNotesController;
-  final String sensitificController;
-  final String emailOneController;
-  final String phoneOneController;
-  final String emailTwoController;
-  final String phoneTwoController;
-  final int groupId;
-  final int techerId;
+  // final String nameController;
+  // final String phoneController;
+  // final String emailController;
+  // final String passwordController;
+  // //final String location;
+  // final int selectedBranchIndex;
+  // final String childNameController;
+  // final String selectedAge;
+  // final String selectedType;
+  // final String selectedRelationsOne;
+  // final String selectedRelationsTwo;
+  // final String emergencyNumberController;
+  // final String anthorNotesController;
+  // final String sensitificController;
+  // final String emailOneController;
+  // final String phoneOneController;
+  // final String emailTwoController;
+  // final String phoneTwoController;
+  // final int groupId;
+  // final int techerId;
 
-  final XFile? familyCardPhoto;
-  final XFile? vaccinationCertificate;
-  final XFile? doctuumnet;
+  // final XFile? familyCardPhoto;
+  // final XFile? vaccinationCertificate;
+  // final XFile? doctuumnet;
 
-  const RegisterStepFiveScreen({
-    Key? key,
-    required this.nameController,
-    required this.phoneController,
-    required this.emailController,
-    required this.passwordController,
-    //required this.location,
-    required this.selectedBranchIndex,
-    required this.childNameController,
-    required this.selectedAge,
-    required this.selectedType,
-    required this.emergencyNumberController,
-    required this.anthorNotesController,
-    required this.selectedRelationsOne,
-    required this.emailOneController,
-    required this.selectedRelationsTwo,
-    required this.sensitificController,
-    required this.phoneOneController,
-    required this.emailTwoController,
-    required this.phoneTwoController,
-    required this.familyCardPhoto,
-    required this.vaccinationCertificate,
-    required this.doctuumnet,
-    required this.groupId,
-    required this.techerId,
-  }) : super(key: key);
+  // const RegisterStepFiveScreen({
+  //   Key? key,
+  //   required this.nameController,
+  //   required this.phoneController,
+  //   required this.emailController,
+  //   required this.passwordController,
+  //   //required this.location,
+  //   required this.selectedBranchIndex,
+  //   required this.childNameController,
+  //   required this.selectedAge,
+  //   required this.selectedType,
+  //   required this.emergencyNumberController,
+  //   required this.anthorNotesController,
+  //   required this.selectedRelationsOne,
+  //   required this.emailOneController,
+  //   required this.selectedRelationsTwo,
+  //   required this.sensitificController,
+  //   required this.phoneOneController,
+  //   required this.emailTwoController,
+  //   required this.phoneTwoController,
+  //   required this.familyCardPhoto,
+  //   required this.vaccinationCertificate,
+  //   required this.doctuumnet,
+  //   required this.groupId,
+  //   required this.techerId,
+  // }) : super(key: key);
 
   @override
   _RegisterStepFiveScreenState createState() => _RegisterStepFiveScreenState();
@@ -69,6 +71,7 @@ class RegisterStepFiveScreen extends StatefulWidget {
 
 class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
   AuthController authController = Get.put(AuthController());
+  PaymentController paymentController = Get.put(PaymentController());
 
   final PackageController packageController = Get.put(PackageController());
   int? selectedPackageIndex = 0;
@@ -84,6 +87,21 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
   int? selectedBankIndex;
   var _url = 'https://hyperpay.docs.oppwa.com/tutorials/integration-guide';
   registerStepFive() async {
+    String error = await paymentController
+        .getCheckoutId((selectedPackageIndex! + 1).toString());
+
+    if (error != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
+    } else {
+      print("${GetStorage().read('checkoutId')}");
+
+      Get.to(
+        PaymentWebViewScreen(
+          checkoutId: "${GetStorage().read('checkoutId')}",
+        ),
+      );
+    }
+
     // String error = await authController.register(
     //   username: widget.nameController,
     //   email: widget.emailController,
@@ -112,7 +130,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     // } else {
     //   Get.to(PaymentWebViewScreen());
     // }
-    !kIsWeb ? Get.to(PaymentWebViewScreen()) : _launchURL();
+    // !kIsWeb ? Get.to(PaymentWebViewScreen()) : _launchURL();
   }
 
   void _launchURL() async {

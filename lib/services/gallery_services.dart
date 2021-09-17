@@ -5,7 +5,7 @@ import 'package:get_storage/get_storage.dart';
 
 class GalleryServices {
   static Future<List<Gallery>?> getAll(int childId) async {
-    Response response = await Dio().get("$baseUrl/child/gallery/$childId",
+    Response response = await Dio().get("$baseApiUrl/child/gallery/$childId",
         options: Options(
             headers: {
               "Authorization": "Bearer ${GetStorage().read('token')}",

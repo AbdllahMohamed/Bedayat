@@ -292,7 +292,7 @@ class ProfileScreen extends StatelessWidget {
                                                                                   ReportScreen(
                                                                                     name: childernController.childernList[i].name,
                                                                                     classNmber: childernController.childernList[i].ageGroup,
-                                                                                    image: "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                                                    image: "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                                                                   ),
                                                                                 );
                                                                               },
@@ -356,7 +356,7 @@ class ProfileScreen extends StatelessWidget {
                                                           ),
                                                           circularImageWithBorder(
                                                             imgPath:
-                                                                "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                                "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                                           ),
                                                         ],
                                                       );
@@ -546,7 +546,7 @@ class ProfileScreen extends StatelessWidget {
                                                     right: 5),
                                                 child: circularImageWithBorder(
                                                   imgPath:
-                                                      "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                      "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                                 ),
                                               ),
                                             ],
@@ -560,7 +560,7 @@ class ProfileScreen extends StatelessWidget {
                                             .childernList.length,
                                         itemBuilder: (_, i) {
                                           print(
-                                              "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}");
+                                              "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}");
                                           return Stack(
                                             children: [
                                               InkWell(
@@ -698,7 +698,7 @@ class ProfileScreen extends StatelessWidget {
                                                                                   ReportScreen(
                                                                                     name: childernController.childernList[i].name,
                                                                                     classNmber: childernController.childernList[i].ageGroup,
-                                                                                    image: "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                                                    image: "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                                                                   ),
                                                                                 );
                                                                               },
@@ -762,7 +762,7 @@ class ProfileScreen extends StatelessWidget {
                                                           ),
                                                           circularImageWithBorder(
                                                             imgPath:
-                                                                "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                                "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                                           ),
                                                         ],
                                                       );
@@ -955,7 +955,7 @@ class ProfileScreen extends StatelessWidget {
                                                 ),
                                                 child: circularImageWithBorder(
                                                   imgPath:
-                                                      "$imagesBaseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                      "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                                 ),
                                               ),
                                             ],
