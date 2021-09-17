@@ -1,6 +1,7 @@
 import 'package:bedayat/controllers/add_child_controller.dart';
 import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/branch_controller.dart';
+import 'package:bedayat/controllers/checkout_status_controller.dart';
 import 'package:bedayat/controllers/childern_controller.dart';
 import 'package:bedayat/controllers/event_controller.dart';
 import 'package:bedayat/controllers/gallery_controller.dart';
@@ -31,5 +32,7 @@ class AppBinding implements Bindings {
     Get.lazyPut<NotificationController>(() => NotificationController(),
         fenix: true);
     Get.lazyPut<PaymentController>(() => PaymentController(), fenix: true);
+    Get.lazyPut<CheckoutStatusController>(() => CheckoutStatusController(),
+        fenix: true);
   }
 }
