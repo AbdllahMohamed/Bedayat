@@ -6,27 +6,28 @@ import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class GalleryWidget extends StatefulWidget {
-  GalleryController galleryController = Get.put(GalleryController());
   int childId;
-  GalleryWidget({required this.childId, required this.galleryController});
+  GalleryWidget({required this.childId});
 
   @override
   _GalleryWidgetState createState() => _GalleryWidgetState();
 }
 
 class _GalleryWidgetState extends State<GalleryWidget> {
+  final GalleryController galleryController = Get.put(GalleryController());
+
   @override
   void initState() {
     super.initState();
     print("widget.childId");
     print(widget.childId);
-    widget.galleryController.fetchGallery(widget.childId);
+    galleryController.fetchGallery(widget.childId);
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => widget.galleryController.loadingProcess.value
+      () => galleryController.loadingProcess.value
           ? Padding(
               padding: const EdgeInsets.only(top: 100.0),
               child: Container(
@@ -43,7 +44,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
             )
           : GridView.builder(
               padding: EdgeInsets.only(top: 20),
-              itemCount: widget.galleryController.galleryList.length,
+              itemCount: galleryController.galleryList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 5,
@@ -51,11 +52,11 @@ class _GalleryWidgetState extends State<GalleryWidget> {
               ),
               itemBuilder: (BuildContext context, int index) {
                 print(
-                    "$baseUrl${widget.galleryController.galleryList[index].img!.replaceAll('public', 'storage')}");
+                    "$baseUrl${galleryController.galleryList[index].img!.replaceAll('public', 'storage')}");
                 return ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.network(
-                        "$baseUrl${widget.galleryController.galleryList[index].img!.replaceAll('public', 'storage')}"));
+                        "$baseUrl${galleryController.galleryList[index].img!.replaceAll('public', 'storage')}"));
               },
             ),
     );

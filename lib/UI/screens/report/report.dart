@@ -30,7 +30,6 @@ class ReportScreen extends StatefulWidget {
 class _ReportScreenState extends State<ReportScreen>
     with SingleTickerProviderStateMixin {
   final ReportController reportController = Get.put(ReportController());
-  final GalleryController galleryController = Get.put(GalleryController());
   TabController? _tabController;
   late ScrollController _scrollController;
   @override
@@ -246,7 +245,6 @@ class _ReportScreenState extends State<ReportScreen>
                                 .reportsList[0].tempratureDegree!,
                           ),
                           GalleryWidget(
-                            galleryController: galleryController,
                             childId: reportController.reportsList[0].childId!,
                           )
                         ],

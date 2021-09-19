@@ -1,8 +1,7 @@
 class Gallery {
   int? id;
   String? img;
-  String? childId;
-  String? notes;
+  int? childId;
 
   String? createdAt;
   String? updatedAt;
