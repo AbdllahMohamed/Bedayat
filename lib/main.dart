@@ -37,8 +37,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'GESSTWO',
         colorScheme: ColorScheme.light(primary: AppColors.primaryColor),
       ),
-      //home: token != null ? BottomNavigationWidget() : LoginScreen(),
-      home: RegisterStepFiveScreen(),
+      home: token != null ? BottomNavigationWidget() : LoginScreen(),
     );
   }
 }

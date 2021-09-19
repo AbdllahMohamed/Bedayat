@@ -1,5 +1,6 @@
 import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
 import 'package:bedayat/UI/screens/register/register_step_five.dart';
+import 'package:bedayat/UI/screens/register/register_step_six.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -58,8 +59,25 @@ class _CheckoutStatusScreenState extends State<CheckoutStatusScreen> {
   }
 }
 
-class SucessCheckout extends StatelessWidget {
+class SucessCheckout extends StatefulWidget {
   const SucessCheckout({Key? key}) : super(key: key);
+
+  @override
+  _SucessCheckoutState createState() => _SucessCheckoutState();
+}
+
+class _SucessCheckoutState extends State<SucessCheckout> {
+  @override
+  void initState() {
+    super.initState();
+    _navegatoTo();
+  }
+
+  void _navegatoTo() {
+    Future.delayed(Duration(seconds: 2), () {
+      Get.to(RegisterStepSixScreen());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

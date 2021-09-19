@@ -16,57 +16,57 @@ import 'package:url_launcher/url_launcher.dart';
 int? selectedPackageIndex = 0;
 
 class RegisterStepFiveScreen extends StatefulWidget {
-  // final String nameController;
-  // final String phoneController;
-  // final String emailController;
-  // final String passwordController;
-  // //final String location;
-  // final int selectedBranchIndex;
-  // final String childNameController;
-  // final String selectedAge;
-  // final String selectedType;
-  // final String selectedRelationsOne;
-  // final String selectedRelationsTwo;
-  // final String emergencyNumberController;
-  // final String anthorNotesController;
-  // final String sensitificController;
-  // final String emailOneController;
-  // final String phoneOneController;
-  // final String emailTwoController;
-  // final String phoneTwoController;
-  // final int groupId;
-  // final int techerId;
+  final String nameController;
+  final String phoneController;
+  final String emailController;
+  final String passwordController;
+  //final String location;
+  final int selectedBranchIndex;
+  final String childNameController;
+  final String selectedAge;
+  final String selectedType;
+  final String selectedRelationsOne;
+  final String selectedRelationsTwo;
+  final String emergencyNumberController;
+  final String anthorNotesController;
+  final String sensitificController;
+  final String emailOneController;
+  final String phoneOneController;
+  final String emailTwoController;
+  final String phoneTwoController;
+  final int groupId;
+  final int techerId;
 
-  // final XFile? familyCardPhoto;
-  // final XFile? vaccinationCertificate;
-  // final XFile? doctuumnet;
+  final XFile? familyCardPhoto;
+  final XFile? vaccinationCertificate;
+  final XFile? doctuumnet;
 
-  // const RegisterStepFiveScreen({
-  //   Key? key,
-  //   required this.nameController,
-  //   required this.phoneController,
-  //   required this.emailController,
-  //   required this.passwordController,
-  //   //required this.location,
-  //   required this.selectedBranchIndex,
-  //   required this.childNameController,
-  //   required this.selectedAge,
-  //   required this.selectedType,
-  //   required this.emergencyNumberController,
-  //   required this.anthorNotesController,
-  //   required this.selectedRelationsOne,
-  //   required this.emailOneController,
-  //   required this.selectedRelationsTwo,
-  //   required this.sensitificController,
-  //   required this.phoneOneController,
-  //   required this.emailTwoController,
-  //   required this.phoneTwoController,
-  //   required this.familyCardPhoto,
-  //   required this.vaccinationCertificate,
-  //   required this.doctuumnet,
-  //   required this.groupId,
-  //   required this.techerId,
-  // }) : super(key: key);
+  const RegisterStepFiveScreen({
+    Key? key,
+    required this.nameController,
+    required this.phoneController,
+    required this.emailController,
+    required this.passwordController,
+    //required this.location,
+    required this.selectedBranchIndex,
+    required this.childNameController,
+    required this.selectedAge,
+    required this.selectedType,
+    required this.emergencyNumberController,
+    required this.anthorNotesController,
+    required this.selectedRelationsOne,
+    required this.emailOneController,
+    required this.selectedRelationsTwo,
+    required this.sensitificController,
+    required this.phoneOneController,
+    required this.emailTwoController,
+    required this.phoneTwoController,
+    required this.familyCardPhoto,
+    required this.vaccinationCertificate,
+    required this.doctuumnet,
+    required this.groupId,
+    required this.techerId,
+  }) : super(key: key);
 
   @override
   _RegisterStepFiveScreenState createState() => _RegisterStepFiveScreenState();
@@ -92,61 +92,33 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     String error = await paymentController
         .getCheckoutId((selectedPackageIndex! + 1).toString());
 
-    if (error != "") {
+    String registerError = await authController.register(
+      username: widget.nameController,
+      email: widget.emailController,
+      phone: widget.phoneController,
+      password: widget.passwordController,
+      childname: widget.childNameController,
+      ageGroup: widget.selectedAge,
+      gender: widget.selectedType == 'ولد' ? 'male' : 'female',
+      emergencyNumber: widget.emergencyNumberController,
+      parentOneRealation: widget.selectedRelationsOne,
+      parentOneEmail: widget.emailOneController,
+      parentOnePhone: widget.phoneOneController,
+      parentTwoRealation: widget.selectedRelationsTwo,
+      parentTwoEmail: widget.emailTwoController,
+      parentTwoPhone: widget.phoneTwoController,
+      userId: "1",
+      teacherId: widget.techerId.toString(),
+      groupId: widget.groupId.toString(),
+      familyCard: widget.familyCardPhoto,
+      vaccinationCertificate: widget.vaccinationCertificate,
+      document: widget.doctuumnet!,
+    );
+    if (registerError != "" || error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      // print("${GetStorage().read('checkoutId')}");
-      // !kIsWeb
-      //     ?
-      Get.to(WebViewXPage(checkoutId: "${GetStorage().read('checkoutId')}")
-          // PaymentWebViewScreen(
-          //   checkoutId: "${GetStorage().read('checkoutId')}",
-          // ),
-          );
-
-      // : _launchURL();
+      Get.to(WebViewXPage(checkoutId: "${GetStorage().read('checkoutId')}"));
     }
-
-    // String error = await authController.register(
-    //   username: widget.nameController,
-    //   email: widget.emailController,
-    //   phone: widget.phoneController,
-    //   password: widget.passwordController,
-    //   childname: widget.childNameController,
-    //   ageGroup: widget.selectedAge,
-    //   gender: widget.selectedType == 'ولد' ? 'male' : 'female',
-    //   emergencyNumber: widget.emergencyNumberController,
-    //   parentOneRealation: widget.selectedRelationsOne,
-    //   parentOneEmail: widget.emailOneController,
-    //   parentOnePhone: widget.phoneOneController,
-    //   parentTwoRealation: widget.selectedRelationsTwo,
-    //   parentTwoEmail: widget.emailTwoController,
-    //   parentTwoPhone: widget.phoneTwoController,
-    //   userId: "1",
-    //   teacherId: widget.techerId.toString(),
-    //   groupId: widget.groupId.toString(),
-    //   familyCard: widget.familyCardPhoto,
-    //   vaccinationCertificate: widget.vaccinationCertificate,
-    //   document: widget.doctuumnet!,
-    // );
-
-    // if (error != "") {
-    //   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
-    // } else {
-    //   Get.to(PaymentWebViewScreen());
-    // }
-    // !kIsWeb ? Get.to(PaymentWebViewScreen()) : _launchURL();
-  }
-
-  void _launchURL() async {
-    await canLaunch('$baseUrl/payments/${GetStorage().read('checkoutId')}')
-        ? await launch(
-            '$baseUrl/payments/${GetStorage().read('checkoutId')}',
-            forceSafariVC: true,
-            forceWebView: true,
-            webOnlyWindowName: '_self',
-          )
-        : throw 'Could not launch $_url';
   }
 
   @override
