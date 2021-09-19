@@ -1,4 +1,6 @@
 import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
+import 'package:bedayat/UI/screens/register/register_step_five.dart';
+import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +29,6 @@ class _CheckoutStatusScreenState extends State<CheckoutStatusScreen> {
     super.initState();
     print('in status');
     checkoutStatusController.fetchCheckoutStatusCode(widget.checkoutId);
-    // print(checkoutStatusController.checkoutstatusCodeList[0].code);
   }
 
   @override
@@ -122,7 +123,8 @@ class SucessCheckout extends StatelessWidget {
 }
 
 class FailuarCheckot extends StatelessWidget {
-  const FailuarCheckot({Key? key}) : super(key: key);
+  FailuarCheckot({Key? key}) : super(key: key);
+  PaymentController paymentController = Get.put(PaymentController());
 
   @override
   Widget build(BuildContext context) {
@@ -181,12 +183,16 @@ class FailuarCheckot extends StatelessWidget {
             ),
             SizedBox(height: 50),
             ActionButton(
-              onPressed: () {
-                Get.to(
-                  PaymentWebViewScreen(
-                    checkoutId: "${GetStorage().read('checkoutId')}",
-                  ),
-                );
+              onPressed: () async {
+                String error = await paymentController
+                    .getCheckoutId((selectedPackageIndex! + 1).toString());
+
+                if (error != "") {
+                  Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
+                } else {
+                  Get.to(WebViewXPage(
+                      checkoutId: "${GetStorage().read('checkoutId')}"));
+                }
               },
               label: 'المحاولة من جديد',
             )

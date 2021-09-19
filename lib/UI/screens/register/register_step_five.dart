@@ -2,6 +2,7 @@ import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/package_controller.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
@@ -11,6 +12,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+int? selectedPackageIndex = 0;
 
 class RegisterStepFiveScreen extends StatefulWidget {
   // final String nameController;
@@ -74,7 +77,6 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
   PaymentController paymentController = Get.put(PaymentController());
 
   final PackageController packageController = Get.put(PackageController());
-  int? selectedPackageIndex = 0;
 
   List<String> _banckImage = [
     AppImages.appMadaBank,
@@ -85,7 +87,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     'STC Pay',
   ];
   int? selectedBankIndex;
-  var _url = 'https://hyperpay.docs.oppwa.com/tutorials/integration-guide';
+  var _url = '$baseUrl/payments/${GetStorage().read('checkoutId')}';
   registerStepFive() async {
     String error = await paymentController
         .getCheckoutId((selectedPackageIndex! + 1).toString());
@@ -93,13 +95,16 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     if (error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      print("${GetStorage().read('checkoutId')}");
+      // print("${GetStorage().read('checkoutId')}");
+      // !kIsWeb
+      //     ?
+      Get.to(WebViewXPage(checkoutId: "${GetStorage().read('checkoutId')}")
+          // PaymentWebViewScreen(
+          //   checkoutId: "${GetStorage().read('checkoutId')}",
+          // ),
+          );
 
-      Get.to(
-        PaymentWebViewScreen(
-          checkoutId: "${GetStorage().read('checkoutId')}",
-        ),
-      );
+      // : _launchURL();
     }
 
     // String error = await authController.register(
@@ -134,9 +139,9 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
   }
 
   void _launchURL() async {
-    await canLaunch(_url)
+    await canLaunch('$baseUrl/payments/${GetStorage().read('checkoutId')}')
         ? await launch(
-            _url,
+            '$baseUrl/payments/${GetStorage().read('checkoutId')}',
             forceSafariVC: true,
             forceWebView: true,
             webOnlyWindowName: '_self',
