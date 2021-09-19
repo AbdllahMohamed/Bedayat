@@ -1,4 +1,4 @@
-import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
+import 'package:bedayat/UI/screens/payment_web_view/register_payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
@@ -92,7 +92,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
       Get.to(
-        WebViewXPage(
+        RegisterPaymentWebviewScreen(
           nameController: widget.nameController,
           phoneController: widget.phoneController,
           emailController: widget.emailController,

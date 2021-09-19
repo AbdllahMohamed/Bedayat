@@ -39,7 +39,7 @@ class AppImages {
   static const appMeduimFoodNormal = 'assets/images/meduim_food_normal.png';
   static const appMeduimFoodColored = 'assets/images/meduim_food_Colored.png';
   static const appHighFoodNormal = 'assets/images/high_food_normal.png';
-  static const appHighFoodColored = 'assets/images/high_food_Colored.png';
+  static const appHighFoodColored = 'assets/images/high_food_colored.png';
 
   static const appLowDrinkNormal = 'assets/images/low_drink_normal.png';
   static const appLowDrinkColored = 'assets/images/low_drink_colored.png';

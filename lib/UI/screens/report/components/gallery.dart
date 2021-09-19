@@ -6,59 +6,63 @@ import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class GalleryWidget extends StatefulWidget {
+  GalleryController galleryController = Get.put(GalleryController());
   int childId;
-  GalleryWidget({required this.childId});
+  GalleryWidget({required this.childId, required this.galleryController});
 
   @override
   _GalleryWidgetState createState() => _GalleryWidgetState();
 }
 
 class _GalleryWidgetState extends State<GalleryWidget> {
-  final GalleryController galleryController = Get.put(GalleryController());
-
   @override
   void initState() {
     super.initState();
     print("widget.childId");
     print(widget.childId);
-    galleryController.fetchGallery(widget.childId);
+    widget.galleryController.fetchGallery(widget.childId);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => galleryController.loadingProcess.value
-          ? Padding(
-              padding: const EdgeInsets.only(top: 100.0),
-              child: Container(
-                width: 200,
-                height: 240,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      AppColors.accentColor,
-                    ),
+    return Obx(() => widget.galleryController.loadingProcess.value
+        ? Padding(
+            padding: const EdgeInsets.only(top: 100.0),
+            child: Container(
+              width: 200,
+              height: 240,
+              child: Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    AppColors.accentColor,
                   ),
                 ),
               ),
-            )
-          : GridView.builder(
-              padding: EdgeInsets.only(top: 20),
-              itemCount: galleryController.galleryList.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 5,
-                childAspectRatio: 3 / 2,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                print(
-                    "$baseUrl${galleryController.galleryList[index].img!.replaceAll('public', 'storage')}");
-                return ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                        "$baseUrl${galleryController.galleryList[index].img!.replaceAll('public', 'storage')}"));
-              },
             ),
-    );
+          )
+        : widget.galleryController.galleryList.length == 0
+            ? Center(
+                child: Text(
+                  'لاتوجد بيانات',
+                  style: TextStyle(fontSize: 22, color: AppColors.accentColor),
+                ),
+              )
+            : GridView.builder(
+                padding: EdgeInsets.only(top: 20),
+                itemCount: widget.galleryController.galleryList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 5,
+                  childAspectRatio: 3 / 2,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  print(
+                      "$baseUrl${widget.galleryController.galleryList[index].img!.replaceAll('public', 'storage')}");
+                  return ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                          "$baseUrl${widget.galleryController.galleryList[index].img!.replaceAll('public', 'storage')}"));
+                },
+              ));
   }
 }

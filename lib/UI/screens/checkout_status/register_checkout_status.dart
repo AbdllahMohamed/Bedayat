@@ -1,4 +1,4 @@
-import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
+import 'package:bedayat/UI/screens/payment_web_view/register_payment_web_view.dart';
 import 'package:bedayat/UI/screens/register/register_step_five.dart';
 import 'package:bedayat/UI/screens/register/register_step_six.dart';
 import 'package:bedayat/controllers/auth_services.dart';
@@ -14,7 +14,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 // ignore: must_be_immutable
-class CheckoutStatusScreen extends StatefulWidget {
+class RegisterCheckoutStautusScreen extends StatefulWidget {
   String checkoutId;
   final String nameController;
   final String phoneController;
@@ -40,7 +40,7 @@ class CheckoutStatusScreen extends StatefulWidget {
   final XFile? familyCardPhoto;
   final XFile? vaccinationCertificate;
   final XFile? doctuumnet;
-  CheckoutStatusScreen(
+  RegisterCheckoutStautusScreen(
       {Key? key,
       required this.checkoutId,
       required this.nameController,
@@ -68,10 +68,12 @@ class CheckoutStatusScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  _CheckoutStatusScreenState createState() => _CheckoutStatusScreenState();
+  _RegisterCheckoutStautusScreenState createState() =>
+      _RegisterCheckoutStautusScreenState();
 }
 
-class _CheckoutStatusScreenState extends State<CheckoutStatusScreen> {
+class _RegisterCheckoutStautusScreenState
+    extends State<RegisterCheckoutStautusScreen> {
   CheckoutStatusController checkoutStatusController =
       Get.put(CheckoutStatusController());
   @override
@@ -125,7 +127,32 @@ class _CheckoutStatusScreenState extends State<CheckoutStatusScreen> {
                           techerId: widget.techerId,
                           checkoutId: widget.checkoutId,
                         )
-                      : FailuarCheckot();
+                      : FailuarCheckot(
+                          nameController: widget.nameController,
+                          phoneController: widget.phoneController,
+                          emailController: widget.emailController,
+                          passwordController: widget.passwordController,
+                          selectedBranchIndex: widget.selectedBranchIndex,
+                          childNameController: widget.childNameController,
+                          selectedAge: widget.selectedAge,
+                          selectedType: widget.selectedType,
+                          selectedRelationsOne: widget.selectedRelationsOne,
+                          selectedRelationsTwo: widget.selectedRelationsTwo,
+                          emergencyNumberController:
+                              widget.emergencyNumberController,
+                          anthorNotesController: widget.anthorNotesController,
+                          sensitificController: widget.sensitificController,
+                          emailOneController: widget.emailController,
+                          phoneOneController: widget.phoneOneController,
+                          emailTwoController: widget.emailTwoController,
+                          phoneTwoController: widget.phoneTwoController,
+                          familyCardPhoto: widget.familyCardPhoto,
+                          vaccinationCertificate: widget.vaccinationCertificate,
+                          doctuumnet: widget.doctuumnet,
+                          groupId: widget.groupId,
+                          techerId: widget.techerId,
+                          checkoutId: "${GetStorage().read('checkoutId')}",
+                        );
                 },
               ),
       ),
@@ -133,6 +160,7 @@ class _CheckoutStatusScreenState extends State<CheckoutStatusScreen> {
   }
 }
 
+// ignore: must_be_immutable
 class SucessCheckout extends StatefulWidget {
   String checkoutId;
   final String nameController;
@@ -223,9 +251,9 @@ class _SucessCheckoutState extends State<SucessCheckout> {
       document: widget.doctuumnet!,
     );
     print(registerError);
-    // Future.delayed(Duration(seconds: 2), () {
-    //   Get.to(RegisterStepSixScreen());
-    // });
+    Future.delayed(Duration(seconds: 2), () {
+      Get.to(RegisterStepSixScreen());
+    });
   }
 
   @override
@@ -289,8 +317,65 @@ class _SucessCheckoutState extends State<SucessCheckout> {
   }
 }
 
-class FailuarCheckot extends StatelessWidget {
-  FailuarCheckot({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class FailuarCheckot extends StatefulWidget {
+  String checkoutId;
+  final String nameController;
+  final String phoneController;
+  final String emailController;
+  final String passwordController;
+  //final String location;
+  final int selectedBranchIndex;
+  final String childNameController;
+  final String selectedAge;
+  final String selectedType;
+  final String selectedRelationsOne;
+  final String selectedRelationsTwo;
+  final String emergencyNumberController;
+  final String anthorNotesController;
+  final String sensitificController;
+  final String emailOneController;
+  final String phoneOneController;
+  final String emailTwoController;
+  final String phoneTwoController;
+  final int groupId;
+  final int techerId;
+
+  final XFile? familyCardPhoto;
+  final XFile? vaccinationCertificate;
+  final XFile? doctuumnet;
+  FailuarCheckot(
+      {Key? key,
+      required this.checkoutId,
+      required this.nameController,
+      required this.phoneController,
+      required this.emailController,
+      required this.passwordController,
+      required this.selectedBranchIndex,
+      required this.childNameController,
+      required this.selectedAge,
+      required this.selectedType,
+      required this.selectedRelationsOne,
+      required this.selectedRelationsTwo,
+      required this.emergencyNumberController,
+      required this.anthorNotesController,
+      required this.sensitificController,
+      required this.emailOneController,
+      required this.phoneOneController,
+      required this.emailTwoController,
+      required this.phoneTwoController,
+      required this.groupId,
+      required this.techerId,
+      required this.familyCardPhoto,
+      required this.vaccinationCertificate,
+      required this.doctuumnet})
+      : super(key: key);
+
+  @override
+  _FailuarCheckotState createState() => _FailuarCheckotState();
+}
+
+class _FailuarCheckotState extends State<FailuarCheckot> {
   PaymentController paymentController = Get.put(PaymentController());
 
   @override
@@ -357,8 +442,31 @@ class FailuarCheckot extends StatelessWidget {
                 if (error != "") {
                   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
                 } else {
-                  // Get.to(WebViewXPage(
-                  //     checkoutId: "${GetStorage().read('checkoutId')}"));
+                  RegisterPaymentWebviewScreen(
+                    nameController: widget.nameController,
+                    phoneController: widget.phoneController,
+                    emailController: widget.emailController,
+                    passwordController: widget.passwordController,
+                    selectedBranchIndex: widget.selectedBranchIndex,
+                    childNameController: widget.childNameController,
+                    selectedAge: widget.selectedAge,
+                    selectedType: widget.selectedType,
+                    selectedRelationsOne: widget.selectedRelationsOne,
+                    selectedRelationsTwo: widget.selectedRelationsTwo,
+                    emergencyNumberController: widget.emergencyNumberController,
+                    anthorNotesController: widget.anthorNotesController,
+                    sensitificController: widget.sensitificController,
+                    emailOneController: widget.emailController,
+                    phoneOneController: widget.phoneOneController,
+                    emailTwoController: widget.emailTwoController,
+                    phoneTwoController: widget.phoneTwoController,
+                    familyCardPhoto: widget.familyCardPhoto,
+                    vaccinationCertificate: widget.vaccinationCertificate,
+                    doctuumnet: widget.doctuumnet,
+                    groupId: widget.groupId,
+                    techerId: widget.techerId,
+                    checkoutId: "${GetStorage().read('checkoutId')}",
+                  );
                 }
               },
               label: 'المحاولة من جديد',

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:bedayat/UI/screens/checkout_status/checkout_status.dart';
+import 'package:bedayat/UI/screens/checkout_status/register_checkout_status.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:webviewx/webviewx.dart';
 
 // ignore: must_be_immutable
-class WebViewXPage extends StatefulWidget {
+class RegisterPaymentWebviewScreen extends StatefulWidget {
   String checkoutId;
   final String nameController;
   final String phoneController;
@@ -36,7 +36,7 @@ class WebViewXPage extends StatefulWidget {
   final XFile? vaccinationCertificate;
   final XFile? doctuumnet;
 
-  WebViewXPage(
+  RegisterPaymentWebviewScreen(
       {Key? key,
       required this.checkoutId,
       required this.nameController,
@@ -64,10 +64,12 @@ class WebViewXPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _WebViewXPageState createState() => _WebViewXPageState();
+  _RegisterPaymentWebviewScreenState createState() =>
+      _RegisterPaymentWebviewScreenState();
 }
 
-class _WebViewXPageState extends State<WebViewXPage> {
+class _RegisterPaymentWebviewScreenState
+    extends State<RegisterPaymentWebviewScreen> {
   late WebViewXController webviewController;
 
   Size get screenSize => MediaQuery.of(context).size;
@@ -87,7 +89,7 @@ class _WebViewXPageState extends State<WebViewXPage> {
   }
 
   void _navegatoTo() {
-    Get.to(CheckoutStatusScreen(
+    Get.to(RegisterCheckoutStautusScreen(
       nameController: widget.nameController,
       phoneController: widget.phoneController,
       emailController: widget.emailController,
@@ -131,28 +133,33 @@ class _WebViewXPageState extends State<WebViewXPage> {
         title: const Text('Payement'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: <Widget>[
-              Container(
-                child: WebViewX(
-                  key: const ValueKey('webviewx'),
-                  initialContent: url,
-                  initialSourceType: SourceType.urlBypass,
-                  height: screenSize.height * 0.8,
-                  width: screenSize.width * 0.8,
-                  onWebViewCreated: (controller) =>
-                      webviewController = controller,
-                  navigationDelegate: (navigation) {
-                    if (navigation.content.source.toString() !=
-                        '$baseUrl/payments/${widget.checkoutId}') _navegatoTo();
-                    return NavigationDecision.navigate;
-                  },
-                ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Center(
+            child: Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: WebViewX(
+                      key: const ValueKey('webviewx'),
+                      initialContent: url,
+                      initialSourceType: SourceType.urlBypass,
+                      height: screenSize.height,
+                      width: screenSize.width * 0.8,
+                      onWebViewCreated: (controller) =>
+                          webviewController = controller,
+                      navigationDelegate: (navigation) {
+                        if (navigation.content.source.toString() !=
+                            '$baseUrl/payments/${widget.checkoutId}')
+                          _navegatoTo();
+                        return NavigationDecision.navigate;
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

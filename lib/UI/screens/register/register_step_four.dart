@@ -37,9 +37,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
   @override
   void initState() {
     super.initState();
-    print(widget.selectedBranchIndex);
     groupController.fetchGroups(widget.selectedBranchIndex);
-    teacherController.fetchTeachers(widget.selectedBranchIndex);
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -237,6 +235,8 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                                     groupController
                                                         .groupList[index].id;
                                                 print(selectedGroupIndex);
+                                                teacherController.fetchTeachers(
+                                                    selectedGroupIndex!);
                                               });
                                             },
                                             child: Container(
@@ -291,7 +291,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                             : teacherController.teacherList.length == 0
                                 ? Center(
                                     child: Text(
-                                      'لاتوجد بيانات',
+                                      '',
                                       style: TextStyle(
                                           fontSize: 22,
                                           color: AppColors.accentColor),
@@ -315,6 +315,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                         },
                                         child: Container(
                                           padding: EdgeInsets.all(10),
+                                          margin: EdgeInsets.only(top: 10),
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: selectedTeacherIndex ==

@@ -60,7 +60,6 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
   void initState() {
     super.initState();
     groupController.fetchGroups(widget.selectedBranchIndex);
-    teacherController.fetchTeachers(widget.selectedBranchIndex);
 
     _emergencyNumberController =
         TextEditingController(text: widget.emergaceyNumber);
@@ -262,6 +261,8 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                                                     groupController
                                                         .groupList[index].id;
                                                 print(selectedGroupIndex);
+                                                teacherController.fetchTeachers(
+                                                    selectedGroupIndex!);
                                               });
                                             },
                                             child: Container(
@@ -343,6 +344,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                                         },
                                         child: Container(
                                           padding: EdgeInsets.all(10),
+                                          margin: EdgeInsets.only(top: 10),
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: selectedTeacherIndex ==

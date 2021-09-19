@@ -1,4 +1,5 @@
-import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
+import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.dart';
+import 'package:bedayat/UI/screens/payment_web_view/register_payment_web_view.dart';
 import 'package:bedayat/UI/screens/register/register_step_six.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
@@ -11,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AddChildStepFourScreen extends StatefulWidget {
   final int selectedBranchIndex;
@@ -76,36 +76,36 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
     'STC Pay',
   ];
   int? selectedBankIndex = 0;
-  var _url = 'https://hyperpay.docs.oppwa.com/tutorials/integration-guide';
 
   addChildStepFour() async {
     String paymentError = await paymentController
         .getCheckoutId((selectedPackageIndex! + 1).toString());
-
-    String error = await authController.addChild(
-      childname: widget.childNameController,
-      ageGroup: widget.selectedAge,
-      gender: widget.selectedType == 'ولد' ? 'male' : 'female',
-      emergencyNumber: widget.emergencyNumberController,
-      parentOneRealation: widget.selectedRelationsOne,
-      parentOneEmail: widget.emailOneController,
-      parentOnePhone: widget.phoneOneController,
-      parentTwoRealation: widget.selectedRelationsTwo,
-      parentTwoEmail: widget.emailTwoController,
-      parentTwoPhone: widget.phoneTwoController,
-      userId: "1",
-      teacherId: widget.techerId.toString(),
-      groupId: widget.groupId.toString(),
-      familyCard: widget.familyCardPhoto,
-      vaccinationCertificate: widget.vaccinationCertificate,
-      document: widget.doctuumnet!,
-    );
-    print(error);
-
-    if (error != "" || paymentError == "") {
-      Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
+    if (paymentError != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: paymentError);
     } else {
-      //Get.to(WebViewXPage(checkoutId: "${GetStorage().read('checkoutId')}"));
+      Get.to(
+        AddChildPaymentWebviewScreen(
+          selectedBranchIndex: widget.selectedBranchIndex,
+          childNameController: widget.childNameController,
+          selectedAge: widget.selectedAge,
+          selectedType: widget.selectedType,
+          selectedRelationsOne: widget.selectedRelationsOne,
+          selectedRelationsTwo: widget.selectedRelationsTwo,
+          emergencyNumberController: widget.emergencyNumberController,
+          anthorNotesController: widget.anthorNotesController,
+          sensitificController: widget.sensitificController,
+          phoneOneController: widget.phoneOneController,
+          emailOneController: widget.emailOneController,
+          emailTwoController: widget.emailTwoController,
+          phoneTwoController: widget.phoneTwoController,
+          familyCardPhoto: widget.familyCardPhoto,
+          vaccinationCertificate: widget.vaccinationCertificate,
+          doctuumnet: widget.doctuumnet,
+          groupId: widget.groupId,
+          techerId: widget.techerId,
+          checkoutId: "${GetStorage().read('checkoutId')}",
+        ),
+      );
     }
   }
 
@@ -480,16 +480,11 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                 SizedBox(
                   height: 15,
                 ),
-                Obx(() {
-                  // ignore: unrelated_type_equality_checks
-                  return authController.loadingProcess == true
-                      ? Center(child: CircularProgressIndicator())
-                      : ActionButton(
-                          label: 'التالى',
-                          onPressed: () async {
-                            addChildStepFour();
-                          });
-                }),
+                ActionButton(
+                    label: 'التالى',
+                    onPressed: () async {
+                      addChildStepFour();
+                    }),
                 SizedBox(
                   height: 15,
                 ),
