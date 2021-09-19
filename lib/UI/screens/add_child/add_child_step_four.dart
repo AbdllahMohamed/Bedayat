@@ -5,9 +5,11 @@ import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/package_controller.dart';
+import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -60,6 +62,7 @@ class AddChildStepFourScreen extends StatefulWidget {
 
 class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
   AuthController authController = Get.put(AuthController());
+  PaymentController paymentController = Get.put(PaymentController());
 
   final PackageController packageController = Get.put(PackageController());
   int? selectedPackageIndex = 0;
@@ -76,6 +79,9 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
   var _url = 'https://hyperpay.docs.oppwa.com/tutorials/integration-guide';
 
   addChildStepFour() async {
+    String paymentError = await paymentController
+        .getCheckoutId((selectedPackageIndex! + 1).toString());
+
     String error = await authController.addChild(
       childname: widget.childNameController,
       ageGroup: widget.selectedAge,
@@ -96,22 +102,11 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
     );
     print(error);
 
-    if (error != "") {
+    if (error != "" || paymentError == "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      // !kIsWeb ? Get.to(PaymentWebViewScreen()) : _launchURL();
+      //Get.to(WebViewXPage(checkoutId: "${GetStorage().read('checkoutId')}"));
     }
-  }
-
-  void _launchURL() async {
-    await canLaunch(_url)
-        ? await launch(
-            _url,
-            forceSafariVC: true,
-            forceWebView: true,
-            webOnlyWindowName: '_self',
-          )
-        : throw 'Could not launch $_url';
   }
 
   @override

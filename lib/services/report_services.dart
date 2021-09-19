@@ -4,8 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 
 class ReportServices {
-  static Future<List<Report>?> getAll() async {
-    Response response = await Dio().get("$baseApiUrl/child/report/7",
+  static Future<List<Report>?> getAll(int childId) async {
+    print(childId);
+    Response response = await Dio().get("$baseApiUrl/child/report/$childId",
         options: Options(
             headers: {
               "Authorization": "Bearer ${GetStorage().read('token')}",
@@ -17,6 +18,7 @@ class ReportServices {
               return status! < 500;
             }));
     List<Report> temp = [];
+    print(response.data);
     temp.add(Report.fromJson(response.data));
 
     return temp;

@@ -17,9 +17,9 @@ class GalleryServices {
               return status! < 500;
             }));
     List<Gallery> temp = [];
+    print('gallery');
     print(response.data);
     response.data['data'].forEach((e) => temp.add(Gallery.fromJson(e)));
-    print(response.data);
     return temp;
 
     //return null;

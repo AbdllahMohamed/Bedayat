@@ -5,6 +5,10 @@ import 'package:get/get.dart';
 class GalleryController extends GetxController {
   var galleryList = <Gallery>[].obs;
   var loadingProcess = false.obs;
+  @override
+  void onInit() {
+    super.onInit();
+  }
 
   void fetchGallery(int childId) async {
     try {

@@ -15,12 +15,13 @@ class ReportScreen extends StatefulWidget {
   String? name;
   String? classNmber;
   String? image;
+  int childId;
 
-  ReportScreen({
-    required this.name,
-    required this.classNmber,
-    required this.image,
-  });
+  ReportScreen(
+      {required this.name,
+      required this.classNmber,
+      required this.image,
+      required this.childId});
 
   @override
   _ReportScreenState createState() => _ReportScreenState();
@@ -36,6 +37,7 @@ class _ReportScreenState extends State<ReportScreen>
   void initState() {
     _tabController = new TabController(length: 4, vsync: this);
     _scrollController = ScrollController();
+    reportController.fetchReports(widget.childId);
     super.initState();
   }
 

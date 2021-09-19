@@ -9,13 +9,12 @@ class ReportController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchReports();
   }
 
-  void fetchReports() async {
+  void fetchReports(int childId) async {
     try {
       loadingProcess(true);
-      var reports = await ReportServices.getAll();
+      var reports = await ReportServices.getAll(childId);
       if (reports != null) {
         reportsList.value = reports;
       }

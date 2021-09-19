@@ -2,8 +2,6 @@ import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:bedayat/const/const.dart';
-import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/package_controller.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/foundation.dart';
@@ -11,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 int? selectedPackageIndex = 0;
 
@@ -73,7 +70,6 @@ class RegisterStepFiveScreen extends StatefulWidget {
 }
 
 class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
-  AuthController authController = Get.put(AuthController());
   PaymentController paymentController = Get.put(PaymentController());
 
   final PackageController packageController = Get.put(PackageController());
@@ -87,37 +83,41 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     'STC Pay',
   ];
   int? selectedBankIndex;
-  var _url = '$baseUrl/payments/${GetStorage().read('checkoutId')}';
   registerStepFive() async {
     String error = await paymentController
         .getCheckoutId((selectedPackageIndex! + 1).toString());
 
-    String registerError = await authController.register(
-      username: widget.nameController,
-      email: widget.emailController,
-      phone: widget.phoneController,
-      password: widget.passwordController,
-      childname: widget.childNameController,
-      ageGroup: widget.selectedAge,
-      gender: widget.selectedType == 'ولد' ? 'male' : 'female',
-      emergencyNumber: widget.emergencyNumberController,
-      parentOneRealation: widget.selectedRelationsOne,
-      parentOneEmail: widget.emailOneController,
-      parentOnePhone: widget.phoneOneController,
-      parentTwoRealation: widget.selectedRelationsTwo,
-      parentTwoEmail: widget.emailTwoController,
-      parentTwoPhone: widget.phoneTwoController,
-      userId: "1",
-      teacherId: widget.techerId.toString(),
-      groupId: widget.groupId.toString(),
-      familyCard: widget.familyCardPhoto,
-      vaccinationCertificate: widget.vaccinationCertificate,
-      document: widget.doctuumnet!,
-    );
-    if (registerError != "" || error != "") {
+    print(error);
+    if (error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      Get.to(WebViewXPage(checkoutId: "${GetStorage().read('checkoutId')}"));
+      Get.to(
+        WebViewXPage(
+          nameController: widget.nameController,
+          phoneController: widget.phoneController,
+          emailController: widget.emailController,
+          passwordController: widget.passwordController,
+          selectedBranchIndex: widget.selectedBranchIndex,
+          childNameController: widget.childNameController,
+          selectedAge: widget.selectedAge,
+          selectedType: widget.selectedType,
+          selectedRelationsOne: widget.selectedRelationsOne,
+          selectedRelationsTwo: widget.selectedRelationsTwo,
+          emergencyNumberController: widget.emergencyNumberController,
+          anthorNotesController: widget.anthorNotesController,
+          sensitificController: widget.sensitificController,
+          emailOneController: widget.emailController,
+          phoneOneController: widget.phoneOneController,
+          emailTwoController: widget.emailTwoController,
+          phoneTwoController: widget.phoneTwoController,
+          familyCardPhoto: widget.familyCardPhoto,
+          vaccinationCertificate: widget.vaccinationCertificate,
+          doctuumnet: widget.doctuumnet,
+          groupId: widget.groupId,
+          techerId: widget.techerId,
+          checkoutId: "${GetStorage().read('checkoutId')}",
+        ),
+      );
     }
   }
 
@@ -488,16 +488,11 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                 SizedBox(
                   height: 15,
                 ),
-                Obx(() {
-                  // ignore: unrelated_type_equality_checks
-                  return authController.loadingProcess == true
-                      ? Center(child: CircularProgressIndicator())
-                      : ActionButton(
-                          label: 'التالى',
-                          onPressed: () async {
-                            registerStepFive();
-                          });
-                }),
+                ActionButton(
+                    label: 'التالى',
+                    onPressed: () async {
+                      registerStepFive();
+                    }),
                 SizedBox(
                   height: 15,
                 ),

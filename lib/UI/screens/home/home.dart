@@ -512,6 +512,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                   name: childernController.childernList[i].name,
                                                                                   classNmber: childernController.childernList[i].ageGroup,
                                                                                   image: "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                                                  childId: childernController.childernList[i].id!,
                                                                                 ),
                                                                               );
                                                                             },
@@ -930,6 +931,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                   name: childernController.childernList[i].name,
                                                                                   classNmber: childernController.childernList[i].ageGroup,
                                                                                   image: "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                                                                  childId: childernController.childernList[i].id!,
                                                                                 ),
                                                                               );
                                                                             },

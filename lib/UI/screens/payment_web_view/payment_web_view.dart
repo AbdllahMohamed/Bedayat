@@ -4,11 +4,64 @@ import 'package:bedayat/UI/screens/checkout_status/checkout_status.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:webviewx/webviewx.dart';
 
+// ignore: must_be_immutable
 class WebViewXPage extends StatefulWidget {
   String checkoutId;
-  WebViewXPage({Key? key, required this.checkoutId}) : super(key: key);
+  final String nameController;
+  final String phoneController;
+  final String emailController;
+  final String passwordController;
+  //final String location;
+  final int selectedBranchIndex;
+  final String childNameController;
+  final String selectedAge;
+  final String selectedType;
+  final String selectedRelationsOne;
+  final String selectedRelationsTwo;
+  final String emergencyNumberController;
+  final String anthorNotesController;
+  final String sensitificController;
+  final String emailOneController;
+  final String phoneOneController;
+  final String emailTwoController;
+  final String phoneTwoController;
+  final int groupId;
+  final int techerId;
+
+  final XFile? familyCardPhoto;
+  final XFile? vaccinationCertificate;
+  final XFile? doctuumnet;
+
+  WebViewXPage(
+      {Key? key,
+      required this.checkoutId,
+      required this.nameController,
+      required this.phoneController,
+      required this.emailController,
+      required this.passwordController,
+      required this.selectedBranchIndex,
+      required this.childNameController,
+      required this.selectedAge,
+      required this.selectedType,
+      required this.selectedRelationsOne,
+      required this.selectedRelationsTwo,
+      required this.emergencyNumberController,
+      required this.anthorNotesController,
+      required this.sensitificController,
+      required this.emailOneController,
+      required this.phoneOneController,
+      required this.emailTwoController,
+      required this.phoneTwoController,
+      required this.groupId,
+      required this.techerId,
+      required this.familyCardPhoto,
+      required this.vaccinationCertificate,
+      required this.doctuumnet})
+      : super(key: key);
 
   @override
   _WebViewXPageState createState() => _WebViewXPageState();
@@ -34,7 +87,31 @@ class _WebViewXPageState extends State<WebViewXPage> {
   }
 
   void _navegatoTo() {
-    Get.to(CheckoutStatusScreen(checkoutId: widget.checkoutId));
+    Get.to(CheckoutStatusScreen(
+      nameController: widget.nameController,
+      phoneController: widget.phoneController,
+      emailController: widget.emailController,
+      passwordController: widget.passwordController,
+      selectedBranchIndex: widget.selectedBranchIndex,
+      childNameController: widget.childNameController,
+      selectedAge: widget.selectedAge,
+      selectedType: widget.selectedType,
+      selectedRelationsOne: widget.selectedRelationsOne,
+      selectedRelationsTwo: widget.selectedRelationsTwo,
+      emergencyNumberController: widget.emergencyNumberController,
+      anthorNotesController: widget.anthorNotesController,
+      sensitificController: widget.sensitificController,
+      emailOneController: widget.emailController,
+      phoneOneController: widget.phoneOneController,
+      emailTwoController: widget.emailTwoController,
+      phoneTwoController: widget.phoneTwoController,
+      familyCardPhoto: widget.familyCardPhoto,
+      vaccinationCertificate: widget.vaccinationCertificate,
+      doctuumnet: widget.doctuumnet,
+      groupId: widget.groupId,
+      techerId: widget.techerId,
+      checkoutId: widget.checkoutId,
+    ));
   }
 
   @override
@@ -45,6 +122,9 @@ class _WebViewXPageState extends State<WebViewXPage> {
 
   @override
   Widget build(BuildContext context) {
+    String url =
+        'https://600d-154-133-118-79.ngrok.io/payments/${widget.checkoutId}';
+    print(url);
     return Scaffold(
       backgroundColor: Color(0xfff6f6f5),
       appBar: AppBar(
@@ -59,7 +139,7 @@ class _WebViewXPageState extends State<WebViewXPage> {
               Container(
                 child: WebViewX(
                   key: const ValueKey('webviewx'),
-                  initialContent: '$baseUrl/payments/${widget.checkoutId}',
+                  initialContent: url,
                   initialSourceType: SourceType.urlBypass,
                   height: screenSize.height * 0.8,
                   width: screenSize.width * 0.8,

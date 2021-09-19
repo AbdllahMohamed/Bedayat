@@ -1,6 +1,7 @@
 import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
 import 'package:bedayat/UI/screens/register/register_step_five.dart';
 import 'package:bedayat/UI/screens/register/register_step_six.dart';
+import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,14 +11,62 @@ import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/checkout_status_controller.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 // ignore: must_be_immutable
 class CheckoutStatusScreen extends StatefulWidget {
   String checkoutId;
+  final String nameController;
+  final String phoneController;
+  final String emailController;
+  final String passwordController;
+  //final String location;
+  final int selectedBranchIndex;
+  final String childNameController;
+  final String selectedAge;
+  final String selectedType;
+  final String selectedRelationsOne;
+  final String selectedRelationsTwo;
+  final String emergencyNumberController;
+  final String anthorNotesController;
+  final String sensitificController;
+  final String emailOneController;
+  final String phoneOneController;
+  final String emailTwoController;
+  final String phoneTwoController;
+  final int groupId;
+  final int techerId;
 
-  CheckoutStatusScreen({
-    required this.checkoutId,
-  });
+  final XFile? familyCardPhoto;
+  final XFile? vaccinationCertificate;
+  final XFile? doctuumnet;
+  CheckoutStatusScreen(
+      {Key? key,
+      required this.checkoutId,
+      required this.nameController,
+      required this.phoneController,
+      required this.emailController,
+      required this.passwordController,
+      required this.selectedBranchIndex,
+      required this.childNameController,
+      required this.selectedAge,
+      required this.selectedType,
+      required this.selectedRelationsOne,
+      required this.selectedRelationsTwo,
+      required this.emergencyNumberController,
+      required this.anthorNotesController,
+      required this.sensitificController,
+      required this.emailOneController,
+      required this.phoneOneController,
+      required this.emailTwoController,
+      required this.phoneTwoController,
+      required this.groupId,
+      required this.techerId,
+      required this.familyCardPhoto,
+      required this.vaccinationCertificate,
+      required this.doctuumnet})
+      : super(key: key);
+
   @override
   _CheckoutStatusScreenState createState() => _CheckoutStatusScreenState();
 }
@@ -50,7 +99,32 @@ class _CheckoutStatusScreenState extends State<CheckoutStatusScreen> {
                   return checkoutStatusController
                               .checkoutstatusCodeList[i].code ==
                           "000.100.110"
-                      ? SucessCheckout()
+                      ? SucessCheckout(
+                          nameController: widget.nameController,
+                          phoneController: widget.phoneController,
+                          emailController: widget.emailController,
+                          passwordController: widget.passwordController,
+                          selectedBranchIndex: widget.selectedBranchIndex,
+                          childNameController: widget.childNameController,
+                          selectedAge: widget.selectedAge,
+                          selectedType: widget.selectedType,
+                          selectedRelationsOne: widget.selectedRelationsOne,
+                          selectedRelationsTwo: widget.selectedRelationsTwo,
+                          emergencyNumberController:
+                              widget.emergencyNumberController,
+                          anthorNotesController: widget.anthorNotesController,
+                          sensitificController: widget.sensitificController,
+                          emailOneController: widget.emailController,
+                          phoneOneController: widget.phoneOneController,
+                          emailTwoController: widget.emailTwoController,
+                          phoneTwoController: widget.phoneTwoController,
+                          familyCardPhoto: widget.familyCardPhoto,
+                          vaccinationCertificate: widget.vaccinationCertificate,
+                          doctuumnet: widget.doctuumnet,
+                          groupId: widget.groupId,
+                          techerId: widget.techerId,
+                          checkoutId: widget.checkoutId,
+                        )
                       : FailuarCheckot();
                 },
               ),
@@ -60,23 +134,98 @@ class _CheckoutStatusScreenState extends State<CheckoutStatusScreen> {
 }
 
 class SucessCheckout extends StatefulWidget {
-  const SucessCheckout({Key? key}) : super(key: key);
+  String checkoutId;
+  final String nameController;
+  final String phoneController;
+  final String emailController;
+  final String passwordController;
+  //final String location;
+  final int selectedBranchIndex;
+  final String childNameController;
+  final String selectedAge;
+  final String selectedType;
+  final String selectedRelationsOne;
+  final String selectedRelationsTwo;
+  final String emergencyNumberController;
+  final String anthorNotesController;
+  final String sensitificController;
+  final String emailOneController;
+  final String phoneOneController;
+  final String emailTwoController;
+  final String phoneTwoController;
+  final int groupId;
+  final int techerId;
+
+  final XFile? familyCardPhoto;
+  final XFile? vaccinationCertificate;
+  final XFile? doctuumnet;
+  SucessCheckout(
+      {Key? key,
+      required this.checkoutId,
+      required this.nameController,
+      required this.phoneController,
+      required this.emailController,
+      required this.passwordController,
+      required this.selectedBranchIndex,
+      required this.childNameController,
+      required this.selectedAge,
+      required this.selectedType,
+      required this.selectedRelationsOne,
+      required this.selectedRelationsTwo,
+      required this.emergencyNumberController,
+      required this.anthorNotesController,
+      required this.sensitificController,
+      required this.emailOneController,
+      required this.phoneOneController,
+      required this.emailTwoController,
+      required this.phoneTwoController,
+      required this.groupId,
+      required this.techerId,
+      required this.familyCardPhoto,
+      required this.vaccinationCertificate,
+      required this.doctuumnet})
+      : super(key: key);
 
   @override
   _SucessCheckoutState createState() => _SucessCheckoutState();
 }
 
 class _SucessCheckoutState extends State<SucessCheckout> {
+  AuthController authController = Get.put(AuthController());
+
   @override
   void initState() {
     super.initState();
-    _navegatoTo();
+    _registerAndavegatoTo();
   }
 
-  void _navegatoTo() {
-    Future.delayed(Duration(seconds: 2), () {
-      Get.to(RegisterStepSixScreen());
-    });
+  void _registerAndavegatoTo() async {
+    String registerError = await authController.register(
+      username: widget.nameController,
+      email: widget.emailController,
+      phone: widget.phoneController,
+      password: widget.passwordController,
+      childname: widget.childNameController,
+      ageGroup: widget.selectedAge,
+      gender: widget.selectedType == 'ولد' ? 'male' : 'female',
+      emergencyNumber: widget.emergencyNumberController,
+      parentOneRealation: widget.selectedRelationsOne,
+      parentOneEmail: widget.emailOneController,
+      parentOnePhone: widget.phoneOneController,
+      parentTwoRealation: widget.selectedRelationsTwo,
+      parentTwoEmail: widget.emailTwoController,
+      parentTwoPhone: widget.phoneTwoController,
+      userId: "1",
+      teacherId: widget.techerId.toString(),
+      groupId: widget.groupId.toString(),
+      familyCard: widget.familyCardPhoto,
+      vaccinationCertificate: widget.vaccinationCertificate,
+      document: widget.doctuumnet!,
+    );
+    print(registerError);
+    // Future.delayed(Duration(seconds: 2), () {
+    //   Get.to(RegisterStepSixScreen());
+    // });
   }
 
   @override
@@ -208,8 +357,8 @@ class FailuarCheckot extends StatelessWidget {
                 if (error != "") {
                   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
                 } else {
-                  Get.to(WebViewXPage(
-                      checkoutId: "${GetStorage().read('checkoutId')}"));
+                  // Get.to(WebViewXPage(
+                  //     checkoutId: "${GetStorage().read('checkoutId')}"));
                 }
               },
               label: 'المحاولة من جديد',
