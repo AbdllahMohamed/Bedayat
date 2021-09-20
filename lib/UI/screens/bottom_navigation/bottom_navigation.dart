@@ -14,9 +14,9 @@ class BottomNavigationWidget extends StatefulWidget {
 }
 
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
   List<Widget> _screens = [
-    AccountScreen(),
+    // AccountScreen(),
     HomeScreen(),
     ProfileScreen(),
   ];
@@ -64,19 +64,19 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
           });
         },
         items: [
-          BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Center(
-                  child: SvgPicture.asset(
-                    AppImages.appAccountIcon,
-                    width: 35,
-                    height: 30,
-                    color: accountColor,
-                  ),
-                ),
-              ),
-              label: ''),
+          // BottomNavigationBarItem(
+          //     icon: Padding(
+          //       padding: const EdgeInsets.only(top: 10),
+          //       child: Center(
+          //         child: SvgPicture.asset(
+          //           AppImages.appAccountIcon,
+          //           width: 35,
+          //           height: 30,
+          //           color: accountColor,
+          //         ),
+          //       ),
+          //     ),
+          //     label: ''),
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(top: 10),
