@@ -1,12 +1,15 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:bedayat/UI/screens/checkout_status/register_checkout_status.dart';
 import 'package:bedayat/const/const.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:webviewx/webviewx.dart';
+import 'package:webview_flutter/webview_flutter.dart' as webview;
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webviewx/webviewx.dart' as webviewX;
 
 // ignore: must_be_immutable
 class RegisterPaymentWebviewScreen extends StatefulWidget {
@@ -70,9 +73,13 @@ class RegisterPaymentWebviewScreen extends StatefulWidget {
 
 class _RegisterPaymentWebviewScreenState
     extends State<RegisterPaymentWebviewScreen> {
-  late WebViewXController webviewController;
+  late webviewX.WebViewXController webviewController;
 
   Size get screenSize => MediaQuery.of(context).size;
+
+  final Completer<webview.WebViewController> _controller =
+      Completer<webview.WebViewController>();
+
   @override
   void initState() {
     super.initState();
@@ -83,7 +90,7 @@ class _RegisterPaymentWebviewScreenState
     Future.delayed(Duration(seconds: 2), () {
       webviewController.loadContent(
         '$baseUrl/payments/${widget.checkoutId}',
-        SourceType.urlBypass,
+        webviewX.SourceType.urlBypass,
       );
     });
   }
@@ -133,53 +140,52 @@ class _RegisterPaymentWebviewScreenState
         title: const Text('Payement'),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Center(
-            child: Container(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    child: WebViewX(
-                      key: const ValueKey('webviewx'),
-                      initialContent: url,
-                      initialSourceType: SourceType.urlBypass,
-                      height: screenSize.height * 0.9,
-                      width: screenSize.width * 0.8,
-                      onWebViewCreated: (controller) =>
-                          webviewController = controller,
-                      jsContent: const {
-                        EmbeddedJsContent(
-                          js: "function testPlatformIndependentMethod() { console.log('Hi from JS') }",
+      body: kIsWeb
+          ? SafeArea(
+              child: SingleChildScrollView(
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: webviewX.WebViewX(
+                            key: const ValueKey('webviewx'),
+                            initialContent: url,
+                            initialSourceType: webviewX.SourceType.urlBypass,
+                            height: screenSize.height * 0.9,
+                            width: screenSize.width * 0.8,
+                            onWebViewCreated: (controller) =>
+                                webviewController = controller,
+                            navigationDelegate: (navigation) {
+                              if (navigation.content.source.toString() !=
+                                  '$baseUrl/payments/${widget.checkoutId}')
+                                _navegatoTo();
+                              return webviewX.NavigationDecision.navigate;
+                            },
+                          ),
                         ),
-                        EmbeddedJsContent(
-                          webJs:
-                              "function testPlatformSpecificMethod(msg) { TestDartCallback('Web callback says: ' + msg) }",
-                          mobileJs:
-                              "function testPlatformSpecificMethod(msg) { TestDartCallback.postMessage('Mobile callback says: ' + msg) }",
-                        ),
-                      },
-                      webSpecificParams: const WebSpecificParams(
-                        printDebugInfo: true,
-                      ),
-                      mobileSpecificParams: const MobileSpecificParams(
-                        androidEnableHybridComposition: true,
-                      ),
-                      navigationDelegate: (navigation) {
-                        if (navigation.content.source.toString() !=
-                            '$baseUrl/payments/${widget.checkoutId}')
-                          _navegatoTo();
-                        return NavigationDecision.navigate;
-                      },
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
+            )
+          : webview.WebView(
+              initialUrl: url,
+              javascriptMode: webview.JavascriptMode.unrestricted,
+              onWebViewCreated: (webview.WebViewController webViewController) {
+                _controller.complete(webViewController);
+              },
+              onProgress: (int progress) {
+                print("WebView is loading (progress : $progress%)");
+              },
+              navigationDelegate: (NavigationRequest request) {
+                if (request.url != url) _navegatoTo();
+                return webview.NavigationDecision.navigate;
+              },
+              gestureNavigationEnabled: true,
             ),
-          ),
-        ),
-      ),
     );
   }
 }

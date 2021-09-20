@@ -91,6 +91,7 @@ class UsersServices {
       "user_id": userId,
       "teacher_id": teacherId,
       "group_id": groupId,
+      "checkout_id": checkoutId,
       "family_card": await MultipartFile.fromFile(familyCard.path,
           filename: familyCardFile),
       "vaccination_certificate": await MultipartFile.fromFile(
@@ -138,7 +139,7 @@ class UsersServices {
     String? userId,
     String? teacherId,
     String? groupId,
-    String? chekoutId,
+    String? checkoutId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
@@ -165,6 +166,7 @@ class UsersServices {
       "user_id": userId,
       "teacher_id": teacherId,
       "group_id": groupId,
+      "checkout_id": checkoutId,
       "family_card": await MultipartFile.fromFile(familyCard.path,
           filename: familyCardFile),
       "vaccination_certificate": await MultipartFile.fromFile(

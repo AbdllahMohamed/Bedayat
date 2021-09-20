@@ -116,7 +116,7 @@ class AuthController extends GetxController {
         userId: userId,
         teacherId: teacherId,
         groupId: groupId,
-        chekoutId: chekoutId,
+        checkoutId: chekoutId,
         familyCard: familyCard,
         vaccinationCertificate: vaccinationCertificate,
         document: document,
