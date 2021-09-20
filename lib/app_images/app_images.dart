@@ -58,4 +58,6 @@ class AppImages {
   static const appSmallTimer = 'assets/images/small_timer.png';
   static const applogout = 'assets/images/logout.png';
   static const appEvents = 'assets/images/events.png';
+  static const appVisa = 'assets/images/visa.png';
+  static const appMasterCaed = 'assets/images/master_card.jpg';
 }

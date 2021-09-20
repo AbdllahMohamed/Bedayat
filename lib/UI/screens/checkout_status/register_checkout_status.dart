@@ -79,7 +79,7 @@ class _RegisterCheckoutStautusScreenState
   @override
   void initState() {
     super.initState();
-    print('in status');
+
     checkoutStatusController.fetchCheckoutStatusCode(widget.checkoutId);
   }
 
@@ -98,9 +98,30 @@ class _RegisterCheckoutStautusScreenState
             : ListView.builder(
                 itemCount: 1,
                 itemBuilder: (_, i) {
-                  return checkoutStatusController
-                              .checkoutstatusCodeList[i].code ==
-                          "000.100.110"
+                  return (checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.100.110" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              '000.000.000' ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.100.110" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.000" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.100" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.101" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.102" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.103")
                       ? SucessCheckout(
                           nameController: widget.nameController,
                           phoneController: widget.phoneController,
@@ -439,37 +460,46 @@ class _FailuarCheckotState extends State<FailuarCheckot> {
             SizedBox(height: 50),
             ActionButton(
               onPressed: () async {
-                String error = await paymentController
-                    .getCheckoutId((selectedPackageIndex! + 1).toString());
-                if (error != "") {
-                  Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
-                } else {
-                  Get.to(RegisterPaymentWebviewScreen(
-                    nameController: widget.nameController,
-                    phoneController: widget.phoneController,
-                    emailController: widget.emailController,
-                    passwordController: widget.passwordController,
-                    selectedBranchIndex: widget.selectedBranchIndex,
-                    childNameController: widget.childNameController,
-                    selectedAge: widget.selectedAge,
-                    selectedType: widget.selectedType,
-                    selectedRelationsOne: widget.selectedRelationsOne,
-                    selectedRelationsTwo: widget.selectedRelationsTwo,
-                    emergencyNumberController: widget.emergencyNumberController,
-                    anthorNotesController: widget.anthorNotesController,
-                    sensitificController: widget.sensitificController,
-                    emailOneController: widget.emailController,
-                    phoneOneController: widget.phoneOneController,
-                    emailTwoController: widget.emailTwoController,
-                    phoneTwoController: widget.phoneTwoController,
-                    familyCardPhoto: widget.familyCardPhoto,
-                    vaccinationCertificate: widget.vaccinationCertificate,
-                    doctuumnet: widget.doctuumnet,
-                    groupId: widget.groupId,
-                    techerId: widget.techerId,
-                    checkoutId: "${GetStorage().read('checkoutId')}",
-                  ));
-                }
+                // String error = await paymentController.getCheckoutId(
+                //   packageId: (selectedPackageIndex! + 1).toString(),
+                //   email: widget.emailController,
+                //   street: streetController.text,
+                //   city: cityController.text,
+                //   state: stateController.text,
+                //   postcode: postCodeController.text,
+                //   givenName: givenNameController.text,
+                //   surname: surnameController.text,
+                //   paymentMethod: seletctedBank,
+                // );
+                // if (error != "") {
+                //   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
+                // } else {
+                //   Get.to(RegisterPaymentWebviewScreen(
+                //     nameController: widget.nameController,
+                //     phoneController: widget.phoneController,
+                //     emailController: widget.emailController,
+                //     passwordController: widget.passwordController,
+                //     selectedBranchIndex: widget.selectedBranchIndex,
+                //     childNameController: widget.childNameController,
+                //     selectedAge: widget.selectedAge,
+                //     selectedType: widget.selectedType,
+                //     selectedRelationsOne: widget.selectedRelationsOne,
+                //     selectedRelationsTwo: widget.selectedRelationsTwo,
+                //     emergencyNumberController: widget.emergencyNumberController,
+                //     anthorNotesController: widget.anthorNotesController,
+                //     sensitificController: widget.sensitificController,
+                //     emailOneController: widget.emailController,
+                //     phoneOneController: widget.phoneOneController,
+                //     emailTwoController: widget.emailTwoController,
+                //     phoneTwoController: widget.phoneTwoController,
+                //     familyCardPhoto: widget.familyCardPhoto,
+                //     vaccinationCertificate: widget.vaccinationCertificate,
+                //     doctuumnet: widget.doctuumnet,
+                //     groupId: widget.groupId,
+                //     techerId: widget.techerId,
+                //     checkoutId: "${GetStorage().read('checkoutId')}",
+                //   ));
+                // }
               },
               label: 'المحاولة من جديد',
             )

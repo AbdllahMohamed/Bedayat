@@ -406,34 +406,34 @@ class _FailuarCheckotState extends State<FailuarCheckot> {
             SizedBox(height: 50),
             ActionButton(
               onPressed: () async {
-                String error = await paymentController
-                    .getCheckoutId((selectedPackageIndex! + 1).toString());
+                // String error = await paymentController
+                //     .getCheckoutId((selectedPackageIndex! + 1).toString());
 
-                if (error != "") {
-                  Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
-                } else {
-                  Get.to(AddChildPaymentWebviewScreen(
-                    selectedBranchIndex: widget.selectedBranchIndex,
-                    childNameController: widget.childNameController,
-                    selectedAge: widget.selectedAge,
-                    selectedType: widget.selectedType,
-                    selectedRelationsOne: widget.selectedRelationsOne,
-                    selectedRelationsTwo: widget.selectedRelationsTwo,
-                    emergencyNumberController: widget.emergencyNumberController,
-                    anthorNotesController: widget.anthorNotesController,
-                    sensitificController: widget.sensitificController,
-                    phoneOneController: widget.phoneOneController,
-                    emailOneController: widget.emailOneController,
-                    emailTwoController: widget.emailTwoController,
-                    phoneTwoController: widget.phoneTwoController,
-                    familyCardPhoto: widget.familyCardPhoto,
-                    vaccinationCertificate: widget.vaccinationCertificate,
-                    doctuumnet: widget.doctuumnet,
-                    groupId: widget.groupId,
-                    techerId: widget.techerId,
-                    checkoutId: "${GetStorage().read('checkoutId')}",
-                  ));
-                }
+                // if (error != "") {
+                //   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
+                // } else {
+                //   Get.to(AddChildPaymentWebviewScreen(
+                //     selectedBranchIndex: widget.selectedBranchIndex,
+                //     childNameController: widget.childNameController,
+                //     selectedAge: widget.selectedAge,
+                //     selectedType: widget.selectedType,
+                //     selectedRelationsOne: widget.selectedRelationsOne,
+                //     selectedRelationsTwo: widget.selectedRelationsTwo,
+                //     emergencyNumberController: widget.emergencyNumberController,
+                //     anthorNotesController: widget.anthorNotesController,
+                //     sensitificController: widget.sensitificController,
+                //     phoneOneController: widget.phoneOneController,
+                //     emailOneController: widget.emailOneController,
+                //     emailTwoController: widget.emailTwoController,
+                //     phoneTwoController: widget.phoneTwoController,
+                //     familyCardPhoto: widget.familyCardPhoto,
+                //     vaccinationCertificate: widget.vaccinationCertificate,
+                //     doctuumnet: widget.doctuumnet,
+                //     groupId: widget.groupId,
+                //     techerId: widget.techerId,
+                //     checkoutId: "${GetStorage().read('checkoutId')}",
+                //   ));
+                //}
               },
               label: 'المحاولة من جديد',
             )

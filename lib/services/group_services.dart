@@ -8,6 +8,8 @@ class GroupsServices {
       Response response =
           await Dio().get("$baseApiUrl/branches/$branchId/groups");
       List<Group> temp = [];
+      print('groupe');
+      print(response.data['data']);
       response.data['data'].forEach((e) => temp.add(Group.fromJson(e)));
 
       return temp;

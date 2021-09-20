@@ -7,6 +7,8 @@ class BranchesServices {
     try {
       Response response = await Dio().get("$baseApiUrl/branches");
       List<Branch> temp = [];
+      print('braches');
+      print(response.data['data']);
       response.data['data'].forEach((e) => temp.add(Branch.fromJson(e)));
       return temp;
     } catch (e) {

@@ -8,6 +8,8 @@ class TeachersServices {
       Response response =
           await Dio().get("$baseApiUrl/groups/$groupId/teachers");
       List<Teacher> temp = [];
+      print('teacher');
+      print(response.data['data']);
       response.data['data'].forEach((e) => temp.add(Teacher.fromJson(e)));
 
       return temp;

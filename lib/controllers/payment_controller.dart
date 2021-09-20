@@ -5,12 +5,31 @@ import 'package:get/get.dart';
 class PaymentController extends GetxController {
   var loadingProcess = false.obs;
 
-  Future<String> getCheckoutId(String pakageId) async {
+  Future<String> getCheckoutId({
+    String? packageId,
+    String? email,
+    String? street,
+    String? city,
+    String? state,
+    String? postcode,
+    String? givenName,
+    String? surname,
+    String? paymentMethod,
+  }) async {
     var paymentError = "";
     try {
       loadingProcess(true);
-      print("pakageId" + pakageId);
-      paymentError = await PaymentServices.getCheckoutId(pakageId);
+      paymentError = await PaymentServices.getCheckoutId(
+        packageId: packageId,
+        email: email,
+        street: street,
+        city: city,
+        state: state,
+        postcode: postcode,
+        givenName: givenName,
+        surname: surname,
+        paymentMethod: paymentMethod,
+      );
     } catch (e) {
       print(e);
       paymentError = 'من فضلك حاول مرة اخرى';

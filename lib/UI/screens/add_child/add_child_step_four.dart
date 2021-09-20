@@ -63,8 +63,11 @@ class AddChildStepFourScreen extends StatefulWidget {
 class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
   AuthController authController = Get.put(AuthController());
   PaymentController paymentController = Get.put(PaymentController());
-
   final PackageController packageController = Get.put(PackageController());
+  TextEditingController _addressController = new TextEditingController();
+  TextEditingController _countyController = new TextEditingController();
+  TextEditingController _cityController = new TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   int? selectedPackageIndex = 0;
 
   List<String> _banckImage = [
@@ -78,8 +81,15 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
   int? selectedBankIndex = 0;
 
   addChildStepFour() async {
-    String paymentError = await paymentController
-        .getCheckoutId((selectedPackageIndex! + 1).toString());
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    String paymentError = '';
+    // = await paymentController
+    //     .getCheckoutId(
+    //       packageId: (selectedPackageIndex! + 1).toString(),
+    //       email: widget
+    //     );
     if (paymentError != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: paymentError);
     } else {
@@ -114,381 +124,453 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Directionality(
-            textDirection: TextDirection.rtl,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 50),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  child: Image.asset(
-                    AppImages.appSubLogo,
-                  ),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'اضافة طفل',
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 50),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                      child: Image.asset(
+                        AppImages.appSubLogo,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'اضافة طفل',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                          Container(
+                            height: 50,
+                            width: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: 6,
+                                color: AppColors.accentColor,
+                              ),
+                            ),
+                            child: Text(
+                              '4/5',
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Text(
+                        'الدفع',
                         style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 14,
+                          color: AppColors.accentColor,
                           fontWeight: FontWeight.w300,
                         ),
                       ),
-                      Container(
-                        height: 50,
-                        width: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 6,
-                            color: AppColors.accentColor,
-                          ),
-                        ),
-                        child: Text(
-                          '4/5',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  child: Text(
-                    'الدفع',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.accentColor,
-                      fontWeight: FontWeight.w300,
                     ),
-                  ),
-                ),
-                SizedBox(height: 5),
-                Obx(
-                  () => packageController.loadingProcess.value
-                      ? Center(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(top: 100, bottom: 70),
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                AppColors.accentColor,
-                              ),
-                            ),
-                          ),
-                        )
-                      : packageController.packageList.length == 0
+                    SizedBox(height: 5),
+                    Obx(
+                      () => packageController.loadingProcess.value
                           ? Center(
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 200.0),
-                                child: Text(
-                                  'لاتوجد بيانات',
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      color: AppColors.accentColor),
+                                padding:
+                                    const EdgeInsets.only(top: 100, bottom: 70),
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    AppColors.accentColor,
+                                  ),
                                 ),
                               ),
                             )
-                          : Container(
-                              height: 300,
-                              margin: EdgeInsets.all(10),
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    height: 98,
-                                    child: ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount:
-                                          packageController.packageList.length,
-                                      itemBuilder: (context, index) {
-                                        return InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              selectedPackageIndex = index;
-                                            });
+                          : packageController.packageList.length == 0
+                              ? Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 200.0),
+                                    child: Text(
+                                      'لاتوجد بيانات',
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          color: AppColors.accentColor),
+                                    ),
+                                  ),
+                                )
+                              : Container(
+                                  height: 300,
+                                  margin: EdgeInsets.all(10),
+                                  width: double.infinity,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 98,
+                                        child: ListView.builder(
+                                          physics: BouncingScrollPhysics(),
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: packageController
+                                              .packageList.length,
+                                          itemBuilder: (context, index) {
+                                            return InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedPackageIndex = index;
+                                                });
+                                              },
+                                              child: Container(
+                                                width: 95,
+                                                height: 95,
+                                                margin:
+                                                    EdgeInsets.only(left: 5),
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  color: AppColors
+                                                      .selectedPaymentColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  border: Border.all(
+                                                    color:
+                                                        selectedPackageIndex ==
+                                                                index
+                                                            ? AppColors
+                                                                .primaryColor
+                                                            : Colors.grey,
+                                                    width:
+                                                        selectedPackageIndex ==
+                                                                index
+                                                            ? 4
+                                                            : 1,
+                                                  ),
+                                                ),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      '${packageController.packageList[index].title!}',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 17,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '${packageController.packageList[index].price!} \nريال',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 17,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
                                           },
-                                          child: Container(
-                                            width: 95,
-                                            height: 95,
-                                            margin: EdgeInsets.only(left: 5),
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                              color: AppColors
-                                                  .selectedPaymentColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              border: Border.all(
-                                                color: selectedPackageIndex ==
-                                                        index
-                                                    ? AppColors.primaryColor
-                                                    : Colors.grey,
-                                                width: selectedPackageIndex ==
-                                                        index
-                                                    ? 4
-                                                    : 1,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 35,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                        ),
+                                        child: Text(
+                                          'الفاتورة',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: AppColors.titleColor,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'الاجمالى',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: AppColors.accentColor,
+                                                fontWeight: FontWeight.w300,
                                               ),
                                             ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  '${packageController.packageList[index].title!}',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 17,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  '${packageController.packageList[index].price!} \nريال',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 17,
-                                                  ),
-                                                ),
-                                              ],
+                                            SizedBox(
+                                              width: 15,
                                             ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 35,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                    ),
-                                    child: Text(
-                                      'الفاتورة',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: AppColors.titleColor,
-                                        fontWeight: FontWeight.w300,
+                                            Text(
+                                              '${packageController.packageList[selectedPackageIndex!].price!} ريال',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: AppColors.titleColor,
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'الضريبة',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: AppColors.accentColor,
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              '${packageController.packageList[selectedPackageIndex!].tax!} ريال',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: AppColors.titleColor,
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                          vertical: 8,
+                                        ),
+                                        child: Divider(
+                                          color: Color(0xffE9E1E1),
+                                          thickness: 1.5,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'الاجمالى',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: AppColors.accentColor,
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              '${(double.parse(packageController.packageList[selectedPackageIndex!].price!) + double.parse(packageController.packageList[selectedPackageIndex!].tax!)).toString()} ريال',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: AppColors.titleColor,
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'الاجمالى',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: AppColors.accentColor,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 15,
-                                        ),
-                                        Text(
-                                          '${packageController.packageList[selectedPackageIndex!].price!} ريال',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: AppColors.titleColor,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'الضريبة',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: AppColors.accentColor,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 15,
-                                        ),
-                                        Text(
-                                          '${packageController.packageList[selectedPackageIndex!].tax!} ريال',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: AppColors.titleColor,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                      vertical: 8,
-                                    ),
-                                    child: Divider(
-                                      color: Color(0xffE9E1E1),
-                                      thickness: 1.5,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'الاجمالى',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: AppColors.accentColor,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 15,
-                                        ),
-                                        Text(
-                                          '${(double.parse(packageController.packageList[selectedPackageIndex!].price!) + double.parse(packageController.packageList[selectedPackageIndex!].tax!)).toString()} ريال',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: AppColors.titleColor,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                ],
-                              ),
-                            ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  child: Text(
-                    'الفاتورة',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: AppColors.titleColor,
-                      fontWeight: FontWeight.w300,
+                                ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: 2,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedBankIndex = index;
-                        });
-                      },
-                      child: Container(
-                        height: 60,
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: selectedBankIndex == index
-                                ? AppColors.primaryColor
-                                : Colors.grey,
-                            width: selectedBankIndex == index ? 2 : 1,
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 15.0),
-                              child: Image.asset(_banckImage[index]),
-                            ),
-                            SizedBox(
-                              width: 40,
-                            ),
-                            Text(
-                              _banckName[index],
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: AppColors.titleColor,
-                              ),
-                            ),
-                          ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Text(
+                        'الفاتورة',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: AppColors.titleColor,
+                          fontWeight: FontWeight.w300,
                         ),
                       ),
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
-                  child: Text(
-                    'بالتسجيل فانت توافق علي الشروط و الاحكام',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.accentColor,
                     ),
-                  ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: 2,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            setState(() {
+                              selectedBankIndex = index;
+                            });
+                          },
+                          child: Container(
+                            height: 60,
+                            margin: EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: selectedBankIndex == index
+                                    ? AppColors.primaryColor
+                                    : Colors.grey,
+                                width: selectedBankIndex == index ? 2 : 1,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 15.0),
+                                  child: Image.asset(_banckImage[index]),
+                                ),
+                                SizedBox(
+                                  width: 40,
+                                ),
+                                Text(
+                                  _banckName[index],
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: AppColors.titleColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    TextFormField(
+                      controller: _addressController,
+                      keyboardType: TextInputType.text,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return 'من فضلك ادخل قيمة صحيحة';
+                        }
+                        if (val.length < 3) {
+                          return 'من فضلك ادخل قيمة صحيحة';
+                        }
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.home_rounded,
+                            color: AppColors.accentColor),
+                        hintText: 'العنوان',
+                        hintStyle: TextStyle(color: AppColors.accentColor),
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _countyController,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return 'من فضلك ادخل قيمة صحيحة';
+                        }
+                        if (val.length < 3) {
+                          return 'من فضلك ادخل قيمة صحيحة';
+                        }
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.home_outlined,
+                            color: AppColors.accentColor),
+                        hintText: 'المقاطععة',
+                        hintStyle: TextStyle(color: AppColors.accentColor),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    TextFormField(
+                      controller: _cityController,
+                      keyboardType: TextInputType.text,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return 'من فضلك ادخل قيمة صحيحة';
+                        }
+                        if (val.length < 3) {
+                          return 'من فضلك ادخل قيمة صحيحة';
+                        }
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.location_city_rounded,
+                            color: AppColors.accentColor),
+                        hintText: 'المدينة',
+                        hintStyle: TextStyle(color: AppColors.accentColor),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15.0),
+                      child: Text(
+                        'بالتسجيل فانت توافق علي الشروط و الاحكام',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.accentColor,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    ActionButton(
+                        label: 'التالى',
+                        onPressed: () async {
+                          addChildStepFour();
+                        }),
+                    SizedBox(
+                      height: 15,
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                ActionButton(
-                    label: 'التالى',
-                    onPressed: () async {
-                      addChildStepFour();
-                    }),
-                SizedBox(
-                  height: 15,
-                ),
-              ],
+              ),
             ),
           ),
         ),
