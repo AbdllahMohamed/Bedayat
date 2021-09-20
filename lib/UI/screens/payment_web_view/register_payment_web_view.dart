@@ -83,7 +83,10 @@ class _RegisterPaymentWebviewScreenState
   @override
   void initState() {
     super.initState();
-    _setUrl();
+    kIsWeb
+        // ignore: unnecessary_statements
+        ? _setUrl()
+        : WebView.platform = SurfaceAndroidWebView();
   }
 
   void _setUrl() {

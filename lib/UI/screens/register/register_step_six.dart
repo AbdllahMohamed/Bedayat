@@ -1,4 +1,5 @@
 import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
+import 'package:bedayat/UI/screens/login/login.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class _RegisterStepSixScreenState extends State<RegisterStepSixScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'اضافة طفل',
+                            'تسجيل الدخول',
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.w300,
@@ -75,7 +76,7 @@ class _RegisterStepSixScreenState extends State<RegisterStepSixScreen> {
                     SizedBox(height: 10),
                     Center(
                       child: Text(
-                        'تم اضافة طفلك بنجاح',
+                        'تم إنشاء حساب بنجاح',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w200,
@@ -85,7 +86,7 @@ class _RegisterStepSixScreenState extends State<RegisterStepSixScreen> {
                     SizedBox(height: 20),
                     InkWell(
                       onTap: () {
-                        Get.offAll(BottomNavigationWidget());
+                        Get.offAll(LoginScreen());
                       },
                       child: Center(
                         child: Container(
@@ -96,7 +97,7 @@ class _RegisterStepSixScreenState extends State<RegisterStepSixScreen> {
                               color: AppColors.primaryColor,
                               borderRadius: BorderRadius.circular(8)),
                           child: Text(
-                            'العودة للقائمة الرئسية',
+                            'العودة لتسجيل الدخول',
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,

@@ -46,7 +46,7 @@ class AuthController extends GetxController {
   }) async {
     var registerError = "";
     try {
-      loadingProcess(true);
+      //loadingProcess(true);
 
       registerError = await UsersServices.register(
         username: username,
@@ -74,7 +74,7 @@ class AuthController extends GetxController {
     } catch (e) {
       registerError = 'من فضلك حاول مرة اخرى';
     } finally {
-      loadingProcess(false);
+      //loadingProcess(false);
     }
     return registerError;
   }

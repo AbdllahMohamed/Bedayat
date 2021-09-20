@@ -17,7 +17,8 @@ class ChildrenServices {
               return status! < 500;
             }));
     List<Child> temp = [];
-
+    print('children responce');
+    print(response.data);
     response.data['data'].forEach((e) => temp.add(Child.fromJson(e)));
 
     return temp;
