@@ -145,10 +145,27 @@ class _RegisterPaymentWebviewScreenState
                       key: const ValueKey('webviewx'),
                       initialContent: url,
                       initialSourceType: SourceType.urlBypass,
-                      height: screenSize.height,
+                      height: screenSize.height * 0.9,
                       width: screenSize.width * 0.8,
                       onWebViewCreated: (controller) =>
                           webviewController = controller,
+                      jsContent: const {
+                        EmbeddedJsContent(
+                          js: "function testPlatformIndependentMethod() { console.log('Hi from JS') }",
+                        ),
+                        EmbeddedJsContent(
+                          webJs:
+                              "function testPlatformSpecificMethod(msg) { TestDartCallback('Web callback says: ' + msg) }",
+                          mobileJs:
+                              "function testPlatformSpecificMethod(msg) { TestDartCallback.postMessage('Mobile callback says: ' + msg) }",
+                        ),
+                      },
+                      webSpecificParams: const WebSpecificParams(
+                        printDebugInfo: true,
+                      ),
+                      mobileSpecificParams: const MobileSpecificParams(
+                        androidEnableHybridComposition: true,
+                      ),
                       navigationDelegate: (navigation) {
                         if (navigation.content.source.toString() !=
                             '$baseUrl/payments/${widget.checkoutId}')

@@ -250,10 +250,13 @@ class _SucessCheckoutState extends State<SucessCheckout> {
       vaccinationCertificate: widget.vaccinationCertificate,
       document: widget.doctuumnet!,
     );
-    print(registerError);
-    Future.delayed(Duration(seconds: 2), () {
-      Get.to(RegisterStepSixScreen());
-    });
+    if (registerError != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: registerError);
+    } else {
+      Future.delayed(Duration(seconds: 2), () {
+        Get.to(RegisterStepSixScreen());
+      });
+    }
   }
 
   @override
@@ -438,11 +441,10 @@ class _FailuarCheckotState extends State<FailuarCheckot> {
               onPressed: () async {
                 String error = await paymentController
                     .getCheckoutId((selectedPackageIndex! + 1).toString());
-
                 if (error != "") {
                   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
                 } else {
-                  RegisterPaymentWebviewScreen(
+                  Get.to(RegisterPaymentWebviewScreen(
                     nameController: widget.nameController,
                     phoneController: widget.phoneController,
                     emailController: widget.emailController,
@@ -466,7 +468,7 @@ class _FailuarCheckotState extends State<FailuarCheckot> {
                     groupId: widget.groupId,
                     techerId: widget.techerId,
                     checkoutId: "${GetStorage().read('checkoutId')}",
-                  );
+                  ));
                 }
               },
               label: 'المحاولة من جديد',

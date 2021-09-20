@@ -225,9 +225,13 @@ class _SucessCheckoutState extends State<SucessCheckout> {
     );
     print('registerError');
     print(registerError);
-    Future.delayed(Duration(seconds: 2), () {
-      Get.to(AddChildStepFiveScreen());
-    });
+    if (registerError != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: registerError);
+    } else {
+      Future.delayed(Duration(milliseconds: 200), () {
+        Get.to(AddChildStepFiveScreen());
+      });
+    }
   }
 
   @override
@@ -408,7 +412,7 @@ class _FailuarCheckotState extends State<FailuarCheckot> {
                 if (error != "") {
                   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
                 } else {
-                  AddChildPaymentWebviewScreen(
+                  Get.to(AddChildPaymentWebviewScreen(
                     selectedBranchIndex: widget.selectedBranchIndex,
                     childNameController: widget.childNameController,
                     selectedAge: widget.selectedAge,
@@ -428,7 +432,7 @@ class _FailuarCheckotState extends State<FailuarCheckot> {
                     groupId: widget.groupId,
                     techerId: widget.techerId,
                     checkoutId: "${GetStorage().read('checkoutId')}",
-                  );
+                  ));
                 }
               },
               label: 'المحاولة من جديد',
