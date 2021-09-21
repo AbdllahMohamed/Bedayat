@@ -400,7 +400,46 @@ class FailuarCheckot extends StatefulWidget {
 }
 
 class _FailuarCheckotState extends State<FailuarCheckot> {
+  AuthController authController = Get.put(AuthController());
   PaymentController paymentController = Get.put(PaymentController());
+
+  @override
+  void initState() {
+    super.initState();
+    _registerAndavegatoTo();
+  }
+
+  void _registerAndavegatoTo() async {
+    String registerError = await authController.registerWeb(
+      username: widget.nameController,
+      email: widget.emailController,
+      phone: widget.phoneController,
+      password: widget.passwordController,
+      childname: widget.childNameController,
+      ageGroup: widget.selectedAge,
+      gender: widget.selectedType == 'ولد' ? 'male' : 'female',
+      emergencyNumber: widget.emergencyNumberController,
+      parentOneRealation: widget.selectedRelationsOne,
+      parentOneEmail: widget.emailOneController,
+      parentOnePhone: widget.phoneOneController,
+      parentTwoRealation: widget.selectedRelationsTwo,
+      parentTwoEmail: widget.emailTwoController,
+      parentTwoPhone: widget.phoneTwoController,
+      userId: "1",
+      teacherId: widget.techerId.toString(),
+      groupId: widget.groupId.toString(),
+      familyCard: widget.familyCardPhoto,
+      vaccinationCertificate: widget.vaccinationCertificate,
+      document: widget.doctuumnet!,
+    );
+    if (registerError != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: registerError);
+    } else {
+      Future.delayed(Duration(seconds: 2), () {
+        Get.to(RegisterStepSixScreen());
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

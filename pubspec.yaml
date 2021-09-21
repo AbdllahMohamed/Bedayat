@@ -36,6 +36,7 @@ dependencies:
   webview_flutter: ^2.0.12
   webviewx: ^0.2.1
   url_launcher: ^6.0.10
+  http: ^0.13.3
   flutter:
     sdk: flutter
   introduction_screen: ^2.1.0
