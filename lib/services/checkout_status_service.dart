@@ -19,7 +19,7 @@ class CheckoutStatusServices {
             validateStatus: (status) {
               return status! < 500;
             }));
-    print("response.data['result']");
+    print("checkout stats code");
     print(response.data['result']);
     List<CheckoutStatus> temp = [];
     temp.add(CheckoutStatus.fromJson(response.data['result']));

@@ -124,35 +124,33 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     if (error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      kIsWeb
-          ? _launchURL()
-          : Get.to(
-              RegisterPaymentWebviewScreen(
-                nameController: widget.nameController,
-                phoneController: widget.phoneController,
-                emailController: widget.emailController,
-                passwordController: widget.passwordController,
-                selectedBranchIndex: widget.selectedBranchIndex,
-                childNameController: widget.childNameController,
-                selectedAge: widget.selectedAge,
-                selectedType: widget.selectedType,
-                selectedRelationsOne: widget.selectedRelationsOne,
-                selectedRelationsTwo: widget.selectedRelationsTwo,
-                emergencyNumberController: widget.emergencyNumberController,
-                anthorNotesController: widget.anthorNotesController,
-                sensitificController: widget.sensitificController,
-                emailOneController: widget.emailController,
-                phoneOneController: widget.phoneOneController,
-                emailTwoController: widget.emailTwoController,
-                phoneTwoController: widget.phoneTwoController,
-                familyCardPhoto: widget.familyCardPhoto,
-                vaccinationCertificate: widget.vaccinationCertificate,
-                doctuumnet: widget.doctuumnet,
-                groupId: widget.groupId,
-                techerId: widget.techerId,
-                checkoutId: "${GetStorage().read('checkoutId')}",
-              ),
-            );
+      Get.to(
+        RegisterPaymentWebviewScreen(
+          nameController: widget.nameController,
+          phoneController: widget.phoneController,
+          emailController: widget.emailController,
+          passwordController: widget.passwordController,
+          selectedBranchIndex: widget.selectedBranchIndex,
+          childNameController: widget.childNameController,
+          selectedAge: widget.selectedAge,
+          selectedType: widget.selectedType,
+          selectedRelationsOne: widget.selectedRelationsOne,
+          selectedRelationsTwo: widget.selectedRelationsTwo,
+          emergencyNumberController: widget.emergencyNumberController,
+          anthorNotesController: widget.anthorNotesController,
+          sensitificController: widget.sensitificController,
+          emailOneController: widget.emailController,
+          phoneOneController: widget.phoneOneController,
+          emailTwoController: widget.emailTwoController,
+          phoneTwoController: widget.phoneTwoController,
+          familyCardPhoto: widget.familyCardPhoto,
+          vaccinationCertificate: widget.vaccinationCertificate,
+          doctuumnet: widget.doctuumnet,
+          groupId: widget.groupId,
+          techerId: widget.techerId,
+          checkoutId: "${GetStorage().read('checkoutId')}",
+        ),
+      );
     }
   }
 

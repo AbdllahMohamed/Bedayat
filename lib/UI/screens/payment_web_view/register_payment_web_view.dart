@@ -3,9 +3,11 @@ import 'dart:math';
 
 import 'package:bedayat/UI/screens/checkout_status/register_checkout_status.dart';
 import 'package:bedayat/const/const.dart';
+import 'package:bedayat/controllers/checkout_status_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:webview_flutter/webview_flutter.dart' as webview;
 import 'package:webview_flutter/webview_flutter.dart';
@@ -92,8 +94,8 @@ class _RegisterPaymentWebviewScreenState
   void _setUrl() {
     Future.delayed(Duration(seconds: 2), () {
       webviewController.loadContent(
-        '$baseUrl/payments/${widget.checkoutId}',
-        webviewX.SourceType.urlBypass,
+        baseUrl + 'payments/${GetStorage().read('checkoutId')}',
+        webviewX.SourceType.url,
       );
     });
   }
@@ -132,11 +134,13 @@ class _RegisterPaymentWebviewScreenState
     super.dispose();
   }
 
+  CheckoutStatusController checkoutStatusController =
+      Get.put(CheckoutStatusController());
   @override
   Widget build(BuildContext context) {
-    String url =
-        'https://600d-154-133-118-79.ngrok.io/payments/${widget.checkoutId}';
+    String url = baseUrl + 'payments/${GetStorage().read('checkoutId')}';
     print(url);
+
     return Scaffold(
       backgroundColor: Color(0xfff6f6f5),
       appBar: AppBar(
@@ -155,16 +159,26 @@ class _RegisterPaymentWebviewScreenState
                           child: webviewX.WebViewX(
                             key: const ValueKey('webviewx'),
                             initialContent: url,
-                            initialSourceType: webviewX.SourceType.urlBypass,
+                            initialSourceType: webviewX.SourceType.url,
                             height: screenSize.height * 0.9,
                             width: screenSize.width * 0.8,
                             onWebViewCreated: (controller) =>
                                 webviewController = controller,
-                            navigationDelegate: (navigation) {
-                              if (navigation.content.source.toString() !=
-                                  '$baseUrl/payments/${widget.checkoutId}')
-                                _navegatoTo();
-                              return webviewX.NavigationDecision.navigate;
+                            onPageStarted: (String src) async {
+                              //if (src.contains('.care')) _navegatoTo();
+                              print('on page start ' + src);
+                              // print(await webviewController.getContent());
+                              checkoutStatusController
+                                  .fetchCheckoutStatusCode(widget.checkoutId);
+                            },
+                            onPageFinished: (String src) async {
+                              //if (src.contains('.care')) _navegatoTo();
+
+                              print('on page Finished ' + src);
+                              checkoutStatusController
+                                  .fetchCheckoutStatusCode(widget.checkoutId);
+                              // print(await webviewController.connector);
+                              // print(await webviewController.getTitle());
                             },
                           ),
                         ),
