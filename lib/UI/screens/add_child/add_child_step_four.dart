@@ -13,6 +13,15 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
+int? selectedPackageIndex = 0;
+TextEditingController streetController = new TextEditingController();
+TextEditingController cityController = new TextEditingController();
+TextEditingController stateController = new TextEditingController();
+TextEditingController postCodeController = new TextEditingController();
+TextEditingController givenNameController = new TextEditingController();
+TextEditingController surnameController = new TextEditingController();
+String? seletctedBank;
+
 class AddChildStepFourScreen extends StatefulWidget {
   final int selectedBranchIndex;
   final String childNameController;
@@ -61,35 +70,44 @@ class AddChildStepFourScreen extends StatefulWidget {
 }
 
 class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
-  AuthController authController = Get.put(AuthController());
   PaymentController paymentController = Get.put(PaymentController());
   final PackageController packageController = Get.put(PackageController());
-  TextEditingController _addressController = new TextEditingController();
-  TextEditingController _countyController = new TextEditingController();
-  TextEditingController _cityController = new TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
-  int? selectedPackageIndex = 0;
 
   List<String> _banckImage = [
     AppImages.appMadaBank,
-    AppImages.appStcpayBank,
+    AppImages.appVisa,
+    AppImages.appMasterCaed,
   ];
   List<String> _banckName = [
-    'مدى',
-    'STC Pay',
+    'Mada',
+    'Visa',
+    'Master Card',
   ];
-  int? selectedBankIndex = 0;
+  int? selectedBankIndex;
+  int? updatePakageIndex = 0;
 
   addChildStepFour() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    String paymentError = '';
-    // = await paymentController
-    //     .getCheckoutId(
-    //       packageId: (selectedPackageIndex! + 1).toString(),
-    //       email: widget
-    //     );
+    if (selectedPackageIndex == 0) {
+      Get.defaultDialog(
+          title: "حدث خطأ ما", middleText: 'يرجى اختيار قيمة الاشتراك');
+      return;
+    }
+    String paymentError = await paymentController.getCheckoutId(
+      packageId: (selectedPackageIndex! + 1).toString(),
+      email: "${GetStorage().read('userEmail')}",
+      street: streetController.text,
+      city: cityController.text,
+      state: stateController.text,
+      postcode: postCodeController.text,
+      givenName: givenNameController.text,
+      surname: surnameController.text,
+      paymentMethod: seletctedBank,
+    );
     if (paymentError != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: paymentError);
     } else {
@@ -240,9 +258,10 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                           itemBuilder: (context, index) {
                                             return InkWell(
                                               onTap: () {
-                                                setState(() {
-                                                  selectedPackageIndex = index;
-                                                });
+                                                selectedPackageIndex =
+                                                    packageController
+                                                        .packageList[index].id!;
+                                                updatePakageIndex = index;
                                               },
                                               child: Container(
                                                 width: 95,
@@ -256,17 +275,20 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                                   borderRadius:
                                                       BorderRadius.circular(8),
                                                   border: Border.all(
-                                                    color:
-                                                        selectedPackageIndex ==
-                                                                index
-                                                            ? AppColors
-                                                                .primaryColor
-                                                            : Colors.grey,
-                                                    width:
-                                                        selectedPackageIndex ==
-                                                                index
-                                                            ? 4
-                                                            : 1,
+                                                    color: selectedPackageIndex ==
+                                                            packageController
+                                                                .packageList[
+                                                                    index]
+                                                                .id!
+                                                        ? AppColors.primaryColor
+                                                        : Colors.grey,
+                                                    width: selectedPackageIndex ==
+                                                            packageController
+                                                                .packageList[
+                                                                    index]
+                                                                .id!
+                                                        ? 3
+                                                        : 1,
                                                   ),
                                                 ),
                                                 child: Column(
@@ -324,7 +346,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                         child: Row(
                                           children: [
                                             Text(
-                                              'الاجمالى',
+                                              'السعر',
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 color: AppColors.accentColor,
@@ -334,14 +356,18 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                             SizedBox(
                                               width: 15,
                                             ),
-                                            Text(
-                                              '${packageController.packageList[selectedPackageIndex!].price!} ريال',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: AppColors.titleColor,
-                                                fontWeight: FontWeight.w300,
-                                              ),
-                                            ),
+                                            selectedPackageIndex == 0
+                                                ? SizedBox()
+                                                : Text(
+                                                    '${packageController.packageList[updatePakageIndex!].price!} ريال',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      color:
+                                                          AppColors.titleColor,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
+                                                  ),
                                           ],
                                         ),
                                       ),
@@ -365,14 +391,18 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                             SizedBox(
                                               width: 15,
                                             ),
-                                            Text(
-                                              '${packageController.packageList[selectedPackageIndex!].tax!} ريال',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: AppColors.titleColor,
-                                                fontWeight: FontWeight.w300,
-                                              ),
-                                            ),
+                                            selectedPackageIndex == 0
+                                                ? SizedBox()
+                                                : Text(
+                                                    '${packageController.packageList[updatePakageIndex!].tax!} ريال',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      color:
+                                                          AppColors.titleColor,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
+                                                  ),
                                           ],
                                         ),
                                       ),
@@ -403,14 +433,18 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                             SizedBox(
                                               width: 15,
                                             ),
-                                            Text(
-                                              '${(double.parse(packageController.packageList[selectedPackageIndex!].price!) + double.parse(packageController.packageList[selectedPackageIndex!].tax!)).toString()} ريال',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: AppColors.titleColor,
-                                                fontWeight: FontWeight.w300,
-                                              ),
-                                            ),
+                                            selectedPackageIndex == 0
+                                                ? SizedBox()
+                                                : Text(
+                                                    '${(double.parse(packageController.packageList[updatePakageIndex!].price!) + double.parse(packageController.packageList[updatePakageIndex!].tax!)).toString()} ريال',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      color:
+                                                          AppColors.titleColor,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
+                                                  ),
                                           ],
                                         ),
                                       ),
@@ -441,12 +475,14 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: 2,
+                      itemCount: _banckName.length,
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
                             setState(() {
                               selectedBankIndex = index;
+                              seletctedBank = _banckName[selectedBankIndex!];
+                              print(seletctedBank);
                             });
                           },
                           child: Container(
@@ -490,58 +526,154 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                     SizedBox(
                       height: 25,
                     ),
-                    TextFormField(
-                      controller: _addressController,
-                      keyboardType: TextInputType.text,
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return 'من فضلك ادخل قيمة صحيحة';
-                        }
-                        if (val.length < 3) {
-                          return 'من فضلك ادخل قيمة صحيحة';
-                        }
-                      },
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.home_rounded,
-                            color: AppColors.accentColor),
-                        hintText: 'العنوان',
-                        hintStyle: TextStyle(color: AppColors.accentColor),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Text(
+                        'متطلبات الفاتورة',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: AppColors.titleColor,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                     ),
-                    TextFormField(
-                      controller: _countyController,
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return 'من فضلك ادخل قيمة صحيحة';
-                        }
-                        if (val.length < 3) {
-                          return 'من فضلك ادخل قيمة صحيحة';
-                        }
-                      },
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.home_outlined,
-                            color: AppColors.accentColor),
-                        hintText: 'المقاطععة',
-                        hintStyle: TextStyle(color: AppColors.accentColor),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: TextFormField(
+                        controller: givenNameController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                          if (val.length < 3) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon:
+                              Icon(Icons.person, color: AppColors.accentColor),
+                          hintText: 'الاسم الاول',
+                          hintStyle: TextStyle(color: AppColors.accentColor),
+                        ),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      controller: _cityController,
-                      keyboardType: TextInputType.text,
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return 'من فضلك ادخل قيمة صحيحة';
-                        }
-                        if (val.length < 3) {
-                          return 'من فضلك ادخل قيمة صحيحة';
-                        }
-                      },
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.location_city_rounded,
-                            color: AppColors.accentColor),
-                        hintText: 'المدينة',
-                        hintStyle: TextStyle(color: AppColors.accentColor),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: TextFormField(
+                        controller: surnameController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                          if (val.length < 3) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon:
+                              Icon(Icons.person, color: AppColors.accentColor),
+                          hintText: 'الاسم الثانى',
+                          hintStyle: TextStyle(color: AppColors.accentColor),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: TextFormField(
+                        controller: streetController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                          if (val.length < 3) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.home_rounded,
+                              color: AppColors.accentColor),
+                          hintText: 'الشارع',
+                          hintStyle: TextStyle(color: AppColors.accentColor),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: TextFormField(
+                        controller: cityController,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                          if (val.length < 3) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.home_outlined,
+                              color: AppColors.accentColor),
+                          hintText: 'المدينة',
+                          hintStyle: TextStyle(color: AppColors.accentColor),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: TextFormField(
+                        controller: stateController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                          if (val.length < 3) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.location_city_rounded,
+                              color: AppColors.accentColor),
+                          hintText: 'المقاطعة',
+                          hintStyle: TextStyle(color: AppColors.accentColor),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: TextFormField(
+                        controller: postCodeController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                          if (val.length < 3) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.post_add_sharp,
+                              color: AppColors.accentColor),
+                          hintText: 'الرمز البريدي',
+                          hintStyle: TextStyle(color: AppColors.accentColor),
+                        ),
                       ),
                     ),
                     SizedBox(

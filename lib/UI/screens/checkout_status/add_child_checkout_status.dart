@@ -1,8 +1,6 @@
 import 'package:bedayat/UI/screens/add_child/add_child_step_five.dart';
+import 'package:bedayat/UI/screens/add_child/add_child_step_four.dart';
 import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.dart';
-import 'package:bedayat/UI/screens/payment_web_view/register_payment_web_view.dart';
-import 'package:bedayat/UI/screens/register/register_step_five.dart';
-import 'package:bedayat/UI/screens/register/register_step_six.dart';
 import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +71,7 @@ class _AddChildCheckotStatusScreenState
   @override
   void initState() {
     super.initState();
-    print('in status');
+
     checkoutStatusController.fetchCheckoutStatusCode(widget.checkoutId);
   }
 
@@ -92,9 +90,30 @@ class _AddChildCheckotStatusScreenState
             : ListView.builder(
                 itemCount: 1,
                 itemBuilder: (_, i) {
-                  return checkoutStatusController
-                              .checkoutstatusCodeList[i].code ==
-                          "000.100.110"
+                  return (checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.100.110" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              '000.000.000' ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.100.110" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.000" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.100" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.101" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.102" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.103")
                       ? SucessCheckout(
                           selectedBranchIndex: widget.selectedBranchIndex,
                           childNameController: widget.childNameController,
@@ -406,34 +425,42 @@ class _FailuarCheckotState extends State<FailuarCheckot> {
             SizedBox(height: 50),
             ActionButton(
               onPressed: () async {
-                // String error = await paymentController
-                //     .getCheckoutId((selectedPackageIndex! + 1).toString());
-
-                // if (error != "") {
-                //   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
-                // } else {
-                //   Get.to(AddChildPaymentWebviewScreen(
-                //     selectedBranchIndex: widget.selectedBranchIndex,
-                //     childNameController: widget.childNameController,
-                //     selectedAge: widget.selectedAge,
-                //     selectedType: widget.selectedType,
-                //     selectedRelationsOne: widget.selectedRelationsOne,
-                //     selectedRelationsTwo: widget.selectedRelationsTwo,
-                //     emergencyNumberController: widget.emergencyNumberController,
-                //     anthorNotesController: widget.anthorNotesController,
-                //     sensitificController: widget.sensitificController,
-                //     phoneOneController: widget.phoneOneController,
-                //     emailOneController: widget.emailOneController,
-                //     emailTwoController: widget.emailTwoController,
-                //     phoneTwoController: widget.phoneTwoController,
-                //     familyCardPhoto: widget.familyCardPhoto,
-                //     vaccinationCertificate: widget.vaccinationCertificate,
-                //     doctuumnet: widget.doctuumnet,
-                //     groupId: widget.groupId,
-                //     techerId: widget.techerId,
-                //     checkoutId: "${GetStorage().read('checkoutId')}",
-                //   ));
-                //}
+                String error = await paymentController.getCheckoutId(
+                  packageId: (selectedPackageIndex! + 1).toString(),
+                  email: "${GetStorage().read('userEmail')}",
+                  street: streetController.text,
+                  city: cityController.text,
+                  state: stateController.text,
+                  postcode: postCodeController.text,
+                  givenName: givenNameController.text,
+                  surname: surnameController.text,
+                  paymentMethod: seletctedBank,
+                );
+                if (error != "") {
+                  Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
+                } else {
+                  Get.to(AddChildPaymentWebviewScreen(
+                    selectedBranchIndex: widget.selectedBranchIndex,
+                    childNameController: widget.childNameController,
+                    selectedAge: widget.selectedAge,
+                    selectedType: widget.selectedType,
+                    selectedRelationsOne: widget.selectedRelationsOne,
+                    selectedRelationsTwo: widget.selectedRelationsTwo,
+                    emergencyNumberController: widget.emergencyNumberController,
+                    anthorNotesController: widget.anthorNotesController,
+                    sensitificController: widget.sensitificController,
+                    phoneOneController: widget.phoneOneController,
+                    emailOneController: widget.emailOneController,
+                    emailTwoController: widget.emailTwoController,
+                    phoneTwoController: widget.phoneTwoController,
+                    familyCardPhoto: widget.familyCardPhoto,
+                    vaccinationCertificate: widget.vaccinationCertificate,
+                    doctuumnet: widget.doctuumnet,
+                    groupId: widget.groupId,
+                    techerId: widget.techerId,
+                    checkoutId: "${GetStorage().read('checkoutId')}",
+                  ));
+                }
               },
               label: 'المحاولة من جديد',
             )

@@ -37,6 +37,8 @@ class UsersServices {
       final box = GetStorage();
       print("token" + response.data["token"]);
       box.write('token', response.data["token"]);
+      box.write('userEmail', email);
+      print("${GetStorage().read('userEmail')}");
     }
 
     return loginError;
