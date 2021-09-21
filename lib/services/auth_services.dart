@@ -226,13 +226,14 @@ class UsersServices {
       "POST",
       uri,
     );
-    var multipartFile1 = new http.MultipartFile('files', stream1, length1,
+    var multipartFile1 = new http.MultipartFile('family_card', stream1, length1,
         filename: basename(uploadfamilyCard.path),
         contentType: MediaType('image', 'png'));
-    var multipartFile2 = new http.MultipartFile('files', stream2, length2,
+    var multipartFile2 = new http.MultipartFile(
+        'vaccination_certificate', stream2, length2,
         filename: basename(uploadvaccinationCertificate.path),
         contentType: MediaType('image', 'png'));
-    var multipartFile3 = new http.MultipartFile('files', stream3, length3,
+    var multipartFile3 = new http.MultipartFile('document', stream3, length3,
         filename: basename(uploaddocument.path),
         contentType: MediaType('image', 'png'));
 
@@ -257,6 +258,9 @@ class UsersServices {
     request.fields["teacher_id"] = teacherId!;
     request.fields["group_id"] = groupId!;
     request.fields["checkout_id"] = checkoutId!;
+    request.headers.addAll({
+      "Accept": "application/json",
+    });
 
     var response = await request.send();
     print('response.statusCode');

@@ -3,6 +3,7 @@ import 'package:bedayat/UI/screens/register/register_step_five.dart';
 import 'package:bedayat/UI/screens/register/register_step_six.dart';
 import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -245,7 +246,7 @@ class _SucessCheckoutState extends State<SucessCheckout> {
   @override
   void initState() {
     super.initState();
-    _registerAndavegatoTo();
+    kIsWeb ? _registerAndavegatoToWeb() : _registerAndavegatoTo();
   }
 
   void _registerAndavegatoTo() async {
@@ -270,6 +271,40 @@ class _SucessCheckoutState extends State<SucessCheckout> {
       familyCard: widget.familyCardPhoto,
       vaccinationCertificate: widget.vaccinationCertificate,
       document: widget.doctuumnet!,
+      checkoutId: widget.checkoutId,
+    );
+    if (registerError != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: registerError);
+    } else {
+      Future.delayed(Duration(seconds: 2), () {
+        Get.to(RegisterStepSixScreen());
+      });
+    }
+  }
+
+  void _registerAndavegatoToWeb() async {
+    String registerError = await authController.registerWeb(
+      username: widget.nameController,
+      email: widget.emailController,
+      phone: widget.phoneController,
+      password: widget.passwordController,
+      childname: widget.childNameController,
+      ageGroup: widget.selectedAge,
+      gender: widget.selectedType == 'ولد' ? 'male' : 'female',
+      emergencyNumber: widget.emergencyNumberController,
+      parentOneRealation: widget.selectedRelationsOne,
+      parentOneEmail: widget.emailOneController,
+      parentOnePhone: widget.phoneOneController,
+      parentTwoRealation: widget.selectedRelationsTwo,
+      parentTwoEmail: widget.emailTwoController,
+      parentTwoPhone: widget.phoneTwoController,
+      userId: "1",
+      teacherId: widget.techerId.toString(),
+      groupId: widget.groupId.toString(),
+      familyCard: widget.familyCardPhoto,
+      vaccinationCertificate: widget.vaccinationCertificate,
+      document: widget.doctuumnet!,
+      checkoutId: widget.checkoutId,
     );
     if (registerError != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: registerError);
@@ -400,47 +435,7 @@ class FailuarCheckot extends StatefulWidget {
 }
 
 class _FailuarCheckotState extends State<FailuarCheckot> {
-  AuthController authController = Get.put(AuthController());
   PaymentController paymentController = Get.put(PaymentController());
-
-  @override
-  void initState() {
-    super.initState();
-    _registerAndavegatoTo();
-  }
-
-  void _registerAndavegatoTo() async {
-    String registerError = await authController.registerWeb(
-      username: widget.nameController,
-      email: widget.emailController,
-      phone: widget.phoneController,
-      password: widget.passwordController,
-      childname: widget.childNameController,
-      ageGroup: widget.selectedAge,
-      gender: widget.selectedType == 'ولد' ? 'male' : 'female',
-      emergencyNumber: widget.emergencyNumberController,
-      parentOneRealation: widget.selectedRelationsOne,
-      parentOneEmail: widget.emailOneController,
-      parentOnePhone: widget.phoneOneController,
-      parentTwoRealation: widget.selectedRelationsTwo,
-      parentTwoEmail: widget.emailTwoController,
-      parentTwoPhone: widget.phoneTwoController,
-      userId: "1",
-      teacherId: widget.techerId.toString(),
-      groupId: widget.groupId.toString(),
-      familyCard: widget.familyCardPhoto,
-      vaccinationCertificate: widget.vaccinationCertificate,
-      document: widget.doctuumnet!,
-      checkoutId: widget.checkoutId,
-    );
-    if (registerError != "") {
-      Get.defaultDialog(title: "حدث خطأ ما", middleText: registerError);
-    } else {
-      Future.delayed(Duration(seconds: 2), () {
-        Get.to(RegisterStepSixScreen());
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
