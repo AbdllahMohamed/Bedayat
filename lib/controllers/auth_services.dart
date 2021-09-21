@@ -104,38 +104,33 @@ class AuthController extends GetxController {
     XFile? document,
   }) async {
     var registerError = "";
-    try {
-      //loadingProcess(true);
 
-      registerError = await UsersServices.registerWeb(
-        username: username,
-        email: email,
-        phone: phone,
-        password: password,
-        childname: childname,
-        ageGroup: ageGroup,
-        gender: gender,
-        emergencyNumber: emergencyNumber,
-        parentOneRealation: parentOneRealation,
-        parentOneEmail: parentOneEmail,
-        parentOnePhone: parentOnePhone,
-        parentTwoRealation: parentTwoRealation,
-        parentTwoEmail: parentTwoEmail,
-        parentTwoPhone: parentTwoPhone,
-        userId: userId,
-        teacherId: teacherId,
-        groupId: groupId,
-        checkoutId: checkoutId,
-        familyCard: familyCard,
-        vaccinationCertificate: vaccinationCertificate,
-        document: document,
-      );
-    } catch (e) {
-      print(e);
-      registerError = 'من فضلك حاول مرة اخرى';
-    } finally {
-      //loadingProcess(false);
-    }
+    //loadingProcess(true);
+
+    registerError = await UsersServices.registerWeb(
+      username: username,
+      email: email,
+      phone: phone,
+      password: password,
+      childname: childname,
+      ageGroup: ageGroup,
+      gender: gender,
+      emergencyNumber: emergencyNumber,
+      parentOneRealation: parentOneRealation,
+      parentOneEmail: parentOneEmail,
+      parentOnePhone: parentOnePhone,
+      parentTwoRealation: parentTwoRealation,
+      parentTwoEmail: parentTwoEmail,
+      parentTwoPhone: parentTwoPhone,
+      userId: userId,
+      teacherId: teacherId,
+      groupId: groupId,
+      checkoutId: checkoutId,
+      familyCard: familyCard,
+      vaccinationCertificate: vaccinationCertificate,
+      document: document,
+    );
+
     return registerError;
   }
 

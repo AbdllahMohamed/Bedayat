@@ -431,6 +431,7 @@ class _FailuarCheckotState extends State<FailuarCheckot> {
       familyCard: widget.familyCardPhoto,
       vaccinationCertificate: widget.vaccinationCertificate,
       document: widget.doctuumnet!,
+      checkoutId: widget.checkoutId,
     );
     if (registerError != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: registerError);

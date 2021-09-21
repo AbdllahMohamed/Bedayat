@@ -158,16 +158,65 @@ class UsersServices {
     XFile? document,
   }) async {
     var registerError = "";
+    print(username);
+    print(email);
+    print(phone);
+
+    print(password);
+
+    print(childname);
+
+    print(ageGroup);
+
+    print(gender);
+
+    print(emergencyNumber);
+
+    print(parentOneRealation);
+
+    print(parentOneEmail);
+
+    print(parentOnePhone);
+
+    print(parentTwoRealation);
+
+    print(parentTwoEmail);
+
+    print(parentTwoPhone);
+
+    print(userId);
+
+    print(teacherId);
+
+    print(checkoutId);
+
+    print(groupId);
+
+    print(familyCard.toString());
+
+    print(vaccinationCertificate.toString());
+
+    print(document.toString());
 
     PickedFile uploadfamilyCard = PickedFile(familyCard.toString());
     PickedFile uploadvaccinationCertificate =
         PickedFile(vaccinationCertificate.toString());
     PickedFile uploaddocument = PickedFile(document.toString());
-    var stream =
+    var stream1 =
+        // ignore: deprecated_member_use
+        new http.ByteStream(
+            // ignore: deprecated_member_use
+            DelegatingStream.typed(uploadvaccinationCertificate.openRead()));
+    var stream2 =
         // ignore: deprecated_member_use
         new http.ByteStream(
             // ignore: deprecated_member_use
             DelegatingStream.typed(uploadfamilyCard.openRead()));
+    var stream3 =
+        // ignore: deprecated_member_use
+        new http.ByteStream(
+            // ignore: deprecated_member_use
+            DelegatingStream.typed(uploaddocument.openRead()));
 
     var uri = Uri.parse("$baseApiUrl/register");
     var length1 = await familyCard!.length();
@@ -177,13 +226,13 @@ class UsersServices {
       "POST",
       uri,
     );
-    var multipartFile1 = new http.MultipartFile('files', stream, length1,
+    var multipartFile1 = new http.MultipartFile('files', stream1, length1,
         filename: basename(uploadfamilyCard.path),
         contentType: MediaType('image', 'png'));
-    var multipartFile2 = new http.MultipartFile('files', stream, length2,
+    var multipartFile2 = new http.MultipartFile('files', stream2, length2,
         filename: basename(uploadvaccinationCertificate.path),
         contentType: MediaType('image', 'png'));
-    var multipartFile3 = new http.MultipartFile('files', stream, length3,
+    var multipartFile3 = new http.MultipartFile('files', stream3, length3,
         filename: basename(uploaddocument.path),
         contentType: MediaType('image', 'png'));
 
