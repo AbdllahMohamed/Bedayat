@@ -8,7 +8,10 @@ import 'package:bedayat/controllers/group_controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hijri_picker/hijri_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:hijri/hijri_calendar.dart';
+import 'package:intl/intl.dart' as intl;
 
 class RegisterStepFourScreen extends StatefulWidget {
   final String nameController;
@@ -43,6 +46,17 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _childNameController = TextEditingController();
+
+  TextEditingController _relationOnefirstNameController =
+      TextEditingController();
+  TextEditingController _relationOneSecondNameController =
+      TextEditingController();
+  TextEditingController _relationOneThirdController = TextEditingController();
+
+  TextEditingController _relationTwoFirstController = TextEditingController();
+  TextEditingController _relationTwoScecondController = TextEditingController();
+  TextEditingController _relationTwoThirdController = TextEditingController();
+
   TextEditingController _emergencyNumberController = TextEditingController();
   TextEditingController _anthorNotesController = TextEditingController();
   TextEditingController _sensitificController = TextEditingController();
@@ -53,8 +67,8 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
   TextEditingController _relationsTwoController = TextEditingController();
   TextEditingController _phoneTwoController = TextEditingController();
 
-  List<int> _ages = [1, 2, 3, 4, 5, 6, 7, 8];
-  String _selectedAge = 'الفئة العمرية';
+  List<String> _dates = ['ميلادى', 'هجرى'];
+  String _actualselectedDate = 'تاريخ الميلاد';
 
   List<String> _types = ['ولد', 'بنت'];
   String _selectedType = 'الجنس';
@@ -73,7 +87,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
   registerStepFour() async {
     if (!_formKey.currentState!.validate()) {
       return;
-    } else if (_selectedType == 'الجنس' || _selectedAge == 'الفئة العمرية') {
+    } else if (_selectedType == 'الجنس') {
       await Get.defaultDialog(
           title: "حدث خطأ ما",
           middleText: 'يرجى التأكد من اختيار الجنس والفئة العمرية');
@@ -81,8 +95,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
     } else if (_familyCardPhoto!.path.isEmpty ||
         _vaccinationCertificate!.path.isEmpty ||
         _doctuumnet!.path.isEmpty ||
-        _selectedType == 'الجنس' ||
-        _selectedAge == 'الفئة العمرية') {
+        _selectedType == 'الجنس') {
       await Get.defaultDialog(
           title: "حدث خطأ ما", middleText: 'يرجى التأكد من اختيار الصور');
       return;
@@ -98,9 +111,21 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
         passwordController: widget.passwordController,
         selectedBranchIndex: widget.selectedBranchIndex,
         childNameController: _childNameController.text,
-        selectedAge: _selectedAge,
+        //actualselectedDate: '_actualselectedDate',
+        selectedAge: '1',
         selectedType: _selectedType,
+        groupId: selectedGroupIndex!,
+        techerId: selectedTeacherIndex!,
+        //         relationOnefirstNameController :_relationOnefirstNameController.text,
+        //  relationOneSecondNameController :_relationOneSecondNameController.text,
+
+        //  relationOneThirdController:_relationOneThirdController.text,
+
         selectedRelationsOne: _relationsOneController.text,
+        //  relationTwoFirstController :_
+        //  relationTwoScecondController
+        //  relationTwoThirdController
+
         selectedRelationsTwo: _relationsTwoController.text,
         emergencyNumberController: _emergencyNumberController.text,
         anthorNotesController: _anthorNotesController.text,
@@ -112,10 +137,40 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
         familyCardPhoto: _familyCardPhoto,
         vaccinationCertificate: _vaccinationCertificate,
         doctuumnet: _doctuumnet,
-        groupId: selectedGroupIndex!,
-        techerId: selectedTeacherIndex!,
       ));
     }
+  }
+
+  Future<void> _selectMedladyDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      lastDate: DateTime.now(),
+      firstDate: DateTime(2000, 8),
+    );
+
+    if (picked != null)
+      setState(() {
+        _actualselectedDate = picked.toString().substring(0, 10);
+      });
+  }
+
+  Future<void> _selectHijrDate(BuildContext context) async {
+    final HijriCalendar? picked = await showHijriDatePicker(
+      context: context,
+      initialDate: HijriCalendar.now(),
+      lastDate: HijriCalendar.now(),
+      firstDate: HijriCalendar()
+        ..hYear = 1400
+        ..hMonth = 12
+        ..hDay = 25,
+      initialDatePickerMode: DatePickerMode.day,
+    );
+
+    if (picked != null)
+      setState(() {
+        _actualselectedDate = "${picked.hYear}/${picked.hMonth}/${picked.hDay}";
+      });
   }
 
   @override
@@ -405,10 +460,12 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       ),
                       SizedBox(height: 15),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(
+                                  right: 8.0, left: 8, top: 8),
                               child: DropdownButton(
                                 iconEnabledColor: Color(0xffAA9E9E),
                                 isExpanded: true,
@@ -424,7 +481,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                 hint: Padding(
                                   padding: const EdgeInsets.only(bottom: 15.0),
                                   child: Text(
-                                    _selectedAge,
+                                    _actualselectedDate,
                                     maxLines: 2,
                                     style: TextStyle(
                                       fontSize: 18,
@@ -433,27 +490,24 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                     ),
                                   ),
                                 ),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    _selectedAge = newValue.toString();
-                                  });
+                                onChanged: (String? newValue) {
+                                  newValue == 'ميلادى'
+                                      ? _selectMedladyDate(context)
+                                      : _selectHijrDate(context);
                                 },
-                                items: _ages.map((country) {
+                                items: _dates.map((type) {
                                   return DropdownMenuItem(
                                     child: new Text(
-                                      country.toString(),
+                                      type,
                                       style: TextStyle(
                                         color: Color(0xff707070),
                                       ),
                                     ),
-                                    value: country.toString(),
+                                    value: type,
                                   );
                                 }).toList(),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 10,
                           ),
                           Expanded(
                             child: Padding(
@@ -487,15 +541,15 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                     _selectedType = newValue.toString();
                                   });
                                 },
-                                items: _types.map((type) {
+                                items: _types.map((country) {
                                   return DropdownMenuItem(
                                     child: new Text(
-                                      type,
+                                      country.toString(),
                                       style: TextStyle(
                                         color: Color(0xff707070),
                                       ),
                                     ),
-                                    value: type,
+                                    value: country.toString(),
                                   );
                                 }).toList(),
                               ),
@@ -558,72 +612,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 25,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(' هل يعانى الطفل من حساسية'),
-                          Switch(
-                            activeColor: Colors.green,
-                            value: _isSensitific,
-                            onChanged: (val) {
-                              setState(() {
-                                _isSensitific = val;
-                              });
-                            },
-                          )
-                        ],
-                      ),
-                      _isSensitific
-                          ? TextFormField(
-                              controller: _sensitificController,
-                              readOnly: _isSensitific,
-                              decoration: InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.grey[300]!),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.grey[300]!),
-                                ),
-                                border: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.grey[300]!),
-                                ),
-                                hintText:
-                                    'فضلا اخبرنا نوع الحساسية الخاصة بطفلك',
-                                hintStyle:
-                                    TextStyle(color: AppColors.accentColor),
-                              ),
-                            )
-                          : const SizedBox(),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('اقبل ان يتم تصوير طفلى'),
-                          Switch(
-                            activeColor: Colors.green,
-                            value: _isFilming,
-                            onChanged: (val) {
-                              setState(() {
-                                _isFilming = val;
-                              });
-                            },
-                          )
-                        ],
-                      ),
-                      Text(
-                        'تستعمل فى غرض الدعاية',
-                        style: TextStyle(
-                          color: AppColors.accentColor,
-                        ),
-                      ),
-                      SizedBox(
                         height: 40,
                       ),
                       Text(
@@ -634,6 +622,63 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       ),
                       SizedBox(
                         height: 15,
+                      ),
+                      TextFormField(
+                        controller: _relationOnefirstNameController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'الاسم الاول',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _relationOneSecondNameController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'الاسم الثانى',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _relationOneThirdController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'الاسم العائلة',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                        ),
                       ),
                       TextFormField(
                         controller: _relationsOneController,
@@ -671,9 +716,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
                       TextFormField(
                         controller: _phoneOneController,
                         keyboardType: TextInputType.number,
@@ -703,6 +745,63 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       ),
                       SizedBox(
                         height: 15,
+                      ),
+                      TextFormField(
+                        controller: _relationTwoFirstController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'الاسم الاول',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _relationTwoScecondController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'الاسم الثانى',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _relationTwoThirdController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'اسم العائلة',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                        ),
                       ),
                       TextFormField(
                         controller: _relationsTwoController,
@@ -739,9 +838,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                             color: AppColors.accentColor,
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 15,
                       ),
                       TextFormField(
                         controller: _phoneTwoController,
@@ -948,7 +1044,152 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 15,
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(' هل يعانى الطفل من حساسية'),
+                          Switch(
+                            activeColor: Colors.green,
+                            value: _isSensitific,
+                            onChanged: (val) {
+                              setState(() {
+                                _isSensitific = val;
+                              });
+                            },
+                          )
+                        ],
+                      ),
+                      _isSensitific
+                          ? TextFormField(
+                              controller: _sensitificController,
+                              readOnly: _isSensitific,
+                              decoration: InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[300]!),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[300]!),
+                                ),
+                                border: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[300]!),
+                                ),
+                                hintText:
+                                    'فضلا اخبرنا نوع الحساسية الخاصة بطفلك',
+                                hintStyle:
+                                    TextStyle(color: AppColors.accentColor),
+                              ),
+                            )
+                          : const SizedBox(),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('اقبل ان يتم تصوير طفلى'),
+                          Switch(
+                            activeColor: Colors.green,
+                            value: _isFilming,
+                            onChanged: (val) {
+                              setState(() {
+                                _isFilming = val;
+                              });
+                            },
+                          )
+                        ],
+                      ),
+                      Text(
+                        'للنشر على وسائل التواصل الاجتماعى',
+                        style: TextStyle(
+                          color: AppColors.accentColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'للطوارئ',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _relationTwoFirstController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'الاسم',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _relationTwoScecondController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'صلة القرابة',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _emergencyNumberController,
+                        keyboardType: TextInputType.number,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          } else if (val.length < 3) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          contentPadding:
+                              EdgeInsets.only(top: 14, left: 8, right: 5),
+                          prefixIcon: Image.asset(
+                            AppImages.appEmergecey,
+                            width: 5,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          hintText: ' رقم الطوارئ',
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
                       ),
                       ActionButton(
                         label: 'التالى',

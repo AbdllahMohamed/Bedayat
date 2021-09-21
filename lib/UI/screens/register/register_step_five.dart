@@ -6,13 +6,13 @@ import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/package_controller.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
+import 'package:bedayat/models/package.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:js' as js;
 
 int? selectedPackageIndex = 0;
 TextEditingController streetController = new TextEditingController();
@@ -97,6 +97,12 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     'Visa',
     'Master Card',
   ];
+
+  List<String> _peroids = [
+    'من 2 الى 7',
+    'من 5 الى 7',
+  ];
+  String _selectedPeroid = 'الفترة';
   int? selectedBankIndex;
   int? updatePakageIndex = 0;
   registerStepFive() async {
@@ -154,76 +160,100 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     }
   }
 
-  void _launchURL() {
-    js.context.callMethod(
-        'open', [baseUrl + 'payments/${GetStorage().read('checkoutId')}']);
-
-    showDialog(
-      context: this.context,
-      builder: (contetx) => Container(
-        height: 250,
-        width: 300,
-        child: new AlertDialog(
-          content: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 10),
-              Text("من فضلك قم بتأكيد الدفع ثم اضغظ على التالى "),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(RegisterCheckoutStautusScreen(
-                    nameController: widget.nameController,
-                    phoneController: widget.phoneController,
-                    emailController: widget.emailController,
-                    passwordController: widget.passwordController,
-                    selectedBranchIndex: widget.selectedBranchIndex,
-                    childNameController: widget.childNameController,
-                    selectedAge: widget.selectedAge,
-                    selectedType: widget.selectedType,
-                    selectedRelationsOne: widget.selectedRelationsOne,
-                    selectedRelationsTwo: widget.selectedRelationsTwo,
-                    emergencyNumberController: widget.emergencyNumberController,
-                    anthorNotesController: widget.anthorNotesController,
-                    sensitificController: widget.sensitificController,
-                    emailOneController: widget.emailController,
-                    phoneOneController: widget.phoneOneController,
-                    emailTwoController: widget.emailTwoController,
-                    phoneTwoController: widget.phoneTwoController,
-                    familyCardPhoto: widget.familyCardPhoto,
-                    vaccinationCertificate: widget.vaccinationCertificate,
-                    doctuumnet: widget.doctuumnet,
-                    groupId: widget.groupId,
-                    techerId: widget.techerId,
-                    checkoutId: '${GetStorage().read('checkoutId')}',
-                  ));
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: AppColors.primaryColor,
-                  minimumSize: Size(
-                    200,
-                    55,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8), // <-- Radius
-                  ),
-                ),
-                child: Text(
-                  'التالى',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+  List _pakages = [];
+  String? peroid;
+  @override
+  void initState() {
+    super.initState();
+    _loadList();
   }
+
+  void _loadList() {
+    _pakages = packageController.packageList;
+  }
+
+  void _changePakge(peroid) {
+    print(
+        'packageController.packageList.length ${packageController.packageList.length}');
+    //_pakages.clear();
+
+    setState(() {
+      _pakages = packageController.packageList
+          .where((item) => item.period == peroid)
+          .toList();
+      print(_pakages.length);
+    });
+  }
+  // void _launchURL() {
+  //   js.context.callMethod(
+  //       'open', [baseUrl + 'payments/${GetStorage().read('checkoutId')}']);
+
+  //   showDialog(
+  //     context: this.context,
+  //     builder: (contetx) => Container(
+  //       height: 250,
+  //       width: 300,
+  //       child: new AlertDialog(
+  //         content: Column(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             CircularProgressIndicator(),
+  //             SizedBox(height: 10),
+  //             Text("من فضلك قم بتأكيد الدفع ثم اضغظ على التالى "),
+  //             SizedBox(height: 10),
+  //             ElevatedButton(
+  //               onPressed: () {
+  //                 Get.to(RegisterCheckoutStautusScreen(
+  //                   nameController: widget.nameController,
+  //                   phoneController: widget.phoneController,
+  //                   emailController: widget.emailController,
+  //                   passwordController: widget.passwordController,
+  //                   selectedBranchIndex: widget.selectedBranchIndex,
+  //                   childNameController: widget.childNameController,
+  //                   selectedAge: widget.selectedAge,
+  //                   selectedType: widget.selectedType,
+  //                   selectedRelationsOne: widget.selectedRelationsOne,
+  //                   selectedRelationsTwo: widget.selectedRelationsTwo,
+  //                   emergencyNumberController: widget.emergencyNumberController,
+  //                   anthorNotesController: widget.anthorNotesController,
+  //                   sensitificController: widget.sensitificController,
+  //                   emailOneController: widget.emailController,
+  //                   phoneOneController: widget.phoneOneController,
+  //                   emailTwoController: widget.emailTwoController,
+  //                   phoneTwoController: widget.phoneTwoController,
+  //                   familyCardPhoto: widget.familyCardPhoto,
+  //                   vaccinationCertificate: widget.vaccinationCertificate,
+  //                   doctuumnet: widget.doctuumnet,
+  //                   groupId: widget.groupId,
+  //                   techerId: widget.techerId,
+  //                   checkoutId: '${GetStorage().read('checkoutId')}',
+  //                 ));
+  //               },
+  //               style: ElevatedButton.styleFrom(
+  //                 primary: AppColors.primaryColor,
+  //                 minimumSize: Size(
+  //                   200,
+  //                   55,
+  //                 ),
+  //                 shape: RoundedRectangleBorder(
+  //                   borderRadius: BorderRadius.circular(8), // <-- Radius
+  //                 ),
+  //               ),
+  //               child: Text(
+  //                 'التالى',
+  //                 style: TextStyle(
+  //                   fontSize: 17,
+  //                   fontWeight: FontWeight.w600,
+  //                   color: Colors.white,
+  //                 ),
+  //               ),
+  //             )
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -297,7 +327,78 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: 10),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          right: 20,
+                          left: 10,
+                        ),
+                        child: Text(
+                          'اختر الفترة  : ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.accentColor,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15.0),
+                        child: Container(
+                          width: 120,
+                          height: 65,
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              iconEnabledColor: Color(0xffAA9E9E),
+                              isExpanded: true,
+                              iconSize: 30,
+                              icon: Padding(
+                                padding: EdgeInsets.only(bottom: 20),
+                                child: Icon(Icons.arrow_drop_down),
+                              ),
+                              hint: Padding(
+                                padding: const EdgeInsets.only(bottom: 15.0),
+                                child: Text(
+                                  _selectedPeroid,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.accentColor,
+                                  ),
+                                ),
+                              ),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  _selectedPeroid = newValue.toString();
+                                });
+                                print('***********************');
+                                print(_selectedPeroid);
+                                if (_selectedPeroid == 'من 2 الى 7')
+                                  _changePakge('from7to2');
+                                if (_selectedPeroid == 'من 5 الى 7')
+                                  _changePakge('from7to5');
+                              },
+                              items: _peroids.map((country) {
+                                return DropdownMenuItem(
+                                  child: new Text(
+                                    country.toString(),
+                                    style: TextStyle(
+                                      color: Color(0xff707070),
+                                    ),
+                                  ),
+                                  value: country.toString(),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   Obx(
                     () => packageController.loadingProcess.value
                         ? Center(
@@ -325,15 +426,13 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                     physics: BouncingScrollPhysics(),
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
-                                    itemCount:
-                                        packageController.packageList.length,
+                                    itemCount: _pakages.length,
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap: () {
                                           setState(() {
                                             selectedPackageIndex =
-                                                packageController
-                                                    .packageList[index].id!;
+                                                _pakages[index].id!;
                                             updatePakageIndex = index;
                                           });
                                         },
@@ -349,15 +448,11 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                                 BorderRadius.circular(8),
                                             border: Border.all(
                                               color: selectedPackageIndex ==
-                                                      packageController
-                                                          .packageList[index]
-                                                          .id!
+                                                      _pakages[index].id
                                                   ? AppColors.primaryColor
                                                   : Colors.grey,
                                               width: selectedPackageIndex ==
-                                                      packageController
-                                                          .packageList[index]
-                                                          .id!
+                                                      _pakages[index].id
                                                   ? 3
                                                   : 1,
                                             ),
@@ -367,7 +462,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                '${packageController.packageList[index].title!}',
+                                                '${_pakages[index].title!}',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Colors.white,
@@ -375,7 +470,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                                 ),
                                               ),
                                               Text(
-                                                '${packageController.packageList[index].price!} \nريال',
+                                                '${_pakages[index].price!} \nريال',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Colors.white,
@@ -428,7 +523,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                       selectedPackageIndex == 0
                                           ? SizedBox()
                                           : Text(
-                                              '${packageController.packageList[updatePakageIndex!].price!} ريال',
+                                              '${_pakages[updatePakageIndex!].price!} ريال',
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 color: AppColors.titleColor,
@@ -461,7 +556,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                       selectedPackageIndex == 0
                                           ? SizedBox()
                                           : Text(
-                                              '${packageController.packageList[updatePakageIndex!].tax!} ريال',
+                                              '${_pakages[updatePakageIndex!].tax!} ريال',
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 color: AppColors.titleColor,
@@ -501,7 +596,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                       selectedPackageIndex == 0
                                           ? SizedBox()
                                           : Text(
-                                              '${(double.parse(packageController.packageList[updatePakageIndex!].price!) + double.parse(packageController.packageList[updatePakageIndex!].tax!)).toString()} ريال',
+                                              '${(double.parse(_pakages[updatePakageIndex!].price!) + double.parse(_pakages[updatePakageIndex!].tax!)).toString()} ريال',
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 color: AppColors.titleColor,
