@@ -17,12 +17,10 @@ class AddChildServices {
               return status! < 500;
             }));
     List<AddChild> temp = [];
-    print('children');
+    print('last child');
     print(response.data);
     temp.add(AddChild.fromJson(response.data['data']));
 
     return temp;
-
-    //return null;
   }
 }

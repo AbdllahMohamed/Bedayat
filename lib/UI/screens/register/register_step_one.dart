@@ -1,5 +1,6 @@
 import 'package:bedayat/UI/screens/register/register_step_two.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
+import 'package:bedayat/UI/widgets/cutome_textFormfield.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -114,83 +116,84 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      TextFormField(
+                      CustomeTextFormField(
                         controller: _nameController,
-                        keyboardType: TextInputType.text,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                           if (val.length < 3) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          prefixIcon:
-                              Icon(Icons.person, color: AppColors.accentColor),
-                          hintText: 'الاسم',
-                          hintStyle: TextStyle(color: AppColors.accentColor),
-                        ),
+                        prefixIcon:
+                            Icon(Icons.person, color: AppColors.accentColor),
+                        hintText: 'الاسم',
                       ),
-                      TextFormField(
+                      CustomeTextFormField(
                         controller: _emailController,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           } else if (!val.isEmail) {
                             return 'البريد الالكترونى غير صالح';
                           }
                         },
-                        decoration: InputDecoration(
-                          prefixIcon: Image.asset(AppImages.appEmailIcon),
-                          hintText: 'البريد الألكترونى',
-                          hintStyle: TextStyle(color: AppColors.accentColor),
-                        ),
+                        hintText: 'البريد الألكترونى',
+                        prefixIcon: Image.asset(AppImages.appEmailIcon),
                       ),
-                      TextFormField(
+                      CustomeTextFormField(
                         controller: _phoneController,
-                        keyboardType: TextInputType.number,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                           if (val.length < 8) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          prefixIcon: Image.asset(AppImages.appPhoneIcon),
-                          hintText: 'رقم الجوال',
-                          hintStyle: TextStyle(color: AppColors.accentColor),
-                        ),
+                        prefixIcon: Image.asset(AppImages.appPhoneIcon),
+                        hintText: 'رقم الجوال',
                       ),
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: _obscureText,
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          } else if (val.length <= 3) {
-                            return 'كلمة السر قصيرة للغاية';
-                          }
-                        },
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(top: 18),
-                          prefixIcon: Image.asset(AppImages.appPasswordIcon),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _obscureText
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
+                      Container(
+                        width: _deviceWidth * 0.86,
+                        child: TextFormField(
+                          controller: _passwordController,
+                          obscureText: _obscureText,
+                          validator: (val) {
+                            if (val!.isEmpty) {
+                              return 'من فضلك ادخل قيمة صحيحة';
+                            } else if (val.length <= 3) {
+                              return 'كلمة السر قصيرة للغاية';
+                            }
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(top: 18),
+                            prefixIcon: Image.asset(AppImages.appPasswordIcon),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscureText
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: AppColors.accentColor,
+                              ),
+                              onPressed: () {
+                                _toggle();
+                              },
+                            ),
+                            hintText: 'كلمة المرور',
+                            hintStyle: TextStyle(
                               color: AppColors.accentColor,
                             ),
-                            onPressed: () {
-                              _toggle();
-                            },
-                          ),
-                          hintText: 'كلمة المرور',
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[300]!),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[300]!),
+                            ),
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[300]!),
+                            ),
                           ),
                         ),
                       ),

@@ -1,18 +1,14 @@
-import 'package:bedayat/UI/screens/checkout_status/register_checkout_status.dart';
 import 'package:bedayat/UI/screens/payment_web_view/register_payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/package_controller.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
-import 'package:bedayat/models/package.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 int? selectedPackageIndex = 0;
 TextEditingController streetController = new TextEditingController();
@@ -22,6 +18,7 @@ TextEditingController postCodeController = new TextEditingController();
 TextEditingController givenNameController = new TextEditingController();
 TextEditingController surnameController = new TextEditingController();
 String? seletctedBank;
+String? peroid = 'from7to2';
 
 class RegisterStepFiveScreen extends StatefulWidget {
   final String nameController;
@@ -31,7 +28,7 @@ class RegisterStepFiveScreen extends StatefulWidget {
   //final String location;
   final int selectedBranchIndex;
   final String childNameController;
-  final String selectedAge;
+  //final String selectedAge;
   final String selectedType;
   final String selectedRelationsOne;
   final String selectedRelationsTwo;
@@ -44,6 +41,16 @@ class RegisterStepFiveScreen extends StatefulWidget {
   final String phoneTwoController;
   final int groupId;
   final int techerId;
+
+  final String actualselectedDate;
+  final String relationOnefirstNameController;
+  final String relationOneSecondNameController;
+  final String relationOneThirdController;
+  final String relationTwoFirstController;
+  final String relationTwoScecondController;
+  final String relationTwoThirdController;
+  final String emergencyNameController;
+  final String emergencyRelationController;
 
   final XFile? familyCardPhoto;
   final XFile? vaccinationCertificate;
@@ -58,7 +65,7 @@ class RegisterStepFiveScreen extends StatefulWidget {
     //required this.location,
     required this.selectedBranchIndex,
     required this.childNameController,
-    required this.selectedAge,
+    //required this.selectedAge,
     required this.selectedType,
     required this.emergencyNumberController,
     required this.anthorNotesController,
@@ -74,6 +81,15 @@ class RegisterStepFiveScreen extends StatefulWidget {
     required this.doctuumnet,
     required this.groupId,
     required this.techerId,
+    required this.actualselectedDate,
+    required this.relationOnefirstNameController,
+    required this.relationOneSecondNameController,
+    required this.relationOneThirdController,
+    required this.relationTwoFirstController,
+    required this.relationTwoScecondController,
+    required this.relationTwoThirdController,
+    required this.emergencyNameController,
+    required this.emergencyRelationController,
   }) : super(key: key);
 
   @override
@@ -102,7 +118,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     'من 2 الى 7',
     'من 5 الى 7',
   ];
-  String _selectedPeroid = 'الفترة';
+  String _selectedPeroid = 'من 2 الى 7';
   int? selectedBankIndex;
   int? updatePakageIndex = 0;
   registerStepFive() async {
@@ -138,7 +154,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
           passwordController: widget.passwordController,
           selectedBranchIndex: widget.selectedBranchIndex,
           childNameController: widget.childNameController,
-          selectedAge: widget.selectedAge,
+          //selectedAge: widget.selectedAge,
           selectedType: widget.selectedType,
           selectedRelationsOne: widget.selectedRelationsOne,
           selectedRelationsTwo: widget.selectedRelationsTwo,
@@ -155,33 +171,41 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
           groupId: widget.groupId,
           techerId: widget.techerId,
           checkoutId: "${GetStorage().read('checkoutId')}",
+          actualselectedDate: widget.actualselectedDate,
+          relationOnefirstNameController: widget.relationOnefirstNameController,
+          relationOneSecondNameController:
+              widget.relationOneSecondNameController,
+          relationOneThirdController: widget.relationOneThirdController,
+          relationTwoFirstController: widget.relationTwoFirstController,
+          relationTwoScecondController: widget.relationTwoScecondController,
+          relationTwoThirdController: widget.relationTwoThirdController,
+          emergencyNameController: widget.emergencyNameController,
+          emergencyRelationController: widget.emergencyRelationController,
+          streetController: streetController.text,
+          cityController: cityController.text,
+          stateController: stateController.text,
+          postCodeController: postCodeController.text,
+          givenNameController: givenNameController.text,
+          surnameController: surnameController.text,
         ),
       );
     }
   }
 
-  List _pakages = [];
-  String? peroid;
   @override
   void initState() {
     super.initState();
-    _loadList();
-  }
-
-  void _loadList() {
-    _pakages = packageController.packageList;
   }
 
   void _changePakge(peroid) {
     print(
         'packageController.packageList.length ${packageController.packageList.length}');
-    //_pakages.clear();
 
     setState(() {
-      _pakages = packageController.packageList
+      packageController.pakagesSelection = packageController.packageList
           .where((item) => item.period == peroid)
           .toList();
-      print(_pakages.length);
+      print(packageController.pakagesSelection.length);
     });
   }
   // void _launchURL() {
@@ -314,6 +338,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
@@ -327,7 +352,6 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -375,8 +399,6 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                 setState(() {
                                   _selectedPeroid = newValue.toString();
                                 });
-                                print('***********************');
-                                print(_selectedPeroid);
                                 if (_selectedPeroid == 'من 2 الى 7')
                                   _changePakge('from7to2');
                                 if (_selectedPeroid == 'من 5 الى 7')
@@ -412,206 +434,228 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                               ),
                             ),
                           )
-                        : Container(
-                            height: 300,
-                            margin: EdgeInsets.all(10),
-                            width: double.infinity,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 98,
-                                  child: ListView.builder(
-                                    physics: BouncingScrollPhysics(),
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-                                    itemCount: _pakages.length,
-                                    itemBuilder: (context, index) {
-                                      return InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            selectedPackageIndex =
-                                                _pakages[index].id!;
-                                            updatePakageIndex = index;
-                                          });
-                                        },
-                                        child: Container(
-                                          width: 95,
-                                          height: 95,
-                                          margin: EdgeInsets.only(left: 5),
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                            color:
-                                                AppColors.selectedPaymentColor,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            border: Border.all(
-                                              color: selectedPackageIndex ==
-                                                      _pakages[index].id
-                                                  ? AppColors.primaryColor
-                                                  : Colors.grey,
-                                              width: selectedPackageIndex ==
-                                                      _pakages[index].id
-                                                  ? 3
-                                                  : 1,
-                                            ),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '${_pakages[index].title!}',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 17,
-                                                ),
-                                              ),
-                                              Text(
-                                                '${_pakages[index].price!} \nريال',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 17,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 35,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                  ),
+                        : packageController.packageList.length == 0
+                            ? Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 200.0),
                                   child: Text(
-                                    'الفاتورة',
+                                    'لاتوجد بيانات',
                                     style: TextStyle(
-                                      fontSize: 15,
-                                      color: AppColors.titleColor,
-                                      fontWeight: FontWeight.w300,
+                                        fontSize: 22,
+                                        color: AppColors.accentColor),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                height: 290,
+                                margin: EdgeInsets.only(
+                                    right: 10, left: 10, bottom: 10),
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: 98,
+                                      child: ListView.builder(
+                                        physics: BouncingScrollPhysics(),
+                                        scrollDirection: Axis.horizontal,
+                                        shrinkWrap: true,
+                                        itemCount: packageController
+                                            .pakagesSelection.length,
+                                        itemBuilder: (context, index) {
+                                          return InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                selectedPackageIndex =
+                                                    packageController
+                                                        .pakagesSelection[index]
+                                                        .id!;
+                                                updatePakageIndex = index;
+                                              });
+                                            },
+                                            child: Container(
+                                              width: 95,
+                                              height: 95,
+                                              margin: EdgeInsets.only(left: 5),
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: AppColors
+                                                    .selectedPaymentColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                  color: selectedPackageIndex ==
+                                                          packageController
+                                                              .pakagesSelection[
+                                                                  index]
+                                                              .id
+                                                      ? AppColors.primaryColor
+                                                      : Colors.grey,
+                                                  width: selectedPackageIndex ==
+                                                          packageController
+                                                              .pakagesSelection[
+                                                                  index]
+                                                              .id
+                                                      ? 3
+                                                      : 1,
+                                                ),
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    '${packageController.pakagesSelection[index].title!}',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 17,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    '${packageController.pakagesSelection[index].price!} \nريال',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 17,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'السعر',
+                                    SizedBox(
+                                      height: 35,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                      ),
+                                      child: Text(
+                                        'الفاتورة',
                                         style: TextStyle(
                                           fontSize: 15,
-                                          color: AppColors.accentColor,
+                                          color: AppColors.titleColor,
                                           fontWeight: FontWeight.w300,
                                         ),
                                       ),
-                                      SizedBox(
-                                        width: 15,
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
                                       ),
-                                      selectedPackageIndex == 0
-                                          ? SizedBox()
-                                          : Text(
-                                              '${_pakages[updatePakageIndex!].price!} ريال',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: AppColors.titleColor,
-                                                fontWeight: FontWeight.w300,
-                                              ),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'السعر',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: AppColors.accentColor,
+                                              fontWeight: FontWeight.w300,
                                             ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'الضريبة',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: AppColors.accentColor,
-                                          fontWeight: FontWeight.w300,
-                                        ),
+                                          ),
+                                          SizedBox(
+                                            width: 15,
+                                          ),
+                                          selectedPackageIndex == 0
+                                              ? SizedBox()
+                                              : Text(
+                                                  '${packageController.pakagesSelection[updatePakageIndex!].price!} ريال',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: AppColors.titleColor,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                ),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        width: 15,
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
                                       ),
-                                      selectedPackageIndex == 0
-                                          ? SizedBox()
-                                          : Text(
-                                              '${_pakages[updatePakageIndex!].tax!} ريال',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: AppColors.titleColor,
-                                                fontWeight: FontWeight.w300,
-                                              ),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'الضريبة',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: AppColors.accentColor,
+                                              fontWeight: FontWeight.w300,
                                             ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                    vertical: 8,
-                                  ),
-                                  child: Divider(
-                                    color: Color(0xffE9E1E1),
-                                    thickness: 1.5,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'الاجمالى',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: AppColors.accentColor,
-                                          fontWeight: FontWeight.w300,
-                                        ),
+                                          ),
+                                          SizedBox(
+                                            width: 15,
+                                          ),
+                                          selectedPackageIndex == 0
+                                              ? SizedBox()
+                                              : Text(
+                                                  '${packageController.pakagesSelection[updatePakageIndex!].tax!} ريال',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: AppColors.titleColor,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                ),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        width: 15,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                        vertical: 8,
                                       ),
-                                      selectedPackageIndex == 0
-                                          ? SizedBox()
-                                          : Text(
-                                              '${(double.parse(_pakages[updatePakageIndex!].price!) + double.parse(_pakages[updatePakageIndex!].tax!)).toString()} ريال',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: AppColors.titleColor,
-                                                fontWeight: FontWeight.w300,
-                                              ),
+                                      child: Divider(
+                                        color: Color(0xffE9E1E1),
+                                        thickness: 1.5,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'الاجمالى',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: AppColors.accentColor,
+                                              fontWeight: FontWeight.w300,
                                             ),
-                                    ],
-                                  ),
+                                          ),
+                                          SizedBox(
+                                            width: 15,
+                                          ),
+                                          selectedPackageIndex == 0
+                                              ? SizedBox()
+                                              : Text(
+                                                  '${(double.parse(packageController.pakagesSelection[updatePakageIndex!].price!) + double.parse(packageController.pakagesSelection[updatePakageIndex!].tax!)).toString()} ريال',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: AppColors.titleColor,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                                ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                              ],
-                            ),
-                          ),
+                              ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -717,6 +761,15 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                             Icon(Icons.person, color: AppColors.accentColor),
                         hintText: 'الاسم الاول',
                         hintStyle: TextStyle(color: AppColors.accentColor),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
                       ),
                     ),
                   ),
@@ -740,6 +793,15 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                             Icon(Icons.person, color: AppColors.accentColor),
                         hintText: 'الاسم الثانى',
                         hintStyle: TextStyle(color: AppColors.accentColor),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
                       ),
                     ),
                   ),
@@ -763,6 +825,15 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                             color: AppColors.accentColor),
                         hintText: 'الشارع',
                         hintStyle: TextStyle(color: AppColors.accentColor),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
                       ),
                     ),
                   ),
@@ -785,6 +856,15 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                             color: AppColors.accentColor),
                         hintText: 'المدينة',
                         hintStyle: TextStyle(color: AppColors.accentColor),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
                       ),
                     ),
                   ),
@@ -808,6 +888,15 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                             color: AppColors.accentColor),
                         hintText: 'المقاطعة',
                         hintStyle: TextStyle(color: AppColors.accentColor),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
                       ),
                     ),
                   ),
@@ -831,11 +920,20 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                             color: AppColors.accentColor),
                         hintText: 'الرمز البريدي',
                         hintStyle: TextStyle(color: AppColors.accentColor),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 15.0),

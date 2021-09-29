@@ -1,6 +1,8 @@
 import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/screens/register/register_step_five.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
+import 'package:bedayat/UI/widgets/circle_image.dart';
+import 'package:bedayat/UI/widgets/cutome_textFormfield.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
@@ -11,7 +13,6 @@ import 'package:get/get.dart';
 import 'package:hijri_picker/hijri_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:hijri/hijri_calendar.dart';
-import 'package:intl/intl.dart' as intl;
 
 class RegisterStepFourScreen extends StatefulWidget {
   final String nameController;
@@ -53,9 +54,12 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
       TextEditingController();
   TextEditingController _relationOneThirdController = TextEditingController();
 
-  TextEditingController _relationTwoFirstController = TextEditingController();
-  TextEditingController _relationTwoScecondController = TextEditingController();
-  TextEditingController _relationTwoThirdController = TextEditingController();
+  TextEditingController _relationTwoFirstNameController =
+      TextEditingController();
+  TextEditingController _relationTwoScecondNameController =
+      TextEditingController();
+  TextEditingController _relationTwoThirdNameController =
+      TextEditingController();
 
   TextEditingController _emergencyNumberController = TextEditingController();
   TextEditingController _anthorNotesController = TextEditingController();
@@ -66,6 +70,8 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
   TextEditingController _relationsOneController = TextEditingController();
   TextEditingController _relationsTwoController = TextEditingController();
   TextEditingController _phoneTwoController = TextEditingController();
+  TextEditingController _emergencyNameController = TextEditingController();
+  TextEditingController _emergencyRelationController = TextEditingController();
 
   List<String> _dates = ['ميلادى', 'هجرى'];
   String _actualselectedDate = 'تاريخ الميلاد';
@@ -110,33 +116,32 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
         emailController: widget.emailController,
         passwordController: widget.passwordController,
         selectedBranchIndex: widget.selectedBranchIndex,
-        childNameController: _childNameController.text,
-        //actualselectedDate: '_actualselectedDate',
-        selectedAge: '1',
-        selectedType: _selectedType,
         groupId: selectedGroupIndex!,
         techerId: selectedTeacherIndex!,
-        //         relationOnefirstNameController :_relationOnefirstNameController.text,
-        //  relationOneSecondNameController :_relationOneSecondNameController.text,
-
-        //  relationOneThirdController:_relationOneThirdController.text,
-
-        selectedRelationsOne: _relationsOneController.text,
-        //  relationTwoFirstController :_
-        //  relationTwoScecondController
-        //  relationTwoThirdController
-
+        childNameController: _childNameController.text,
+        selectedType: _selectedType,
+        actualselectedDate: _actualselectedDate,
+        relationOnefirstNameController: _relationOnefirstNameController.text,
+        relationOneSecondNameController: _relationOneSecondNameController.text,
+        relationOneThirdController: _relationOneThirdController.text,
+        relationTwoFirstController: _relationTwoFirstNameController.text,
+        relationTwoScecondController: _relationTwoScecondNameController.text,
+        relationTwoThirdController: _relationTwoThirdNameController.text,
+        emergencyNameController: _emergencyNameController.text,
+        emergencyRelationController: _emergencyRelationController.text,
         selectedRelationsTwo: _relationsTwoController.text,
-        emergencyNumberController: _emergencyNumberController.text,
-        anthorNotesController: _anthorNotesController.text,
-        sensitificController: _sensitificController.text,
-        emailOneController: _emailOneController.text,
-        phoneOneController: _phoneOneController.text,
         emailTwoController: _emailTwoController.text,
         phoneTwoController: _phoneTwoController.text,
+        selectedRelationsOne: _relationsOneController.text,
+        emailOneController: _emailOneController.text,
+        phoneOneController: _phoneOneController.text,
         familyCardPhoto: _familyCardPhoto,
         vaccinationCertificate: _vaccinationCertificate,
         doctuumnet: _doctuumnet,
+        anthorNotesController: _anthorNotesController.text,
+        sensitificController: _sensitificController.text,
+        emergencyNumberController: _emergencyNumberController.text,
+//        selectedAge: '1',
       ));
     }
   }
@@ -289,7 +294,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                                 selectedGroupIndex =
                                                     groupController
                                                         .groupList[index].id;
-                                                print(selectedGroupIndex);
                                                 teacherController.fetchTeachers(
                                                     selectedGroupIndex!);
                                               });
@@ -365,7 +369,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                             selectedTeacherIndex =
                                                 teacherController
                                                     .teacherList[index].id;
-                                            print(selectedTeacherIndex);
                                           });
                                         },
                                         child: Container(
@@ -389,8 +392,8 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                           ),
                                           child: Row(
                                             children: [
-                                              circularImageWithBorder(
-                                                imgPath:
+                                              CircleImageWidget(
+                                                imagePath:
                                                     "$baseUrl${teacherController.teacherList[index].profileImg!.replaceAll('public', 'storage')}",
                                               ),
                                               SizedBox(
@@ -435,28 +438,17 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
+                      CustomeTextFormField(
                         controller: _childNameController,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
-                          } else if (val.length <= 2) {
+                          }
+                          if (val.length < 2) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          hintText: ' الاسم',
-                          hintStyle: TextStyle(color: AppColors.accentColor),
-                        ),
+                        hintText: ' الاسم',
                       ),
                       SizedBox(height: 15),
                       Row(
@@ -557,59 +549,10 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                           ),
                         ],
                       ),
-                      TextFormField(
-                        controller: _emergencyNumberController,
-                        keyboardType: TextInputType.number,
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          } else if (val.length < 3) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          }
-                        },
-                        decoration: InputDecoration(
-                          contentPadding:
-                              EdgeInsets.only(top: 14, left: 8, right: 5),
-                          prefixIcon: Image.asset(
-                            AppImages.appEmergecey,
-                            width: 5,
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          hintText: ' رقم الطوارئ',
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
+                      CustomeTextFormField(
                         controller: _anthorNotesController,
-                        decoration: InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          hintText: 'ملاحظات اخرى',
-                          hintStyle: TextStyle(color: AppColors.accentColor),
-                        ),
+                        validator: (val) {},
+                        hintText: 'ملاحظات اخرى',
                       ),
                       SizedBox(
                         height: 40,
@@ -623,116 +566,79 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       SizedBox(
                         height: 15,
                       ),
-                      TextFormField(
+                      CustomeTextFormField(
                         controller: _relationOnefirstNameController,
-                        keyboardType: TextInputType.text,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          hintText: 'الاسم الاول',
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: AppColors.accentColor,
-                          ),
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
+                        hintText: 'الاسم الاول',
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: AppColors.accentColor,
                         ),
                       ),
-                      TextFormField(
+                      CustomeTextFormField(
                         controller: _relationOneSecondNameController,
-                        keyboardType: TextInputType.text,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          hintText: 'الاسم الثانى',
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: AppColors.accentColor,
-                          ),
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
+                        hintText: 'الاسم الثانى',
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: AppColors.accentColor,
                         ),
                       ),
-                      TextFormField(
+                      CustomeTextFormField(
                         controller: _relationOneThirdController,
-                        keyboardType: TextInputType.text,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          hintText: 'الاسم العائلة',
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: AppColors.accentColor,
-                          ),
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
+                        hintText: 'الاسم العائلة',
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: AppColors.accentColor,
                         ),
                       ),
-                      TextFormField(
-                        controller: _relationsOneController,
-                        keyboardType: TextInputType.text,
+                      CustomeTextFormField(
+                        controller: _relationOnefirstNameController,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          hintText: 'صلة القرابة',
-                          prefixIcon: Icon(
-                            Icons.family_restroom,
-                            color: AppColors.accentColor,
-                          ),
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
+                        hintText: 'صلة القرابة',
+                        prefixIcon: Icon(
+                          Icons.family_restroom,
+                          color: AppColors.accentColor,
                         ),
                       ),
-                      TextFormField(
+                      CustomeTextFormField(
                         controller: _emailOneController,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
-                          } else if (!val.isEmail) {
-                            return 'البريد الالكترونى غير صالح';
                           }
                         },
-                        decoration: InputDecoration(
-                          hintText: 'البريد الألكترونى',
-                          prefixIcon: Image.asset(AppImages.appEmailIcon),
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
-                        ),
+                        hintText: 'البريد الألكترونى',
+                        prefixIcon: Image.asset(AppImages.appEmailIcon),
                       ),
-                      TextFormField(
-                        controller: _phoneOneController,
-                        keyboardType: TextInputType.number,
+                      CustomeTextFormField(
+                        controller: _relationOnefirstNameController,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           } else if (val.length <= 5) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          hintText: 'رقم الجوال',
-                          prefixIcon: Image.asset(AppImages.appPhoneIcon),
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
-                        ),
+                        hintText: 'رقم الجوال',
+                        prefixIcon: Image.asset(AppImages.appPhoneIcon),
                       ),
                       SizedBox(
                         height: 40,
@@ -746,116 +652,83 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       SizedBox(
                         height: 15,
                       ),
-                      TextFormField(
-                        controller: _relationTwoFirstController,
-                        keyboardType: TextInputType.text,
+                      CustomeTextFormField(
+                        controller: _relationTwoFirstNameController,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          hintText: 'الاسم الاول',
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: AppColors.accentColor,
-                          ),
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
+                        hintText: 'الاسم الاول',
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: AppColors.accentColor,
                         ),
                       ),
-                      TextFormField(
-                        controller: _relationTwoScecondController,
-                        keyboardType: TextInputType.text,
+                      CustomeTextFormField(
+                        controller: _relationTwoScecondNameController,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          hintText: 'الاسم الثانى',
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: AppColors.accentColor,
-                          ),
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
+                        hintText: 'الاسم الثانى',
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: AppColors.accentColor,
                         ),
                       ),
-                      TextFormField(
-                        controller: _relationTwoThirdController,
-                        keyboardType: TextInputType.text,
+                      CustomeTextFormField(
+                        controller: _relationTwoThirdNameController,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          hintText: 'اسم العائلة',
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: AppColors.accentColor,
-                          ),
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
+                        hintText: 'اسم العائلة',
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: AppColors.accentColor,
                         ),
                       ),
-                      TextFormField(
+                      CustomeTextFormField(
                         controller: _relationsTwoController,
-                        keyboardType: TextInputType.text,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          hintText: 'صلة القرابة',
-                          prefixIcon: Icon(
-                            Icons.family_restroom,
-                            color: AppColors.accentColor,
-                          ),
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
+                        hintText: 'صلة القرابة',
+                        prefixIcon: Icon(
+                          Icons.family_restroom,
+                          color: AppColors.accentColor,
                         ),
                       ),
-                      TextFormField(
+                      CustomeTextFormField(
                         controller: _emailTwoController,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           } else if (!val.isEmail) {
                             return 'البريد الالكترونى غير صالح';
                           }
                         },
-                        decoration: InputDecoration(
-                          hintText: 'البريد الألكترونى',
-                          prefixIcon: Image.asset(AppImages.appEmailIcon),
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
+                        hintText: 'البريد الألكترونى',
+                        prefixIcon: Image.asset(
+                          AppImages.appEmailIcon,
                         ),
                       ),
-                      TextFormField(
-                        controller: _phoneTwoController,
-                        keyboardType: TextInputType.number,
+                      CustomeTextFormField(
+                        controller: _relationOnefirstNameController,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           } else if (val.length <= 5) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           }
                         },
-                        decoration: InputDecoration(
-                          hintText: 'رقم الجوال',
-                          prefixIcon: Image.asset(AppImages.appPhoneIcon),
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
-                        ),
+                        hintText: 'رقم الجوال',
+                        prefixIcon: Image.asset(AppImages.appPhoneIcon),
                       ),
                       SizedBox(
                         height: 30,
@@ -1110,7 +983,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 30,
                       ),
                       Text(
                         'للطوارئ',
@@ -1118,8 +991,11 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                           fontSize: 18,
                         ),
                       ),
+                      SizedBox(
+                        height: 5,
+                      ),
                       TextFormField(
-                        controller: _relationTwoFirstController,
+                        controller: _emergencyNameController,
                         keyboardType: TextInputType.text,
                         validator: (val) {
                           if (val!.isEmpty) {
@@ -1135,10 +1011,19 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                           hintStyle: TextStyle(
                             color: AppColors.accentColor,
                           ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
                         ),
                       ),
                       TextFormField(
-                        controller: _relationTwoScecondController,
+                        controller: _emergencyRelationController,
                         keyboardType: TextInputType.text,
                         validator: (val) {
                           if (val!.isEmpty) {
@@ -1153,6 +1038,15 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                           ),
                           hintStyle: TextStyle(
                             color: AppColors.accentColor,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
                           ),
                         ),
                       ),

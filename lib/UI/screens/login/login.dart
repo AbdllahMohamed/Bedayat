@@ -1,9 +1,11 @@
 import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:bedayat/UI/screens/register/register_step_one.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
+import 'package:bedayat/UI/widgets/cutome_textFormfield.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_services.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,7 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if (error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      //Get.offAll(EventsScreen());
+      String? token = await FirebaseMessaging.instance.getToken();
+      print(token);
+      authController.sendToken(token!);
       Get.offAll(BottomNavigationWidget());
     }
   }
@@ -53,6 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -80,53 +85,61 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontWeight: FontWeight.w300,
                         ),
                       ),
-                      SizedBox(height: 20),
-                      TextFormField(
+                      SizedBox(height: 30),
+                      CustomeTextFormField(
                         controller: _email,
                         validator: (val) {
-                          if (val!.isEmpty) {
+                          if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
                           } else if (!val.isEmail) {
                             return 'البريد الالكترونى غير صالح';
                           }
                         },
-                        decoration: InputDecoration(
-                          prefixIcon: Image.asset(AppImages.appEmailIcon),
-                          hintText: 'البريد الألكترونى',
-                          hintStyle: TextStyle(color: AppColors.accentColor),
-                        ),
+                        hintText: 'البريد الألكترونى',
+                        prefixIcon: Image.asset(AppImages.appEmailIcon),
                       ),
-                      SizedBox(height: 15),
-                      TextFormField(
-                        controller: _password,
-                        obscureText: _obscureText,
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          } else if (val.length <= 3) {
-                            return 'كلمة السر قصيرة للغاية';
-                          }
-                        },
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(top: 18),
-                          prefixIcon: Image.asset(
-                            AppImages.appPasswordIcon,
-                            width: 5,
-                          ),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _obscureText
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
+                      Container(
+                        width: _deviceWidth * 0.86,
+                        child: TextFormField(
+                          controller: _password,
+                          obscureText: _obscureText,
+                          validator: (val) {
+                            if (val!.isEmpty) {
+                              return 'من فضلك ادخل قيمة صحيحة';
+                            } else if (val.length <= 3) {
+                              return 'كلمة السر قصيرة للغاية';
+                            }
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(top: 18),
+                            prefixIcon: Image.asset(
+                              AppImages.appPasswordIcon,
+                              width: 5,
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscureText
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: AppColors.accentColor,
+                              ),
+                              onPressed: () {
+                                _toggle();
+                              },
+                            ),
+                            hintText: 'كلمة المرور',
+                            hintStyle: TextStyle(
                               color: AppColors.accentColor,
                             ),
-                            onPressed: () {
-                              _toggle();
-                            },
-                          ),
-                          hintText: 'كلمة المرور',
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[300]!),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[300]!),
+                            ),
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[300]!),
+                            ),
                           ),
                         ),
                       ),

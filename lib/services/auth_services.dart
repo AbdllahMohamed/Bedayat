@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/models/user.dart';
 import 'package:dio/dio.dart';
@@ -73,6 +71,21 @@ class UsersServices {
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
+    String? actualselectedDate,
+    String? relationOnefirstNameController,
+    String? relationOneSecondNameController,
+    String? relationOneThirdController,
+    String? relationTwoFirstController,
+    String? relationTwoScecondController,
+    String? relationTwoThirdController,
+    String? emergencyNameController,
+    String? emergencyRelationController,
+    String? streetController,
+    String? cityController,
+    String? stateController,
+    String? postCodeController,
+    String? givenNameController,
+    String? surnameController,
   }) async {
     var registerError = "";
 
@@ -108,6 +121,21 @@ class UsersServices {
           filename: vaccinationCertificateFile),
       "document":
           await MultipartFile.fromFile(document.path, filename: documentFile),
+      'actualselectedDate': actualselectedDate,
+      'relationOnefirstNameController': relationOnefirstNameController,
+      'relationOneSecondNameController': relationOneSecondNameController,
+      'relationOneThirdController': relationOneThirdController,
+      'relationTwoFirstController': relationTwoFirstController,
+      'relationTwoScecondController': relationTwoScecondController,
+      'relationTwoThirdController': relationTwoThirdController,
+      'emergencyNameController': emergencyNameController,
+      'emergencyRelationController': emergencyRelationController,
+      'streetController': streetController,
+      'cityController': cityController,
+      'stateController': stateController,
+      'postCodeController': postCodeController,
+      'givenNameController': givenNameController,
+      'surnameController': surnameController,
     });
     Response response = await dio.post(
       "$baseApiUrl/register",
@@ -156,6 +184,21 @@ class UsersServices {
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
+    String? actualselectedDate,
+    String? relationOnefirstNameController,
+    String? relationOneSecondNameController,
+    String? relationOneThirdController,
+    String? relationTwoFirstController,
+    String? relationTwoScecondController,
+    String? relationTwoThirdController,
+    String? emergencyNameController,
+    String? emergencyRelationController,
+    String? streetController,
+    String? cityController,
+    String? stateController,
+    String? postCodeController,
+    String? givenNameController,
+    String? surnameController,
   }) async {
     var registerError = "";
     print(username);
@@ -258,6 +301,25 @@ class UsersServices {
     request.fields["teacher_id"] = teacherId!;
     request.fields["group_id"] = groupId!;
     request.fields["checkout_id"] = checkoutId!;
+    request.fields["actualselectedDate"] = actualselectedDate!;
+    request.fields["relationOnefirstNameController"] =
+        relationOnefirstNameController!;
+    request.fields["relationOneSecondNameController"] =
+        relationOneSecondNameController!;
+    request.fields["relationOneThirdController"] = relationOneThirdController!;
+    request.fields["relationTwoFirstController"] = relationTwoFirstController!;
+    request.fields["relationTwoScecondController"] =
+        relationTwoScecondController!;
+    request.fields["relationTwoThirdController"] = relationTwoThirdController!;
+    request.fields["emergencyNameController"] = emergencyNameController!;
+    request.fields["emergencyRelationController"] =
+        request.fields["streetController"] = streetController!;
+    request.fields["cityController"] = cityController!;
+    request.fields["stateController"] = stateController!;
+    request.fields["postCodeController"] = postCodeController!;
+    request.fields["givenNameController"] = givenNameController!;
+    request.fields["surnameController"] = surnameController!;
+
     request.headers.addAll({
       "Accept": "application/json",
     });
@@ -275,7 +337,6 @@ class UsersServices {
 
   static Future<String> addchild({
     String? childname,
-    String? ageGroup,
     String? gender,
     String? emergencyNumber,
     String? parentOneRealation,
@@ -291,8 +352,23 @@ class UsersServices {
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
+    String? actualselectedDate,
+    String? relationOnefirstNameController,
+    String? relationOneSecondNameController,
+    String? relationOneThirdController,
+    String? relationTwoFirstController,
+    String? relationTwoScecondController,
+    String? relationTwoThirdController,
+    String? emergencyNameController,
+    String? emergencyRelationController,
+    String? streetController,
+    String? cityController,
+    String? stateController,
+    String? postCodeController,
+    String? givenNameController,
+    String? surnameController,
   }) async {
-    var registerError = "";
+    var addChilderror = "";
 
     Dio dio = new Dio();
 
@@ -302,7 +378,6 @@ class UsersServices {
     String documentFile = document!.path.split('/').last;
     FormData formData = FormData.fromMap({
       "name": childname,
-      "age_group": ageGroup,
       "gender": gender,
       "emergency_number": emergencyNumber,
       "parent_one_realation": parentOneRealation,
@@ -322,6 +397,21 @@ class UsersServices {
           filename: vaccinationCertificateFile),
       "document":
           await MultipartFile.fromFile(document.path, filename: documentFile),
+      'actualselectedDate': actualselectedDate,
+      'relationOnefirstNameController': relationOnefirstNameController,
+      'relationOneSecondNameController': relationOneSecondNameController,
+      'relationOneThirdController': relationOneThirdController,
+      'relationTwoFirstController': relationTwoFirstController,
+      'relationTwoScecondController': relationTwoScecondController,
+      'relationTwoThirdController': relationTwoThirdController,
+      'emergencyNameController': emergencyNameController,
+      'emergencyRelationController': emergencyRelationController,
+      'streetController': streetController,
+      'cityController': cityController,
+      'stateController': stateController,
+      'postCodeController': postCodeController,
+      'givenNameController': givenNameController,
+      'surnameController': surnameController,
     });
     Response response = await dio.post(
       "$baseApiUrl/addchild",
@@ -338,14 +428,162 @@ class UsersServices {
           }),
     );
 
-    print("response.data");
+    print("addchildMobile");
     print(response.data);
     if (response.data['message'] != null) {
-      registerError = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
+      addChilderror = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
     } else {
       User.fromJson(response.data['data']);
     }
 
-    return registerError;
+    return addChilderror;
+  }
+
+  static Future<String> addchildWeb({
+    String? childname,
+    String? gender,
+    String? emergencyNumber,
+    String? parentOneRealation,
+    String? parentOneEmail,
+    String? parentOnePhone,
+    String? parentTwoRealation,
+    String? parentTwoEmail,
+    String? parentTwoPhone,
+    String? userId,
+    String? teacherId,
+    String? groupId,
+    String? checkoutId,
+    XFile? familyCard,
+    XFile? vaccinationCertificate,
+    XFile? document,
+    String? actualselectedDate,
+    String? relationOnefirstNameController,
+    String? relationOneSecondNameController,
+    String? relationOneThirdController,
+    String? relationTwoFirstController,
+    String? relationTwoScecondController,
+    String? relationTwoThirdController,
+    String? emergencyNameController,
+    String? emergencyRelationController,
+    String? streetController,
+    String? cityController,
+    String? stateController,
+    String? postCodeController,
+    String? givenNameController,
+    String? surnameController,
+  }) async {
+    var addChilderror = "";
+    PickedFile uploadfamilyCard = PickedFile(familyCard.toString());
+    PickedFile uploadvaccinationCertificate =
+        PickedFile(vaccinationCertificate.toString());
+    PickedFile uploaddocument = PickedFile(document.toString());
+    var stream1 =
+        // ignore: deprecated_member_use
+        new http.ByteStream(
+            // ignore: deprecated_member_use
+            DelegatingStream.typed(uploadvaccinationCertificate.openRead()));
+    var stream2 =
+        // ignore: deprecated_member_use
+        new http.ByteStream(
+            // ignore: deprecated_member_use
+            DelegatingStream.typed(uploadfamilyCard.openRead()));
+    var stream3 =
+        // ignore: deprecated_member_use
+        new http.ByteStream(
+            // ignore: deprecated_member_use
+            DelegatingStream.typed(uploaddocument.openRead()));
+
+    var uri = Uri.parse("$baseApiUrl/addchild");
+    var length1 = await familyCard!.length();
+    var length2 = await vaccinationCertificate!.length();
+    var length3 = await document!.length();
+    var request = new http.MultipartRequest(
+      "POST",
+      uri,
+    );
+    var multipartFile1 = new http.MultipartFile('family_card', stream1, length1,
+        filename: basename(uploadfamilyCard.path),
+        contentType: MediaType('image', 'png'));
+    var multipartFile2 = new http.MultipartFile(
+        'vaccination_certificate', stream2, length2,
+        filename: basename(uploadvaccinationCertificate.path),
+        contentType: MediaType('image', 'png'));
+    var multipartFile3 = new http.MultipartFile('document', stream3, length3,
+        filename: basename(uploaddocument.path),
+        contentType: MediaType('image', 'png'));
+
+    request.files.add(multipartFile1);
+    request.files.add(multipartFile2);
+    request.files.add(multipartFile3);
+    request.fields["name"] = childname!;
+    request.fields["gender"] = gender!;
+    request.fields["emergency_number"] = emergencyNumber!;
+    request.fields["parent_one_realation"] = parentOneRealation!;
+    request.fields["parent_one_email"] = parentOneEmail!;
+    request.fields["parent_one_phone"] = parentOnePhone!;
+    request.fields["parent_two_realation"] = parentTwoRealation!;
+    request.fields["parent_two_email"] = parentTwoEmail!;
+    request.fields["parent_two_phone"] = parentTwoPhone!;
+    request.fields["user_id"] = userId!;
+    request.fields["teacher_id"] = teacherId!;
+    request.fields["group_id"] = groupId!;
+    request.fields["checkout_id"] = checkoutId!;
+    request.fields["actualselectedDate"] = actualselectedDate!;
+    request.fields["relationOnefirstNameController"] =
+        relationOnefirstNameController!;
+    request.fields["relationOneSecondNameController"] =
+        relationOneSecondNameController!;
+    request.fields["relationOneThirdController"] = relationOneThirdController!;
+    request.fields["relationTwoFirstController"] = relationTwoFirstController!;
+    request.fields["relationTwoScecondController"] =
+        relationTwoScecondController!;
+    request.fields["relationTwoThirdController"] = relationTwoThirdController!;
+    request.fields["emergencyNameController"] = emergencyNameController!;
+    request.fields["emergencyRelationController"] =
+        request.fields["streetController"] = streetController!;
+    request.fields["cityController"] = cityController!;
+    request.fields["stateController"] = stateController!;
+    request.fields["postCodeController"] = postCodeController!;
+    request.fields["givenNameController"] = givenNameController!;
+    request.fields["surnameController"] = surnameController!;
+
+    request.headers.addAll({
+      "Accept": "application/json",
+    });
+
+    var response = await request.send();
+    print('addchildWeb');
+    print(response.statusCode);
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
+
+    return addChilderror;
+  }
+
+  static Future<String> sendToken(String token) async {
+    var loginError = "";
+
+    Dio dio = new Dio();
+
+    Response response = await dio.post(
+      "$baseApiUrl/user/savetoken",
+      data: {
+        "token": token,
+      },
+      options: Options(
+          headers: {
+            "Accept": "application/json",
+            "Authorization": "Bearer ${GetStorage().read('token')}",
+          },
+          contentType: "application/x-www-form-urlencoded",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+    print(response.data);
+
+    return loginError;
   }
 }

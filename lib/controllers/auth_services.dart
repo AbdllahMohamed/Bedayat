@@ -43,11 +43,24 @@ class AuthController extends GetxController {
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
+    String? actualselectedDate,
+    String? relationOnefirstNameController,
+    String? relationOneSecondNameController,
+    String? relationOneThirdController,
+    String? relationTwoFirstController,
+    String? relationTwoScecondController,
+    String? relationTwoThirdController,
+    String? emergencyNameController,
+    String? emergencyRelationController,
+    String? streetController,
+    String? cityController,
+    String? stateController,
+    String? postCodeController,
+    String? givenNameController,
+    String? surnameController,
   }) async {
     var registerError = "";
     try {
-      //loadingProcess(true);
-
       registerError = await UsersServices.register(
         username: username,
         email: email,
@@ -70,12 +83,25 @@ class AuthController extends GetxController {
         familyCard: familyCard,
         vaccinationCertificate: vaccinationCertificate,
         document: document,
+        actualselectedDate: actualselectedDate,
+        relationOnefirstNameController: relationOnefirstNameController,
+        relationOneSecondNameController: relationOneSecondNameController,
+        relationOneThirdController: relationOneThirdController,
+        relationTwoFirstController: relationTwoFirstController,
+        relationTwoScecondController: relationTwoScecondController,
+        relationTwoThirdController: relationTwoThirdController,
+        emergencyNameController: emergencyNameController,
+        emergencyRelationController: emergencyRelationController,
+        streetController: streetController,
+        cityController: cityController,
+        stateController: stateController,
+        postCodeController: postCodeController,
+        givenNameController: givenNameController,
+        surnameController: surnameController,
       );
     } catch (e) {
       print(e);
       registerError = 'من فضلك حاول مرة اخرى';
-    } finally {
-      //loadingProcess(false);
     }
     return registerError;
   }
@@ -102,10 +128,23 @@ class AuthController extends GetxController {
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
+    String? actualselectedDate,
+    String? relationOnefirstNameController,
+    String? relationOneSecondNameController,
+    String? relationOneThirdController,
+    String? relationTwoFirstController,
+    String? relationTwoScecondController,
+    String? relationTwoThirdController,
+    String? emergencyNameController,
+    String? emergencyRelationController,
+    String? streetController,
+    String? cityController,
+    String? stateController,
+    String? postCodeController,
+    String? givenNameController,
+    String? surnameController,
   }) async {
     var registerError = "";
-
-    //loadingProcess(true);
 
     registerError = await UsersServices.registerWeb(
       username: username,
@@ -129,6 +168,21 @@ class AuthController extends GetxController {
       familyCard: familyCard,
       vaccinationCertificate: vaccinationCertificate,
       document: document,
+      actualselectedDate: actualselectedDate,
+      relationOnefirstNameController: relationOnefirstNameController,
+      relationOneSecondNameController: relationOneSecondNameController,
+      relationOneThirdController: relationOneThirdController,
+      relationTwoFirstController: relationTwoFirstController,
+      relationTwoScecondController: relationTwoScecondController,
+      relationTwoThirdController: relationTwoThirdController,
+      emergencyNameController: emergencyNameController,
+      emergencyRelationController: emergencyRelationController,
+      streetController: streetController,
+      cityController: cityController,
+      stateController: stateController,
+      postCodeController: postCodeController,
+      givenNameController: givenNameController,
+      surnameController: surnameController,
     );
 
     return registerError;
@@ -152,6 +206,21 @@ class AuthController extends GetxController {
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
+    String? actualselectedDate,
+    String? relationOnefirstNameController,
+    String? relationOneSecondNameController,
+    String? relationOneThirdController,
+    String? relationTwoFirstController,
+    String? relationTwoScecondController,
+    String? relationTwoThirdController,
+    String? emergencyNameController,
+    String? emergencyRelationController,
+    String? streetController,
+    String? cityController,
+    String? stateController,
+    String? postCodeController,
+    String? givenNameController,
+    String? surnameController,
   }) async {
     var registerError = "";
     try {
@@ -159,7 +228,6 @@ class AuthController extends GetxController {
 
       registerError = await UsersServices.addchild(
         childname: childname,
-        ageGroup: ageGroup,
         gender: gender,
         emergencyNumber: emergencyNumber,
         parentOneRealation: parentOneRealation,
@@ -175,6 +243,21 @@ class AuthController extends GetxController {
         familyCard: familyCard,
         vaccinationCertificate: vaccinationCertificate,
         document: document,
+        actualselectedDate: actualselectedDate,
+        relationOnefirstNameController: relationOnefirstNameController,
+        relationOneSecondNameController: relationOneSecondNameController,
+        relationOneThirdController: relationOneThirdController,
+        relationTwoFirstController: relationTwoFirstController,
+        relationTwoScecondController: relationTwoScecondController,
+        relationTwoThirdController: relationTwoThirdController,
+        emergencyNameController: emergencyNameController,
+        emergencyRelationController: emergencyRelationController,
+        streetController: streetController,
+        cityController: cityController,
+        stateController: stateController,
+        postCodeController: postCodeController,
+        givenNameController: givenNameController,
+        surnameController: surnameController,
       );
     } catch (e) {
       print('e');
@@ -190,5 +273,94 @@ class AuthController extends GetxController {
     final box = GetStorage();
     box.remove('token');
     Get.offAll(LoginScreen());
+  }
+
+  Future<String> addChildWeb({
+    String? childname,
+    String? ageGroup,
+    String? gender,
+    String? emergencyNumber,
+    String? parentOneRealation,
+    String? parentOneEmail,
+    String? parentOnePhone,
+    String? parentTwoRealation,
+    String? parentTwoEmail,
+    String? parentTwoPhone,
+    String? userId,
+    String? teacherId,
+    String? chekoutId,
+    String? groupId,
+    XFile? familyCard,
+    XFile? vaccinationCertificate,
+    XFile? document,
+    String? actualselectedDate,
+    String? relationOnefirstNameController,
+    String? relationOneSecondNameController,
+    String? relationOneThirdController,
+    String? relationTwoFirstController,
+    String? relationTwoScecondController,
+    String? relationTwoThirdController,
+    String? emergencyNameController,
+    String? emergencyRelationController,
+    String? streetController,
+    String? cityController,
+    String? stateController,
+    String? postCodeController,
+    String? givenNameController,
+    String? surnameController,
+  }) async {
+    var registerError = "";
+    try {
+      loadingProcess(true);
+
+      registerError = await UsersServices.addchildWeb(
+        childname: childname,
+        gender: gender,
+        emergencyNumber: emergencyNumber,
+        parentOneRealation: parentOneRealation,
+        parentOneEmail: parentOneEmail,
+        parentOnePhone: parentOnePhone,
+        parentTwoRealation: parentTwoRealation,
+        parentTwoEmail: parentTwoEmail,
+        parentTwoPhone: parentTwoPhone,
+        userId: userId,
+        teacherId: teacherId,
+        groupId: groupId,
+        checkoutId: chekoutId,
+        familyCard: familyCard,
+        vaccinationCertificate: vaccinationCertificate,
+        document: document,
+        actualselectedDate: actualselectedDate,
+        relationOnefirstNameController: relationOnefirstNameController,
+        relationOneSecondNameController: relationOneSecondNameController,
+        relationOneThirdController: relationOneThirdController,
+        relationTwoFirstController: relationTwoFirstController,
+        relationTwoScecondController: relationTwoScecondController,
+        relationTwoThirdController: relationTwoThirdController,
+        emergencyNameController: emergencyNameController,
+        emergencyRelationController: emergencyRelationController,
+        streetController: streetController,
+        cityController: cityController,
+        stateController: stateController,
+        postCodeController: postCodeController,
+        givenNameController: givenNameController,
+        surnameController: surnameController,
+      );
+    } catch (e) {
+      print('e');
+      print(e);
+      registerError = 'من فضلك حاول مرة اخرى';
+    } finally {
+      loadingProcess(false);
+    }
+    return registerError;
+  }
+
+  void sendToken(String token) async {
+    try {
+      await UsersServices.sendToken(token);
+    } catch (e) {
+      print(e);
+    } finally {}
   }
 }

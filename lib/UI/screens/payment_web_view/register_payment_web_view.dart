@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:bedayat/UI/screens/checkout_status/register_checkout_status.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/checkout_status_controller.dart';
@@ -9,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:webview_flutter/webview_flutter.dart' as webview;
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webviewx/webviewx.dart' as webviewX;
+import 'package:webview_flutter/webview_flutter.dart' as webview;
 
 // ignore: must_be_immutable
 class RegisterPaymentWebviewScreen extends StatefulWidget {
@@ -23,7 +21,7 @@ class RegisterPaymentWebviewScreen extends StatefulWidget {
   //final String location;
   final int selectedBranchIndex;
   final String childNameController;
-  final String selectedAge;
+  // final String selectedAge;
   final String selectedType;
   final String selectedRelationsOne;
   final String selectedRelationsTwo;
@@ -36,10 +34,26 @@ class RegisterPaymentWebviewScreen extends StatefulWidget {
   final String phoneTwoController;
   final int groupId;
   final int techerId;
+  final String actualselectedDate;
+  final String relationOnefirstNameController;
+  final String relationOneSecondNameController;
+  final String relationOneThirdController;
+  final String relationTwoFirstController;
+  final String relationTwoScecondController;
+  final String relationTwoThirdController;
+  final String emergencyNameController;
+  final String emergencyRelationController;
 
   final XFile? familyCardPhoto;
   final XFile? vaccinationCertificate;
   final XFile? doctuumnet;
+
+  final String streetController;
+  final String cityController;
+  final String stateController;
+  final String postCodeController;
+  final String givenNameController;
+  final String surnameController;
 
   RegisterPaymentWebviewScreen(
       {Key? key,
@@ -50,7 +64,7 @@ class RegisterPaymentWebviewScreen extends StatefulWidget {
       required this.passwordController,
       required this.selectedBranchIndex,
       required this.childNameController,
-      required this.selectedAge,
+      // required this.selectedAge,
       required this.selectedType,
       required this.selectedRelationsOne,
       required this.selectedRelationsTwo,
@@ -65,7 +79,22 @@ class RegisterPaymentWebviewScreen extends StatefulWidget {
       required this.techerId,
       required this.familyCardPhoto,
       required this.vaccinationCertificate,
-      required this.doctuumnet})
+      required this.doctuumnet,
+      required this.actualselectedDate,
+      required this.relationOnefirstNameController,
+      required this.relationOneSecondNameController,
+      required this.relationOneThirdController,
+      required this.relationTwoFirstController,
+      required this.relationTwoScecondController,
+      required this.relationTwoThirdController,
+      required this.emergencyNameController,
+      required this.emergencyRelationController,
+      required this.streetController,
+      required this.cityController,
+      required this.stateController,
+      required this.postCodeController,
+      required this.givenNameController,
+      required this.surnameController})
       : super(key: key);
 
   @override
@@ -75,6 +104,8 @@ class RegisterPaymentWebviewScreen extends StatefulWidget {
 
 class _RegisterPaymentWebviewScreenState
     extends State<RegisterPaymentWebviewScreen> {
+  CheckoutStatusController checkoutStatusController =
+      Get.put(CheckoutStatusController());
   late webviewX.WebViewXController webviewController;
 
   Size get screenSize => MediaQuery.of(context).size;
@@ -108,7 +139,7 @@ class _RegisterPaymentWebviewScreenState
       passwordController: widget.passwordController,
       selectedBranchIndex: widget.selectedBranchIndex,
       childNameController: widget.childNameController,
-      selectedAge: widget.selectedAge,
+      // selectedAge: widget.selectedAge,
       selectedType: widget.selectedType,
       selectedRelationsOne: widget.selectedRelationsOne,
       selectedRelationsTwo: widget.selectedRelationsTwo,
@@ -125,6 +156,21 @@ class _RegisterPaymentWebviewScreenState
       groupId: widget.groupId,
       techerId: widget.techerId,
       checkoutId: widget.checkoutId,
+      actualselectedDate: widget.actualselectedDate,
+      relationOnefirstNameController: widget.relationOnefirstNameController,
+      relationOneSecondNameController: widget.relationOneSecondNameController,
+      relationOneThirdController: widget.relationOneThirdController,
+      relationTwoFirstController: widget.relationTwoFirstController,
+      relationTwoScecondController: widget.relationTwoScecondController,
+      relationTwoThirdController: widget.relationTwoThirdController,
+      emergencyNameController: widget.emergencyNameController,
+      emergencyRelationController: widget.emergencyRelationController,
+      streetController: widget.streetController,
+      cityController: widget.cityController,
+      stateController: widget.stateController,
+      postCodeController: widget.postCodeController,
+      givenNameController: widget.givenNameController,
+      surnameController: widget.surnameController,
     ));
   }
 
@@ -134,8 +180,6 @@ class _RegisterPaymentWebviewScreenState
     super.dispose();
   }
 
-  CheckoutStatusController checkoutStatusController =
-      Get.put(CheckoutStatusController());
   @override
   Widget build(BuildContext context) {
     String url = baseUrl + 'payments/${GetStorage().read('checkoutId')}';

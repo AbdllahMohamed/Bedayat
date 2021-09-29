@@ -1,8 +1,9 @@
-import 'package:bedayat/UI/screens/account/account.dart';
 import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/screens/profile/profile.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -14,37 +15,24 @@ class BottomNavigationWidget extends StatefulWidget {
 }
 
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
+  @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
+      if (message != null) {
+        print('test2');
+      }
+    });
+  }
+
   int _currentIndex = 0;
   List<Widget> _screens = [
     // AccountScreen(),
     HomeScreen(),
     ProfileScreen(),
   ];
-  late Color accountColor;
-  late Color homeColor;
-  late Color profileColor;
-
-  @override
-  void initState() {
-    super.initState();
-    selectColor();
-  }
-
-  selectColor() {
-    if (_currentIndex == 0) {
-      accountColor = AppColors.primaryColor;
-      homeColor = AppColors.titleColor;
-      profileColor = AppColors.titleColor;
-    } else if (_currentIndex == 1) {
-      accountColor = AppColors.titleColor;
-      homeColor = AppColors.primaryColor;
-      profileColor = AppColors.titleColor;
-    } else {
-      accountColor = AppColors.titleColor;
-      homeColor = AppColors.titleColor;
-      profileColor = AppColors.primaryColor;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +48,6 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
-            selectColor();
           });
         },
         items: [
@@ -84,7 +71,9 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
                   AppImages.appHomeIcon,
                   width: 35,
                   height: 35,
-                  color: homeColor,
+                  color: _currentIndex == 0
+                      ? AppColors.primaryColor
+                      : AppColors.accentColor,
                 ),
               ),
               label: ''),
@@ -95,7 +84,9 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
                   AppImages.appProfileIcon,
                   width: 35,
                   height: 35,
-                  color: profileColor,
+                  color: _currentIndex == 1
+                      ? AppColors.primaryColor
+                      : AppColors.accentColor,
                 ),
               ),
               label: ''),

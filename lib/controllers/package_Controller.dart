@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class PackageController extends GetxController {
   var packageList = <Package>[].obs;
+  var pakagesSelection = [];
   var loadingProcess = false.obs;
 
   @override
@@ -19,6 +20,8 @@ class PackageController extends GetxController {
       if (packages != null) {
         packageList.value = packages;
       }
+      pakagesSelection =
+          packageList.where((item) => item.period == 'from7to2').toList();
     } finally {
       loadingProcess(false);
     }

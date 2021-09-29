@@ -1,10 +1,7 @@
 import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.dart';
-import 'package:bedayat/UI/screens/payment_web_view/register_payment_web_view.dart';
-import 'package:bedayat/UI/screens/register/register_step_six.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/package_controller.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/foundation.dart';
@@ -14,18 +11,17 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 int? selectedPackageIndex = 0;
-TextEditingController streetController = new TextEditingController();
-TextEditingController cityController = new TextEditingController();
-TextEditingController stateController = new TextEditingController();
-TextEditingController postCodeController = new TextEditingController();
-TextEditingController givenNameController = new TextEditingController();
-TextEditingController surnameController = new TextEditingController();
+late TextEditingController streetController;
+late TextEditingController cityController;
+late TextEditingController stateController;
+late TextEditingController postCodeController;
+late TextEditingController givenNameController;
+late TextEditingController surnameController;
 String? seletctedBank;
 
 class AddChildStepFourScreen extends StatefulWidget {
   final int selectedBranchIndex;
   final String childNameController;
-  final String selectedAge;
   final String selectedType;
   final String selectedRelationsOne;
   final String selectedRelationsTwo;
@@ -39,31 +35,62 @@ class AddChildStepFourScreen extends StatefulWidget {
   final int groupId;
   final int techerId;
 
+  final String actualselectedDate;
+  final String relationOnefirstNameController;
+  final String relationOneSecondNameController;
+  final String relationOneThirdController;
+  final String relationTwoFirstController;
+  final String relationTwoScecondController;
+  final String relationTwoThirdController;
+  final String emergencyNameController;
+  final String emergencyRelationController;
+
   final XFile? familyCardPhoto;
   final XFile? vaccinationCertificate;
   final XFile? doctuumnet;
 
-  const AddChildStepFourScreen({
-    Key? key,
-    required this.selectedBranchIndex,
-    required this.childNameController,
-    required this.selectedAge,
-    required this.selectedType,
-    required this.emergencyNumberController,
-    required this.anthorNotesController,
-    required this.selectedRelationsOne,
-    required this.emailOneController,
-    required this.selectedRelationsTwo,
-    required this.sensitificController,
-    required this.phoneOneController,
-    required this.emailTwoController,
-    required this.phoneTwoController,
-    required this.familyCardPhoto,
-    required this.vaccinationCertificate,
-    required this.doctuumnet,
-    required this.groupId,
-    required this.techerId,
-  }) : super(key: key);
+  final String streetController;
+  final String cityController;
+  final String stateController;
+  final String postCodeController;
+  final String givenNameController;
+  final String surnameController;
+
+  const AddChildStepFourScreen(
+      {Key? key,
+      required this.selectedBranchIndex,
+      required this.childNameController,
+      required this.selectedType,
+      required this.emergencyNumberController,
+      required this.anthorNotesController,
+      required this.selectedRelationsOne,
+      required this.emailOneController,
+      required this.selectedRelationsTwo,
+      required this.sensitificController,
+      required this.phoneOneController,
+      required this.emailTwoController,
+      required this.phoneTwoController,
+      required this.familyCardPhoto,
+      required this.vaccinationCertificate,
+      required this.doctuumnet,
+      required this.groupId,
+      required this.techerId,
+      required this.actualselectedDate,
+      required this.relationOnefirstNameController,
+      required this.relationOneSecondNameController,
+      required this.relationOneThirdController,
+      required this.relationTwoFirstController,
+      required this.relationTwoScecondController,
+      required this.relationTwoThirdController,
+      required this.emergencyNameController,
+      required this.emergencyRelationController,
+      required this.streetController,
+      required this.cityController,
+      required this.stateController,
+      required this.postCodeController,
+      required this.givenNameController,
+      required this.surnameController})
+      : super(key: key);
 
   @override
   _AddChildStepFourScreenState createState() => _AddChildStepFourScreenState();
@@ -85,8 +112,28 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
     'Visa',
     'Master Card',
   ];
+  List<String> _peroids = [
+    'من 2 الى 7',
+    'من 5 الى 7',
+  ];
+  String _selectedPeroid = 'من 2 الى 7';
   int? selectedBankIndex;
   int? updatePakageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    streetController = TextEditingController(text: widget.streetController);
+    cityController = new TextEditingController(text: widget.cityController);
+    stateController = new TextEditingController(text: widget.stateController);
+    postCodeController =
+        new TextEditingController(text: widget.postCodeController);
+    givenNameController =
+        new TextEditingController(text: widget.givenNameController);
+    surnameController =
+        new TextEditingController(text: widget.surnameController);
+  }
 
   addChildStepFour() async {
     if (!_formKey.currentState!.validate()) {
@@ -115,7 +162,6 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
         AddChildPaymentWebviewScreen(
           selectedBranchIndex: widget.selectedBranchIndex,
           childNameController: widget.childNameController,
-          selectedAge: widget.selectedAge,
           selectedType: widget.selectedType,
           selectedRelationsOne: widget.selectedRelationsOne,
           selectedRelationsTwo: widget.selectedRelationsTwo,
@@ -132,9 +178,37 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
           groupId: widget.groupId,
           techerId: widget.techerId,
           checkoutId: "${GetStorage().read('checkoutId')}",
+          relationOnefirstNameController: widget.relationOnefirstNameController,
+          relationOneSecondNameController:
+              widget.relationOneSecondNameController,
+          relationOneThirdController: widget.relationOneThirdController,
+          relationTwoFirstController: widget.relationTwoFirstController,
+          relationTwoScecondController: widget.relationTwoScecondController,
+          relationTwoThirdController: widget.relationTwoThirdController,
+          emergencyNameController: widget.emergencyNameController,
+          emergencyRelationController: widget.emergencyRelationController,
+          streetController: streetController.text,
+          cityController: cityController.text,
+          stateController: stateController.text,
+          postCodeController: postCodeController.text,
+          givenNameController: givenNameController.text,
+          surnameController: surnameController.text,
+          actualselectedDate: widget.actualselectedDate,
         ),
       );
     }
+  }
+
+  void _changePakge(peroid) {
+    print(
+        'packageController.pakagesSelection.length ${packageController.pakagesSelection.length}');
+
+    setState(() {
+      packageController.pakagesSelection = packageController.pakagesSelection
+          .where((item) => item.period == peroid)
+          .toList();
+      print(packageController.pakagesSelection.length);
+    });
   }
 
   @override
@@ -213,7 +287,77 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 5),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            right: 20,
+                            left: 10,
+                          ),
+                          child: Text(
+                            'اختر الفترة  : ',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.accentColor,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: Container(
+                            width: 120,
+                            height: 65,
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                iconEnabledColor: Color(0xffAA9E9E),
+                                isExpanded: true,
+                                iconSize: 30,
+                                icon: Padding(
+                                  padding: EdgeInsets.only(bottom: 20),
+                                  child: Icon(Icons.arrow_drop_down),
+                                ),
+                                hint: Padding(
+                                  padding: const EdgeInsets.only(bottom: 15.0),
+                                  child: Text(
+                                    _selectedPeroid,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.accentColor,
+                                    ),
+                                  ),
+                                ),
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    _selectedPeroid = newValue.toString();
+                                  });
+                                  print('***********************');
+                                  print(_selectedPeroid);
+                                  if (_selectedPeroid == 'من 2 الى 7')
+                                    _changePakge('from7to2');
+                                  if (_selectedPeroid == 'من 5 الى 7')
+                                    _changePakge('from7to5');
+                                },
+                                items: _peroids.map((country) {
+                                  return DropdownMenuItem(
+                                    child: new Text(
+                                      country.toString(),
+                                      style: TextStyle(
+                                        color: Color(0xff707070),
+                                      ),
+                                    ),
+                                    value: country.toString(),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     Obx(
                       () => packageController.loadingProcess.value
                           ? Center(
@@ -227,7 +371,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                 ),
                               ),
                             )
-                          : packageController.packageList.length == 0
+                          : packageController.pakagesSelection.length == 0
                               ? Center(
                                   child: Padding(
                                     padding: const EdgeInsets.only(top: 200.0),
@@ -254,13 +398,14 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                           physics: BouncingScrollPhysics(),
                                           scrollDirection: Axis.horizontal,
                                           itemCount: packageController
-                                              .packageList.length,
+                                              .pakagesSelection.length,
                                           itemBuilder: (context, index) {
                                             return InkWell(
                                               onTap: () {
                                                 selectedPackageIndex =
                                                     packageController
-                                                        .packageList[index].id!;
+                                                        .pakagesSelection[index]
+                                                        .id!;
                                                 updatePakageIndex = index;
                                               },
                                               child: Container(
@@ -277,14 +422,14 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                                   border: Border.all(
                                                     color: selectedPackageIndex ==
                                                             packageController
-                                                                .packageList[
+                                                                .pakagesSelection[
                                                                     index]
                                                                 .id!
                                                         ? AppColors.primaryColor
                                                         : Colors.grey,
                                                     width: selectedPackageIndex ==
                                                             packageController
-                                                                .packageList[
+                                                                .pakagesSelection[
                                                                     index]
                                                                 .id!
                                                         ? 3
@@ -296,7 +441,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      '${packageController.packageList[index].title!}',
+                                                      '${packageController.pakagesSelection[index].title!}',
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -305,7 +450,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${packageController.packageList[index].price!} \nريال',
+                                                      '${packageController.pakagesSelection[index].price!} \nريال',
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -359,7 +504,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                             selectedPackageIndex == 0
                                                 ? SizedBox()
                                                 : Text(
-                                                    '${packageController.packageList[updatePakageIndex!].price!} ريال',
+                                                    '${packageController.pakagesSelection[updatePakageIndex!].price!} ريال',
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                       color:
@@ -394,7 +539,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                             selectedPackageIndex == 0
                                                 ? SizedBox()
                                                 : Text(
-                                                    '${packageController.packageList[updatePakageIndex!].tax!} ريال',
+                                                    '${packageController.pakagesSelection[updatePakageIndex!].tax!} ريال',
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                       color:
@@ -436,7 +581,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                             selectedPackageIndex == 0
                                                 ? SizedBox()
                                                 : Text(
-                                                    '${(double.parse(packageController.packageList[updatePakageIndex!].price!) + double.parse(packageController.packageList[updatePakageIndex!].tax!)).toString()} ريال',
+                                                    '${(double.parse(packageController.pakagesSelection[updatePakageIndex!].price!) + double.parse(packageController.pakagesSelection[updatePakageIndex!].tax!)).toString()} ريال',
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                       color:
@@ -482,7 +627,6 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                             setState(() {
                               selectedBankIndex = index;
                               seletctedBank = _banckName[selectedBankIndex!];
-                              print(seletctedBank);
                             });
                           },
                           child: Container(
@@ -559,6 +703,15 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                               Icon(Icons.person, color: AppColors.accentColor),
                           hintText: 'الاسم الاول',
                           hintStyle: TextStyle(color: AppColors.accentColor),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
                         ),
                       ),
                     ),
@@ -582,6 +735,15 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                               Icon(Icons.person, color: AppColors.accentColor),
                           hintText: 'الاسم الثانى',
                           hintStyle: TextStyle(color: AppColors.accentColor),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
                         ),
                       ),
                     ),
@@ -605,6 +767,15 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                               color: AppColors.accentColor),
                           hintText: 'الشارع',
                           hintStyle: TextStyle(color: AppColors.accentColor),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
                         ),
                       ),
                     ),
@@ -627,6 +798,15 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                               color: AppColors.accentColor),
                           hintText: 'المدينة',
                           hintStyle: TextStyle(color: AppColors.accentColor),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
                         ),
                       ),
                     ),
@@ -650,6 +830,15 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                               color: AppColors.accentColor),
                           hintText: 'المقاطعة',
                           hintStyle: TextStyle(color: AppColors.accentColor),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
                         ),
                       ),
                     ),
@@ -673,6 +862,15 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                               color: AppColors.accentColor),
                           hintText: 'الرمز البريدي',
                           hintStyle: TextStyle(color: AppColors.accentColor),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
                         ),
                       ),
                     ),

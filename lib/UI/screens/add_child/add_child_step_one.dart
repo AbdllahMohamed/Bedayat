@@ -9,18 +9,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class AddChildStepOneScreen extends StatefulWidget {
-  // final String nameController;
-  // final String phoneController;
-  // final String emailController;
-  // final String passwordController;
-
-  // AddChildStepOneScreen({
-  //   required this.nameController,
-  //   required this.phoneController,
-  //   required this.emailController,
-  //   required this.passwordController,
-  // });
-
   @override
   _AddChildStepOneScreenState createState() => _AddChildStepOneScreenState();
 }

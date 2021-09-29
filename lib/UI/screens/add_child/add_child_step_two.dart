@@ -22,24 +22,54 @@ class _AddChildStepTwoScreenState extends State<AddChildStepTwoScreen> {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: 'يجب اختيار الفرع');
       return;
     } else {
-      Get.to(AddChildStepThreeScreen(
-        selectedBranchIndex: selectedBranchIndex!,
-        emergaceyNumber:
-            addChildController.addChildList[0].emergencyNumber ?? "",
-        anthorNotesController: addChildController.addChildList[0].notes ?? "",
-        relationsOneController:
-            addChildController.addChildList[0].parentOneRealation ?? "",
-        emailOneController:
-            addChildController.addChildList[0].parentOneEmail ?? "",
-        phoneOneController:
-            addChildController.addChildList[0].parentOnePhone ?? "",
-        relationsTwoController:
-            addChildController.addChildList[0].parentTwoRealation ?? "",
-        emailTwoController:
-            addChildController.addChildList[0].parentTwoEmail ?? "",
-        phoneTwoController:
-            addChildController.addChildList[0].parentTwoPhone ?? "",
-      ));
+      Get.to(
+        AddChildStepThreeScreen(
+          selectedBranchIndex: selectedBranchIndex!,
+          emergaceyNumber:
+              addChildController.addChildList[0].emergencyNumber ?? "",
+          anthorNotesController: addChildController.addChildList[0].notes ?? "",
+          relationsOneController:
+              addChildController.addChildList[0].parentOneRealation ?? "",
+          emailOneController:
+              addChildController.addChildList[0].parentOneEmail ?? "",
+          phoneOneController:
+              addChildController.addChildList[0].parentOnePhone ?? "",
+          relationsTwoController:
+              addChildController.addChildList[0].parentTwoRealation ?? "",
+          emailTwoController:
+              addChildController.addChildList[0].parentTwoEmail ?? "",
+          phoneTwoController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          relationOnefirstNameController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          relationOneSecondNameController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          relationOneThirdNameController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          relationTwoFirstNameController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          relationTwoScecondNameController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          relationTwoThirdNameController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          emergencyNameController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          emergencyRelationController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          streetController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          cityController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          stateController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          postCodeController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          givenNameController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+          surnameController:
+              addChildController.addChildList[0].parentTwoPhone ?? "",
+        ),
+      );
     }
   }
 

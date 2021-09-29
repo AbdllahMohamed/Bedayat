@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "19150441341",
+    "project_id": "bdeyat-83099",
+    "storage_bucket": "bdeyat-83099.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19150441341:android:d8c4180ff8e0f1aad89a14",
+        "android_client_info": {
+          "package_name": "com.rizme.bedayat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19150441341-ga6s2s6kt4g67l32eg4kvd8imqjoj7io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZo5AIAeM1d1q-EaXXmCxOQVymbt48d4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19150441341-ga6s2s6kt4g67l32eg4kvd8imqjoj7io.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

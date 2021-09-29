@@ -1,6 +1,7 @@
 import 'package:bedayat/UI/screens/add_child/add_child_step_four.dart';
 import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
+import 'package:bedayat/UI/widgets/circle_image.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
@@ -9,7 +10,9 @@ import 'package:bedayat/controllers/group_controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hijri_picker/hijri_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:hijri/hijri_calendar.dart';
 
 class AddChildStepThreeScreen extends StatefulWidget {
   final int selectedBranchIndex;
@@ -22,17 +25,46 @@ class AddChildStepThreeScreen extends StatefulWidget {
   final String phoneOneController;
   final String emailTwoController;
   final String phoneTwoController;
-  const AddChildStepThreeScreen({
-    required this.selectedBranchIndex,
-    required this.emergaceyNumber,
-    required this.relationsOneController,
-    required this.relationsTwoController,
-    required this.anthorNotesController,
-    required this.emailOneController,
-    required this.phoneOneController,
-    required this.emailTwoController,
-    required this.phoneTwoController,
-  });
+
+  final String relationOnefirstNameController;
+  final String relationOneSecondNameController;
+  final String relationOneThirdNameController;
+  final String relationTwoFirstNameController;
+  final String relationTwoScecondNameController;
+  final String relationTwoThirdNameController;
+  final String emergencyNameController;
+  final String emergencyRelationController;
+
+  final String streetController;
+  final String cityController;
+  final String stateController;
+  final String postCodeController;
+  final String givenNameController;
+  final String surnameController;
+  const AddChildStepThreeScreen(
+      {required this.selectedBranchIndex,
+      required this.emergaceyNumber,
+      required this.relationsOneController,
+      required this.relationsTwoController,
+      required this.anthorNotesController,
+      required this.emailOneController,
+      required this.phoneOneController,
+      required this.emailTwoController,
+      required this.phoneTwoController,
+      required this.relationOnefirstNameController,
+      required this.relationOneSecondNameController,
+      required this.relationOneThirdNameController,
+      required this.relationTwoFirstNameController,
+      required this.relationTwoScecondNameController,
+      required this.relationTwoThirdNameController,
+      required this.emergencyNameController,
+      required this.emergencyRelationController,
+      required this.streetController,
+      required this.cityController,
+      required this.stateController,
+      required this.postCodeController,
+      required this.givenNameController,
+      required this.surnameController});
   @override
   _AddChildStepThreeScreenState createState() =>
       _AddChildStepThreeScreenState();
@@ -55,6 +87,14 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
   late TextEditingController _relationsTwoController;
   late TextEditingController _emailTwoController;
   late TextEditingController _phoneTwoController;
+  late TextEditingController _relationOnefirstNameController;
+  late TextEditingController _relationOneSecondNameController;
+  late TextEditingController _relationOneThirdController;
+  late TextEditingController _relationTwoFirstNameController;
+  late TextEditingController _relationTwoScecondNameController;
+  late TextEditingController _relationTwoThirdNameController;
+  late TextEditingController _emergencyNameController;
+  late TextEditingController _emergencyRelationController;
 
   @override
   void initState() {
@@ -78,10 +118,27 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
         TextEditingController(text: widget.emailTwoController);
     _phoneTwoController =
         TextEditingController(text: widget.phoneTwoController);
+
+    _relationOnefirstNameController =
+        TextEditingController(text: widget.relationOnefirstNameController);
+    _relationOneSecondNameController =
+        TextEditingController(text: widget.relationOneSecondNameController);
+    _relationOneThirdController =
+        TextEditingController(text: widget.relationOneThirdNameController);
+    _relationTwoFirstNameController =
+        TextEditingController(text: widget.relationTwoFirstNameController);
+    _relationTwoScecondNameController =
+        TextEditingController(text: widget.relationTwoScecondNameController);
+    _relationTwoThirdNameController =
+        TextEditingController(text: widget.relationTwoThirdNameController);
+    _emergencyNameController =
+        TextEditingController(text: widget.emergencyNameController);
+    _emergencyRelationController =
+        TextEditingController(text: widget.emergencyRelationController);
   }
 
-  List<int> _ages = [1, 2, 3, 4, 5, 6, 7, 8];
-  String _selectedAge = 'الفئة العمرية';
+  List<String> _dates = ['ميلادى', 'هجرى'];
+  String _actualselectedDate = 'تاريخ الميلاد';
 
   List<String> _types = ['ولد', 'بنت'];
   String _selectedType = 'الجنس';
@@ -100,11 +157,15 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
   addChildStepThree() async {
     if (!_formKey.currentState!.validate()) {
       return;
+    } else if (_actualselectedDate == 'تاريخ الميلاد') {
+      await Get.defaultDialog(
+          title: "حدث خطأ ما",
+          middleText: 'يرجى التأكد من اختيار تاريخ الميلاد ');
     } else if (selectedGroupIndex == null || selectedTeacherIndex == null) {
       await Get.defaultDialog(
           title: "حدث خطأ ما",
           middleText: 'يرجى التأكد من اختيار الفصل و المعلم');
-    } else if (_selectedType == 'الجنس' || _selectedAge == 'الفئة العمرية') {
+    } else if (_selectedType == 'الجنس') {
       await Get.defaultDialog(
           title: "حدث خطأ ما",
           middleText: 'يرجى التأكد من اختيار الفئة العمرية والجنس');
@@ -112,8 +173,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
     } else if (_familyCardPhoto!.path.isEmpty ||
         _vaccinationCertificate!.path.isEmpty ||
         _doctuumnet!.path.isEmpty ||
-        _selectedType == 'الجنس' ||
-        _selectedAge == 'الفئة العمرية') {
+        _selectedType == 'الجنس') {
       await Get.defaultDialog(
           title: "حدث خطأ ما", middleText: 'يرجى التأكد من اختيار الصور');
       return;
@@ -121,7 +181,6 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
       Get.to(AddChildStepFourScreen(
         selectedBranchIndex: widget.selectedBranchIndex,
         childNameController: _childNameController.text,
-        selectedAge: _selectedAge,
         selectedType: _selectedType,
         selectedRelationsOne: _relationsOneController.text,
         selectedRelationsTwo: _relationsTwoController.text,
@@ -137,8 +196,55 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
         doctuumnet: _doctuumnet,
         groupId: selectedGroupIndex!,
         techerId: selectedTeacherIndex!,
+        actualselectedDate: _actualselectedDate,
+        relationOnefirstNameController: _relationOnefirstNameController.text,
+        relationOneSecondNameController: _relationOneSecondNameController.text,
+        relationOneThirdController: _relationOneThirdController.text,
+        relationTwoFirstController: _relationTwoFirstNameController.text,
+        relationTwoScecondController: _relationTwoScecondNameController.text,
+        relationTwoThirdController: _relationTwoThirdNameController.text,
+        emergencyNameController: _emergencyNameController.text,
+        emergencyRelationController: _emergencyRelationController.text,
+        streetController: streetController.text,
+        cityController: cityController.text,
+        stateController: stateController.text,
+        postCodeController: postCodeController.text,
+        givenNameController: givenNameController.text,
+        surnameController: surnameController.text,
       ));
     }
+  }
+
+  Future<void> _selectMedladyDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      lastDate: DateTime.now(),
+      firstDate: DateTime(2000, 8),
+    );
+
+    if (picked != null)
+      setState(() {
+        _actualselectedDate = picked.toString().substring(0, 10);
+      });
+  }
+
+  Future<void> _selectHijrDate(BuildContext context) async {
+    final HijriCalendar? picked = await showHijriDatePicker(
+      context: context,
+      initialDate: HijriCalendar.now(),
+      lastDate: HijriCalendar.now(),
+      firstDate: HijriCalendar()
+        ..hYear = 1400
+        ..hMonth = 12
+        ..hDay = 25,
+      initialDatePickerMode: DatePickerMode.day,
+    );
+
+    if (picked != null)
+      setState(() {
+        _actualselectedDate = "${picked.hYear}/${picked.hMonth}/${picked.hDay}";
+      });
   }
 
   @override
@@ -260,7 +366,6 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                                                 selectedGroupIndex =
                                                     groupController
                                                         .groupList[index].id;
-                                                print(selectedGroupIndex);
                                                 teacherController.fetchTeachers(
                                                     selectedGroupIndex!);
                                               });
@@ -339,7 +444,6 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                                             selectedTeacherIndex =
                                                 teacherController
                                                     .teacherList[index].id;
-                                            print(selectedTeacherIndex);
                                           });
                                         },
                                         child: Container(
@@ -363,10 +467,9 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                                           ),
                                           child: Row(
                                             children: [
-                                              circularImageWithBorder(
-                                                imgPath:
-                                                    "$baseUrl${teacherController.teacherList[index].profileImg!.replaceAll('public', 'storage')}",
-                                              ),
+                                              CircleImageWidget(
+                                                  imagePath:
+                                                      "$baseUrl${teacherController.teacherList[index].profileImg!.replaceAll('public', 'storage')}"),
                                               SizedBox(
                                                 width: 10,
                                               ),
@@ -434,10 +537,12 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                       ),
                       SizedBox(height: 15),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(
+                                  right: 8.0, left: 8, top: 8),
                               child: DropdownButton(
                                 iconEnabledColor: Color(0xffAA9E9E),
                                 isExpanded: true,
@@ -453,7 +558,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                                 hint: Padding(
                                   padding: const EdgeInsets.only(bottom: 15.0),
                                   child: Text(
-                                    _selectedAge,
+                                    _actualselectedDate,
                                     maxLines: 2,
                                     style: TextStyle(
                                       fontSize: 18,
@@ -462,27 +567,24 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                                     ),
                                   ),
                                 ),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    _selectedAge = newValue.toString();
-                                  });
+                                onChanged: (String? newValue) {
+                                  newValue == 'ميلادى'
+                                      ? _selectMedladyDate(context)
+                                      : _selectHijrDate(context);
                                 },
-                                items: _ages.map((country) {
+                                items: _dates.map((type) {
                                   return DropdownMenuItem(
                                     child: new Text(
-                                      country.toString(),
+                                      type,
                                       style: TextStyle(
                                         color: Color(0xff707070),
                                       ),
                                     ),
-                                    value: country.toString(),
+                                    value: type,
                                   );
                                 }).toList(),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 10,
                           ),
                           Expanded(
                             child: Padding(
@@ -516,59 +618,21 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                                     _selectedType = newValue.toString();
                                   });
                                 },
-                                items: _types.map((type) {
+                                items: _types.map((country) {
                                   return DropdownMenuItem(
                                     child: new Text(
-                                      type,
+                                      country.toString(),
                                       style: TextStyle(
                                         color: Color(0xff707070),
                                       ),
                                     ),
-                                    value: type,
+                                    value: country.toString(),
                                   );
                                 }).toList(),
                               ),
                             ),
                           ),
                         ],
-                      ),
-                      TextFormField(
-                        controller: _emergencyNumberController,
-                        keyboardType: TextInputType.number,
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          } else if (val.length < 3) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          }
-                        },
-                        decoration: InputDecoration(
-                          contentPadding:
-                              EdgeInsets.only(top: 14, left: 8, right: 5),
-                          prefixIcon: Image.asset(
-                            AppImages.appEmergecey,
-                            width: 5,
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          hintText: ' رقم الطوارئ',
-                          hintStyle: TextStyle(
-                            color: AppColors.accentColor,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 10,
                       ),
                       TextFormField(
                         controller: _anthorNotesController,
@@ -587,73 +651,6 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 25,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(' هل يعانى الطفل من حساسية'),
-                          Switch(
-                            activeColor: Colors.green,
-                            value: _isSensitific,
-                            onChanged: (val) {
-                              setState(() {
-                                _isSensitific = val;
-                              });
-                            },
-                          )
-                        ],
-                      ),
-                      _isSensitific
-                          ? TextFormField(
-                              controller: _sensitificController,
-                              decoration: InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.grey[300]!),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.grey[300]!),
-                                ),
-                                border: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.grey[300]!),
-                                ),
-                                hintText:
-                                    'فضلا اخبرنا نوع الحساسية الخاصة بطفلك',
-                                hintStyle:
-                                    TextStyle(color: AppColors.accentColor),
-                              ),
-                            )
-                          : SizedBox(
-                              height: 5,
-                            ),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('اقبل ان يتم تصوير طفلى'),
-                          Switch(
-                            activeColor: Colors.green,
-                            value: _isFilming,
-                            onChanged: (val) {
-                              setState(() {
-                                _isFilming = val;
-                              });
-                            },
-                          )
-                        ],
-                      ),
-                      Text(
-                        'تستعمل فى غرض الدعاية',
-                        style: TextStyle(
-                          color: AppColors.accentColor,
-                        ),
-                      ),
-                      SizedBox(
                         height: 40,
                       ),
                       Text(
@@ -664,6 +661,90 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                       ),
                       SizedBox(
                         height: 15,
+                      ),
+                      TextFormField(
+                        controller: _relationOnefirstNameController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'الاسم الاول',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _relationOneSecondNameController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'الاسم الثانى',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _relationOneThirdController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'الاسم العائلة',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                        ),
                       ),
                       TextFormField(
                         controller: _relationsOneController,
@@ -682,6 +763,15 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                           hintStyle: TextStyle(
                             color: AppColors.accentColor,
                           ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
                         ),
                       ),
                       TextFormField(
@@ -699,10 +789,16 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                           hintStyle: TextStyle(
                             color: AppColors.accentColor,
                           ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 15,
                       ),
                       TextFormField(
                         controller: _phoneOneController,
@@ -720,6 +816,15 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                           hintStyle: TextStyle(
                             color: AppColors.accentColor,
                           ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -733,6 +838,90 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                       ),
                       SizedBox(
                         height: 15,
+                      ),
+                      TextFormField(
+                        controller: _relationTwoFirstNameController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'الاسم الاول',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _relationTwoScecondNameController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'الاسم الثانى',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _relationTwoThirdNameController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'اسم العائلة',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                        ),
                       ),
                       TextFormField(
                         controller: _relationsTwoController,
@@ -751,6 +940,15 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                           hintStyle: TextStyle(
                             color: AppColors.accentColor,
                           ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
                         ),
                       ),
                       TextFormField(
@@ -768,10 +966,16 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                           hintStyle: TextStyle(
                             color: AppColors.accentColor,
                           ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 15,
                       ),
                       TextFormField(
                         controller: _phoneTwoController,
@@ -788,6 +992,15 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                           prefixIcon: Image.asset(AppImages.appPhoneIcon),
                           hintStyle: TextStyle(
                             color: AppColors.accentColor,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
                           ),
                         ),
                       ),
@@ -981,7 +1194,173 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 15,
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(' هل يعانى الطفل من حساسية'),
+                          Switch(
+                            activeColor: Colors.green,
+                            value: _isSensitific,
+                            onChanged: (val) {
+                              setState(() {
+                                _isSensitific = val;
+                              });
+                            },
+                          )
+                        ],
+                      ),
+                      _isSensitific
+                          ? TextFormField(
+                              controller: _sensitificController,
+                              readOnly: _isSensitific,
+                              decoration: InputDecoration(
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[300]!),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[300]!),
+                                ),
+                                border: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey[300]!),
+                                ),
+                                hintText:
+                                    'فضلا اخبرنا نوع الحساسية الخاصة بطفلك',
+                                hintStyle:
+                                    TextStyle(color: AppColors.accentColor),
+                              ),
+                            )
+                          : const SizedBox(),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('اقبل ان يتم تصوير طفلى'),
+                          Switch(
+                            activeColor: Colors.green,
+                            value: _isFilming,
+                            onChanged: (val) {
+                              setState(() {
+                                _isFilming = val;
+                              });
+                            },
+                          )
+                        ],
+                      ),
+                      Text(
+                        'للنشر على وسائل التواصل الاجتماعى',
+                        style: TextStyle(
+                          color: AppColors.accentColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Text(
+                        'للطوارئ',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TextFormField(
+                        controller: _emergencyNameController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'الاسم',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _emergencyRelationController,
+                        keyboardType: TextInputType.text,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'صلة القرابة',
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: AppColors.accentColor,
+                          ),
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                        controller: _emergencyNumberController,
+                        keyboardType: TextInputType.number,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          } else if (val.length < 3) {
+                            return 'من فضلك ادخل قيمة صحيحة';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          contentPadding:
+                              EdgeInsets.only(top: 14, left: 8, right: 5),
+                          prefixIcon: Image.asset(
+                            AppImages.appEmergecey,
+                            width: 5,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          hintText: ' رقم الطوارئ',
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
                       ),
                       ActionButton(
                         label: 'التالى',
