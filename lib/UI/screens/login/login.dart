@@ -49,6 +49,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    print(Uri.base.toString());
+    print(Uri.base.query);
+  }
+
+  @override
   void dispose() {
     super.dispose();
     _email.dispose();

@@ -2,8 +2,10 @@ import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:bedayat/UI/screens/login/login.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/controllers/app_bindings.dart';
+import 'package:bedayat/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -90,7 +92,10 @@ class MyApp extends StatelessWidget {
         fontFamily: 'GESSTWO',
         colorScheme: ColorScheme.light(primary: AppColors.primaryColor),
       ),
-      home: token != null ? BottomNavigationWidget() : LoginScreen(),
+      //home: token != null ? BottomNavigationWidget() : LoginScreen(),
+
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

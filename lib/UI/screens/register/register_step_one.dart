@@ -42,6 +42,14 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    print(Uri.base
+        .toString()); // http://localhost:8082/game.html?id=15&randomNumber=3.14
+    print(Uri.base.query);
+  }
+
+  @override
   void dispose() {
     super.dispose();
     _nameController.dispose();
