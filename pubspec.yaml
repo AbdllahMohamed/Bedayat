@@ -42,6 +42,7 @@ dependencies:
   firebase_messaging: ^10.0.7
   firebase_core: ^1.6.0
   fluro: ^2.0.3
+  easy_web_view2: ^0.0.3
   flutter:
     sdk: flutter
   introduction_screen: ^2.1.0

@@ -7,17 +7,25 @@ import 'UI/screens/checkout_status/register_checkout_status.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings? settings) {
-    switch (settings!.name) {
-      case "/":
-        return GeneratePageRoute(
-            widget: LoginScreen(), routeName: settings.name!);
-      case "/payment":
-        return GeneratePageRoute(
-            widget: RegisterCheckoutStautusScreen(), routeName: settings.name!);
-      default:
-        return GeneratePageRoute(
-            widget: LoginScreen(), routeName: settings.name!);
-    }
+    List<String> pathComponents = settings!.name!.split('/');
+    print(pathComponents[1]);
+
+    if (pathComponents[1] == '/') {
+      return GeneratePageRoute(
+          widget: LoginScreen(), routeName: settings.name!);
+    } else if (pathComponents[1].contains('payment')) {
+      final settingsUri = Uri.parse(settings.name!);
+      //settingsUri.queryParameters is a map of all the query keys and values
+      final checkoutId = settingsUri.queryParameters['id'];
+      print("checkoutId : $checkoutId");
+      return GeneratePageRoute(
+          widget: RegisterCheckoutStautusScreen(
+            checkoutId: checkoutId!,
+          ),
+          routeName: settings.name!);
+    } else
+      return GeneratePageRoute(
+          widget: LoginScreen(), routeName: settings.name!);
   }
 }
 

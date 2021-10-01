@@ -11,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 
 // ignore: must_be_immutable
 class RegisterCheckoutStautusScreen extends StatefulWidget {
-  // String checkoutId;
+  String checkoutId;
   // final String nameController;
   // final String phoneController;
   // final String emailController;
@@ -53,47 +53,47 @@ class RegisterCheckoutStautusScreen extends StatefulWidget {
   // final XFile? familyCardPhoto;
   // final XFile? vaccinationCertificate;
   // final XFile? doctuumnet;
-  // RegisterCheckoutStautusScreen({
-  //   Key? key,
-  //   required this.checkoutId,
-  //   required this.nameController,
-  //   required this.phoneController,
-  //   required this.emailController,
-  //   required this.passwordController,
-  //   required this.selectedBranchIndex,
-  //   required this.childNameController,
-  //   //required this.selectedAge,
-  //   required this.selectedType,
-  //   required this.selectedRelationsOne,
-  //   required this.selectedRelationsTwo,
-  //   required this.emergencyNumberController,
-  //   required this.anthorNotesController,
-  //   required this.sensitificController,
-  //   required this.emailOneController,
-  //   required this.phoneOneController,
-  //   required this.emailTwoController,
-  //   required this.phoneTwoController,
-  //   required this.groupId,
-  //   required this.techerId,
-  //   required this.familyCardPhoto,
-  //   required this.vaccinationCertificate,
-  //   required this.doctuumnet,
-  //   required this.actualselectedDate,
-  //   required this.relationOnefirstNameController,
-  //   required this.relationOneSecondNameController,
-  //   required this.relationOneThirdController,
-  //   required this.relationTwoFirstController,
-  //   required this.relationTwoScecondController,
-  //   required this.relationTwoThirdController,
-  //   required this.emergencyNameController,
-  //   required this.emergencyRelationController,
-  //   required this.streetController,
-  //   required this.cityController,
-  //   required this.stateController,
-  //   required this.postCodeController,
-  //   required this.givenNameController,
-  //   required this.surnameController,
-  // }) : super(key: key);
+  RegisterCheckoutStautusScreen({
+    Key? key,
+    required this.checkoutId,
+    // required this.nameController,
+    // required this.phoneController,
+    // required this.emailController,
+    // required this.passwordController,
+    // required this.selectedBranchIndex,
+    // required this.childNameController,
+    // //required this.selectedAge,
+    // required this.selectedType,
+    // required this.selectedRelationsOne,
+    // required this.selectedRelationsTwo,
+    // required this.emergencyNumberController,
+    // required this.anthorNotesController,
+    // required this.sensitificController,
+    // required this.emailOneController,
+    // required this.phoneOneController,
+    // required this.emailTwoController,
+    // required this.phoneTwoController,
+    // required this.groupId,
+    // required this.techerId,
+    // required this.familyCardPhoto,
+    // required this.vaccinationCertificate,
+    // required this.doctuumnet,
+    // required this.actualselectedDate,
+    // required this.relationOnefirstNameController,
+    // required this.relationOneSecondNameController,
+    // required this.relationOneThirdController,
+    // required this.relationTwoFirstController,
+    // required this.relationTwoScecondController,
+    // required this.relationTwoThirdController,
+    // required this.emergencyNameController,
+    // required this.emergencyRelationController,
+    // required this.streetController,
+    // required this.cityController,
+    // required this.stateController,
+    // required this.postCodeController,
+    // required this.givenNameController,
+    // required this.surnameController,
+  }) : super(key: key);
 
   @override
   _RegisterCheckoutStautusScreenState createState() =>

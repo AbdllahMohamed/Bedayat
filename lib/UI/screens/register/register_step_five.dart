@@ -1,7 +1,10 @@
+import 'package:bedayat/UI/screens/checkout_status/register_checkout_status.dart';
+import 'package:bedayat/UI/screens/login/login.dart';
 import 'package:bedayat/UI/screens/payment_web_view/register_payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/package_controller.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/foundation.dart';
@@ -28,7 +31,7 @@ class RegisterStepFiveScreen extends StatefulWidget {
   //final String location;
   final int selectedBranchIndex;
   final String childNameController;
-  //final String selectedAge;
+  final String ageGroup;
   final String selectedType;
   final String selectedRelationsOne;
   final String selectedRelationsTwo;
@@ -42,7 +45,6 @@ class RegisterStepFiveScreen extends StatefulWidget {
   final int groupId;
   final int techerId;
 
-  final String actualselectedDate;
   final String relationOnefirstNameController;
   final String relationOneSecondNameController;
   final String relationOneThirdController;
@@ -65,7 +67,7 @@ class RegisterStepFiveScreen extends StatefulWidget {
     //required this.location,
     required this.selectedBranchIndex,
     required this.childNameController,
-    //required this.selectedAge,
+    required this.ageGroup,
     required this.selectedType,
     required this.emergencyNumberController,
     required this.anthorNotesController,
@@ -81,7 +83,6 @@ class RegisterStepFiveScreen extends StatefulWidget {
     required this.doctuumnet,
     required this.groupId,
     required this.techerId,
-    required this.actualselectedDate,
     required this.relationOnefirstNameController,
     required this.relationOneSecondNameController,
     required this.relationOneThirdController,
@@ -98,6 +99,7 @@ class RegisterStepFiveScreen extends StatefulWidget {
 
 class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
   PaymentController paymentController = Get.put(PaymentController());
+  AuthController authController = Get.put(AuthController());
 
   final _formKey = GlobalKey<FormState>();
 
@@ -121,6 +123,15 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
   String _selectedPeroid = 'من 2 الى 7';
   int? selectedBankIndex;
   int? updatePakageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    print(widget.familyCardPhoto!.path);
+    print(widget.vaccinationCertificate);
+    print(widget.doctuumnet);
+  }
+
   registerStepFive() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -146,55 +157,106 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     if (error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      Get.to(
-        RegisterPaymentWebviewScreen(
-          nameController: widget.nameController,
-          phoneController: widget.phoneController,
-          emailController: widget.emailController,
-          passwordController: widget.passwordController,
-          selectedBranchIndex: widget.selectedBranchIndex,
-          childNameController: widget.childNameController,
-          //selectedAge: widget.selectedAge,
-          selectedType: widget.selectedType,
-          selectedRelationsOne: widget.selectedRelationsOne,
-          selectedRelationsTwo: widget.selectedRelationsTwo,
-          emergencyNumberController: widget.emergencyNumberController,
-          anthorNotesController: widget.anthorNotesController,
-          sensitificController: widget.sensitificController,
-          emailOneController: widget.emailController,
-          phoneOneController: widget.phoneOneController,
-          emailTwoController: widget.emailTwoController,
-          phoneTwoController: widget.phoneTwoController,
-          familyCardPhoto: widget.familyCardPhoto,
-          vaccinationCertificate: widget.vaccinationCertificate,
-          doctuumnet: widget.doctuumnet,
-          groupId: widget.groupId,
-          techerId: widget.techerId,
-          checkoutId: "${GetStorage().read('checkoutId')}",
-          actualselectedDate: widget.actualselectedDate,
-          relationOnefirstNameController: widget.relationOnefirstNameController,
-          relationOneSecondNameController:
-              widget.relationOneSecondNameController,
-          relationOneThirdController: widget.relationOneThirdController,
-          relationTwoFirstController: widget.relationTwoFirstController,
-          relationTwoScecondController: widget.relationTwoScecondController,
-          relationTwoThirdController: widget.relationTwoThirdController,
-          emergencyNameController: widget.emergencyNameController,
-          emergencyRelationController: widget.emergencyRelationController,
-          streetController: streetController.text,
-          cityController: cityController.text,
-          stateController: stateController.text,
-          postCodeController: postCodeController.text,
-          givenNameController: givenNameController.text,
-          surnameController: surnameController.text,
-        ),
-      );
+      kIsWeb
+          ? _registerAndavegatoToWeb()
+          : Get.to(RegisterPaymentWebviewScreen());
+
+      // Get.to(
+      //   RegisterPaymentWebviewScreen(
+      //     nameController: widget.nameController,
+      //     phoneController: widget.phoneController,
+      //     emailController: widget.emailController,
+      //     passwordController: widget.passwordController,
+      //     selectedBranchIndex: widget.selectedBranchIndex,
+      //     childNameController: widget.childNameController,
+      //     //selectedAge: widget.selectedAge,
+      //     selectedType: widget.selectedType,
+      //     selectedRelationsOne: widget.selectedRelationsOne,
+      //     selectedRelationsTwo: widget.selectedRelationsTwo,
+      //     emergencyNumberController: widget.emergencyNumberController,
+      //     anthorNotesController: widget.anthorNotesController,
+      //     sensitificController: widget.sensitificController,
+      //     emailOneController: widget.emailController,
+      //     phoneOneController: widget.phoneOneController,
+      //     emailTwoController: widget.emailTwoController,
+      //     phoneTwoController: widget.phoneTwoController,
+      //     familyCardPhoto: widget.familyCardPhoto,
+      //     vaccinationCertificate: widget.vaccinationCertificate,
+      //     doctuumnet: widget.doctuumnet,
+      //     groupId: widget.groupId,
+      //     techerId: widget.techerId,
+      //     checkoutId: "${GetStorage().read('checkoutId')}",
+      //     actualselectedDate: widget.actualselectedDate,
+      //     relationOnefirstNameController: widget.relationOnefirstNameController,
+      //     relationOneSecondNameController:
+      //         widget.relationOneSecondNameController,
+      //     relationOneThirdController: widget.relationOneThirdController,
+      //     relationTwoFirstController: widget.relationTwoFirstController,
+      //     relationTwoScecondController: widget.relationTwoScecondController,
+      //     relationTwoThirdController: widget.relationTwoThirdController,
+      //     emergencyNameController: widget.emergencyNameController,
+      //     emergencyRelationController: widget.emergencyRelationController,
+      //     streetController: streetController.text,
+      //     cityController: cityController.text,
+      //     stateController: stateController.text,
+      //     postCodeController: postCodeController.text,
+      //     givenNameController: givenNameController.text,
+      //     surnameController: surnameController.text,
+      //   ),
+      // );
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
+  void _registerAndavegatoToWeb() async {
+    String registerError = await authController.registerWeb(
+      username: widget.nameController,
+      email: widget.emailController,
+      phone: widget.phoneController,
+      password: widget.passwordController,
+      childname: widget.childNameController,
+      gender: widget.selectedType == 'ولد' ? 'male' : 'female',
+      emergencyNumber: widget.emergencyNumberController,
+      parentOneRealation: widget.selectedRelationsOne,
+      parentOneEmail: widget.emailOneController,
+      parentOnePhone: widget.phoneOneController,
+      parentTwoRealation: widget.selectedRelationsTwo,
+      parentTwoEmail: widget.emailTwoController,
+      parentTwoPhone: widget.phoneTwoController,
+      userId: "1",
+      ageGroup: widget.ageGroup,
+      teacherId: widget.techerId.toString(),
+      groupId: widget.groupId.toString(),
+      familyCard: widget.familyCardPhoto,
+      vaccinationCertificate: widget.vaccinationCertificate,
+      document: widget.doctuumnet!,
+      checkoutId: "${GetStorage().read('checkoutId')}",
+      relationOnefirstNameController: widget.relationOnefirstNameController,
+      relationOneSecondNameController: widget.relationOneSecondNameController,
+      relationOneThirdController: widget.relationOneThirdController,
+      relationTwoFirstController: widget.relationTwoFirstController,
+      relationTwoScecondController: widget.relationTwoScecondController,
+      relationTwoThirdController: widget.relationTwoThirdController,
+      emergencyNameController: widget.emergencyNameController,
+      emergencyRelationController: widget.emergencyRelationController,
+      streetController: streetController.text,
+      cityController: cityController.text,
+      stateController: stateController.text,
+      postCodeController: postCodeController.text,
+      givenNameController: givenNameController.text,
+      surnameController: surnameController.text,
+    );
+    if (registerError != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: registerError);
+    } else {
+      await authController
+          .login(
+        widget.emailController,
+        widget.passwordController,
+      )
+          .then((value) {
+        Get.to(RegisterPaymentWebviewScreen());
+      });
+    }
   }
 
   void _changePakge(peroid) {

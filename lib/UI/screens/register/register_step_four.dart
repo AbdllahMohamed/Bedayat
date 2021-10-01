@@ -120,7 +120,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
         techerId: selectedTeacherIndex!,
         childNameController: _childNameController.text,
         selectedType: _selectedType,
-        actualselectedDate: _actualselectedDate,
+        ageGroup: _actualselectedDate,
         relationOnefirstNameController: _relationOnefirstNameController.text,
         relationOneSecondNameController: _relationOneSecondNameController.text,
         relationOneThirdController: _relationOneThirdController.text,
@@ -141,6 +141,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
         anthorNotesController: _anthorNotesController.text,
         sensitificController: _sensitificController.text,
         emergencyNumberController: _emergencyNumberController.text,
+
 //        selectedAge: '1',
       ));
     }
@@ -606,7 +607,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         ),
                       ),
                       CustomeTextFormField(
-                        controller: _relationOnefirstNameController,
+                        controller: _relationsOneController,
                         validator: (val) {
                           if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
@@ -629,7 +630,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         prefixIcon: Image.asset(AppImages.appEmailIcon),
                       ),
                       CustomeTextFormField(
-                        controller: _relationOnefirstNameController,
+                        controller: _phoneOneController,
                         validator: (val) {
                           if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';
@@ -719,7 +720,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                         ),
                       ),
                       CustomeTextFormField(
-                        controller: _relationOnefirstNameController,
+                        controller: _phoneTwoController,
                         validator: (val) {
                           if (val.isEmpty) {
                             return 'من فضلك ادخل قيمة صحيحة';

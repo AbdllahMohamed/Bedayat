@@ -184,7 +184,6 @@ class UsersServices {
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
-    String? actualselectedDate,
     String? relationOnefirstNameController,
     String? relationOneSecondNameController,
     String? relationOneThirdController,
@@ -288,7 +287,7 @@ class UsersServices {
     request.fields["phone"] = phone!;
     request.fields["password"] = password!;
     request.fields["name"] = childname!;
-    request.fields["age_group"] = ageGroup!;
+    request.fields["age_group"] = '1';
     request.fields["gender"] = gender!;
     request.fields["emergency_number"] = emergencyNumber!;
     request.fields["parent_one_realation"] = parentOneRealation!;
@@ -301,7 +300,6 @@ class UsersServices {
     request.fields["teacher_id"] = teacherId!;
     request.fields["group_id"] = groupId!;
     request.fields["checkout_id"] = checkoutId!;
-    request.fields["actualselectedDate"] = actualselectedDate!;
     request.fields["relationOnefirstNameController"] =
         relationOnefirstNameController!;
     request.fields["relationOneSecondNameController"] =
