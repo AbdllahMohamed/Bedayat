@@ -1,3 +1,4 @@
+import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/screens/register/register_step_six.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
@@ -200,6 +201,18 @@ class _SuccessRegisterCheckoutState extends State<SuccessRegisterCheckout> {
   // }
 
   @override
+  void initState() {
+    super.initState();
+    _navegitTo();
+  }
+
+  _navegitTo() {
+    Future.delayed(Duration(seconds: 2), () {
+      Get.to(HomeScreen());
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -243,16 +256,16 @@ class _SuccessRegisterCheckoutState extends State<SuccessRegisterCheckout> {
               ),
             ),
             SizedBox(height: 20),
-            Center(
-              child: Text(
-                'جارى إتمام الدفع...',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: AppColors.accentColor,
-                  fontWeight: FontWeight.w200,
-                ),
-              ),
-            )
+            // Center(
+            //   child: Text(
+            //     'جارى إتمام الدفع...',
+            //     style: TextStyle(
+            //       fontSize: 15,
+            //       color: AppColors.accentColor,
+            //       fontWeight: FontWeight.w200,
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),

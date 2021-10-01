@@ -119,151 +119,148 @@ class _RegisterCheckoutStautusScreenState
     print(Uri.base.query);
     print(Uri.base.queryParameters['id']);
 
-    //checkoutStatusController.fetchCheckoutStatusCode(widget.checkoutId);
+    checkoutStatusController.fetchCheckoutStatusCode(widget.checkoutId);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SizedBox()
-
-        //  Obx(
-        //   () => checkoutStatusController.loadingProcess.value
-        //       ? Center(
-        //           child: CircularProgressIndicator(
-        //             valueColor: AlwaysStoppedAnimation<Color>(
-        //               AppColors.accentColor,
-        //             ),
-        //           ),
-        //         )
-        //       :
-
-        //       ListView.builder(
-        //           itemCount: 1,
-        //           itemBuilder: (_, i) {
-        //             return (checkoutStatusController
-        //                             .checkoutstatusCodeList[i].code ==
-        //                         "000.100.110" ||
-        //                     checkoutStatusController
-        //                             .checkoutstatusCodeList[i].code ==
-        //                         '000.000.000' ||
-        //                     checkoutStatusController
-        //                             .checkoutstatusCodeList[i].code ==
-        //                         "000.100.110" ||
-        //                     checkoutStatusController
-        //                             .checkoutstatusCodeList[i].code ==
-        //                         "000.300.000" ||
-        //                     checkoutStatusController
-        //                             .checkoutstatusCodeList[i].code ==
-        //                         "000.300.100" ||
-        //                     checkoutStatusController
-        //                             .checkoutstatusCodeList[i].code ==
-        //                         "000.300.101" ||
-        //                     checkoutStatusController
-        //                             .checkoutstatusCodeList[i].code ==
-        //                         "000.300.102" ||
-        //                     checkoutStatusController
-        //                             .checkoutstatusCodeList[i].code ==
-        //                         "000.300.103")
-        //                 ? SuccessRegisterCheckout(
-        //                     // nameController: widget.nameController,
-        //                     // phoneController: widget.phoneController,
-        //                     // emailController: widget.emailController,
-        //                     // passwordController: widget.passwordController,
-        //                     // selectedBranchIndex: widget.selectedBranchIndex,
-        //                     // childNameController: widget.childNameController,
-        //                     // selectedType: widget.selectedType,
-        //                     // selectedRelationsOne: widget.selectedRelationsOne,
-        //                     // selectedRelationsTwo: widget.selectedRelationsTwo,
-        //                     // emergencyNumberController:
-        //                     //     widget.emergencyNumberController,
-        //                     // anthorNotesController: widget.anthorNotesController,
-        //                     // sensitificController: widget.sensitificController,
-        //                     // emailOneController: widget.emailController,
-        //                     // phoneOneController: widget.phoneOneController,
-        //                     // emailTwoController: widget.emailTwoController,
-        //                     // phoneTwoController: widget.phoneTwoController,
-        //                     // familyCardPhoto: widget.familyCardPhoto,
-        //                     // vaccinationCertificate: widget.vaccinationCertificate,
-        //                     // doctuumnet: widget.doctuumnet,
-        //                     // groupId: widget.groupId,
-        //                     // techerId: widget.techerId,
-        //                     // checkoutId: widget.checkoutId,
-        //                     // actualselectedDate: widget.actualselectedDate,
-        //                     // relationOnefirstNameController:
-        //                     //     widget.relationOnefirstNameController,
-        //                     // relationOneSecondNameController:
-        //                     //     widget.relationOneSecondNameController,
-        //                     // relationOneThirdController:
-        //                     //     widget.relationOneThirdController,
-        //                     // relationTwoFirstController:
-        //                     //     widget.relationTwoFirstController,
-        //                     // relationTwoScecondController:
-        //                     //     widget.relationTwoScecondController,
-        //                     // relationTwoThirdController:
-        //                     //     widget.relationTwoThirdController,
-        //                     // emergencyNameController:
-        //                     //     widget.emergencyNameController,
-        //                     // emergencyRelationController:
-        //                     //     widget.emergencyRelationController,
-        //                     // streetController: streetController.text,
-        //                     // cityController: cityController.text,
-        //                     // stateController: stateController.text,
-        //                     // postCodeController: postCodeController.text,
-        //                     // givenNameController: givenNameController.text,
-        //                     // surnameController: surnameController.text,
-        //                     )
-        //                 : FailuarRegisterCheckout(
-        //                     // nameController: widget.nameController,
-        //                     // phoneController: widget.phoneController,
-        //                     // emailController: widget.emailController,
-        //                     // passwordController: widget.passwordController,
-        //                     // selectedBranchIndex: widget.selectedBranchIndex,
-        //                     // childNameController: widget.childNameController,
-        //                     // //  selectedAge: widget.selectedAge,
-        //                     // selectedType: widget.selectedType,
-        //                     // selectedRelationsOne: widget.selectedRelationsOne,
-        //                     // selectedRelationsTwo: widget.selectedRelationsTwo,
-        //                     // emergencyNumberController:
-        //                     //     widget.emergencyNumberController,
-        //                     // anthorNotesController: widget.anthorNotesController,
-        //                     // sensitificController: widget.sensitificController,
-        //                     // emailOneController: widget.emailController,
-        //                     // phoneOneController: widget.phoneOneController,
-        //                     // emailTwoController: widget.emailTwoController,
-        //                     // phoneTwoController: widget.phoneTwoController,
-        //                     // familyCardPhoto: widget.familyCardPhoto,
-        //                     // vaccinationCertificate: widget.vaccinationCertificate,
-        //                     // doctuumnet: widget.doctuumnet,
-        //                     // groupId: widget.groupId,
-        //                     // techerId: widget.techerId,
-        //                     // checkoutId: "${GetStorage().read('checkoutId')}",
-        //                     // actualselectedDate: widget.actualselectedDate,
-        //                     // relationOnefirstNameController:
-        //                     //     widget.relationOnefirstNameController,
-        //                     // relationOneSecondNameController:
-        //                     //     widget.relationOneSecondNameController,
-        //                     // relationOneThirdController:
-        //                     //     widget.relationOneThirdController,
-        //                     // relationTwoFirstController:
-        //                     //     widget.relationTwoFirstController,
-        //                     // relationTwoScecondController:
-        //                     //     widget.relationTwoScecondController,
-        //                     // relationTwoThirdController:
-        //                     //     widget.relationTwoThirdController,
-        //                     // emergencyNameController:
-        //                     //     widget.emergencyNameController,
-        //                     // emergencyRelationController:
-        //                     //     widget.emergencyRelationController,
-        //                     // streetController: streetController.text,
-        //                     // cityController: cityController.text,
-        //                     // stateController: stateController.text,
-        //                     // postCodeController: postCodeController.text,
-        //                     // givenNameController: givenNameController.text,
-        //                     // surnameController: surnameController.text,
-        //                     );
-        //           },
-        //         ),
-        // ),
-        );
+    return Scaffold(
+      body: Obx(
+        () => checkoutStatusController.loadingProcess.value
+            ? Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    AppColors.accentColor,
+                  ),
+                ),
+              )
+            : ListView.builder(
+                itemCount: 1,
+                itemBuilder: (_, i) {
+                  return (checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.100.110" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              '000.000.000' ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.100.110" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.000" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.100" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.101" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.102" ||
+                          checkoutStatusController
+                                  .checkoutstatusCodeList[i].code ==
+                              "000.300.103")
+                      ? SuccessRegisterCheckout(
+                          // nameController: widget.nameController,
+                          // phoneController: widget.phoneController,
+                          // emailController: widget.emailController,
+                          // passwordController: widget.passwordController,
+                          // selectedBranchIndex: widget.selectedBranchIndex,
+                          // childNameController: widget.childNameController,
+                          // selectedType: widget.selectedType,
+                          // selectedRelationsOne: widget.selectedRelationsOne,
+                          // selectedRelationsTwo: widget.selectedRelationsTwo,
+                          // emergencyNumberController:
+                          //     widget.emergencyNumberController,
+                          // anthorNotesController: widget.anthorNotesController,
+                          // sensitificController: widget.sensitificController,
+                          // emailOneController: widget.emailController,
+                          // phoneOneController: widget.phoneOneController,
+                          // emailTwoController: widget.emailTwoController,
+                          // phoneTwoController: widget.phoneTwoController,
+                          // familyCardPhoto: widget.familyCardPhoto,
+                          // vaccinationCertificate: widget.vaccinationCertificate,
+                          // doctuumnet: widget.doctuumnet,
+                          // groupId: widget.groupId,
+                          // techerId: widget.techerId,
+                          // checkoutId: widget.checkoutId,
+                          // actualselectedDate: widget.actualselectedDate,
+                          // relationOnefirstNameController:
+                          //     widget.relationOnefirstNameController,
+                          // relationOneSecondNameController:
+                          //     widget.relationOneSecondNameController,
+                          // relationOneThirdController:
+                          //     widget.relationOneThirdController,
+                          // relationTwoFirstController:
+                          //     widget.relationTwoFirstController,
+                          // relationTwoScecondController:
+                          //     widget.relationTwoScecondController,
+                          // relationTwoThirdController:
+                          //     widget.relationTwoThirdController,
+                          // emergencyNameController:
+                          //     widget.emergencyNameController,
+                          // emergencyRelationController:
+                          //     widget.emergencyRelationController,
+                          // streetController: streetController.text,
+                          // cityController: cityController.text,
+                          // stateController: stateController.text,
+                          // postCodeController: postCodeController.text,
+                          // givenNameController: givenNameController.text,
+                          // surnameController: surnameController.text,
+                          )
+                      : FailuarRegisterCheckout(
+                          // nameController: widget.nameController,
+                          // phoneController: widget.phoneController,
+                          // emailController: widget.emailController,
+                          // passwordController: widget.passwordController,
+                          // selectedBranchIndex: widget.selectedBranchIndex,
+                          // childNameController: widget.childNameController,
+                          // //  selectedAge: widget.selectedAge,
+                          // selectedType: widget.selectedType,
+                          // selectedRelationsOne: widget.selectedRelationsOne,
+                          // selectedRelationsTwo: widget.selectedRelationsTwo,
+                          // emergencyNumberController:
+                          //     widget.emergencyNumberController,
+                          // anthorNotesController: widget.anthorNotesController,
+                          // sensitificController: widget.sensitificController,
+                          // emailOneController: widget.emailController,
+                          // phoneOneController: widget.phoneOneController,
+                          // emailTwoController: widget.emailTwoController,
+                          // phoneTwoController: widget.phoneTwoController,
+                          // familyCardPhoto: widget.familyCardPhoto,
+                          // vaccinationCertificate: widget.vaccinationCertificate,
+                          // doctuumnet: widget.doctuumnet,
+                          // groupId: widget.groupId,
+                          // techerId: widget.techerId,
+                          // checkoutId: "${GetStorage().read('checkoutId')}",
+                          // actualselectedDate: widget.actualselectedDate,
+                          // relationOnefirstNameController:
+                          //     widget.relationOnefirstNameController,
+                          // relationOneSecondNameController:
+                          //     widget.relationOneSecondNameController,
+                          // relationOneThirdController:
+                          //     widget.relationOneThirdController,
+                          // relationTwoFirstController:
+                          //     widget.relationTwoFirstController,
+                          // relationTwoScecondController:
+                          //     widget.relationTwoScecondController,
+                          // relationTwoThirdController:
+                          //     widget.relationTwoThirdController,
+                          // emergencyNameController:
+                          //     widget.emergencyNameController,
+                          // emergencyRelationController:
+                          //     widget.emergencyRelationController,
+                          // streetController: streetController.text,
+                          // cityController: cityController.text,
+                          // stateController: stateController.text,
+                          // postCodeController: postCodeController.text,
+                          // givenNameController: givenNameController.text,
+                          // surnameController: surnameController.text,
+                          );
+                },
+              ),
+      ),
+    );
   }
 }
