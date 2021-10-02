@@ -1,13 +1,14 @@
+import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/screens/payment_web_view/register_payment_web_view.dart';
 import 'package:bedayat/UI/screens/register/register_step_five.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:image_picker/image_picker.dart';
 
 // ignore: must_be_immutable
 class FailuarRegisterCheckout extends StatefulWidget {
@@ -102,6 +103,30 @@ class FailuarRegisterCheckout extends StatefulWidget {
 class _FailuarRegisterCheckoutState extends State<FailuarRegisterCheckout> {
   PaymentController paymentController = Get.put(PaymentController());
 
+  _retryPayment() async {
+    String error = await paymentController.getCheckoutId(
+        packageId: (selectedPackageIndex! + 1).toString(),
+        email: '"${GetStorage().read('userEmail')}"',
+        street: streetController.text,
+        city: cityController.text,
+        state: stateController.text,
+        postcode: postCodeController.text,
+        givenName: givenNameController.text,
+        surname: surnameController.text,
+        paymentMethod: seletctedBank,
+        childId: "${GetStorage().read('childId')}");
+
+    print(error);
+    if (error != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
+    } else {
+      Get.to(RegisterPaymentWebviewScreen(
+        checkoutId: "${GetStorage().read('checkoutId')}",
+      ));
+      _retryPayment();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -160,69 +185,16 @@ class _FailuarRegisterCheckoutState extends State<FailuarRegisterCheckout> {
             SizedBox(height: 50),
             ActionButton(
               onPressed: () async {
-                // String error = await paymentController.getCheckoutId(
-                //   packageId: (selectedPackageIndex! + 1).toString(),
-                //   email: widget.emailController,
-                //   street: streetController.text,
-                //   city: cityController.text,
-                //   state: stateController.text,
-                //   postcode: postCodeController.text,
-                //   givenName: givenNameController.text,
-                //   surname: surnameController.text,
-                //   paymentMethod: seletctedBank,
-                // );
-                // if (error != "") {
-                //   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
-                // } else {
-                //   Get.to(RegisterPaymentWebviewScreen(
-                //     nameController: widget.nameController,
-                //     phoneController: widget.phoneController,
-                //     emailController: widget.emailController,
-                //     passwordController: widget.passwordController,
-                //     selectedBranchIndex: widget.selectedBranchIndex,
-                //     childNameController: widget.childNameController,
-                //     selectedType: widget.selectedType,
-                //     selectedRelationsOne: widget.selectedRelationsOne,
-                //     selectedRelationsTwo: widget.selectedRelationsTwo,
-                //     emergencyNumberController: widget.emergencyNumberController,
-                //     anthorNotesController: widget.anthorNotesController,
-                //     sensitificController: widget.sensitificController,
-                //     emailOneController: widget.emailController,
-                //     phoneOneController: widget.phoneOneController,
-                //     emailTwoController: widget.emailTwoController,
-                //     phoneTwoController: widget.phoneTwoController,
-                //     familyCardPhoto: widget.familyCardPhoto,
-                //     vaccinationCertificate: widget.vaccinationCertificate,
-                //     doctuumnet: widget.doctuumnet,
-                //     groupId: widget.groupId,
-                //     techerId: widget.techerId,
-                //     checkoutId: "${GetStorage().read('checkoutId')}",
-                //     actualselectedDate: widget.actualselectedDate,
-                //     relationOnefirstNameController:
-                //         widget.relationOnefirstNameController,
-                //     relationOneSecondNameController:
-                //         widget.relationOneSecondNameController,
-                //     relationOneThirdController:
-                //         widget.relationOneThirdController,
-                //     relationTwoFirstController:
-                //         widget.relationTwoFirstController,
-                //     relationTwoScecondController:
-                //         widget.relationTwoScecondController,
-                //     relationTwoThirdController:
-                //         widget.relationTwoThirdController,
-                //     emergencyNameController: widget.emergencyNameController,
-                //     emergencyRelationController:
-                //         widget.emergencyRelationController,
-                //     streetController: streetController.text,
-                //     cityController: cityController.text,
-                //     stateController: stateController.text,
-                //     postCodeController: postCodeController.text,
-                //     givenNameController: givenNameController.text,
-                //     surnameController: surnameController.text,
-                //   ));
-                //}
+                _retryPayment();
               },
               label: 'المحاولة من جديد',
+            ),
+            SizedBox(height: 20),
+            ActionButton(
+              onPressed: () async {
+                Get.offAll(HomeScreen());
+              },
+              label: 'العودة للقائمة الرئسية',
             )
           ],
         ),

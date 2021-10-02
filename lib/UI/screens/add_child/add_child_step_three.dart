@@ -1,15 +1,17 @@
 import 'package:bedayat/UI/screens/add_child/add_child_step_four.dart';
-import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/UI/widgets/circle_image.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/add_child_controller.dart';
+import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/group_controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hijri_picker/hijri_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:hijri/hijri_calendar.dart';
@@ -74,6 +76,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
   final GroupController groupController = Get.put(GroupController());
   final TeacherController teacherController = Get.put(TeacherController());
   final AddChildController addChildController = Get.put(AddChildController());
+  AuthController authController = Get.put(AuthController());
 
   final _formKey = GlobalKey<FormState>();
 
@@ -178,40 +181,133 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
           title: "حدث خطأ ما", middleText: 'يرجى التأكد من اختيار الصور');
       return;
     } else {
-      Get.to(AddChildStepFourScreen(
-        selectedBranchIndex: widget.selectedBranchIndex,
-        childNameController: _childNameController.text,
-        selectedType: _selectedType,
-        selectedRelationsOne: _relationsOneController.text,
-        selectedRelationsTwo: _relationsTwoController.text,
-        emergencyNumberController: _emergencyNumberController.text,
-        anthorNotesController: _anthorNotesController.text,
-        sensitificController: _sensitificController.text,
-        emailOneController: _emailOneController.text,
-        phoneOneController: _phoneOneController.text,
-        emailTwoController: _emailTwoController.text,
-        phoneTwoController: _phoneTwoController.text,
-        familyCardPhoto: _familyCardPhoto,
-        vaccinationCertificate: _vaccinationCertificate,
-        doctuumnet: _doctuumnet,
-        groupId: selectedGroupIndex!,
-        techerId: selectedTeacherIndex!,
-        actualselectedDate: _actualselectedDate,
-        relationOnefirstNameController: _relationOnefirstNameController.text,
-        relationOneSecondNameController: _relationOneSecondNameController.text,
-        relationOneThirdController: _relationOneThirdController.text,
-        relationTwoFirstController: _relationTwoFirstNameController.text,
-        relationTwoScecondController: _relationTwoScecondNameController.text,
-        relationTwoThirdController: _relationTwoThirdNameController.text,
-        emergencyNameController: _emergencyNameController.text,
-        emergencyRelationController: _emergencyRelationController.text,
-        streetController: streetController.text,
-        cityController: cityController.text,
-        stateController: stateController.text,
-        postCodeController: postCodeController.text,
-        givenNameController: givenNameController.text,
-        surnameController: surnameController.text,
-      ));
+      kIsWeb ? _addChildWeb() : _addChildMobile();
+      // Get.to(AddChildStepFourScreen(
+      //   selectedBranchIndex: widget.selectedBranchIndex,
+      //   childNameController: _childNameController.text,
+      //   selectedType: _selectedType,
+      //   selectedRelationsOne: _relationsOneController.text,
+      //   selectedRelationsTwo: _relationsTwoController.text,
+      //   emergencyNumberController: _emergencyNumberController.text,
+      //   anthorNotesController: _anthorNotesController.text,
+      //   sensitificController: _sensitificController.text,
+      //   emailOneController: _emailOneController.text,
+      //   phoneOneController: _phoneOneController.text,
+      //   emailTwoController: _emailTwoController.text,
+      //   phoneTwoController: _phoneTwoController.text,
+      //   familyCardPhoto: _familyCardPhoto,
+      //   vaccinationCertificate: _vaccinationCertificate,
+      //   doctuumnet: _doctuumnet,
+      //   groupId: selectedGroupIndex!,
+      //   techerId: selectedTeacherIndex!,
+      //   actualselectedDate: _actualselectedDate,
+      //   relationOnefirstNameController: _relationOnefirstNameController.text,
+      //   relationOneSecondNameController: _relationOneSecondNameController.text,
+      //   relationOneThirdController: _relationOneThirdController.text,
+      //   relationTwoFirstController: _relationTwoFirstNameController.text,
+      //   relationTwoScecondController: _relationTwoScecondNameController.text,
+      //   relationTwoThirdController: _relationTwoThirdNameController.text,
+      //   emergencyNameController: _emergencyNameController.text,
+      //   emergencyRelationController: _emergencyRelationController.text,
+      //   streetController: streetController.text,
+      //   cityController: cityController.text,
+      //   stateController: stateController.text,
+      //   postCodeController: postCodeController.text,
+      //   givenNameController: givenNameController.text,
+      //   surnameController: surnameController.text,
+      // ));
+    }
+  }
+
+  void _addChildWeb() async {
+    String addchildError = await authController.addChildWeb(
+      childname: _childNameController.text,
+      gender: _selectedType == 'ولد' ? 'male' : 'female',
+      emergencyNumber: _emergencyNumberController.text,
+      parentOneRealation: _relationsOneController.text,
+      parentOneEmail: widget.emailOneController,
+      parentOnePhone: widget.phoneOneController,
+      parentTwoRealation: _relationsTwoController.text,
+      parentTwoEmail: widget.emailTwoController,
+      parentTwoPhone: widget.phoneTwoController,
+      userId: "1",
+      teacherId: selectedTeacherIndex.toString(),
+      groupId: selectedGroupIndex.toString(),
+      familyCard: _familyCardPhoto,
+      vaccinationCertificate: _vaccinationCertificate,
+      document: _doctuumnet!,
+      actualselectedDate: _actualselectedDate,
+      relationOnefirstNameController: _relationOnefirstNameController.text,
+      relationOneSecondNameController: _relationOneSecondNameController.text,
+      relationOneThirdController: _relationOneThirdController.text,
+      relationTwoFirstController: _relationTwoFirstNameController.text,
+      relationTwoScecondController: _relationTwoScecondNameController.text,
+      relationTwoThirdController: _relationTwoThirdNameController.text,
+      emergencyNameController: _emergencyNameController.text,
+      emergencyRelationController: _emergencyRelationController.text,
+    );
+
+    print(addchildError);
+    if (addchildError != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: addchildError);
+    } else {
+      Future.delayed(Duration(milliseconds: 200), () {
+        Get.to(AddChildStepFourScreen(
+          checkoutId: "${GetStorage().read('checkoutId')}",
+          streetController: streetController.text,
+          cityController: cityController.text,
+          stateController: stateController.text,
+          postCodeController: postCodeController.text,
+          givenNameController: givenNameController.text,
+          surnameController: surnameController.text,
+        ));
+      });
+    }
+  }
+
+  void _addChildMobile() async {
+    String addchildError = await authController.addChild(
+      childname: _childNameController.text,
+      gender: _selectedType == 'ولد' ? 'male' : 'female',
+      emergencyNumber: _emergencyNumberController.text,
+      parentOneRealation: _relationsOneController.text,
+      parentOneEmail: widget.emailOneController,
+      parentOnePhone: widget.phoneOneController,
+      parentTwoRealation: _relationsTwoController.text,
+      parentTwoEmail: widget.emailTwoController,
+      parentTwoPhone: widget.phoneTwoController,
+      userId: "1",
+      teacherId: selectedTeacherIndex.toString(),
+      groupId: selectedGroupIndex.toString(),
+      familyCard: _familyCardPhoto,
+      vaccinationCertificate: _vaccinationCertificate,
+      document: _doctuumnet!,
+      actualselectedDate: _actualselectedDate,
+      relationOnefirstNameController: _relationOnefirstNameController.text,
+      relationOneSecondNameController: _relationOneSecondNameController.text,
+      relationOneThirdController: _relationOneThirdController.text,
+      relationTwoFirstController: _relationTwoFirstNameController.text,
+      relationTwoScecondController: _relationTwoScecondNameController.text,
+      relationTwoThirdController: _relationTwoThirdNameController.text,
+      emergencyNameController: _emergencyNameController.text,
+      emergencyRelationController: _emergencyRelationController.text,
+    );
+
+    print(addchildError);
+    if (addchildError != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: addchildError);
+    } else {
+      Future.delayed(Duration(milliseconds: 200), () {
+        Get.to(AddChildStepFourScreen(
+          checkoutId: "${GetStorage().read('checkoutId')}",
+          streetController: streetController.text,
+          cityController: cityController.text,
+          stateController: stateController.text,
+          postCodeController: postCodeController.text,
+          givenNameController: givenNameController.text,
+          surnameController: surnameController.text,
+        ));
+      });
     }
   }
 

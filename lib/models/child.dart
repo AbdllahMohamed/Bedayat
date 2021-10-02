@@ -1,29 +1,26 @@
 class Child {
   int? id;
   String? name;
-  String? ageGroup; // "age_group": "1",
+  String? ageGroup;
   String? gender;
-  String? emergencyNumber; //"emergency_number": "test",
-  String? notes; //"notes": "testt",
-  String? allergy; //"allergy": "test",
-  bool? photography; //"photography": false,
-  String? parentOneRealation; //"parent_one_realation": "test",
-  String? parentOneEmail; //"parent_one_email": "test",
-  String? parentOnePhone; //"parent_one_phone": "test",
-  String? parentTwoRealation; //"parent_two_realation": "test",
-  String? parentTwoEmail; //"parent_two_email": "test",
-  String? parentTwoPhone; //"parent_two_phone": "test",
-  String?
-      familyCard; //"family_card": "public/966wbAayWRp6I2XGMdV6aZSdamqTQ75wOJc7cCrt.jpg",
-  String?
-      vaccinationCertificate; //"vaccination_certificate": "public/65NxohcolPgM89QJWWb7mPED3QMpJZE3E4wZ9vT8.jpg",
-  String?
-      document; //"document": "public/7S3n2pPVh5aKwWGZvhtjlnsAGDscZ1dAywzUgoos.jpg",
-  int? userId; //"user_id": 1,
-  String?
-      profilePic; //"profile_pic": "public/qCMRr3RJJqihH6DeWNQAnrT5fA7hGrQ8DfLShECq.png",
-  String? createdAt; //"created_at": "2021-09-04T18:52:00.000000Z",
-  String? updatedAt; //"updated_at": "2021-09-04T18:52:00.000000Z"
+  String? emergencyNumber;
+  String? notes;
+  String? allergy;
+  bool? photography;
+  String? parentOneRealation;
+  String? parentOneEmail;
+  String? parentOnePhone;
+  String? parentTwoRealation;
+  String? parentTwoEmail;
+  String? parentTwoPhone;
+  String? familyCard;
+  String? vaccinationCertificate;
+  String? document;
+  int? userId;
+  String? profilePic;
+  String? createdAt;
+  String? updatedAt;
+  String? expireDate;
 
   Child({
     this.id,
@@ -34,18 +31,19 @@ class Child {
     this.notes,
     this.allergy,
     this.photography,
-    this.parentOneRealation, //"parent_one_realation": "test",
-    this.parentOneEmail, //"parent_one_email": "test",
-    this.parentOnePhone, //"parent_one_phone": "test",
-    this.parentTwoRealation, //"parent_two_realation": "test",
-    this.parentTwoEmail, //"parent_two_email": "test",
-    this.parentTwoPhone, //"parent_two_phone": "test",
-    this.familyCard, //"family_card": "public/966wbAayWRp6I2XGMdV6aZSdamqTQ75wOJc7cCrt.jpg",
-    this.vaccinationCertificate, //"vaccination_certificate": "public/65NxohcolPgM89QJWWb7mPED3QMpJZE3E4wZ9vT8.jpg",
-    this.document, //"document": "public/7S3n2pPVh5aKwWGZvhtjlnsAGDscZ1dAywzUgoos.jpg",
-    this.userId, //"user_id": 1,
-    this.profilePic, //"profile_pic": "public/qCMRr3RJJqihH6DeWNQAnrT5fA7hGrQ8DfLShECq.png",
-    this.createdAt, //"created_at": "2021-09-04T18:52:00.000000Z",
+    this.parentOneRealation,
+    this.parentOneEmail,
+    this.parentOnePhone,
+    this.parentTwoRealation,
+    this.parentTwoEmail,
+    this.parentTwoPhone,
+    this.familyCard,
+    this.vaccinationCertificate,
+    this.document,
+    this.userId,
+    this.profilePic,
+    this.expireDate,
+    this.createdAt,
     this.updatedAt,
   });
 
@@ -64,6 +62,7 @@ class Child {
         parentTwoRealation = json['parent_two_realation'],
         parentTwoEmail = json['parent_two_email'],
         parentTwoPhone = json['parent_two_phone'],
+        expireDate = json['expire_date'],
         familyCard = json['family_card'],
         vaccinationCertificate = json['vaccination_certificate'],
         document = json['document'],

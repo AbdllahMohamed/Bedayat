@@ -41,17 +41,17 @@ class _AddChildStepTwoScreenState extends State<AddChildStepTwoScreen> {
           phoneTwoController:
               addChildController.addChildList[0].parentTwoPhone ?? "",
           relationOnefirstNameController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
+              addChildController.addChildList[0].parentTwoEmail ?? "",
           relationOneSecondNameController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
+              addChildController.addChildList[0].parentTwoEmail ?? "",
           relationOneThirdNameController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
+              addChildController.addChildList[0].parentTwoEmail ?? "",
           relationTwoFirstNameController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
+              addChildController.addChildList[0].parentTwoEmail ?? "",
           relationTwoScecondNameController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
+              addChildController.addChildList[0].parentTwoEmail ?? "",
           relationTwoThirdNameController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
+              addChildController.addChildList[0].parentTwoEmail ?? "",
           emergencyNameController:
               addChildController.addChildList[0].parentTwoPhone ?? "",
           emergencyRelationController:

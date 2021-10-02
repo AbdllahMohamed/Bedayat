@@ -13,6 +13,7 @@ class PaymentServices {
     String? givenName,
     String? surname,
     String? paymentMethod,
+    String? childId,
   }) async {
     var paymentError = "";
 
@@ -30,16 +31,16 @@ class PaymentServices {
         "givenName": givenName,
         "surname": surname,
         "payment_method": paymentMethod,
+        "child_id": childId,
       },
       options: Options(
           headers: {
             "Accept": "application/json",
+            "Authorization": "Bearer ${GetStorage().read('token')}",
           },
           contentType: "application/x-www-form-urlencoded",
           followRedirects: false,
-          validateStatus: (status) {
-            return status! < 500;
-          }),
+          validateStatus: (status) => true),
     );
     print('payment responce');
     print(response.data);

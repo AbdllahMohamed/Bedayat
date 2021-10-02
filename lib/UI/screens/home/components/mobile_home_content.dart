@@ -3,6 +3,7 @@ import 'package:bedayat/UI/widgets/circle_image.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -12,6 +13,7 @@ class MobileHomeContentWidget extends StatelessWidget {
   final String imagePath;
   final int childId;
   final String createdAt;
+  final String expireDate;
 
   MobileHomeContentWidget({
     required this.name,
@@ -19,12 +21,14 @@ class MobileHomeContentWidget extends StatelessWidget {
     required this.imagePath,
     required this.childId,
     required this.createdAt,
+    required this.expireDate,
   });
 
   @override
   Widget build(BuildContext context) {
     var _deviceWidth = MediaQuery.of(context).size.width;
     var _devicHeight = MediaQuery.of(context).size.height;
+    print(expireDate);
 
     return Stack(
       children: [
@@ -331,6 +335,34 @@ class MobileHomeContentWidget extends StatelessWidget {
                       style: TextStyle(color: AppColors.primaryColor),
                     ),
                   ),
+                  // ignore: unnecessary_null_comparison
+                  expireDate == 'null'
+                      ? Padding(
+                          padding: const EdgeInsets.only(right: 15, top: 5),
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              primary: AppColors.primaryColor,
+                              minimumSize: Size(
+                                _deviceWidth * 0.1,
+                                35,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(8), // <-- Radius
+                              ),
+                            ),
+                            child: Text(
+                              'طفلك غير مسجل باشتراك   اشترك الان',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        )
+                      : SizedBox(),
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(

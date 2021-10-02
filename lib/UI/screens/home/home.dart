@@ -4,10 +4,7 @@ import 'package:bedayat/UI/screens/home/components/header_widget.dart';
 import 'package:bedayat/UI/screens/home/components/image_slider.dart';
 import 'package:bedayat/UI/screens/home/components/mobile_home_content.dart';
 import 'package:bedayat/UI/screens/home/components/web_content.dart';
-import 'package:bedayat/UI/screens/notification.dart/notification.dart';
-import 'package:bedayat/UI/screens/report/report.dart';
 import 'package:bedayat/UI/screens/slider_image_details/sllider_image_details.dart';
-import 'package:bedayat/UI/widgets/circle_image.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
@@ -19,7 +16,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -140,34 +136,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: _deviceWidth,
                                 height: kIsWeb ? 300 : 240,
                                 child: PageView.builder(
-                                    allowImplicitScrolling: true,
-                                    physics: BouncingScrollPhysics(),
-                                    itemCount: sliderImagesController
-                                        .sliderImagesList.length,
-                                    controller: controller,
-                                    itemBuilder: (_, index) {
-                                      return InkWell(
-                                        onTap: () {
-                                          Get.to(SliderImageDetails(
-                                            imagePath:
-                                                "$baseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
-                                            title: sliderImagesController
-                                                .sliderImagesList[index].title!,
-                                            description: sliderImagesController
-                                                .sliderImagesList[index]
-                                                .content!,
-                                          ));
-                                        },
-                                        child: ImageSliderWidget(
+                                  allowImplicitScrolling: true,
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount: sliderImagesController
+                                      .sliderImagesList.length,
+                                  controller: controller,
+                                  itemBuilder: (_, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        Get.to(SliderImageDetails(
                                           imagePath:
                                               "$baseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
-                                          imageTitle: sliderImagesController
+                                          title: sliderImagesController
                                               .sliderImagesList[index].title!,
-                                          imageContent: sliderImagesController
+                                          description: sliderImagesController
                                               .sliderImagesList[index].content!,
-                                        ),
-                                      );
-                                    }),
+                                        ));
+                                      },
+                                      child: ImageSliderWidget(
+                                        imagePath:
+                                            "$baseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
+                                        imageTitle: sliderImagesController
+                                            .sliderImagesList[index].title!,
+                                        imageContent: sliderImagesController
+                                            .sliderImagesList[index].content!,
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                 ),
@@ -273,6 +269,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               .childernList[i].id!,
                                           createdAt: childernController
                                               .childernList[i].createdAt!,
+                                          expireDate: childernController
+                                              .childernList[i].expireDate!,
                                         );
                                       },
                                     )
@@ -284,15 +282,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                       itemBuilder: (_, i) {
                                         return MobileHomeContentWidget(
                                           name: childernController
-                                              .childernList[i].name!,
+                                                  .childernList[i].name ??
+                                              "",
                                           ageGroup: childernController
-                                              .childernList[i].ageGroup!,
+                                                  .childernList[i].ageGroup ??
+                                              "",
                                           imagePath:
                                               "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                           childId: childernController
-                                              .childernList[i].id!,
+                                                  .childernList[i].id ??
+                                              1,
                                           createdAt: childernController
-                                              .childernList[i].createdAt!,
+                                                  .childernList[i].createdAt ??
+                                              "",
+                                          expireDate: childernController
+                                                  .childernList[i].expireDate ??
+                                              'null',
                                         );
                                       },
                                     ),

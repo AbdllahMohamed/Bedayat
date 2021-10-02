@@ -150,6 +150,8 @@ class ProfileScreen extends StatelessWidget {
                                                 .childernList[i].id!,
                                             createdAt: childernController
                                                 .childernList[i].createdAt!,
+                                            expireDate: childernController
+                                                .childernList[i].expireDate!,
                                           );
                                         },
                                       )
@@ -170,6 +172,8 @@ class ProfileScreen extends StatelessWidget {
                                                 .childernList[i].id!,
                                             createdAt: childernController
                                                 .childernList[i].createdAt!,
+                                            expireDate: childernController
+                                                .childernList[i].expireDate!,
                                           );
                                         },
                                       ),

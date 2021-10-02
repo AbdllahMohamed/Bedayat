@@ -6,10 +6,20 @@ class CircleImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: Colors.transparent,
-      backgroundImage: NetworkImage(imagePath),
-      radius: 40,
+    return Container(
+      width: 100,
+      child: CircleAvatar(
+        radius: 40,
+        backgroundImage: NetworkImage(imagePath),
+        backgroundColor: Colors.grey[200],
+      ),
+      decoration: new BoxDecoration(
+        shape: BoxShape.circle,
+        border: new Border.all(
+          color: Colors.red,
+          width: 5.0,
+        ),
+      ),
     );
   }
 }

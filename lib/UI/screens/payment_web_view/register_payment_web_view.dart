@@ -1,19 +1,18 @@
 import 'dart:async';
-import 'package:bedayat/UI/screens/checkout_status/register_checkout_status.dart';
+import 'package:bedayat/UI/screens/checkout_status/register_checkout_status/register_checkout_status.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/checkout_status_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webviewx/webviewx.dart' as webviewX;
 import 'package:webview_flutter/webview_flutter.dart' as webview;
 
 // ignore: must_be_immutable
 class RegisterPaymentWebviewScreen extends StatefulWidget {
-  // String checkoutId;
+  String checkoutId;
   // final String nameController;
   // final String phoneController;
   // final String emailController;
@@ -55,47 +54,47 @@ class RegisterPaymentWebviewScreen extends StatefulWidget {
   // final String givenNameController;
   // final String surnameController;
 
-  // RegisterPaymentWebviewScreen(
-  //     {Key? key,
-  //     required this.checkoutId,
-  //     required this.nameController,
-  //     required this.phoneController,
-  //     required this.emailController,
-  //     required this.passwordController,
-  //     required this.selectedBranchIndex,
-  //     required this.childNameController,
-  //     // required this.selectedAge,
-  //     required this.selectedType,
-  //     required this.selectedRelationsOne,
-  //     required this.selectedRelationsTwo,
-  //     required this.emergencyNumberController,
-  //     required this.anthorNotesController,
-  //     required this.sensitificController,
-  //     required this.emailOneController,
-  //     required this.phoneOneController,
-  //     required this.emailTwoController,
-  //     required this.phoneTwoController,
-  //     required this.groupId,
-  //     required this.techerId,
-  //     required this.familyCardPhoto,
-  //     required this.vaccinationCertificate,
-  //     required this.doctuumnet,
-  //     required this.actualselectedDate,
-  //     required this.relationOnefirstNameController,
-  //     required this.relationOneSecondNameController,
-  //     required this.relationOneThirdController,
-  //     required this.relationTwoFirstController,
-  //     required this.relationTwoScecondController,
-  //     required this.relationTwoThirdController,
-  //     required this.emergencyNameController,
-  //     required this.emergencyRelationController,
-  //     required this.streetController,
-  //     required this.cityController,
-  //     required this.stateController,
-  //     required this.postCodeController,
-  //     required this.givenNameController,
-  //     required this.surnameController})
-  //     : super(key: key);
+  RegisterPaymentWebviewScreen({
+    Key? key,
+    required this.checkoutId,
+    // required this.nameController,
+    // required this.phoneController,
+    // required this.emailController,
+    // required this.passwordController,
+    // required this.selectedBranchIndex,
+    // required this.childNameController,
+    // // required this.selectedAge,
+    // required this.selectedType,
+    // required this.selectedRelationsOne,
+    // required this.selectedRelationsTwo,
+    // required this.emergencyNumberController,
+    // required this.anthorNotesController,
+    // required this.sensitificController,
+    // required this.emailOneController,
+    // required this.phoneOneController,
+    // required this.emailTwoController,
+    // required this.phoneTwoController,
+    // required this.groupId,
+    // required this.techerId,
+    // required this.familyCardPhoto,
+    // required this.vaccinationCertificate,
+    // required this.doctuumnet,
+    // required this.actualselectedDate,
+    // required this.relationOnefirstNameController,
+    // required this.relationOneSecondNameController,
+    // required this.relationOneThirdController,
+    // required this.relationTwoFirstController,
+    // required this.relationTwoScecondController,
+    // required this.relationTwoThirdController,
+    // required this.emergencyNameController,
+    // required this.emergencyRelationController,
+    // required this.streetController,
+    // required this.cityController,
+    // required this.stateController,
+    // required this.postCodeController,
+    // required this.givenNameController,
+    // required this.surnameController
+  }) : super(key: key);
 
   @override
   _RegisterPaymentWebviewScreenState createState() =>
@@ -133,7 +132,7 @@ class _RegisterPaymentWebviewScreenState
 
   void _navegatoTo() {
     Get.to(RegisterCheckoutStautusScreen(
-      checkoutId: '123',
+      checkoutId: widget.checkoutId,
       // nameController: widget.nameController,
       // phoneController: widget.phoneController,
       // emailController: widget.emailController,

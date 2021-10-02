@@ -1,4 +1,3 @@
-import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/screens/register/register_step_six.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
@@ -6,7 +5,6 @@ import 'package:bedayat/controllers/auth_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 // ignore: must_be_immutable
 class SuccessRegisterCheckout extends StatefulWidget {
@@ -51,46 +49,46 @@ class SuccessRegisterCheckout extends StatefulWidget {
   // final XFile? familyCardPhoto;
   // final XFile? vaccinationCertificate;
   // final XFile? doctuumnet;
-  // SuccessRegisterCheckout(
-  //     {Key? key,
-  //     required this.checkoutId,
-  //     required this.nameController,
-  //     required this.phoneController,
-  //     required this.emailController,
-  //     required this.passwordController,
-  //     required this.selectedBranchIndex,
-  //     required this.childNameController,
-  //     required this.selectedType,
-  //     required this.selectedRelationsOne,
-  //     required this.selectedRelationsTwo,
-  //     required this.emergencyNumberController,
-  //     required this.anthorNotesController,
-  //     required this.sensitificController,
-  //     required this.emailOneController,
-  //     required this.phoneOneController,
-  //     required this.emailTwoController,
-  //     required this.phoneTwoController,
-  //     required this.groupId,
-  //     required this.techerId,
-  //     required this.familyCardPhoto,
-  //     required this.vaccinationCertificate,
-  //     required this.doctuumnet,
-  //     required this.actualselectedDate,
-  //     required this.relationOnefirstNameController,
-  //     required this.relationOneSecondNameController,
-  //     required this.relationOneThirdController,
-  //     required this.relationTwoFirstController,
-  //     required this.relationTwoScecondController,
-  //     required this.relationTwoThirdController,
-  //     required this.emergencyNameController,
-  //     required this.emergencyRelationController,
-  //     required this.streetController,
-  //     required this.cityController,
-  //     required this.stateController,
-  //     required this.postCodeController,
-  //     required this.givenNameController,
-  //     required this.surnameController})
-  //     : super(key: key);
+  SuccessRegisterCheckout({
+    Key? key,
+    // required this.checkoutId,
+    // required this.nameController,
+    // required this.phoneController,
+    // required this.emailController,
+    // required this.passwordController,
+    // required this.selectedBranchIndex,
+    // required this.childNameController,
+    // required this.selectedType,
+    // required this.selectedRelationsOne,
+    // required this.selectedRelationsTwo,
+    // required this.emergencyNumberController,
+    // required this.anthorNotesController,
+    // required this.sensitificController,
+    // required this.emailOneController,
+    // required this.phoneOneController,
+    // required this.emailTwoController,
+    // required this.phoneTwoController,
+    // required this.groupId,
+    // required this.techerId,
+    // required this.familyCardPhoto,
+    // required this.vaccinationCertificate,
+    // required this.doctuumnet,
+    // required this.actualselectedDate,
+    // required this.relationOnefirstNameController,
+    // required this.relationOneSecondNameController,
+    // required this.relationOneThirdController,
+    // required this.relationTwoFirstController,
+    // required this.relationTwoScecondController,
+    // required this.relationTwoThirdController,
+    // required this.emergencyNameController,
+    // required this.emergencyRelationController,
+    // required this.streetController,
+    // required this.cityController,
+    // required this.stateController,
+    // required this.postCodeController,
+    // required this.givenNameController,
+    // required this.surnameController
+  }) : super(key: key);
 
   @override
   _SuccessRegisterCheckoutState createState() =>
@@ -100,11 +98,12 @@ class SuccessRegisterCheckout extends StatefulWidget {
 class _SuccessRegisterCheckoutState extends State<SuccessRegisterCheckout> {
   AuthController authController = Get.put(AuthController());
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   kIsWeb ? _registerAndavegatoToWeb() : _registerAndavegatoTo();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    //_registerAndavegatoTo();
+    _navigateTo();
+  }
 
   // void _registerAndavegatoTo() async {
   //   String registerError = await authController.register(
@@ -152,63 +151,9 @@ class _SuccessRegisterCheckoutState extends State<SuccessRegisterCheckout> {
   //     });
   //   }
   // }
-
-  // void _registerAndavegatoToWeb() async {
-  //   String registerError = await authController.registerWeb(
-  //     username: widget.nameController,
-  //     email: widget.emailController,
-  //     phone: widget.phoneController,
-  //     password: widget.passwordController,
-  //     childname: widget.childNameController,
-  //     gender: widget.selectedType == 'ولد' ? 'male' : 'female',
-  //     emergencyNumber: widget.emergencyNumberController,
-  //     parentOneRealation: widget.selectedRelationsOne,
-  //     parentOneEmail: widget.emailOneController,
-  //     parentOnePhone: widget.phoneOneController,
-  //     parentTwoRealation: widget.selectedRelationsTwo,
-  //     parentTwoEmail: widget.emailTwoController,
-  //     parentTwoPhone: widget.phoneTwoController,
-  //     userId: "1",
-  //     teacherId: widget.techerId.toString(),
-  //     groupId: widget.groupId.toString(),
-  //     familyCard: widget.familyCardPhoto,
-  //     vaccinationCertificate: widget.vaccinationCertificate,
-  //     document: widget.doctuumnet!,
-  //     checkoutId: widget.checkoutId,
-  //     actualselectedDate: widget.actualselectedDate,
-  //     relationOnefirstNameController: widget.relationOnefirstNameController,
-  //     relationOneSecondNameController: widget.relationOneSecondNameController,
-  //     relationOneThirdController: widget.relationOneThirdController,
-  //     relationTwoFirstController: widget.relationTwoFirstController,
-  //     relationTwoScecondController: widget.relationTwoScecondController,
-  //     relationTwoThirdController: widget.relationTwoThirdController,
-  //     emergencyNameController: widget.emergencyNameController,
-  //     emergencyRelationController: widget.emergencyRelationController,
-  //     streetController: widget.streetController,
-  //     cityController: widget.cityController,
-  //     stateController: widget.stateController,
-  //     postCodeController: widget.postCodeController,
-  //     givenNameController: widget.givenNameController,
-  //     surnameController: widget.surnameController,
-  //   );
-  //   if (registerError != "") {
-  //     Get.defaultDialog(title: "حدث خطأ ما", middleText: registerError);
-  //   } else {
-  //     Future.delayed(Duration(seconds: 2), () {
-  //       Get.to(RegisterStepSixScreen());
-  //     });
-  //   }
-  // }
-
-  @override
-  void initState() {
-    super.initState();
-    _navegitTo();
-  }
-
-  _navegitTo() {
+  _navigateTo() {
     Future.delayed(Duration(seconds: 2), () {
-      Get.to(HomeScreen());
+      Get.to(RegisterStepSixScreen());
     });
   }
 
@@ -256,16 +201,6 @@ class _SuccessRegisterCheckoutState extends State<SuccessRegisterCheckout> {
               ),
             ),
             SizedBox(height: 20),
-            // Center(
-            //   child: Text(
-            //     'جارى إتمام الدفع...',
-            //     style: TextStyle(
-            //       fontSize: 15,
-            //       color: AppColors.accentColor,
-            //       fontWeight: FontWeight.w200,
-            //     ),
-            //   ),
-            // )
           ],
         ),
       ),

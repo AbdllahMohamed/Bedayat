@@ -80,12 +80,6 @@ class UsersServices {
     String? relationTwoThirdController,
     String? emergencyNameController,
     String? emergencyRelationController,
-    String? streetController,
-    String? cityController,
-    String? stateController,
-    String? postCodeController,
-    String? givenNameController,
-    String? surnameController,
   }) async {
     var registerError = "";
 
@@ -121,21 +115,15 @@ class UsersServices {
           filename: vaccinationCertificateFile),
       "document":
           await MultipartFile.fromFile(document.path, filename: documentFile),
-      'actualselectedDate': actualselectedDate,
-      'relationOnefirstNameController': relationOnefirstNameController,
-      'relationOneSecondNameController': relationOneSecondNameController,
-      'relationOneThirdController': relationOneThirdController,
-      'relationTwoFirstController': relationTwoFirstController,
-      'relationTwoScecondController': relationTwoScecondController,
-      'relationTwoThirdController': relationTwoThirdController,
-      'emergencyNameController': emergencyNameController,
-      'emergencyRelationController': emergencyRelationController,
-      'streetController': streetController,
-      'cityController': cityController,
-      'stateController': stateController,
-      'postCodeController': postCodeController,
-      'givenNameController': givenNameController,
-      'surnameController': surnameController,
+      'birth_date': actualselectedDate,
+      'relation_one_first_name': relationOnefirstNameController,
+      'relation_one_second_name': relationOneSecondNameController,
+      'relation_one_third_name': relationOneThirdController,
+      'relation_two_first_name': relationTwoFirstController,
+      'relation_two_scecond_name': relationTwoScecondController,
+      'relation_two_third_name': relationTwoThirdController,
+      'emergency_name': emergencyNameController,
+      'emergency_relation': emergencyRelationController,
     });
     Response response = await dio.post(
       "$baseApiUrl/register",
@@ -156,7 +144,11 @@ class UsersServices {
     if (response.data['message'] != null) {
       registerError = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
     } else {
-      User.fromJson(response.data['data']);
+      print("From Register");
+      final box = GetStorage();
+      print(response.data["data"]['id']);
+      box.write('childId', response.data["data"]['id']);
+      print("${GetStorage().read('childId')}");
     }
 
     return registerError;
@@ -198,6 +190,7 @@ class UsersServices {
     String? postCodeController,
     String? givenNameController,
     String? surnameController,
+    String? birthDate,
   }) async {
     var registerError = "";
     print(username);
@@ -300,23 +293,17 @@ class UsersServices {
     request.fields["teacher_id"] = teacherId!;
     request.fields["group_id"] = groupId!;
     request.fields["checkout_id"] = checkoutId!;
-    request.fields["relationOnefirstNameController"] =
-        relationOnefirstNameController!;
-    request.fields["relationOneSecondNameController"] =
+
+    request.fields["relation_one_first_name"] = relationOnefirstNameController!;
+    request.fields["relation_one_second_name"] =
         relationOneSecondNameController!;
-    request.fields["relationOneThirdController"] = relationOneThirdController!;
-    request.fields["relationTwoFirstController"] = relationTwoFirstController!;
-    request.fields["relationTwoScecondController"] =
-        relationTwoScecondController!;
-    request.fields["relationTwoThirdController"] = relationTwoThirdController!;
-    request.fields["emergencyNameController"] = emergencyNameController!;
-    request.fields["emergencyRelationController"] =
-        request.fields["streetController"] = streetController!;
-    request.fields["cityController"] = cityController!;
-    request.fields["stateController"] = stateController!;
-    request.fields["postCodeController"] = postCodeController!;
-    request.fields["givenNameController"] = givenNameController!;
-    request.fields["surnameController"] = surnameController!;
+    request.fields["relation_one_third_name"] = relationOneThirdController!;
+    request.fields["relation_two_first_name"] = relationTwoFirstController!;
+    request.fields["relation_two_scecond_name"] = relationTwoScecondController!;
+    request.fields["relation_two_third_name"] = relationTwoThirdController!;
+    request.fields["emergency_name"] = emergencyNameController!;
+    request.fields["emergency_relation"] = emergencyRelationController!;
+    request.fields["birth_date"] = birthDate!;
 
     request.headers.addAll({
       "Accept": "application/json",
@@ -324,11 +311,21 @@ class UsersServices {
 
     var response = await request.send();
     print('response.statusCode');
-    print(response.statusCode);
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
-    });
-    print(registerError);
+    if (response.statusCode != 200) {
+      registerError = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
+    } else {
+      response.stream.transform(utf8.decoder).listen((value) {
+        print(value);
+      });
+      print(registerError);
+
+      // print("From Register");
+      // final box = GetStorage();
+      // print(response.data["data"]['id']);
+      // box.write('childId', response.data["data"]['id']);
+      // print("${GetStorage().read('childId')}");
+
+    }
 
     return registerError;
   }

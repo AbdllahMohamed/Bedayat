@@ -12,6 +12,7 @@ class HomeWebContentWidget extends StatelessWidget {
   final String imagePath;
   final int childId;
   final String createdAt;
+  final String expireDate;
 
   HomeWebContentWidget({
     required this.name,
@@ -19,6 +20,7 @@ class HomeWebContentWidget extends StatelessWidget {
     required this.imagePath,
     required this.childId,
     required this.createdAt,
+    required this.expireDate,
   });
 
   @override
@@ -331,6 +333,32 @@ class HomeWebContentWidget extends StatelessWidget {
                       style: TextStyle(color: AppColors.primaryColor),
                     ),
                   ),
+                  expireDate == null
+                      ? Center(
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              primary: AppColors.primaryColor,
+                              minimumSize: Size(
+                                _deviceWidth * 0.2,
+                                55,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(8), // <-- Radius
+                              ),
+                            ),
+                            child: Text(
+                              'طفلك غير مسجل باشتراك اشترك الان',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        )
+                      : Text(expireDate),
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(

@@ -1,7 +1,9 @@
+import 'package:bedayat/UI/screens/checkout_status/add_child_checkout_stats/add_child_checkout_status.dart';
 import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/package_controller.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/foundation.dart';
@@ -20,34 +22,34 @@ late TextEditingController surnameController;
 String? seletctedBank;
 
 class AddChildStepFourScreen extends StatefulWidget {
-  final int selectedBranchIndex;
-  final String childNameController;
-  final String selectedType;
-  final String selectedRelationsOne;
-  final String selectedRelationsTwo;
-  final String emergencyNumberController;
-  final String anthorNotesController;
-  final String sensitificController;
-  final String emailOneController;
-  final String phoneOneController;
-  final String emailTwoController;
-  final String phoneTwoController;
-  final int groupId;
-  final int techerId;
+  // final int selectedBranchIndex;
+  final String checkoutId;
+  // final String selectedType;
+  // final String selectedRelationsOne;
+  // final String selectedRelationsTwo;
+  // final String emergencyNumberController;
+  // final String anthorNotesController;
+  // final String sensitificController;
+  // final String emailOneController;
+  // final String phoneOneController;
+  // final String emailTwoController;
+  // final String phoneTwoController;
+  // final int groupId;
+  // final int techerId;
 
-  final String actualselectedDate;
-  final String relationOnefirstNameController;
-  final String relationOneSecondNameController;
-  final String relationOneThirdController;
-  final String relationTwoFirstController;
-  final String relationTwoScecondController;
-  final String relationTwoThirdController;
-  final String emergencyNameController;
-  final String emergencyRelationController;
+  // final String actualselectedDate;
+  // final String relationOnefirstNameController;
+  // final String relationOneSecondNameController;
+  // final String relationOneThirdController;
+  // final String relationTwoFirstController;
+  // final String relationTwoScecondController;
+  // final String relationTwoThirdController;
+  // final String emergencyNameController;
+  // final String emergencyRelationController;
 
-  final XFile? familyCardPhoto;
-  final XFile? vaccinationCertificate;
-  final XFile? doctuumnet;
+  // final XFile? familyCardPhoto;
+  // final XFile? vaccinationCertificate;
+  // final XFile? doctuumnet;
 
   final String streetController;
   final String cityController;
@@ -58,32 +60,32 @@ class AddChildStepFourScreen extends StatefulWidget {
 
   const AddChildStepFourScreen(
       {Key? key,
-      required this.selectedBranchIndex,
-      required this.childNameController,
-      required this.selectedType,
-      required this.emergencyNumberController,
-      required this.anthorNotesController,
-      required this.selectedRelationsOne,
-      required this.emailOneController,
-      required this.selectedRelationsTwo,
-      required this.sensitificController,
-      required this.phoneOneController,
-      required this.emailTwoController,
-      required this.phoneTwoController,
-      required this.familyCardPhoto,
-      required this.vaccinationCertificate,
-      required this.doctuumnet,
-      required this.groupId,
-      required this.techerId,
-      required this.actualselectedDate,
-      required this.relationOnefirstNameController,
-      required this.relationOneSecondNameController,
-      required this.relationOneThirdController,
-      required this.relationTwoFirstController,
-      required this.relationTwoScecondController,
-      required this.relationTwoThirdController,
-      required this.emergencyNameController,
-      required this.emergencyRelationController,
+      required this.checkoutId,
+      // required this.childNameController,
+      // required this.selectedType,
+      // required this.emergencyNumberController,
+      // required this.anthorNotesController,
+      // required this.selectedRelationsOne,
+      // required this.emailOneController,
+      // required this.selectedRelationsTwo,
+      // required this.sensitificController,
+      // required this.phoneOneController,
+      // required this.emailTwoController,
+      // required this.phoneTwoController,
+      // required this.familyCardPhoto,
+      // required this.vaccinationCertificate,
+      // required this.doctuumnet,
+      // required this.groupId,
+      // required this.techerId,
+      // required this.actualselectedDate,
+      // required this.relationOnefirstNameController,
+      // required this.relationOneSecondNameController,
+      // required this.relationOneThirdController,
+      // required this.relationTwoFirstController,
+      // required this.relationTwoScecondController,
+      // required this.relationTwoThirdController,
+      // required this.emergencyNameController,
+      // required this.emergencyRelationController,
       required this.streetController,
       required this.cityController,
       required this.stateController,
@@ -99,6 +101,7 @@ class AddChildStepFourScreen extends StatefulWidget {
 class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
   PaymentController paymentController = Get.put(PaymentController());
   final PackageController packageController = Get.put(PackageController());
+  AuthController authController = Get.put(AuthController());
 
   final _formKey = GlobalKey<FormState>();
 
@@ -158,44 +161,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
     if (paymentError != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: paymentError);
     } else {
-      Get.to(
-        AddChildPaymentWebviewScreen(
-          selectedBranchIndex: widget.selectedBranchIndex,
-          childNameController: widget.childNameController,
-          selectedType: widget.selectedType,
-          selectedRelationsOne: widget.selectedRelationsOne,
-          selectedRelationsTwo: widget.selectedRelationsTwo,
-          emergencyNumberController: widget.emergencyNumberController,
-          anthorNotesController: widget.anthorNotesController,
-          sensitificController: widget.sensitificController,
-          phoneOneController: widget.phoneOneController,
-          emailOneController: widget.emailOneController,
-          emailTwoController: widget.emailTwoController,
-          phoneTwoController: widget.phoneTwoController,
-          familyCardPhoto: widget.familyCardPhoto,
-          vaccinationCertificate: widget.vaccinationCertificate,
-          doctuumnet: widget.doctuumnet,
-          groupId: widget.groupId,
-          techerId: widget.techerId,
-          checkoutId: "${GetStorage().read('checkoutId')}",
-          relationOnefirstNameController: widget.relationOnefirstNameController,
-          relationOneSecondNameController:
-              widget.relationOneSecondNameController,
-          relationOneThirdController: widget.relationOneThirdController,
-          relationTwoFirstController: widget.relationTwoFirstController,
-          relationTwoScecondController: widget.relationTwoScecondController,
-          relationTwoThirdController: widget.relationTwoThirdController,
-          emergencyNameController: widget.emergencyNameController,
-          emergencyRelationController: widget.emergencyRelationController,
-          streetController: streetController.text,
-          cityController: cityController.text,
-          stateController: stateController.text,
-          postCodeController: postCodeController.text,
-          givenNameController: givenNameController.text,
-          surnameController: surnameController.text,
-          actualselectedDate: widget.actualselectedDate,
-        ),
-      );
+      // kIsWeb ? _addChildAndavegatoToWeb() : _addChildAndavegatoToMobile();
     }
   }
 

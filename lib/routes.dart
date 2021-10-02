@@ -1,9 +1,7 @@
 import 'package:bedayat/UI/screens/login/login.dart';
-import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.dart';
-import 'package:bedayat/UI/screens/register/register_step_one.dart';
 import 'package:flutter/material.dart';
 
-import 'UI/screens/checkout_status/register_checkout_status.dart';
+import 'UI/screens/checkout_status/register_checkout_status/register_checkout_status.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings? settings) {

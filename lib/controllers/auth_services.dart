@@ -52,12 +52,6 @@ class AuthController extends GetxController {
     String? relationTwoThirdController,
     String? emergencyNameController,
     String? emergencyRelationController,
-    String? streetController,
-    String? cityController,
-    String? stateController,
-    String? postCodeController,
-    String? givenNameController,
-    String? surnameController,
   }) async {
     var registerError = "";
     try {
@@ -92,12 +86,6 @@ class AuthController extends GetxController {
         relationTwoThirdController: relationTwoThirdController,
         emergencyNameController: emergencyNameController,
         emergencyRelationController: emergencyRelationController,
-        streetController: streetController,
-        cityController: cityController,
-        stateController: stateController,
-        postCodeController: postCodeController,
-        givenNameController: givenNameController,
-        surnameController: surnameController,
       );
     } catch (e) {
       print(e);
@@ -136,12 +124,7 @@ class AuthController extends GetxController {
     String? relationTwoThirdController,
     String? emergencyNameController,
     String? emergencyRelationController,
-    String? streetController,
-    String? cityController,
-    String? stateController,
-    String? postCodeController,
-    String? givenNameController,
-    String? surnameController,
+    String? birthDate,
   }) async {
     var registerError = "";
 
@@ -175,12 +158,7 @@ class AuthController extends GetxController {
       relationTwoThirdController: relationTwoThirdController,
       emergencyNameController: emergencyNameController,
       emergencyRelationController: emergencyRelationController,
-      streetController: streetController,
-      cityController: cityController,
-      stateController: stateController,
-      postCodeController: postCodeController,
-      givenNameController: givenNameController,
-      surnameController: surnameController,
+      birthDate: birthDate,
     );
 
     return registerError;
@@ -199,7 +177,7 @@ class AuthController extends GetxController {
     String? parentTwoPhone,
     String? userId,
     String? teacherId,
-    String? chekoutId,
+    String? checkoutId,
     String? groupId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
@@ -237,7 +215,7 @@ class AuthController extends GetxController {
         userId: userId,
         teacherId: teacherId,
         groupId: groupId,
-        checkoutId: chekoutId,
+        checkoutId: checkoutId,
         familyCard: familyCard,
         vaccinationCertificate: vaccinationCertificate,
         document: document,
@@ -286,7 +264,7 @@ class AuthController extends GetxController {
     String? parentTwoPhone,
     String? userId,
     String? teacherId,
-    String? chekoutId,
+    String? checkoutId,
     String? groupId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
@@ -324,7 +302,7 @@ class AuthController extends GetxController {
         userId: userId,
         teacherId: teacherId,
         groupId: groupId,
-        checkoutId: chekoutId,
+        checkoutId: checkoutId,
         familyCard: familyCard,
         vaccinationCertificate: vaccinationCertificate,
         document: document,

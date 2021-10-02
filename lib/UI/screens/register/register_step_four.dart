@@ -1,4 +1,3 @@
-import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/screens/register/register_step_five.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/UI/widgets/circle_image.dart';
@@ -6,8 +5,10 @@ import 'package:bedayat/UI/widgets/cutome_textFormfield.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
+import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/group_controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hijri_picker/hijri_picker.dart';
@@ -37,6 +38,7 @@ class RegisterStepFourScreen extends StatefulWidget {
 class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
   final GroupController groupController = Get.put(GroupController());
   final TeacherController teacherController = Get.put(TeacherController());
+  AuthController authController = Get.put(AuthController());
 
   @override
   void initState() {
@@ -110,40 +112,99 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
           title: "حدث خطأ ما",
           middleText: 'يرجى التأكد من اختيار الفصل و المعلم');
     } else {
-      Get.to(RegisterStepFiveScreen(
-        nameController: widget.nameController,
-        phoneController: widget.phoneController,
-        emailController: widget.emailController,
-        passwordController: widget.passwordController,
-        selectedBranchIndex: widget.selectedBranchIndex,
-        groupId: selectedGroupIndex!,
-        techerId: selectedTeacherIndex!,
-        childNameController: _childNameController.text,
-        selectedType: _selectedType,
-        ageGroup: _actualselectedDate,
-        relationOnefirstNameController: _relationOnefirstNameController.text,
-        relationOneSecondNameController: _relationOneSecondNameController.text,
-        relationOneThirdController: _relationOneThirdController.text,
-        relationTwoFirstController: _relationTwoFirstNameController.text,
-        relationTwoScecondController: _relationTwoScecondNameController.text,
-        relationTwoThirdController: _relationTwoThirdNameController.text,
-        emergencyNameController: _emergencyNameController.text,
-        emergencyRelationController: _emergencyRelationController.text,
-        selectedRelationsTwo: _relationsTwoController.text,
-        emailTwoController: _emailTwoController.text,
-        phoneTwoController: _phoneTwoController.text,
-        selectedRelationsOne: _relationsOneController.text,
-        emailOneController: _emailOneController.text,
-        phoneOneController: _phoneOneController.text,
-        familyCardPhoto: _familyCardPhoto,
-        vaccinationCertificate: _vaccinationCertificate,
-        doctuumnet: _doctuumnet,
-        anthorNotesController: _anthorNotesController.text,
-        sensitificController: _sensitificController.text,
-        emergencyNumberController: _emergencyNumberController.text,
+      kIsWeb ? _registerAndavegatoToWeb() : _registerAndavegatoToMobile();
+    }
+  }
 
-//        selectedAge: '1',
-      ));
+  void _registerAndavegatoToWeb() async {
+    String registerError = await authController.registerWeb(
+      username: widget.nameController,
+      phone: widget.phoneController,
+      email: widget.emailController,
+      password: widget.passwordController,
+      groupId: selectedGroupIndex.toString(),
+      teacherId: selectedTeacherIndex.toString(),
+      childname: _childNameController.text,
+      relationOnefirstNameController: _relationOnefirstNameController.text,
+      relationOneSecondNameController: _relationOneSecondNameController.text,
+      relationOneThirdController: _relationOneThirdController.text,
+      relationTwoFirstController: _relationTwoFirstNameController.text,
+      relationTwoScecondController: _relationTwoScecondNameController.text,
+      relationTwoThirdController: _relationTwoThirdNameController.text,
+      emergencyNameController: _emergencyNameController.text,
+      emergencyRelationController: _emergencyRelationController.text,
+      parentTwoRealation: _relationsTwoController.text,
+      parentTwoEmail: _emailTwoController.text,
+      parentTwoPhone: _phoneTwoController.text,
+      parentOneRealation: _relationsOneController.text,
+      parentOneEmail: _emailOneController.text,
+      parentOnePhone: _phoneOneController.text,
+      familyCard: _familyCardPhoto,
+      vaccinationCertificate: _vaccinationCertificate,
+      document: _doctuumnet,
+      emergencyNumber: _emergencyNumberController.text,
+      ageGroup: '1',
+      userId: '1',
+      birthDate: _actualselectedDate,
+      gender: _selectedType == 'ولد' ? 'male' : 'female',
+    );
+    if (registerError != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: registerError);
+    } else {
+      await authController
+          .login(
+        widget.emailController,
+        widget.passwordController,
+      )
+          .then((value) {
+        Get.to(RegisterStepFiveScreen());
+      });
+    }
+  }
+
+  void _registerAndavegatoToMobile() async {
+    String registerError = await authController.register(
+      username: widget.nameController,
+      phone: widget.phoneController,
+      email: widget.emailController,
+      password: widget.passwordController,
+      groupId: selectedGroupIndex.toString(),
+      teacherId: selectedTeacherIndex.toString(),
+      childname: _childNameController.text,
+      gender: _selectedType == 'ولد' ? 'male' : 'female',
+      relationOnefirstNameController: _relationOnefirstNameController.text,
+      relationOneSecondNameController: _relationOneSecondNameController.text,
+      relationOneThirdController: _relationOneThirdController.text,
+      relationTwoFirstController: _relationTwoFirstNameController.text,
+      relationTwoScecondController: _relationTwoScecondNameController.text,
+      relationTwoThirdController: _relationTwoThirdNameController.text,
+      emergencyNameController: _emergencyNameController.text,
+      emergencyRelationController: _emergencyRelationController.text,
+      parentTwoRealation: _relationsTwoController.text,
+      parentTwoEmail: _emailTwoController.text,
+      parentTwoPhone: _phoneTwoController.text,
+      parentOneRealation: _relationsOneController.text,
+      parentOneEmail: _emailOneController.text,
+      parentOnePhone: _phoneOneController.text,
+      familyCard: _familyCardPhoto,
+      vaccinationCertificate: _vaccinationCertificate,
+      document: _doctuumnet,
+      emergencyNumber: _emergencyNumberController.text,
+      ageGroup: '1',
+      userId: '1',
+      actualselectedDate: _actualselectedDate,
+    );
+    if (registerError != "") {
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: registerError);
+    } else {
+      await authController
+          .login(
+        widget.emailController,
+        widget.passwordController,
+      )
+          .then((value) {
+        Get.to(RegisterStepFiveScreen());
+      });
     }
   }
 
@@ -1086,12 +1147,15 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       SizedBox(
                         height: 20,
                       ),
-                      ActionButton(
-                        label: 'التالى',
-                        onPressed: () {
-                          registerStepFour();
-                        },
-                      ),
+                      Obx(() {
+                        return authController.loadingProcess.value
+                            ? Center(child: CircularProgressIndicator())
+                            : ActionButton(
+                                label: 'التالى',
+                                onPressed: () async {
+                                  registerStepFour();
+                                });
+                      }),
                       SizedBox(
                         height: 15,
                       ),

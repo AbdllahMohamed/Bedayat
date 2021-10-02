@@ -1,13 +1,10 @@
 import 'package:bedayat/UI/screens/checkout_status/register_checkout_status/failuar_register_checkout.dart';
 import 'package:bedayat/UI/screens/checkout_status/register_checkout_status/success_register_checkout.dart';
-import 'package:bedayat/UI/screens/register/register_step_five.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/controllers/checkout_status_controller.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:image_picker/image_picker.dart';
 
 // ignore: must_be_immutable
 class RegisterCheckoutStautusScreen extends StatefulWidget {
@@ -104,20 +101,10 @@ class _RegisterCheckoutStautusScreenState
     extends State<RegisterCheckoutStautusScreen> {
   CheckoutStatusController checkoutStatusController =
       Get.put(CheckoutStatusController());
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  //   //checkoutStatusController.fetchCheckoutStatusCode(widget.checkoutId);
-  // }
 
   @override
   void initState() {
     super.initState();
-    print('resgister checkout');
-    print(Uri.base.toString());
-    print(Uri.base.query);
-    print(Uri.base.queryParameters['id']);
 
     checkoutStatusController.fetchCheckoutStatusCode(widget.checkoutId);
   }

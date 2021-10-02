@@ -13,77 +13,77 @@ import 'package:webview_flutter/webview_flutter.dart' as webview;
 // ignore: must_be_immutable
 class AddChildPaymentWebviewScreen extends StatefulWidget {
   final String checkoutId;
-  final int selectedBranchIndex;
-  final String childNameController;
-  final String selectedType;
-  final String selectedRelationsOne;
-  final String selectedRelationsTwo;
-  final String emergencyNumberController;
-  final String anthorNotesController;
-  final String sensitificController;
-  final String emailOneController;
-  final String phoneOneController;
-  final String emailTwoController;
-  final String phoneTwoController;
-  final int groupId;
-  final int techerId;
+  // final int selectedBranchIndex;
+  // final String childNameController;
+  // final String selectedType;
+  // final String selectedRelationsOne;
+  // final String selectedRelationsTwo;
+  // final String emergencyNumberController;
+  // final String anthorNotesController;
+  // final String sensitificController;
+  // final String emailOneController;
+  // final String phoneOneController;
+  // final String emailTwoController;
+  // final String phoneTwoController;
+  // final int groupId;
+  // final int techerId;
 
-  final String actualselectedDate;
-  final String relationOnefirstNameController;
-  final String relationOneSecondNameController;
-  final String relationOneThirdController;
-  final String relationTwoFirstController;
-  final String relationTwoScecondController;
-  final String relationTwoThirdController;
-  final String emergencyNameController;
-  final String emergencyRelationController;
+  // final String actualselectedDate;
+  // final String relationOnefirstNameController;
+  // final String relationOneSecondNameController;
+  // final String relationOneThirdController;
+  // final String relationTwoFirstController;
+  // final String relationTwoScecondController;
+  // final String relationTwoThirdController;
+  // final String emergencyNameController;
+  // final String emergencyRelationController;
 
-  final XFile? familyCardPhoto;
-  final XFile? vaccinationCertificate;
-  final XFile? doctuumnet;
+  // final XFile? familyCardPhoto;
+  // final XFile? vaccinationCertificate;
+  // final XFile? doctuumnet;
 
-  final String streetController;
-  final String cityController;
-  final String stateController;
-  final String postCodeController;
-  final String givenNameController;
-  final String surnameController;
+  // final String streetController;
+  // final String cityController;
+  // final String stateController;
+  // final String postCodeController;
+  // final String givenNameController;
+  // final String surnameController;
 
   AddChildPaymentWebviewScreen({
     Key? key,
     required this.checkoutId,
-    required this.selectedBranchIndex,
-    required this.childNameController,
-    required this.selectedType,
-    required this.emergencyNumberController,
-    required this.anthorNotesController,
-    required this.selectedRelationsOne,
-    required this.emailOneController,
-    required this.selectedRelationsTwo,
-    required this.sensitificController,
-    required this.phoneOneController,
-    required this.emailTwoController,
-    required this.phoneTwoController,
-    required this.familyCardPhoto,
-    required this.vaccinationCertificate,
-    required this.doctuumnet,
-    required this.groupId,
-    required this.techerId,
-    required this.actualselectedDate,
-    required this.relationOnefirstNameController,
-    required this.relationOneSecondNameController,
-    required this.relationOneThirdController,
-    required this.relationTwoFirstController,
-    required this.relationTwoScecondController,
-    required this.relationTwoThirdController,
-    required this.emergencyNameController,
-    required this.emergencyRelationController,
-    required this.streetController,
-    required this.cityController,
-    required this.stateController,
-    required this.postCodeController,
-    required this.givenNameController,
-    required this.surnameController,
+    // required this.selectedBranchIndex,
+    // required this.childNameController,
+    // required this.selectedType,
+    // required this.emergencyNumberController,
+    // required this.anthorNotesController,
+    // required this.selectedRelationsOne,
+    // required this.emailOneController,
+    // required this.selectedRelationsTwo,
+    // required this.sensitificController,
+    // required this.phoneOneController,
+    // required this.emailTwoController,
+    // required this.phoneTwoController,
+    // required this.familyCardPhoto,
+    // required this.vaccinationCertificate,
+    // required this.doctuumnet,
+    // required this.groupId,
+    // required this.techerId,
+    // required this.actualselectedDate,
+    // required this.relationOnefirstNameController,
+    // required this.relationOneSecondNameController,
+    // required this.relationOneThirdController,
+    // required this.relationTwoFirstController,
+    // required this.relationTwoScecondController,
+    // required this.relationTwoThirdController,
+    // required this.emergencyNameController,
+    // required this.emergencyRelationController,
+    // required this.streetController,
+    // required this.cityController,
+    // required this.stateController,
+    // required this.postCodeController,
+    // required this.givenNameController,
+    // required this.surnameController,
   }) : super(key: key);
 
   @override
@@ -122,39 +122,39 @@ class _AddChildPaymentWebviewScreenState
 
   void _navegatoTo() {
     Get.to(AddChildCheckotStatusScreen(
-      selectedBranchIndex: widget.selectedBranchIndex,
-      childNameController: widget.childNameController,
-      selectedType: widget.selectedType,
-      selectedRelationsOne: widget.selectedRelationsOne,
-      selectedRelationsTwo: widget.selectedRelationsTwo,
-      emergencyNumberController: widget.emergencyNumberController,
-      anthorNotesController: widget.anthorNotesController,
-      sensitificController: widget.sensitificController,
-      emailOneController: widget.emailOneController,
-      phoneOneController: widget.phoneOneController,
-      emailTwoController: widget.emailTwoController,
-      phoneTwoController: widget.phoneTwoController,
-      familyCardPhoto: widget.familyCardPhoto,
-      vaccinationCertificate: widget.vaccinationCertificate,
-      doctuumnet: widget.doctuumnet,
-      groupId: widget.groupId,
-      techerId: widget.techerId,
       checkoutId: widget.checkoutId,
-      actualselectedDate: widget.actualselectedDate,
-      relationOnefirstNameController: widget.relationOnefirstNameController,
-      relationOneSecondNameController: widget.relationOneSecondNameController,
-      relationOneThirdController: widget.relationOneThirdController,
-      relationTwoFirstController: widget.relationTwoFirstController,
-      relationTwoScecondController: widget.relationTwoScecondController,
-      relationTwoThirdController: widget.relationTwoThirdController,
-      emergencyNameController: widget.emergencyNameController,
-      emergencyRelationController: widget.emergencyRelationController,
-      streetController: widget.streetController,
-      cityController: widget.cityController,
-      stateController: widget.stateController,
-      postCodeController: widget.postCodeController,
-      givenNameController: widget.givenNameController,
-      surnameController: widget.surnameController,
+      // selectedBranchIndex: widget.selectedBranchIndex,
+      // childNameController: widget.childNameController,
+      // selectedType: widget.selectedType,
+      // selectedRelationsOne: widget.selectedRelationsOne,
+      // selectedRelationsTwo: widget.selectedRelationsTwo,
+      // emergencyNumberController: widget.emergencyNumberController,
+      // anthorNotesController: widget.anthorNotesController,
+      // sensitificController: widget.sensitificController,
+      // emailOneController: widget.emailOneController,
+      // phoneOneController: widget.phoneOneController,
+      // emailTwoController: widget.emailTwoController,
+      // phoneTwoController: widget.phoneTwoController,
+      // familyCardPhoto: widget.familyCardPhoto,
+      // vaccinationCertificate: widget.vaccinationCertificate,
+      // doctuumnet: widget.doctuumnet,
+      // groupId: widget.groupId,
+      // techerId: widget.techerId,
+      // actualselectedDate: widget.actualselectedDate,
+      // relationOnefirstNameController: widget.relationOnefirstNameController,
+      // relationOneSecondNameController: widget.relationOneSecondNameController,
+      // relationOneThirdController: widget.relationOneThirdController,
+      // relationTwoFirstController: widget.relationTwoFirstController,
+      // relationTwoScecondController: widget.relationTwoScecondController,
+      // relationTwoThirdController: widget.relationTwoThirdController,
+      // emergencyNameController: widget.emergencyNameController,
+      // emergencyRelationController: widget.emergencyRelationController,
+      // streetController: widget.streetController,
+      // cityController: widget.cityController,
+      // stateController: widget.stateController,
+      // postCodeController: widget.postCodeController,
+      // givenNameController: widget.givenNameController,
+      // surnameController: widget.surnameController,
     ));
   }
 
