@@ -49,6 +49,7 @@ class PaymentServices {
     } else {
       final box = GetStorage();
       await box.write('checkoutId', response.data['id']);
+      print("${GetStorage().read('checkoutId')}");
     }
     return paymentError;
   }

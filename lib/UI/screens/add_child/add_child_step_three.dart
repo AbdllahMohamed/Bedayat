@@ -187,6 +187,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
       parentTwoEmail: widget.emailTwoController,
       parentTwoPhone: widget.phoneTwoController,
       userId: "1",
+      ageGroup: '1',
       teacherId: selectedTeacherIndex.toString(),
       groupId: selectedGroupIndex.toString(),
       familyCard: _familyCardPhoto,
@@ -1407,12 +1408,6 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                                   addChildStepThree();
                                 });
                       }),
-                      // ActionButton(
-                      //   label: 'التالى',
-                      //   onPressed: () {
-                      //     addChildStepThree();
-                      //   },
-                      // ),
                       SizedBox(
                         height: 15,
                       ),

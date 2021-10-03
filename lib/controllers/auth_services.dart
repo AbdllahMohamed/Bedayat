@@ -256,7 +256,6 @@ class AuthController extends GetxController {
     String? parentTwoPhone,
     String? userId,
     String? teacherId,
-    String? checkoutId,
     String? groupId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
@@ -270,17 +269,9 @@ class AuthController extends GetxController {
     String? relationTwoThirdController,
     String? emergencyNameController,
     String? emergencyRelationController,
-    String? streetController,
-    String? cityController,
-    String? stateController,
-    String? postCodeController,
-    String? givenNameController,
-    String? surnameController,
   }) async {
     var registerError = "";
     try {
-      loadingProcess(true);
-
       registerError = await UsersServices.addchildWeb(
         childname: childname,
         gender: gender,
@@ -294,7 +285,6 @@ class AuthController extends GetxController {
         userId: userId,
         teacherId: teacherId,
         groupId: groupId,
-        checkoutId: checkoutId,
         familyCard: familyCard,
         vaccinationCertificate: vaccinationCertificate,
         document: document,
@@ -309,7 +299,6 @@ class AuthController extends GetxController {
         emergencyRelationController: emergencyRelationController,
       );
     } catch (e) {
-      print('e');
       print(e);
       registerError = 'من فضلك حاول مرة اخرى';
     } finally {

@@ -1,4 +1,5 @@
 import 'package:bedayat/UI/screens/notification.dart/notification.dart';
+import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -43,10 +44,18 @@ class HomeHeaderWidget extends StatelessWidget {
                 ),
           InkWell(
             onTap: onTap,
-            child: Image.asset(
-              AppImages.appDrawer,
-              width: 18,
-              height: 21,
+            child: Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.primaryColor,
+              ),
+              child: Image.asset(
+                AppImages.appDrawer,
+                width: 18,
+                height: 21,
+              ),
             ),
           ),
           SizedBox(

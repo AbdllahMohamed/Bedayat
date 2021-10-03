@@ -19,8 +19,8 @@ TextEditingController surnameController = new TextEditingController();
 String? seletctedBank;
 String? peroid = 'from7to2';
 
-class RegisterStepFiveScreen extends StatefulWidget {
-  // final String nameController;
+class HomePaymentScreen extends StatefulWidget {
+  final int childId;
   // final String phoneController;
   // final String emailController;
   // final String passwordController;
@@ -55,9 +55,9 @@ class RegisterStepFiveScreen extends StatefulWidget {
   // final XFile? vaccinationCertificate;
   // final XFile? doctuumnet;
 
-  const RegisterStepFiveScreen({
+  const HomePaymentScreen({
     Key? key,
-    // required this.nameController,
+    required this.childId,
     // required this.phoneController,
     // required this.emailController,
     // required this.passwordController,
@@ -92,10 +92,10 @@ class RegisterStepFiveScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _RegisterStepFiveScreenState createState() => _RegisterStepFiveScreenState();
+  _HomePaymentScreenState createState() => _HomePaymentScreenState();
 }
 
-class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
+class _HomePaymentScreenState extends State<HomePaymentScreen> {
   PaymentController paymentController = Get.put(PaymentController());
 
   final _formKey = GlobalKey<FormState>();
@@ -141,7 +141,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
         givenName: givenNameController.text,
         surname: surnameController.text,
         paymentMethod: seletctedBank,
-        childId: "${GetStorage().read('childId')}");
+        childId: widget.childId.toString());
 
     print((selectedPackageIndex!).toString());
     print('"${GetStorage().read('userEmail')}"');
@@ -156,7 +156,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     print(surnameController.text);
     print(seletctedBank);
     print("${GetStorage().read('childId')}");
-    print("${GetStorage().read('checkoutId')}");
+    print(widget.childId);
 
     print(error);
     if (error != "") {

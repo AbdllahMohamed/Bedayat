@@ -35,8 +35,8 @@ class UsersServices {
             return status! < 500;
           }),
     );
-    print(response.data['message']);
     if (response.data['message'] != null) {
+      print(response.data['message']);
       loginError = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
     } else {
       final box = GetStorage();
@@ -431,7 +431,6 @@ class UsersServices {
     String? userId,
     String? teacherId,
     String? groupId,
-    String? checkoutId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
@@ -446,6 +445,33 @@ class UsersServices {
     String? emergencyRelationController,
   }) async {
     var addChilderror = "";
+
+    print(childname);
+    print(gender);
+    print(emergencyNumber);
+    print(parentOneRealation);
+    print(parentOneEmail);
+    print(parentOnePhone);
+    print(parentTwoRealation);
+    print(parentTwoEmail);
+    print(parentTwoPhone);
+    print(userId);
+    print(teacherId);
+    print(groupId);
+    print(familyCard);
+    print(vaccinationCertificate);
+    print(document);
+    print(actualselectedDate);
+    print(relationOnefirstNameController);
+    print(relationOneSecondNameController);
+    print(relationOneThirdController);
+    print(relationTwoFirstController);
+    print(relationTwoScecondController);
+    print(relationTwoThirdController);
+    print(emergencyNameController);
+    print(emergencyRelationController);
+
+    print(document.toString());
     PickedFile uploadfamilyCard = PickedFile(familyCard.toString());
     PickedFile uploadvaccinationCertificate =
         PickedFile(vaccinationCertificate.toString());
@@ -501,7 +527,6 @@ class UsersServices {
     request.fields["user_id"] = userId!;
     request.fields["teacher_id"] = teacherId!;
     request.fields["group_id"] = groupId!;
-    request.fields["checkout_id"] = checkoutId!;
 
     request.fields["birth_date"] = actualselectedDate!;
     request.fields["relation_one_first_name"] = relationOnefirstNameController!;
@@ -518,14 +543,27 @@ class UsersServices {
 
     request.headers.addAll({
       "Accept": "application/json",
+      "Authorization": "Bearer ${GetStorage().read('token')}",
     });
 
     var response = await request.send();
     print('addchildWeb');
     print(response.statusCode);
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
-    });
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("From addchild");
+
+      response.stream.transform(utf8.decoder).listen((value) {
+        print(value);
+        Map<String, dynamic> responce = json.decode(value);
+        final box = GetStorage();
+        print(responce["data"]['id']);
+        box.write('addChildId', responce["data"]['id']);
+      });
+    } else {
+      addChilderror = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
+    }
+    print(addChilderror);
 
     return addChilderror;
   }

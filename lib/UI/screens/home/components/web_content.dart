@@ -1,3 +1,4 @@
+import 'package:bedayat/UI/home_payment/home_payment.dart';
 import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.dart';
 import 'package:bedayat/UI/screens/register/register_step_five.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
@@ -343,48 +344,9 @@ class HomeWebContentWidget extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 15, top: 5),
                           child: ElevatedButton(
                             onPressed: () async {
-                              print((selectedPackageIndex! + 1).toString());
-                              print('"${GetStorage().read('userEmail')}"');
-
-                              print(
-                                streetController.text,
-                              );
-                              print(cityController.text);
-                              print(stateController.text);
-                              print(postCodeController.text);
-                              print(givenNameController.text);
-                              print(surnameController.text);
-                              print(seletctedBank);
-                              print("${GetStorage().read('childId')}");
-                              String error =
-                                  await paymentController.getCheckoutId(
-                                      packageId: (selectedPackageIndex! + 1)
-                                          .toString(),
-                                      email:
-                                          "${GetStorage().read('userEmail')}",
-                                      street: "test",
-                                      city: "${GetStorage().read('city')}",
-                                      state: "${GetStorage().read('state')}",
-                                      postcode:
-                                          "${GetStorage().read('postcode')}",
-                                      givenName:
-                                          "${GetStorage().read('givenName')}",
-                                      surname:
-                                          "${GetStorage().read('surname')}",
-                                      paymentMethod: "visa",
-                                      childId:
-                                          "${GetStorage().read('childId')}");
-
-                              print(error);
-                              if (error != "") {
-                                Get.defaultDialog(
-                                    title: "حدث خطأ ما", middleText: error);
-                              } else {
-                                Get.to(AddChildPaymentWebviewScreen(
-                                  checkoutId:
-                                      "${GetStorage().read('checkoutId')}",
-                                ));
-                              }
+                              Get.to(HomePaymentScreen(
+                                childId: childId,
+                              ));
                             },
                             style: ElevatedButton.styleFrom(
                               primary: AppColors.primaryColor,

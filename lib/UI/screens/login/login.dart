@@ -5,6 +5,7 @@ import 'package:bedayat/UI/widgets/cutome_textFormfield.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_services.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,9 +42,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if (error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      String? token = await FirebaseMessaging.instance.getToken();
-      print(token);
-      authController.sendToken(token!);
+      // String? token = await FirebaseMessaging.instance.getToken();
+      // print(token);
+      // authController.sendToken(token!);
       Get.offAll(BottomNavigationWidget());
     }
   }

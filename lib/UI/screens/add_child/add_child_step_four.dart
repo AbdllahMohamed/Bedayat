@@ -131,31 +131,20 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
           title: "حدث خطأ ما", middleText: 'يرجى اختيار قيمة الاشتراك');
       return;
     }
-    print((selectedPackageIndex! + 1).toString());
-    print('"${GetStorage().read('userEmail')}"');
 
-    print(
-      streetController.text,
-    );
-    print(cityController.text);
-    print(stateController.text);
-    print(postCodeController.text);
-    print(givenNameController.text);
-    print(surnameController.text);
-    print(seletctedBank);
-    print("${GetStorage().read('childId')}");
-    print("${GetStorage().read('checkoutId')}");
     String paymentError = await paymentController.getCheckoutId(
-        packageId: (selectedPackageIndex! + 1).toString(),
-        email: "${GetStorage().read('userEmail')}",
-        street: streetController.text,
-        city: cityController.text,
-        state: stateController.text,
-        postcode: postCodeController.text,
-        givenName: givenNameController.text,
-        surname: surnameController.text,
-        paymentMethod: seletctedBank,
-        childId: "${GetStorage().read('childId')}");
+      packageId: (selectedPackageIndex!).toString(),
+      email: "${GetStorage().read('userEmail')}",
+      street: streetController.text,
+      city: cityController.text,
+      state: stateController.text,
+      postcode: postCodeController.text,
+      givenName: givenNameController.text,
+      surname: surnameController.text,
+      paymentMethod: seletctedBank,
+      childId: "${GetStorage().read('addChildId')}",
+    );
+
     if (paymentError != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: paymentError);
     } else {
@@ -857,11 +846,15 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                     SizedBox(
                       height: 15,
                     ),
-                    ActionButton(
-                        label: 'التالى',
-                        onPressed: () async {
-                          addChildStepFour();
-                        }),
+                    Obx(() {
+                      return paymentController.loadingProcess.value
+                          ? Center(child: CircularProgressIndicator())
+                          : ActionButton(
+                              label: 'الدفع',
+                              onPressed: () async {
+                                addChildStepFour();
+                              });
+                    }),
                     SizedBox(
                       height: 15,
                     ),
