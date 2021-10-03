@@ -338,10 +338,24 @@ class HomeWebContentWidget extends StatelessWidget {
                       style: TextStyle(color: AppColors.primaryColor),
                     ),
                   ),
-                  expireDate == "null"
-                      ? Center(
+                  expireDate == 'null'
+                      ? Padding(
+                          padding: const EdgeInsets.only(right: 15, top: 5),
                           child: ElevatedButton(
                             onPressed: () async {
+                              print((selectedPackageIndex! + 1).toString());
+                              print('"${GetStorage().read('userEmail')}"');
+
+                              print(
+                                streetController.text,
+                              );
+                              print(cityController.text);
+                              print(stateController.text);
+                              print(postCodeController.text);
+                              print(givenNameController.text);
+                              print(surnameController.text);
+                              print(seletctedBank);
+                              print("${GetStorage().read('childId')}");
                               String error =
                                   await paymentController.getCheckoutId(
                                       packageId: (selectedPackageIndex! + 1)
@@ -375,8 +389,8 @@ class HomeWebContentWidget extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               primary: AppColors.primaryColor,
                               minimumSize: Size(
-                                _deviceWidth * 0.2,
-                                55,
+                                _deviceWidth * 0.1,
+                                35,
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius:
@@ -384,16 +398,16 @@ class HomeWebContentWidget extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              'طفلك غير مسجل باشتراك اشترك الان',
+                              'طفلك غير مسجل باشتراك   اشترك الان',
                               style: TextStyle(
-                                fontSize: 17,
+                                fontSize: 15,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
                               ),
                             ),
                           ),
                         )
-                      : Text(expireDate),
+                      : SizedBox(),
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(

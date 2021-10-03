@@ -66,7 +66,6 @@ class UsersServices {
     String? parentTwoPhone,
     String? userId,
     String? teacherId,
-    String? checkoutId,
     String? groupId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
@@ -107,7 +106,6 @@ class UsersServices {
       "user_id": userId,
       "teacher_id": teacherId,
       "group_id": groupId,
-      "checkout_id": checkoutId,
       "family_card": await MultipartFile.fromFile(familyCard.path,
           filename: familyCardFile),
       "vaccination_certificate": await MultipartFile.fromFile(
@@ -223,8 +221,6 @@ class UsersServices {
 
     print(teacherId);
 
-    print(checkoutId);
-
     print(groupId);
 
     print(familyCard.toString());
@@ -292,8 +288,6 @@ class UsersServices {
     request.fields["user_id"] = userId!;
     request.fields["teacher_id"] = teacherId!;
     request.fields["group_id"] = groupId!;
-    request.fields["checkout_id"] = checkoutId!;
-
     request.fields["relation_one_first_name"] = relationOnefirstNameController!;
     request.fields["relation_one_second_name"] =
         relationOneSecondNameController!;
@@ -311,21 +305,22 @@ class UsersServices {
 
     var response = await request.send();
     print('response.statusCode');
-    if (response.statusCode != 200) {
-      registerError = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
-    } else {
+    print(response.statusCode);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("From Register");
+
       response.stream.transform(utf8.decoder).listen((value) {
         print(value);
+        Map<String, dynamic> responce = json.decode(value);
+        final box = GetStorage();
+        print(responce["data"]['id']);
+        box.write('childId', responce["data"]['id']);
+        print("${GetStorage().read('childId')}");
       });
-      print(registerError);
-
-      // print("From Register");
-      // final box = GetStorage();
-      // print(response.data["data"]['id']);
-      // box.write('childId', response.data["data"]['id']);
-      // print("${GetStorage().read('childId')}");
-
+    } else {
+      registerError = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
     }
+    print(registerError);
 
     return registerError;
   }

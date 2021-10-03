@@ -131,6 +131,17 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
       return;
     }
 
+    String error = await paymentController.getCheckoutId(
+        packageId: (selectedPackageIndex! + 1).toString(),
+        email: '"${GetStorage().read('userEmail')}"',
+        street: streetController.text,
+        city: cityController.text,
+        state: stateController.text,
+        postcode: postCodeController.text,
+        givenName: givenNameController.text,
+        surname: surnameController.text,
+        paymentMethod: seletctedBank,
+        childId: "${GetStorage().read('childId')}");
     print((selectedPackageIndex! + 1).toString());
     print('"${GetStorage().read('userEmail')}"');
 
@@ -145,17 +156,6 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     print(seletctedBank);
     print("${GetStorage().read('childId')}");
     print("${GetStorage().read('checkoutId')}");
-    String error = await paymentController.getCheckoutId(
-        packageId: (selectedPackageIndex! + 1).toString(),
-        email: '"${GetStorage().read('userEmail')}"',
-        street: streetController.text,
-        city: cityController.text,
-        state: stateController.text,
-        postcode: postCodeController.text,
-        givenName: givenNameController.text,
-        surname: surnameController.text,
-        paymentMethod: seletctedBank,
-        childId: "${GetStorage().read('childId')}");
 
     print(error);
     if (error != "") {

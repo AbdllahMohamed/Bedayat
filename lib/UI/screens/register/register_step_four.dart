@@ -11,6 +11,7 @@ import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hijri_picker/hijri_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:hijri/hijri_calendar.dart';
