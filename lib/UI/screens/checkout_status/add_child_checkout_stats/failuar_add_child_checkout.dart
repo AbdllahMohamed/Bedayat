@@ -1,4 +1,5 @@
 import 'package:bedayat/UI/screens/add_child/add_child_step_four.dart';
+import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
@@ -94,16 +95,16 @@ class _FailuarAddChildCheckoutState extends State<FailuarAddChildCheckout> {
 
   _retryPayment() async {
     String error = await paymentController.getCheckoutId(
-      packageId: (selectedPackageIndex! + 1).toString(),
-      email: "${GetStorage().read('userEmail')}",
-      street: streetController.text,
-      city: cityController.text,
-      state: stateController.text,
-      postcode: postCodeController.text,
-      givenName: givenNameController.text,
-      surname: surnameController.text,
-      paymentMethod: seletctedBank,
-    );
+        packageId: (selectedPackageIndex! + 1).toString(),
+        email: "${GetStorage().read('userEmail')}",
+        street: streetController.text,
+        city: cityController.text,
+        state: stateController.text,
+        postcode: postCodeController.text,
+        givenName: givenNameController.text,
+        surname: surnameController.text,
+        paymentMethod: seletctedBank,
+        childId: "${GetStorage().read('childId')}");
 
     print(error);
     if (error != "") {
@@ -112,7 +113,6 @@ class _FailuarAddChildCheckoutState extends State<FailuarAddChildCheckout> {
       Get.to(AddChildPaymentWebviewScreen(
         checkoutId: "${GetStorage().read('checkoutId')}",
       ));
-      _retryPayment();
     }
   }
 
@@ -175,66 +175,15 @@ class _FailuarAddChildCheckoutState extends State<FailuarAddChildCheckout> {
             ActionButton(
               onPressed: () async {
                 _retryPayment();
-                // String error = await paymentController.getCheckoutId(
-                //   packageId: (selectedPackageIndex! + 1).toString(),
-                //   email: "${GetStorage().read('userEmail')}",
-                //   street: streetController.text,
-                //   city: cityController.text,
-                //   state: stateController.text,
-                //   postcode: postCodeController.text,
-                //   givenName: givenNameController.text,
-                //   surname: surnameController.text,
-                //   paymentMethod: seletctedBank,
-                // );
-                // if (error != "") {
-                //   Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
-                // } else {
-                //   Get.to(AddChildPaymentWebviewScreen(
-                //     selectedBranchIndex: widget.selectedBranchIndex,
-                //     childNameController: widget.childNameController,
-                //     selectedType: widget.selectedType,
-                //     selectedRelationsOne: widget.selectedRelationsOne,
-                //     selectedRelationsTwo: widget.selectedRelationsTwo,
-                //     emergencyNumberController: widget.emergencyNumberController,
-                //     anthorNotesController: widget.anthorNotesController,
-                //     sensitificController: widget.sensitificController,
-                //     phoneOneController: widget.phoneOneController,
-                //     emailOneController: widget.emailOneController,
-                //     emailTwoController: widget.emailTwoController,
-                //     phoneTwoController: widget.phoneTwoController,
-                //     familyCardPhoto: widget.familyCardPhoto,
-                //     vaccinationCertificate: widget.vaccinationCertificate,
-                //     doctuumnet: widget.doctuumnet,
-                //     groupId: widget.groupId,
-                //     techerId: widget.techerId,
-                //     checkoutId: "${GetStorage().read('checkoutId')}",
-                //     relationOnefirstNameController:
-                //         widget.relationOnefirstNameController,
-                //     relationOneSecondNameController:
-                //         widget.relationOneSecondNameController,
-                //     relationOneThirdController:
-                //         widget.relationOneThirdController,
-                //     relationTwoFirstController:
-                //         widget.relationTwoFirstController,
-                //     relationTwoScecondController:
-                //         widget.relationTwoScecondController,
-                //     relationTwoThirdController:
-                //         widget.relationTwoThirdController,
-                //     emergencyNameController: widget.emergencyNameController,
-                //     emergencyRelationController:
-                //         widget.emergencyRelationController,
-                //     streetController: streetController.text,
-                //     cityController: cityController.text,
-                //     stateController: stateController.text,
-                //     postCodeController: postCodeController.text,
-                //     givenNameController: givenNameController.text,
-                //     surnameController: surnameController.text,
-                //     actualselectedDate: widget.actualselectedDate,
-                //   )
-                //);
-                // }
               },
               label: 'المحاولة من جديد',
+            ),
+            SizedBox(height: 20),
+            ActionButton(
+              onPressed: () async {
+                Get.offAll(HomeScreen());
+              },
+              label: 'العودة للقائمة الرئسية',
             )
           ],
         ),

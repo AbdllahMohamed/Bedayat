@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       )
                     : Positioned(
-                        top: -_devicHeight * 0.57,
+                        top: -_devicHeight * .82,
                         left: -_deviceWidth * 0.4,
                         bottom: -_devicHeight * 0.2,
                         child: SvgPicture.asset(
@@ -270,7 +270,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           createdAt: childernController
                                               .childernList[i].createdAt!,
                                           expireDate: childernController
-                                              .childernList[i].expireDate!,
+                                                  .childernList[i].expireDate ??
+                                              "null",
                                         );
                                       },
                                     )

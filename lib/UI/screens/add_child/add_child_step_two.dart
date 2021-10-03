@@ -41,33 +41,21 @@ class _AddChildStepTwoScreenState extends State<AddChildStepTwoScreen> {
           phoneTwoController:
               addChildController.addChildList[0].parentTwoPhone ?? "",
           relationOnefirstNameController:
-              addChildController.addChildList[0].parentTwoEmail ?? "",
+              addChildController.addChildList[0].relationOneFirstName ?? "",
           relationOneSecondNameController:
-              addChildController.addChildList[0].parentTwoEmail ?? "",
+              addChildController.addChildList[0].relationOneSecondName ?? "",
           relationOneThirdNameController:
-              addChildController.addChildList[0].parentTwoEmail ?? "",
+              addChildController.addChildList[0].relationOneThirdName ?? "",
           relationTwoFirstNameController:
-              addChildController.addChildList[0].parentTwoEmail ?? "",
+              addChildController.addChildList[0].relationTwoFirstName ?? "",
           relationTwoScecondNameController:
-              addChildController.addChildList[0].parentTwoEmail ?? "",
+              addChildController.addChildList[0].relationTwoScecondName ?? "",
           relationTwoThirdNameController:
-              addChildController.addChildList[0].parentTwoEmail ?? "",
+              addChildController.addChildList[0].relationTwoThirdName ?? "",
           emergencyNameController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
+              addChildController.addChildList[0].emergencyName ?? "",
           emergencyRelationController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
-          streetController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
-          cityController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
-          stateController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
-          postCodeController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
-          givenNameController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
-          surnameController:
-              addChildController.addChildList[0].parentTwoPhone ?? "",
+              addChildController.addChildList[0].emergencyRelation ?? "",
         ),
       );
     }

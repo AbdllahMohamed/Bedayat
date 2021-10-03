@@ -161,6 +161,23 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     if (error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
+      final box = GetStorage();
+      await box.write('street', streetController.text);
+      await box.write(
+        'city',
+        cityController.text,
+      );
+      await box.write(' state', stateController.text);
+      await box.write(
+        'postCode',
+        postCodeController.text,
+      );
+      await box.write(
+        'givenName',
+        givenNameController.text,
+      );
+      await box.write('surname', surnameController.text);
+      await box.write('seletctedBank', seletctedBank);
       Get.to(RegisterPaymentWebviewScreen(
           checkoutId: "${GetStorage().read('checkoutId')}"));
     }
@@ -333,10 +350,10 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                               ),
                             ),
                           )
-                        : packageController.packageList.length == 0
+                        : packageController.pakagesSelection.length == 0
                             ? Center(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(top: 200.0),
+                                  padding: const EdgeInsets.only(top: 100.0),
                                   child: Text(
                                     'لاتوجد بيانات',
                                     style: TextStyle(

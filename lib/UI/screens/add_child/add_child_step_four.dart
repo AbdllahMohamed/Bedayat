@@ -1,4 +1,3 @@
-import 'package:bedayat/UI/screens/checkout_status/add_child_checkout_stats/add_child_checkout_status.dart';
 import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
@@ -10,20 +9,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:image_picker/image_picker.dart';
 
 int? selectedPackageIndex = 0;
-late TextEditingController streetController;
-late TextEditingController cityController;
-late TextEditingController stateController;
-late TextEditingController postCodeController;
-late TextEditingController givenNameController;
-late TextEditingController surnameController;
+
+TextEditingController streetController = new TextEditingController();
+TextEditingController cityController = new TextEditingController();
+TextEditingController stateController = new TextEditingController();
+TextEditingController postCodeController = new TextEditingController();
+TextEditingController givenNameController = new TextEditingController();
+TextEditingController surnameController = new TextEditingController();
 String? seletctedBank;
 
 class AddChildStepFourScreen extends StatefulWidget {
   // final int selectedBranchIndex;
-  final String checkoutId;
+  //final String checkoutId;
   // final String selectedType;
   // final String selectedRelationsOne;
   // final String selectedRelationsTwo;
@@ -51,48 +50,48 @@ class AddChildStepFourScreen extends StatefulWidget {
   // final XFile? vaccinationCertificate;
   // final XFile? doctuumnet;
 
-  final String streetController;
-  final String cityController;
-  final String stateController;
-  final String postCodeController;
-  final String givenNameController;
-  final String surnameController;
+  // final String streetController;
+  // final String cityController;
+  // final String stateController;
+  // final String postCodeController;
+  // final String givenNameController;
+  // final String surnameController;
 
-  const AddChildStepFourScreen(
-      {Key? key,
-      required this.checkoutId,
-      // required this.childNameController,
-      // required this.selectedType,
-      // required this.emergencyNumberController,
-      // required this.anthorNotesController,
-      // required this.selectedRelationsOne,
-      // required this.emailOneController,
-      // required this.selectedRelationsTwo,
-      // required this.sensitificController,
-      // required this.phoneOneController,
-      // required this.emailTwoController,
-      // required this.phoneTwoController,
-      // required this.familyCardPhoto,
-      // required this.vaccinationCertificate,
-      // required this.doctuumnet,
-      // required this.groupId,
-      // required this.techerId,
-      // required this.actualselectedDate,
-      // required this.relationOnefirstNameController,
-      // required this.relationOneSecondNameController,
-      // required this.relationOneThirdController,
-      // required this.relationTwoFirstController,
-      // required this.relationTwoScecondController,
-      // required this.relationTwoThirdController,
-      // required this.emergencyNameController,
-      // required this.emergencyRelationController,
-      required this.streetController,
-      required this.cityController,
-      required this.stateController,
-      required this.postCodeController,
-      required this.givenNameController,
-      required this.surnameController})
-      : super(key: key);
+  const AddChildStepFourScreen({
+    Key? key,
+    //required this.checkoutId,
+    // required this.childNameController,
+    // required this.selectedType,
+    // required this.emergencyNumberController,
+    // required this.anthorNotesController,
+    // required this.selectedRelationsOne,
+    // required this.emailOneController,
+    // required this.selectedRelationsTwo,
+    // required this.sensitificController,
+    // required this.phoneOneController,
+    // required this.emailTwoController,
+    // required this.phoneTwoController,
+    // required this.familyCardPhoto,
+    // required this.vaccinationCertificate,
+    // required this.doctuumnet,
+    // required this.groupId,
+    // required this.techerId,
+    // required this.actualselectedDate,
+    // required this.relationOnefirstNameController,
+    // required this.relationOneSecondNameController,
+    // required this.relationOneThirdController,
+    // required this.relationTwoFirstController,
+    // required this.relationTwoScecondController,
+    // required this.relationTwoThirdController,
+    // required this.emergencyNameController,
+    // required this.emergencyRelationController,
+    // required this.streetController,
+    // required this.cityController,
+    // required this.stateController,
+    // required this.postCodeController,
+    // required this.givenNameController,
+    // required this.surnameController,
+  }) : super(key: key);
 
   @override
   _AddChildStepFourScreenState createState() => _AddChildStepFourScreenState();
@@ -111,9 +110,9 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
     AppImages.appMasterCaed,
   ];
   List<String> _banckName = [
-    'Mada',
-    'Visa',
-    'Master Card',
+    'mada',
+    'visa',
+    'master card',
   ];
   List<String> _peroids = [
     'من 2 الى 7',
@@ -122,21 +121,6 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
   String _selectedPeroid = 'من 2 الى 7';
   int? selectedBankIndex;
   int? updatePakageIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    streetController = TextEditingController(text: widget.streetController);
-    cityController = new TextEditingController(text: widget.cityController);
-    stateController = new TextEditingController(text: widget.stateController);
-    postCodeController =
-        new TextEditingController(text: widget.postCodeController);
-    givenNameController =
-        new TextEditingController(text: widget.givenNameController);
-    surnameController =
-        new TextEditingController(text: widget.surnameController);
-  }
 
   addChildStepFour() async {
     if (!_formKey.currentState!.validate()) {
@@ -147,30 +131,45 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
           title: "حدث خطأ ما", middleText: 'يرجى اختيار قيمة الاشتراك');
       return;
     }
-    String paymentError = await paymentController.getCheckoutId(
-      packageId: (selectedPackageIndex! + 1).toString(),
-      email: "${GetStorage().read('userEmail')}",
-      street: streetController.text,
-      city: cityController.text,
-      state: stateController.text,
-      postcode: postCodeController.text,
-      givenName: givenNameController.text,
-      surname: surnameController.text,
-      paymentMethod: seletctedBank,
+    print((selectedPackageIndex! + 1).toString());
+    print('"${GetStorage().read('userEmail')}"');
+
+    print(
+      streetController.text,
     );
+    print(cityController.text);
+    print(stateController.text);
+    print(postCodeController.text);
+    print(givenNameController.text);
+    print(surnameController.text);
+    print(seletctedBank);
+    print("${GetStorage().read('childId')}");
+    print("${GetStorage().read('checkoutId')}");
+    String paymentError = await paymentController.getCheckoutId(
+        packageId: (selectedPackageIndex! + 1).toString(),
+        email: "${GetStorage().read('userEmail')}",
+        street: streetController.text,
+        city: cityController.text,
+        state: stateController.text,
+        postcode: postCodeController.text,
+        givenName: givenNameController.text,
+        surname: surnameController.text,
+        paymentMethod: seletctedBank,
+        childId: "${GetStorage().read('childId')}");
     if (paymentError != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: paymentError);
     } else {
-      // kIsWeb ? _addChildAndavegatoToWeb() : _addChildAndavegatoToMobile();
+      Get.to(AddChildPaymentWebviewScreen(
+          checkoutId: "${GetStorage().read('checkoutId')}"));
     }
   }
 
   void _changePakge(peroid) {
     print(
-        'packageController.pakagesSelection.length ${packageController.pakagesSelection.length}');
+        'packageController.packageList.length ${packageController.packageList.length}');
 
     setState(() {
-      packageController.pakagesSelection = packageController.pakagesSelection
+      packageController.pakagesSelection = packageController.packageList
           .where((item) => item.period == peroid)
           .toList();
       print(packageController.pakagesSelection.length);
@@ -300,7 +299,6 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                   setState(() {
                                     _selectedPeroid = newValue.toString();
                                   });
-                                  print('***********************');
                                   print(_selectedPeroid);
                                   if (_selectedPeroid == 'من 2 الى 7')
                                     _changePakge('from7to2');
@@ -340,7 +338,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                           : packageController.pakagesSelection.length == 0
                               ? Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.only(top: 200.0),
+                                    padding: const EdgeInsets.only(top: 100.0),
                                     child: Text(
                                       'لاتوجد بيانات',
                                       style: TextStyle(
@@ -368,11 +366,14 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                           itemBuilder: (context, index) {
                                             return InkWell(
                                               onTap: () {
-                                                selectedPackageIndex =
-                                                    packageController
-                                                        .pakagesSelection[index]
-                                                        .id!;
-                                                updatePakageIndex = index;
+                                                setState(() {
+                                                  selectedPackageIndex =
+                                                      packageController
+                                                          .pakagesSelection[
+                                                              index]
+                                                          .id!;
+                                                  updatePakageIndex = index;
+                                                });
                                               },
                                               child: Container(
                                                 width: 95,

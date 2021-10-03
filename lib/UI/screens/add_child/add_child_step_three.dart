@@ -11,7 +11,6 @@ import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:hijri_picker/hijri_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:hijri/hijri_calendar.dart';
@@ -37,36 +36,25 @@ class AddChildStepThreeScreen extends StatefulWidget {
   final String emergencyNameController;
   final String emergencyRelationController;
 
-  final String streetController;
-  final String cityController;
-  final String stateController;
-  final String postCodeController;
-  final String givenNameController;
-  final String surnameController;
-  const AddChildStepThreeScreen(
-      {required this.selectedBranchIndex,
-      required this.emergaceyNumber,
-      required this.relationsOneController,
-      required this.relationsTwoController,
-      required this.anthorNotesController,
-      required this.emailOneController,
-      required this.phoneOneController,
-      required this.emailTwoController,
-      required this.phoneTwoController,
-      required this.relationOnefirstNameController,
-      required this.relationOneSecondNameController,
-      required this.relationOneThirdNameController,
-      required this.relationTwoFirstNameController,
-      required this.relationTwoScecondNameController,
-      required this.relationTwoThirdNameController,
-      required this.emergencyNameController,
-      required this.emergencyRelationController,
-      required this.streetController,
-      required this.cityController,
-      required this.stateController,
-      required this.postCodeController,
-      required this.givenNameController,
-      required this.surnameController});
+  const AddChildStepThreeScreen({
+    required this.selectedBranchIndex,
+    required this.emergaceyNumber,
+    required this.relationsOneController,
+    required this.relationsTwoController,
+    required this.anthorNotesController,
+    required this.emailOneController,
+    required this.phoneOneController,
+    required this.emailTwoController,
+    required this.phoneTwoController,
+    required this.relationOnefirstNameController,
+    required this.relationOneSecondNameController,
+    required this.relationOneThirdNameController,
+    required this.relationTwoFirstNameController,
+    required this.relationTwoScecondNameController,
+    required this.relationTwoThirdNameController,
+    required this.emergencyNameController,
+    required this.emergencyRelationController,
+  });
   @override
   _AddChildStepThreeScreenState createState() =>
       _AddChildStepThreeScreenState();
@@ -138,6 +126,8 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
         TextEditingController(text: widget.emergencyNameController);
     _emergencyRelationController =
         TextEditingController(text: widget.emergencyRelationController);
+    _emergencyRelationController =
+        TextEditingController(text: widget.emergencyRelationController);
   }
 
   List<String> _dates = ['ميلادى', 'هجرى'];
@@ -182,40 +172,6 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
       return;
     } else {
       kIsWeb ? _addChildWeb() : _addChildMobile();
-      // Get.to(AddChildStepFourScreen(
-      //   selectedBranchIndex: widget.selectedBranchIndex,
-      //   childNameController: _childNameController.text,
-      //   selectedType: _selectedType,
-      //   selectedRelationsOne: _relationsOneController.text,
-      //   selectedRelationsTwo: _relationsTwoController.text,
-      //   emergencyNumberController: _emergencyNumberController.text,
-      //   anthorNotesController: _anthorNotesController.text,
-      //   sensitificController: _sensitificController.text,
-      //   emailOneController: _emailOneController.text,
-      //   phoneOneController: _phoneOneController.text,
-      //   emailTwoController: _emailTwoController.text,
-      //   phoneTwoController: _phoneTwoController.text,
-      //   familyCardPhoto: _familyCardPhoto,
-      //   vaccinationCertificate: _vaccinationCertificate,
-      //   doctuumnet: _doctuumnet,
-      //   groupId: selectedGroupIndex!,
-      //   techerId: selectedTeacherIndex!,
-      //   actualselectedDate: _actualselectedDate,
-      //   relationOnefirstNameController: _relationOnefirstNameController.text,
-      //   relationOneSecondNameController: _relationOneSecondNameController.text,
-      //   relationOneThirdController: _relationOneThirdController.text,
-      //   relationTwoFirstController: _relationTwoFirstNameController.text,
-      //   relationTwoScecondController: _relationTwoScecondNameController.text,
-      //   relationTwoThirdController: _relationTwoThirdNameController.text,
-      //   emergencyNameController: _emergencyNameController.text,
-      //   emergencyRelationController: _emergencyRelationController.text,
-      //   streetController: streetController.text,
-      //   cityController: cityController.text,
-      //   stateController: stateController.text,
-      //   postCodeController: postCodeController.text,
-      //   givenNameController: givenNameController.text,
-      //   surnameController: surnameController.text,
-      // ));
     }
   }
 
@@ -252,15 +208,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: addchildError);
     } else {
       Future.delayed(Duration(milliseconds: 200), () {
-        Get.to(AddChildStepFourScreen(
-          checkoutId: "${GetStorage().read('checkoutId')}",
-          streetController: streetController.text,
-          cityController: cityController.text,
-          stateController: stateController.text,
-          postCodeController: postCodeController.text,
-          givenNameController: givenNameController.text,
-          surnameController: surnameController.text,
-        ));
+        Get.to(AddChildStepFourScreen());
       });
     }
   }
@@ -298,15 +246,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: addchildError);
     } else {
       Future.delayed(Duration(milliseconds: 200), () {
-        Get.to(AddChildStepFourScreen(
-          checkoutId: "${GetStorage().read('checkoutId')}",
-          streetController: streetController.text,
-          cityController: cityController.text,
-          stateController: stateController.text,
-          postCodeController: postCodeController.text,
-          givenNameController: givenNameController.text,
-          surnameController: surnameController.text,
-        ));
+        Get.to(AddChildStepFourScreen());
       });
     }
   }
@@ -1458,12 +1398,21 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                       SizedBox(
                         height: 20,
                       ),
-                      ActionButton(
-                        label: 'التالى',
-                        onPressed: () {
-                          addChildStepThree();
-                        },
-                      ),
+                      Obx(() {
+                        return authController.loadingProcess.value
+                            ? Center(child: CircularProgressIndicator())
+                            : ActionButton(
+                                label: 'التالى',
+                                onPressed: () async {
+                                  addChildStepThree();
+                                });
+                      }),
+                      // ActionButton(
+                      //   label: 'التالى',
+                      //   onPressed: () {
+                      //     addChildStepThree();
+                      //   },
+                      // ),
                       SizedBox(
                         height: 15,
                       ),

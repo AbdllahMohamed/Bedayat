@@ -123,7 +123,6 @@ class _FailuarRegisterCheckoutState extends State<FailuarRegisterCheckout> {
       Get.to(RegisterPaymentWebviewScreen(
         checkoutId: "${GetStorage().read('checkoutId')}",
       ));
-      _retryPayment();
     }
   }
 

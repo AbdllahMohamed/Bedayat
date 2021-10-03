@@ -1,12 +1,17 @@
+import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.dart';
+import 'package:bedayat/UI/screens/register/register_step_five.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
 import 'package:bedayat/UI/widgets/circle_image.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+// ignore: must_be_immutable
 class MobileHomeContentWidget extends StatelessWidget {
   final String name;
   final String ageGroup;
@@ -23,6 +28,8 @@ class MobileHomeContentWidget extends StatelessWidget {
     required this.createdAt,
     required this.expireDate,
   });
+
+  PaymentController paymentController = Get.put(PaymentController());
 
   @override
   Widget build(BuildContext context) {
@@ -340,7 +347,50 @@ class MobileHomeContentWidget extends StatelessWidget {
                       ? Padding(
                           padding: const EdgeInsets.only(right: 15, top: 5),
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              print((selectedPackageIndex! + 1).toString());
+                              print('"${GetStorage().read('userEmail')}"');
+
+                              print(
+                                streetController.text,
+                              );
+                              print(cityController.text);
+                              print(stateController.text);
+                              print(postCodeController.text);
+                              print(givenNameController.text);
+                              print(surnameController.text);
+                              print(seletctedBank);
+                              print("${GetStorage().read('childId')}");
+                              String error =
+                                  await paymentController.getCheckoutId(
+                                      packageId: (selectedPackageIndex! + 1)
+                                          .toString(),
+                                      email:
+                                          "${GetStorage().read('userEmail')}",
+                                      street: "test",
+                                      city: "${GetStorage().read('city')}",
+                                      state: "${GetStorage().read('state')}",
+                                      postcode:
+                                          "${GetStorage().read('postcode')}",
+                                      givenName:
+                                          "${GetStorage().read('givenName')}",
+                                      surname:
+                                          "${GetStorage().read('surname')}",
+                                      paymentMethod: "visa",
+                                      childId:
+                                          "${GetStorage().read('childId')}");
+
+                              print(error);
+                              if (error != "") {
+                                Get.defaultDialog(
+                                    title: "حدث خطأ ما", middleText: error);
+                              } else {
+                                Get.to(AddChildPaymentWebviewScreen(
+                                  checkoutId:
+                                      "${GetStorage().read('checkoutId')}",
+                                ));
+                              }
+                            },
                             style: ElevatedButton.styleFrom(
                               primary: AppColors.primaryColor,
                               minimumSize: Size(

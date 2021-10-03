@@ -191,12 +191,6 @@ class AuthController extends GetxController {
     String? relationTwoThirdController,
     String? emergencyNameController,
     String? emergencyRelationController,
-    String? streetController,
-    String? cityController,
-    String? stateController,
-    String? postCodeController,
-    String? givenNameController,
-    String? surnameController,
   }) async {
     var registerError = "";
     try {
@@ -228,12 +222,6 @@ class AuthController extends GetxController {
         relationTwoThirdController: relationTwoThirdController,
         emergencyNameController: emergencyNameController,
         emergencyRelationController: emergencyRelationController,
-        streetController: streetController,
-        cityController: cityController,
-        stateController: stateController,
-        postCodeController: postCodeController,
-        givenNameController: givenNameController,
-        surnameController: surnameController,
       );
     } catch (e) {
       print('e');
@@ -315,12 +303,6 @@ class AuthController extends GetxController {
         relationTwoThirdController: relationTwoThirdController,
         emergencyNameController: emergencyNameController,
         emergencyRelationController: emergencyRelationController,
-        streetController: streetController,
-        cityController: cityController,
-        stateController: stateController,
-        postCodeController: postCodeController,
-        givenNameController: givenNameController,
-        surnameController: surnameController,
       );
     } catch (e) {
       print('e');

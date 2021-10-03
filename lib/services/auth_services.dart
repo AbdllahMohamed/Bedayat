@@ -356,12 +356,6 @@ class UsersServices {
     String? relationTwoThirdController,
     String? emergencyNameController,
     String? emergencyRelationController,
-    String? streetController,
-    String? cityController,
-    String? stateController,
-    String? postCodeController,
-    String? givenNameController,
-    String? surnameController,
   }) async {
     var addChilderror = "";
 
@@ -392,21 +386,16 @@ class UsersServices {
           filename: vaccinationCertificateFile),
       "document":
           await MultipartFile.fromFile(document.path, filename: documentFile),
-      'actualselectedDate': actualselectedDate,
-      'relationOnefirstNameController': relationOnefirstNameController,
-      'relationOneSecondNameController': relationOneSecondNameController,
-      'relationOneThirdController': relationOneThirdController,
-      'relationTwoFirstController': relationTwoFirstController,
-      'relationTwoScecondController': relationTwoScecondController,
-      'relationTwoThirdController': relationTwoThirdController,
-      'emergencyNameController': emergencyNameController,
-      'emergencyRelationController': emergencyRelationController,
-      'streetController': streetController,
-      'cityController': cityController,
-      'stateController': stateController,
-      'postCodeController': postCodeController,
-      'givenNameController': givenNameController,
-      'surnameController': surnameController,
+      'birth_date': actualselectedDate,
+      'relation_one_first_name': relationOnefirstNameController,
+      'relation_one_second_name': relationOneSecondNameController,
+      'relation_one_third_name': relationOneThirdController,
+      'relation_two_first_name': relationTwoFirstController,
+      'relation_two_scecond_name': relationTwoScecondController,
+      'relation_two_third_name': relationTwoThirdController,
+      'emergency_name': emergencyNameController,
+      'emergency_relation': emergencyRelationController,
+      'age_group': '1',
     });
     Response response = await dio.post(
       "$baseApiUrl/addchild",
@@ -460,12 +449,6 @@ class UsersServices {
     String? relationTwoThirdController,
     String? emergencyNameController,
     String? emergencyRelationController,
-    String? streetController,
-    String? cityController,
-    String? stateController,
-    String? postCodeController,
-    String? givenNameController,
-    String? surnameController,
   }) async {
     var addChilderror = "";
     PickedFile uploadfamilyCard = PickedFile(familyCard.toString());
@@ -510,6 +493,7 @@ class UsersServices {
     request.files.add(multipartFile1);
     request.files.add(multipartFile2);
     request.files.add(multipartFile3);
+
     request.fields["name"] = childname!;
     request.fields["gender"] = gender!;
     request.fields["emergency_number"] = emergencyNumber!;
@@ -523,24 +507,19 @@ class UsersServices {
     request.fields["teacher_id"] = teacherId!;
     request.fields["group_id"] = groupId!;
     request.fields["checkout_id"] = checkoutId!;
-    request.fields["actualselectedDate"] = actualselectedDate!;
-    request.fields["relationOnefirstNameController"] =
-        relationOnefirstNameController!;
-    request.fields["relationOneSecondNameController"] =
+
+    request.fields["birth_date"] = actualselectedDate!;
+    request.fields["relation_one_first_name"] = relationOnefirstNameController!;
+    request.fields["relation_one_second_name"] =
         relationOneSecondNameController!;
-    request.fields["relationOneThirdController"] = relationOneThirdController!;
-    request.fields["relationTwoFirstController"] = relationTwoFirstController!;
-    request.fields["relationTwoScecondController"] =
-        relationTwoScecondController!;
-    request.fields["relationTwoThirdController"] = relationTwoThirdController!;
-    request.fields["emergencyNameController"] = emergencyNameController!;
-    request.fields["emergencyRelationController"] =
-        request.fields["streetController"] = streetController!;
-    request.fields["cityController"] = cityController!;
-    request.fields["stateController"] = stateController!;
-    request.fields["postCodeController"] = postCodeController!;
-    request.fields["givenNameController"] = givenNameController!;
-    request.fields["surnameController"] = surnameController!;
+    request.fields["relation_one_third_name"] = relationOneThirdController!;
+    request.fields["relation_two_first_name"] = relationTwoFirstController!;
+    request.fields["relation_two_scecond_name"] = relationTwoScecondController!;
+    request.fields["relation_two_third_name"] = relationTwoThirdController!;
+    request.fields["emergency_name"] = emergencyNameController!;
+    request.fields["emergency_relation"] = emergencyRelationController!;
+
+    request.fields["age_group"] = '1';
 
     request.headers.addAll({
       "Accept": "application/json",
