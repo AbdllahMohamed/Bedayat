@@ -229,10 +229,11 @@ class UsersServices {
 
     print(document.toString());
 
-    PickedFile uploadfamilyCard = PickedFile(familyCard.toString());
+    PickedFile uploadfamilyCard = PickedFile(familyCard!.path);
     PickedFile uploadvaccinationCertificate =
-        PickedFile(vaccinationCertificate.toString());
-    PickedFile uploaddocument = PickedFile(document.toString());
+        PickedFile(vaccinationCertificate!.path);
+    PickedFile uploaddocument = PickedFile(document!.path);
+
     var stream1 =
         // ignore: deprecated_member_use
         new http.ByteStream(
@@ -250,9 +251,9 @@ class UsersServices {
             DelegatingStream.typed(uploaddocument.openRead()));
 
     var uri = Uri.parse("$baseApiUrl/register");
-    var length1 = await familyCard!.length();
-    var length2 = await vaccinationCertificate!.length();
-    var length3 = await document!.length();
+    var length1 = await familyCard.length();
+    var length2 = await vaccinationCertificate.length();
+    var length3 = await document.length();
     var request = new http.MultipartRequest(
       "POST",
       uri,
@@ -470,12 +471,13 @@ class UsersServices {
     print(relationTwoThirdController);
     print(emergencyNameController);
     print(emergencyRelationController);
-
     print(document.toString());
-    PickedFile uploadfamilyCard = PickedFile(familyCard.toString());
+
+    PickedFile uploadfamilyCard = PickedFile(familyCard!.path);
     PickedFile uploadvaccinationCertificate =
-        PickedFile(vaccinationCertificate.toString());
-    PickedFile uploaddocument = PickedFile(document.toString());
+        PickedFile(vaccinationCertificate!.path);
+    PickedFile uploaddocument = PickedFile(document!.path);
+
     var stream1 =
         // ignore: deprecated_member_use
         new http.ByteStream(
