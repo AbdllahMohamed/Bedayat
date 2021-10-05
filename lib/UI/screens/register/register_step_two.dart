@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:bedayat/UI/screens/map/register_map.dart';
 import 'package:flutter/material.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
@@ -27,40 +28,53 @@ class RegisterStepTwoScreen extends StatefulWidget {
 
 class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
   registerStepTwo() async {
-    // Location location = new Location();
+    if (Platform.isAndroid || Platform.isIOS) {
+      Location location = new Location();
 
-    // bool _serviceEnabled;
-    // PermissionStatus _permissionGranted;
-    // LocationData _locationData;
+      bool _serviceEnabled;
+      PermissionStatus _permissionGranted;
+      LocationData _locationData;
 
-    // _serviceEnabled = await location.serviceEnabled();
-    // if (!_serviceEnabled) {
-    //   _serviceEnabled = await location.requestService();
-    //   if (!_serviceEnabled) {
-    //     return;
-    //   }
-    // }
+      _serviceEnabled = await location.serviceEnabled();
+      if (!_serviceEnabled) {
+        _serviceEnabled = await location.requestService();
+        if (!_serviceEnabled) {
+          return;
+        }
+      }
 
-    // _permissionGranted = await location.hasPermission();
-    // if (_permissionGranted == PermissionStatus.denied) {
-    //   _permissionGranted = await location.requestPermission();
-    //   if (_permissionGranted != PermissionStatus.granted) {
-    //     return;
-    //   }
-    // }
+      _permissionGranted = await location.hasPermission();
+      if (_permissionGranted == PermissionStatus.denied) {
+        _permissionGranted = await location.requestPermission();
+        if (_permissionGranted != PermissionStatus.granted) {
+          return;
+        }
+      }
 
-    // _locationData = await location.getLocation();
+      _locationData = await location.getLocation();
 
-    Get.to(
-      RegisterMapScreen(
-        latitude: 23.8859,
-        longitude: 45.0792,
-        nameController: widget.nameController,
-        phoneController: widget.phoneController,
-        emailController: widget.emailController,
-        passwordController: widget.passwordController,
-      ),
-    );
+      Get.to(
+        RegisterMapScreen(
+          latitude: _locationData.latitude!,
+          longitude: _locationData.longitude!,
+          nameController: widget.nameController,
+          phoneController: widget.phoneController,
+          emailController: widget.emailController,
+          passwordController: widget.passwordController,
+        ),
+      );
+    } else {
+      Get.to(
+        RegisterMapScreen(
+          latitude: 23.8859,
+          longitude: 45.0792,
+          nameController: widget.nameController,
+          phoneController: widget.phoneController,
+          emailController: widget.emailController,
+          passwordController: widget.passwordController,
+        ),
+      );
+    }
   }
 
   Completer<GoogleMapController> _controller = Completer();
@@ -86,8 +100,19 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 50),
-                  Image.asset(
-                    AppImages.appSubLogo,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.arrow_back_ios),
+                        onPressed: () {
+                          Get.back();
+                        },
+                      ),
+                      Image.asset(
+                        AppImages.appSubLogo,
+                      ),
+                    ],
                   ),
                   SizedBox(height: 20),
                   Row(

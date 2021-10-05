@@ -42,14 +42,6 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    print(Uri.base
-        .toString()); // http://localhost:8082/game.html?id=15&randomNumber=3.14
-    print(Uri.base.query);
-  }
-
-  @override
   void dispose() {
     super.dispose();
     _nameController.dispose();
@@ -79,8 +71,19 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 50),
-                      Image.asset(
-                        AppImages.appSubLogo,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.arrow_back_ios),
+                            onPressed: () {
+                              Get.back();
+                            },
+                          ),
+                          Image.asset(
+                            AppImages.appSubLogo,
+                          ),
+                        ],
                       ),
                       SizedBox(height: 20),
                       Row(

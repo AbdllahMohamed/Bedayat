@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/models/user.dart';
 import 'package:dio/dio.dart';
@@ -250,9 +252,9 @@ class UsersServices {
             DelegatingStream.typed(uploaddocument.openRead()));
 
     var uri = Uri.parse("$baseApiUrl/register");
-    var length1 = await familyCard!.length();
-    var length2 = await vaccinationCertificate!.length();
-    var length3 = await document!.length();
+    var length1 = await familyCard.length();
+    var length2 = await vaccinationCertificate.length();
+    var length3 = await document.length();
     var request = new http.MultipartRequest(
       "POST",
       uri,
@@ -470,14 +472,13 @@ class UsersServices {
     print(relationTwoThirdController);
     print(emergencyNameController);
     print(emergencyRelationController);
-
     print(document.toString());
     print(familyCard.toString());
     PickedFile uploadfamilyCard = PickedFile(familyCard!.path);
     PickedFile uploadvaccinationCertificate =
         PickedFile(vaccinationCertificate!.path);
     PickedFile uploaddocument = PickedFile(document!.path);
-    
+
     var stream1 =
         // ignore: deprecated_member_use
         new http.ByteStream(
@@ -501,10 +502,8 @@ class UsersServices {
     var request = new http.MultipartRequest(
       "POST",
       uri,
-      
     );
 
-    
     // request.files.add(new http.MultipartFile.fromBytes('family_card', await familyCard.readAsBytes(), contentType: new MediaType('image', 'jpeg')));
     // request.files.add(new http.MultipartFile.fromBytes('vaccination_certificate', await familyCard.readAsBytes(), contentType: new MediaType('image', 'jpeg')));
     // request.files.add(new http.MultipartFile.fromBytes('document', await familyCard.readAsBytes(), contentType: new MediaType('image', 'jpeg')));
@@ -516,7 +515,6 @@ class UsersServices {
         filename: basename(uploadvaccinationCertificate.path));
     var multipartFile3 = new http.MultipartFile('document', stream3, length3,
         filename: basename(uploaddocument.path));
-
 
     request.files.add(multipartFile1);
     request.files.add(multipartFile2);
@@ -572,11 +570,7 @@ class UsersServices {
     }
     print(addChilderror);
 
-
-
     // Dio dio = new Dio();
-
-
 
     // FormData formData = FormData.fromMap({
     //   "name": childname,
@@ -605,7 +599,7 @@ class UsersServices {
     //   'emergency_relation': emergencyRelationController,
     //   'age_group': '1',
     // });
-    
+
     // Response response = await dio.post(
     //   "$baseApiUrl/addchild",
     //   data: formData,

@@ -61,8 +61,19 @@ class _ReportScreenState extends State<ReportScreen>
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
-                        child: Image.asset(
-                          AppImages.appSubLogo,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.arrow_back_ios),
+                              onPressed: () {
+                                Get.back();
+                              },
+                            ),
+                            Image.asset(
+                              AppImages.appSubLogo,
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(height: 20),

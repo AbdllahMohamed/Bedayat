@@ -25,52 +25,23 @@ class NotificationScreen extends StatelessWidget {
             textDirection: TextDirection.rtl,
             child: Stack(
               children: <Widget>[
-                kIsWeb
-                    ? Positioned(
-                        top: -200,
-                        left: -160,
-                        bottom: -200,
-                        child: Image.asset(
-                          AppImages.appCurve,
-                          fit: BoxFit.fitHeight,
-                        ),
-                      )
-                    : Positioned(
-                        top: -_devicHeight * 0.4,
-                        left: -_deviceWidth * 0.3,
-                        bottom: -_devicHeight * 0.2,
-                        child: SvgPicture.asset(
-                          AppImages.appCurveSvg,
-                          width: _deviceWidth,
-                          color: AppColors.primaryColor,
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-
-                // Positioned(
-                //     top: -400,
-                //     left: -100,
-                //     bottom: -500,
-                //     child: SvgPicture.asset(
-                //       AppImages.appCurveSvg,
-                //       color: AppColors.primaryColor,
-                //       fit: BoxFit.fitHeight,
-                //     ),
-                //   ),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 28.0,
                     right: 15,
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        AppImages.appLogo,
-                        width: 106,
-                        height: 56,
+                      IconButton(
+                        icon: Icon(Icons.arrow_back_ios),
+                        onPressed: () {
+                          Get.back();
+                        },
                       ),
-                      Spacer(),
+                      Image.asset(
+                        AppImages.appSubLogo,
+                      ),
                     ],
                   ),
                 ),

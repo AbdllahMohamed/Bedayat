@@ -1,3 +1,4 @@
+import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:bedayat/UI/screens/login/login.dart';
 import 'package:flutter/material.dart';
 
@@ -8,22 +9,32 @@ class RouteGenerator {
     List<String> pathComponents = settings!.name!.split('/');
     print(pathComponents[1]);
 
-    if (pathComponents[1] == '/') {
-      return GeneratePageRoute(
-          widget: LoginScreen(), routeName: settings.name!);
-    } else if (pathComponents[1].contains('payment')) {
-      final settingsUri = Uri.parse(settings.name!);
-      //settingsUri.queryParameters is a map of all the query keys and values
-      final checkoutId = settingsUri.queryParameters['id'];
-      print("checkoutId : $checkoutId");
-      return GeneratePageRoute(
-          widget: RegisterCheckoutStautusScreen(
-            checkoutId: checkoutId!,
-          ),
-          routeName: settings.name!);
-    } else
-      return GeneratePageRoute(
-          widget: LoginScreen(), routeName: settings.name!);
+    switch (settings.name) {
+      case RouteNames.login:
+        if (pathComponents[1] == '/') {
+          return GeneratePageRoute(
+              widget: LoginScreen(), routeName: settings.name!);
+        } else if (pathComponents[1].contains('payment')) {
+          final settingsUri = Uri.parse(settings.name!);
+          //settingsUri.queryParameters is a map of all the query keys and values
+          final checkoutId = settingsUri.queryParameters['id'];
+          print("checkoutId : $checkoutId");
+          return GeneratePageRoute(
+              widget: RegisterCheckoutStautusScreen(
+                checkoutId: checkoutId!,
+              ),
+              routeName: settings.name!);
+        } else
+          return GeneratePageRoute(
+              widget: LoginScreen(), routeName: settings.name!);
+      case RouteNames.home:
+        return GeneratePageRoute(
+            widget: BottomNavigationWidget(), routeName: settings.name);
+
+      default:
+        return GeneratePageRoute(
+            widget: LoginScreen(), routeName: settings.name);
+    }
   }
 }
 
@@ -39,4 +50,9 @@ class GeneratePageRoute extends PageRouteBuilder {
           },
           transitionDuration: Duration(seconds: 0),
         );
+}
+
+class RouteNames {
+  static const String login = '/login';
+  static const String home = '/home';
 }
