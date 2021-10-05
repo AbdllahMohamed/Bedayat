@@ -16,7 +16,7 @@ class AddChildStepOneScreen extends StatefulWidget {
 
 class _AddChildStepOneScreenState extends State<AddChildStepOneScreen> {
   addChildStepOne() async {
-    if (Platform.isAndroid || Platform.isAndroid) {
+    if (Platform.isAndroid) {
       Location location = new Location();
 
       bool _serviceEnabled;

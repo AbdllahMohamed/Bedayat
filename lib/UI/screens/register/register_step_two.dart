@@ -28,7 +28,7 @@ class RegisterStepTwoScreen extends StatefulWidget {
 
 class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
   registerStepTwo() async {
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (Platform.isAndroid) {
       Location location = new Location();
 
       bool _serviceEnabled;
