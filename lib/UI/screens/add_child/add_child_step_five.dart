@@ -1,3 +1,4 @@
+import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
@@ -85,7 +86,7 @@ class _AddChildStepFiveScreenState extends State<AddChildStepFiveScreen> {
                     SizedBox(height: 20),
                     InkWell(
                       onTap: () {
-                        Get.offAll(HomeScreen());
+                        Get.offAll(BottomNavigationWidget());
                       },
                       child: Center(
                         child: Container(

@@ -1,3 +1,5 @@
+import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
+import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/screens/login/login.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
@@ -85,7 +87,7 @@ class _RegisterStepSixScreenState extends State<RegisterStepSixScreen> {
                     SizedBox(height: 20),
                     InkWell(
                       onTap: () {
-                        Get.offAll(LoginScreen());
+                        Get.offAll(BottomNavigationWidget());
                       },
                       child: Center(
                         child: Container(

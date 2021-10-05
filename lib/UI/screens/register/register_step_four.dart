@@ -7,6 +7,7 @@ import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/auth_services.dart';
 import 'package:bedayat/controllers/group_controller.dart';
+import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -273,8 +274,19 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 50),
-                      Image.asset(
-                        AppImages.appSubLogo,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.arrow_back_ios),
+                            onPressed: () {
+                              Get.back();
+                            },
+                          ),
+                          Image.asset(
+                            AppImages.appSubLogo,
+                          ),
+                        ],
                       ),
                       SizedBox(height: 20),
                       Row(

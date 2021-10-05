@@ -187,8 +187,19 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
-                      child: Image.asset(
-                        AppImages.appSubLogo,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.arrow_back_ios),
+                            onPressed: () {
+                              Get.back();
+                            },
+                          ),
+                          Image.asset(
+                            AppImages.appSubLogo,
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(height: 20),

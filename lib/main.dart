@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'UI/screens/bottom_navigation/bottom_navigation.dart';
+
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
@@ -84,14 +86,14 @@ class MyApp extends StatelessWidget {
       initialBinding: AppBinding(),
       theme: ThemeData(
         primaryColor: AppColors.primaryColor,
-        accentColor: AppColors.accentColor,
         scaffoldBackgroundColor: Colors.white,
         fontFamily: 'GESSTWO',
-        colorScheme: ColorScheme.light(primary: AppColors.primaryColor),
+        colorScheme: ColorScheme.light(primary: AppColors.primaryColor)
+            .copyWith(secondary: AppColors.accentColor),
       ),
       //home: token != null ? BottomNavigationWidget() : LoginScreen(),
 
-      initialRoute: '/',
+      initialRoute: token != null ? '/home' : '/login',
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

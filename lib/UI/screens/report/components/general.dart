@@ -470,7 +470,7 @@ class SleepStatusItem extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: SvgPicture.asset(
+          child: Image.asset(
             thirdImagePath,
             width: 25,
             height: 25,
@@ -505,7 +505,7 @@ class TempratureItem extends StatelessWidget {
         Spacer(),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
-          child: SvgPicture.asset(
+          child: Image.asset(
             firstImagePath,
             width: 30,
             height: 30,

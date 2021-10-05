@@ -54,6 +54,7 @@ class AuthController extends GetxController {
   }) async {
     var registerError = "";
     try {
+      loadingProcess(true);
       registerError = await UsersServices.register(
         username: username,
         email: email,
@@ -88,6 +89,8 @@ class AuthController extends GetxController {
     } catch (e) {
       print(e);
       registerError = 'من فضلك حاول مرة اخرى';
+    } finally {
+      loadingProcess(false);
     }
     return registerError;
   }
@@ -272,6 +275,7 @@ class AuthController extends GetxController {
   }) async {
     var registerError = "";
     try {
+      loadingProcess(true);
       registerError = await UsersServices.addchildWeb(
         childname: childname,
         gender: gender,

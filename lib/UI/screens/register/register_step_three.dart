@@ -63,8 +63,19 @@ class _RegisterStepThreeScreenState extends State<RegisterStepThreeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 50),
-                    Image.asset(
-                      AppImages.appSubLogo,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.arrow_back_ios),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                        Image.asset(
+                          AppImages.appSubLogo,
+                        ),
+                      ],
                     ),
                     SizedBox(height: 20),
                     Row(

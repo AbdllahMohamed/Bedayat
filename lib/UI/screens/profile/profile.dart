@@ -28,27 +28,6 @@ class ProfileScreen extends StatelessWidget {
             textDirection: TextDirection.rtl,
             child: Stack(
               children: <Widget>[
-                // kIsWeb && _deviceWidth >= 825
-                //     ? Positioned(
-                //         top: -_devicHeight * 0.25,
-                //         left: -_deviceWidth * 0.25,
-                //         bottom: -200,
-                //         child: Image.asset(
-                //           AppImages.appCurve,
-                //           fit: BoxFit.fitHeight,
-                //         ),
-                //       )
-                //     : Positioned(
-                //         top: -_devicHeight * 0.57,
-                //         left: -_deviceWidth * 0.4,
-                //         bottom: -_devicHeight * 0.2,
-                //         child: SvgPicture.asset(
-                //           AppImages.appCurveSvg,
-                //           width: _deviceWidth,
-                //           color: AppColors.primaryColor,
-                //           fit: BoxFit.fitHeight,
-                //         ),
-                //       ),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 28.0,
