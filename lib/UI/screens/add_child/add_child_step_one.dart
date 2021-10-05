@@ -15,34 +15,34 @@ class AddChildStepOneScreen extends StatefulWidget {
 
 class _AddChildStepOneScreenState extends State<AddChildStepOneScreen> {
   addChildStepOne() async {
-    Location location = new Location();
+    // Location location = new Location();
 
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
-    LocationData _locationData;
+    // bool _serviceEnabled;
+    // PermissionStatus _permissionGranted;
+    // LocationData _locationData;
 
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return;
-      }
-    }
+    // _serviceEnabled = await location.serviceEnabled();
+    // if (!_serviceEnabled) {
+    //   _serviceEnabled = await location.requestService();
+    //   if (!_serviceEnabled) {
+    //     return;
+    //   }
+    // }
 
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
+    // _permissionGranted = await location.hasPermission();
+    // if (_permissionGranted == PermissionStatus.denied) {
+    //   _permissionGranted = await location.requestPermission();
+    //   if (_permissionGranted != PermissionStatus.granted) {
+    //     return;
+    //   }
+    // }
 
-    _locationData = await location.getLocation();
+    // _locationData = await location.getLocation();
 
     Get.to(
       AddChildMapScreen(
-        latitude: _locationData.latitude!,
-        longitude: _locationData.longitude!,
+        latitude: 23.8859,
+        longitude: 45.0792,
       ),
     );
   }
@@ -50,7 +50,7 @@ class _AddChildStepOneScreenState extends State<AddChildStepOneScreen> {
   Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+    target: LatLng(23.8859, 45.0792),
     zoom: 9,
   );
 
