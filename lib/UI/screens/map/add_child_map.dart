@@ -62,7 +62,6 @@ class _AddChildMapScreenState extends State<AddChildMapScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
-        automaticallyImplyLeading: false,
         title: Text(
           'من فضلك قم بتحديد موقعك',
         ),

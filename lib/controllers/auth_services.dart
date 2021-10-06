@@ -231,7 +231,6 @@ class AuthController extends GetxController {
         emergencyRelationController: emergencyRelationController,
       );
     } catch (e) {
-      print('e');
       print(e);
       registerError = 'من فضلك حاول مرة اخرى';
     } finally {

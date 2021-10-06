@@ -414,7 +414,8 @@ class UsersServices {
     if (response.data['message'] != null) {
       addChilderror = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
     } else {
-      User.fromJson(response.data['data']);
+      final box = GetStorage();
+      box.write('addChildId', response.data["data"]['id'].toString());
     }
 
     return addChilderror;
@@ -563,6 +564,7 @@ class UsersServices {
         Map<String, dynamic> responce = json.decode(value);
         final box = GetStorage();
         print(responce["data"]['id']);
+
         box.write('addChildId', responce["data"]['id']);
       });
     } else {
