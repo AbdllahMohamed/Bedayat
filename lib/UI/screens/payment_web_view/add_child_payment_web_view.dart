@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:bedayat/UI/screens/checkout_status/add_child_checkout_stats/add_child_checkout_status.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/checkout_status_controller.dart';
@@ -105,10 +106,13 @@ class _AddChildPaymentWebviewScreenState
   @override
   void initState() {
     super.initState();
-    kIsWeb
-        // ignore: unnecessary_statements
-        ? _setUrl()
-        : WebView.platform = SurfaceAndroidWebView();
+    // Enable hybrid composition.
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+
+    // kIsWeb
+    //     // ignore: unnecessary_statements
+    //     ? _setUrl()
+    //     : WebView.platform = SurfaceAndroidWebView();
   }
 
   void _setUrl() {
@@ -165,7 +169,7 @@ class _AddChildPaymentWebviewScreenState
     return Scaffold(
       backgroundColor: Color(0xfff6f6f5),
       appBar: AppBar(
-        title: const Text('Payement'),
+        title: const Text('Payement '),
         centerTitle: true,
       ),
       body: kIsWeb
@@ -219,7 +223,7 @@ class _AddChildPaymentWebviewScreenState
                 print("WebView is loading (progress : $progress%)");
               },
               navigationDelegate: (NavigationRequest request) {
-                if (request.url != url) _navegatoTo();
+                if (request.url.contains('payment?id')) _navegatoTo();
                 return webview.NavigationDecision.navigate;
               },
               gestureNavigationEnabled: true,
