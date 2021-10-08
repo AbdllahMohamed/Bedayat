@@ -63,7 +63,7 @@ class _AddChildMapScreenState extends State<AddChildMapScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         title: Text(
-          'من فضلك قم بتحديد موقعك',
+          'Select your location'.tr,
         ),
         centerTitle: true,
       ),

@@ -1,8 +1,7 @@
 import 'dart:core';
-
 import 'package:bedayat/const/const.dart';
-import 'package:bedayat/models/user.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
@@ -39,7 +38,7 @@ class UsersServices {
     );
     if (response.data['message'] != null) {
       print(response.data['message']);
-      loginError = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
+      loginError = 'Please try again'.tr;
     } else {
       final box = GetStorage();
       print("token" + response.data["token"]);
@@ -142,7 +141,7 @@ class UsersServices {
     print("register");
     print(response.data);
     if (response.data['message'] != null) {
-      registerError = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
+      registerError = 'Please try again'.tr;
     } else {
       print("From Register");
       final box = GetStorage();
@@ -320,7 +319,7 @@ class UsersServices {
         print("${GetStorage().read('childId')}");
       });
     } else {
-      registerError = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
+      registerError = 'Please try again'.tr;
     }
     print(registerError);
 
@@ -412,7 +411,7 @@ class UsersServices {
     print("addchildMobile");
     print(response.data);
     if (response.data['message'] != null) {
-      addChilderror = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
+      addChilderror = 'Please try again'.tr;
     } else {
       final box = GetStorage();
       box.write('addChildId', response.data["data"]['id'].toString());
@@ -568,7 +567,7 @@ class UsersServices {
         box.write('addChildId', responce["data"]['id']);
       });
     } else {
-      addChilderror = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
+      addChilderror = 'Please try again'.tr;
     }
     print(addChilderror);
 

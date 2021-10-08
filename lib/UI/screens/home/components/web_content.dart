@@ -1,6 +1,4 @@
-import 'package:bedayat/UI/home_payment/home_payment.dart';
-import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.dart';
-import 'package:bedayat/UI/screens/register/register_step_five.dart';
+import 'package:bedayat/UI/screens/home_payment/home_payment.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
 import 'package:bedayat/UI/widgets/circle_image.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
@@ -8,9 +6,9 @@ import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+// ignore: must_be_immutable
 class HomeWebContentWidget extends StatelessWidget {
   final String name;
   final String agegroupe;
@@ -83,7 +81,7 @@ class HomeWebContentWidget extends StatelessWidget {
                                         padding: const EdgeInsets.only(
                                             right: 18.0, top: 5),
                                         child: Text(
-                                          'اليوم $name اداء',
+                                          "${'Perform of'.tr} $name ${'Today'.tr}",
                                           style: TextStyle(
                                             color: AppColors.accentColor,
                                             fontSize: 13,
@@ -180,7 +178,7 @@ class HomeWebContentWidget extends StatelessWidget {
                                                 BorderRadius.circular(8),
                                           ),
                                           child: Text(
-                                            'عرض التقرير اليومى',
+                                            'View The Daily Report'.tr,
                                             style: TextStyle(
                                               color: AppColors.primaryColor,
                                             ),
@@ -203,7 +201,7 @@ class HomeWebContentWidget extends StatelessWidget {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'مشاركة',
+                                            'Share'.tr,
                                             style: TextStyle(
                                               color: Color(0xff818080),
                                             ),
@@ -266,7 +264,7 @@ class HomeWebContentWidget extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 18.0, top: 5),
                     child: Text(
-                      'اداء $name اليوم',
+                      "${'Perform of'.tr} $name ${'Today'.tr}",
                       style: TextStyle(
                         color: AppColors.accentColor,
                         fontSize: 13,
@@ -335,7 +333,7 @@ class HomeWebContentWidget extends StatelessWidget {
                         ),
                         borderRadius: BorderRadius.circular(8)),
                     child: Text(
-                      'عرض التقرير اليومى',
+                      'View The Daily Report'.tr,
                       style: TextStyle(color: AppColors.primaryColor),
                     ),
                   ),
@@ -360,7 +358,8 @@ class HomeWebContentWidget extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              'طفلك غير مسجل باشتراك   اشترك الان',
+                              'Your child is not registered to subscribe now'
+                                  .tr,
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
@@ -371,9 +370,13 @@ class HomeWebContentWidget extends StatelessWidget {
                         )
                       : SizedBox(),
                   Align(
-                    alignment: Alignment.bottomLeft,
+                    alignment: Get.locale == Locale('en')
+                        ? Alignment.topRight
+                        : Alignment.topLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 5),
+                      padding: Get.locale == Locale('en')
+                          ? EdgeInsets.only(left: 15.0, top: 5)
+                          : EdgeInsets.only(right: 15.0, top: 5),
                       child: Image.asset(
                         AppImages.appSmallBarcode,
                         width: 30,

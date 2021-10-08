@@ -2,9 +2,7 @@ import 'dart:ui';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/notification_cotroller.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -51,7 +49,7 @@ class NotificationScreen extends StatelessWidget {
                     right: 20,
                   ),
                   child: Text(
-                    'الاشعارات',
+                    'notifications'.tr,
                     style: TextStyle(
                       color: AppColors.titleColor,
                       fontSize: 28,
@@ -82,7 +80,7 @@ class NotificationScreen extends StatelessWidget {
                                     Padding(
                                       padding: EdgeInsets.only(top: 200.0),
                                       child: Text(
-                                        'لاتوجد بيانات',
+                                        'Not Found Data'.tr,
                                         style: TextStyle(
                                             fontSize: 22,
                                             color: AppColors.accentColor),

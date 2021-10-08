@@ -18,8 +18,6 @@ class _GalleryWidgetState extends State<GalleryWidget> {
   @override
   void initState() {
     super.initState();
-    print("widget.childId");
-    print(widget.childId);
     widget.galleryController.fetchGallery(widget.childId);
   }
 
@@ -43,7 +41,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
         : widget.galleryController.galleryList.length == 0
             ? Center(
                 child: Text(
-                  'لاتوجد بيانات',
+                  'Not Found Data'.tr,
                   style: TextStyle(fontSize: 22, color: AppColors.accentColor),
                 ),
               )
