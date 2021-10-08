@@ -60,4 +60,5 @@ class AppImages {
   static const appEvents = 'assets/images/events.png';
   static const appVisa = 'assets/images/visa.png';
   static const appMasterCaed = 'assets/images/master_card.jpg';
+  static const applanguageIcon = 'assets/images/language.png';
 }

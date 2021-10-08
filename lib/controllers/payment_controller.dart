@@ -34,7 +34,7 @@ class PaymentController extends GetxController {
       );
     } catch (e) {
       print(e);
-      paymentError = 'من فضلك حاول مرة اخرى';
+      paymentError = 'Please try again'.tr;
     } finally {
       loadingProcess(false);
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:bedayat/app_colors/app_colors.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class ActivityWidget extends StatelessWidget {
   final bool? enjoyWithMorningActivity;
@@ -24,11 +25,12 @@ class ActivityWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 35.0, right: 20, bottom: 10),
+      padding:
+          const EdgeInsets.only(top: 35.0, right: 20, left: 20, bottom: 10),
       child: ListView(
         children: [
           Text(
-            'النشاط الحركي الصباحي',
+            'Morning physical activity'.tr,
             style: TextStyle(
               fontSize: 20,
               color: AppColors.titleColor,
@@ -38,21 +40,21 @@ class ActivityWidget extends StatelessWidget {
             height: 15,
           ),
           ActivityValue(
-            label: 'يستمتع بالنشاط الصباحي',
+            label: 'Enjoying the morning activity'.tr,
             value: enjoyWithMorningActivity!,
           ),
           SizedBox(
             height: 15,
           ),
           ActivityValue(
-            label: 'يحي المشاركة مع الإصدقاء',
+            label: 'Likes to share with friends'.tr,
             value: loveSharingWithFriends!,
           ),
           SizedBox(
             height: 20,
           ),
           Text(
-            'الحلقة',
+            'the Party'.tr,
             style: TextStyle(
               fontSize: 20,
               color: AppColors.titleColor,
@@ -62,28 +64,28 @@ class ActivityWidget extends StatelessWidget {
             height: 15,
           ),
           ActivityValue(
-            label: 'يلقي تحية السلام و يرد السلام',
+            label: 'Say hello to peace and return peace'.tr,
             value: sayWelcome!,
           ),
           SizedBox(
             height: 15,
           ),
           ActivityValue(
-            label: 'يستمتع بالحلقة و يشارك فيها',
+            label: 'Enjoy and take part in the party'.tr,
             value: enjoyWithhalqa!,
           ),
           SizedBox(
             height: 15,
           ),
           ActivityValue(
-            label: 'يردد انشودة الوحدة',
+            label: 'He sings the chant of unity'.tr,
             value: sayWehda!,
           ),
           SizedBox(
             height: 20,
           ),
           Text(
-            'القران الكريم',
+            'The Holy Quran'.tr,
             style: TextStyle(
               fontSize: 20,
               color: AppColors.titleColor,
@@ -93,14 +95,14 @@ class ActivityWidget extends StatelessWidget {
             height: 15,
           ),
           ActivityValue(
-            label: 'يستمتع و ينصت',
+            label: 'enjoy and listen'.tr,
             value: listeningToQuran!,
           ),
           SizedBox(
             height: 15,
           ),
           ActivityValue(
-            label: 'يردد الايات',
+            label: 'repeating the verses'.tr,
             value: reapeatAyat!,
           ),
         ],

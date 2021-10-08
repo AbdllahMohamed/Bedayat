@@ -1,9 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class GeneralWidget extends StatelessWidget {
   final String? moodSatus;
@@ -25,11 +24,12 @@ class GeneralWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 25.0, right: 20, bottom: 10),
+      padding:
+          const EdgeInsets.only(top: 25.0, right: 20, left: 20, bottom: 10),
       child: ListView(
         children: [
           Text(
-            'مزاج الطفل',
+            'Child Mood'.tr,
             style: TextStyle(
               fontSize: 20,
               color: AppColors.titleColor,
@@ -39,7 +39,7 @@ class GeneralWidget extends StatelessWidget {
             height: 15,
           ),
           MoodSatusItem(
-              label: 'الصباح',
+              label: 'morning'.tr,
               firstImagePath: moodSatus == 'low'
                   ? AppImages.appHappyColored
                   : AppImages.appHappyNormal,
@@ -53,7 +53,7 @@ class GeneralWidget extends StatelessWidget {
             height: 15,
           ),
           MoodSatusItem(
-              label: 'الظهر',
+              label: 'noon'.tr,
               firstImagePath: moodSatus == 'low'
                   ? AppImages.appHappyColored
                   : AppImages.appHappyNormal,
@@ -67,7 +67,7 @@ class GeneralWidget extends StatelessWidget {
             height: 15,
           ),
           MoodSatusItem(
-              label: 'العصر',
+              label: 'afternoon'.tr,
               firstImagePath: moodSatus == 'low'
                   ? AppImages.appHappyColored
                   : AppImages.appHappyNormal,
@@ -81,7 +81,7 @@ class GeneralWidget extends StatelessWidget {
             height: 20,
           ),
           Text(
-            'الاكل',
+            'eat'.tr,
             style: TextStyle(
               fontSize: 20,
               color: AppColors.titleColor,
@@ -91,7 +91,7 @@ class GeneralWidget extends StatelessWidget {
             height: 15,
           ),
           FoodStatusItem(
-            label: 'الافطار',
+            label: 'the breakfast'.tr,
             firstImagePath: foodStatus == 'low'
                 ? AppImages.applowFoodColored
                 : AppImages.appLowFoodNormal,
@@ -106,7 +106,7 @@ class GeneralWidget extends StatelessWidget {
             height: 15,
           ),
           FoodStatusItem(
-            label: 'الغداء ',
+            label: 'the lunch'.tr,
             firstImagePath: foodStatus == 'low'
                 ? AppImages.applowFoodColored
                 : AppImages.appLowFoodNormal,
@@ -121,7 +121,7 @@ class GeneralWidget extends StatelessWidget {
             height: 15,
           ),
           FoodStatusItem(
-            label: 'وجبة خفيفة',
+            label: 'Snack'.tr,
             firstImagePath: foodStatus == 'low'
                 ? AppImages.applowFoodColored
                 : AppImages.appLowFoodNormal,
@@ -136,7 +136,7 @@ class GeneralWidget extends StatelessWidget {
             height: 20,
           ),
           Text(
-            'المشروبات',
+            'Drinks'.tr,
             style: TextStyle(
               fontSize: 20,
               color: AppColors.titleColor,
@@ -146,7 +146,7 @@ class GeneralWidget extends StatelessWidget {
             height: 15,
           ),
           DrinkStatusItem(
-            label: 'المياه',
+            label: 'water'.tr,
             firstImagePath: drinkStatus == 'low'
                 ? AppImages.appLowDrinkColored
                 : AppImages.appLowDrinkNormal,
@@ -158,7 +158,7 @@ class GeneralWidget extends StatelessWidget {
             height: 15,
           ),
           DrinkStatusItem(
-            label: 'الحليب',
+            label: 'the milk'.tr,
             firstImagePath: drinkStatus == 'low'
                 ? AppImages.appLowDrinkColored
                 : AppImages.appLowDrinkNormal,
@@ -170,7 +170,7 @@ class GeneralWidget extends StatelessWidget {
             height: 20,
           ),
           Text(
-            'النوم',
+            'The sleep'.tr,
             style: TextStyle(
               fontSize: 20,
               color: AppColors.titleColor,
@@ -180,7 +180,7 @@ class GeneralWidget extends StatelessWidget {
             height: 15,
           ),
           SleepStatusItem(
-            label: 'القيلولة',
+            label: 'nap'.tr,
             firstImagePath: sleepStatus == 'low'
                 ? AppImages.appLowSleepColored
                 : AppImages.appLowSleepNormal,
@@ -194,7 +194,7 @@ class GeneralWidget extends StatelessWidget {
             height: 20,
           ),
           Text(
-            'الحرارة',
+            'The Temperature',
             style: TextStyle(
               fontSize: 20,
               color: AppColors.titleColor,
@@ -303,7 +303,7 @@ class FoodStatusItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
-          flex: 3,
+          flex: 4,
           child: Text(
             label,
             textAlign: TextAlign.center,

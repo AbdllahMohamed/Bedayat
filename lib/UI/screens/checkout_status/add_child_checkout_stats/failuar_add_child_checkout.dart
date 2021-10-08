@@ -11,78 +11,8 @@ import 'package:get_storage/get_storage.dart';
 
 // ignore: must_be_immutable
 class FailuarAddChildCheckout extends StatefulWidget {
-  // final String checkoutId;
-  // final int selectedBranchIndex;
-  // final String childNameController;
-  // final String selectedType;
-  // final String selectedRelationsOne;
-  // final String selectedRelationsTwo;
-  // final String emergencyNumberController;
-  // final String anthorNotesController;
-  // final String sensitificController;
-  // final String emailOneController;
-  // final String phoneOneController;
-  // final String emailTwoController;
-  // final String phoneTwoController;
-  // final int groupId;
-  // final int techerId;
-
-  // final String actualselectedDate;
-  // final String relationOnefirstNameController;
-  // final String relationOneSecondNameController;
-  // final String relationOneThirdController;
-  // final String relationTwoFirstController;
-  // final String relationTwoScecondController;
-  // final String relationTwoThirdController;
-  // final String emergencyNameController;
-  // final String emergencyRelationController;
-
-  // final String streetController;
-  // final String cityController;
-  // final String stateController;
-  // final String postCodeController;
-  // final String givenNameController;
-  // final String surnameController;
-
-  // final XFile? familyCardPhoto;
-  // final XFile? vaccinationCertificate;
-  // final XFile? doctuumnet;
-
   FailuarAddChildCheckout({
     Key? key,
-    // required this.checkoutId,
-    // required this.selectedBranchIndex,
-    // required this.childNameController,
-    // required this.selectedType,
-    // required this.emergencyNumberController,
-    // required this.anthorNotesController,
-    // required this.selectedRelationsOne,
-    // required this.emailOneController,
-    // required this.selectedRelationsTwo,
-    // required this.sensitificController,
-    // required this.phoneOneController,
-    // required this.emailTwoController,
-    // required this.phoneTwoController,
-    // required this.familyCardPhoto,
-    // required this.vaccinationCertificate,
-    // required this.doctuumnet,
-    // required this.groupId,
-    // required this.techerId,
-    // required this.actualselectedDate,
-    // required this.relationOnefirstNameController,
-    // required this.relationOneSecondNameController,
-    // required this.relationOneThirdController,
-    // required this.relationTwoFirstController,
-    // required this.relationTwoScecondController,
-    // required this.relationTwoThirdController,
-    // required this.emergencyNameController,
-    // required this.emergencyRelationController,
-    // required this.streetController,
-    // required this.cityController,
-    // required this.stateController,
-    // required this.postCodeController,
-    // required this.givenNameController,
-    // required this.surnameController,
   }) : super(key: key);
 
   @override
@@ -108,7 +38,7 @@ class _FailuarAddChildCheckoutState extends State<FailuarAddChildCheckout> {
 
     print(error);
     if (error != "") {
-      Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
+      Get.defaultDialog(title: "Something went wrong".tr, middleText: error);
     } else {
       Get.to(AddChildPaymentWebviewScreen(
         checkoutId: "${GetStorage().read('checkoutId')}",
@@ -152,7 +82,7 @@ class _FailuarAddChildCheckoutState extends State<FailuarAddChildCheckout> {
             SizedBox(height: 10),
             Center(
               child: Text(
-                'فشل فى عملية الدفع',
+                'Payment Failed'.tr,
                 style: TextStyle(
                   fontSize: 35,
                   color: Colors.black,
@@ -163,7 +93,7 @@ class _FailuarAddChildCheckoutState extends State<FailuarAddChildCheckout> {
             SizedBox(height: 20),
             Center(
               child: Text(
-                'كود العملية...',
+                'Operation code...'.tr,
                 style: TextStyle(
                   fontSize: 15,
                   color: AppColors.accentColor,
@@ -176,14 +106,14 @@ class _FailuarAddChildCheckoutState extends State<FailuarAddChildCheckout> {
               onPressed: () async {
                 _retryPayment();
               },
-              label: 'المحاولة من جديد',
+              label: 'Try again'.tr,
             ),
             SizedBox(height: 20),
             ActionButton(
               onPressed: () async {
                 Get.offAll(HomeScreen());
               },
-              label: 'العودة للقائمة الرئسية',
+              label: 'Back to main menu'.tr,
             )
           ],
         ),

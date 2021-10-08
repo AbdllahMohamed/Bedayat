@@ -14,7 +14,7 @@ class AuthController extends GetxController {
       loadingProcess(true);
       loginError = await UsersServices.login(email, password);
     } catch (e) {
-      loginError = 'من فضلك حاول مرة اخرى';
+      loginError = 'Please try again'.tr;
     } finally {
       loadingProcess(false);
     }
@@ -88,7 +88,7 @@ class AuthController extends GetxController {
       );
     } catch (e) {
       print(e);
-      registerError = 'من فضلك حاول مرة اخرى';
+      registerError = 'Please try again'.tr;
     } finally {
       loadingProcess(false);
     }
@@ -163,7 +163,7 @@ class AuthController extends GetxController {
     } catch (e) {
       print('e');
       print(e);
-      registerError = 'من فضلك حاول مرة اخرى';
+      registerError = 'Please try again'.tr;
     } finally {
       loadingProcess(false);
     }
@@ -232,7 +232,7 @@ class AuthController extends GetxController {
       );
     } catch (e) {
       print(e);
-      registerError = 'من فضلك حاول مرة اخرى';
+      registerError = 'Please try again'.tr;
     } finally {
       loadingProcess(false);
     }
@@ -303,7 +303,7 @@ class AuthController extends GetxController {
       );
     } catch (e) {
       print(e);
-      registerError = 'من فضلك حاول مرة اخرى';
+      registerError = 'Please try again'.tr;
     } finally {
       loadingProcess(false);
     }

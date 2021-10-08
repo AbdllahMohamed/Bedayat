@@ -4,6 +4,7 @@ import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AppDrawer extends StatelessWidget {
   AppDrawer({Key? key}) : super(key: key);
@@ -13,44 +14,58 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: SafeArea(
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 15,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                'Main Menu'.tr,
+                style: TextStyle(fontSize: 23),
               ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text(
-                  'القائمة الرئيسية',
-                  style: TextStyle(fontSize: 23),
-                ),
-              ),
-              DrawerItem(
-                label: 'اضافة طفل',
-                imagePath: AppImages.appChildIcon,
-                onTap: () {
-                  Get.to(AddChildStepOneScreen());
-                },
-              ),
-              DrawerItem(
-                label: 'الاحداث القادمة',
-                imagePath: AppImages.appEvents,
-                onTap: () {
-                  Get.to(EventsScreen());
-                },
-              ),
-              DrawerItem(
-                label: 'تسجيل الخروج',
-                imagePath: AppImages.applogout,
-                onTap: () {
-                  authController.logut();
-                },
-              )
-            ],
-          ),
+            ),
+            DrawerItem(
+              label: 'Add Child'.tr,
+              imagePath: AppImages.appChildIcon,
+              onTap: () {
+                Get.to(AddChildStepOneScreen());
+              },
+            ),
+            DrawerItem(
+              label: 'Coming Events'.tr,
+              imagePath: AppImages.appEvents,
+              onTap: () {
+                Get.to(EventsScreen());
+              },
+            ),
+            DrawerItem(
+              label: 'Change Language'.tr,
+              imagePath: AppImages.applanguageIcon,
+              onTap: () {
+                final locale = Get.locale;
+                final box = GetStorage();
+                if (locale == Locale('en')) {
+                  Get.updateLocale(Locale('ar'));
+                  box.write('languageCode', 'ar');
+                  print("${GetStorage().read('languageCode')}");
+                } else {
+                  Get.updateLocale(Locale('en'));
+                  box.write('languageCode', 'en');
+                  print("${GetStorage().read('languageCode')}");
+                }
+              },
+            ),
+            DrawerItem(
+              label: 'logout'.tr,
+              imagePath: AppImages.applogout,
+              onTap: () {
+                authController.logut();
+              },
+            )
+          ],
         ),
       ),
     );
@@ -73,7 +88,8 @@ class DrawerItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(right: 12.0, top: 10, bottom: 10),
+        padding:
+            const EdgeInsets.only(left: 10, right: 12.0, top: 10, bottom: 10),
         child: Column(
           children: [
             Row(
@@ -81,7 +97,7 @@ class DrawerItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
+                  padding: const EdgeInsets.only(right: 8.0, left: 8.0),
                   child: Image.asset(
                     imagePath!,
                     height: 30,

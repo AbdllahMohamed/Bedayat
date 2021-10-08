@@ -5,96 +5,12 @@ import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 // ignore: must_be_immutable
 class FailuarRegisterCheckout extends StatefulWidget {
-  // String checkoutId;
-  // final String nameController;
-  // final String phoneController;
-  // final String emailController;
-  // final String passwordController;
-  // //final String location;
-  // final int selectedBranchIndex;
-  // final String childNameController;
-  // // final String selectedAge;
-  // final String selectedType;
-  // final String selectedRelationsOne;
-  // final String selectedRelationsTwo;
-  // final String emergencyNumberController;
-  // final String anthorNotesController;
-  // final String sensitificController;
-  // final String emailOneController;
-  // final String phoneOneController;
-  // final String emailTwoController;
-  // final String phoneTwoController;
-  // final int groupId;
-  // final int techerId;
-  // final String actualselectedDate;
-  // final String relationOnefirstNameController;
-  // final String relationOneSecondNameController;
-  // final String relationOneThirdController;
-  // final String relationTwoFirstController;
-  // final String relationTwoScecondController;
-  // final String relationTwoThirdController;
-  // final String emergencyNameController;
-  // final String emergencyRelationController;
-
-  // final String streetController;
-  // final String cityController;
-  // final String stateController;
-  // final String postCodeController;
-  // final String givenNameController;
-  // final String surnameController;
-
-  // final XFile? familyCardPhoto;
-  // final XFile? vaccinationCertificate;
-  // final XFile? doctuumnet;
-  // FailuarRegisterCheckout(
-  //     {Key? key,
-  //     required this.checkoutId,
-  //     required this.nameController,
-  //     required this.phoneController,
-  //     required this.emailController,
-  //     required this.passwordController,
-  //     required this.selectedBranchIndex,
-  //     required this.childNameController,
-  //     //required this.selectedAge,
-  //     required this.selectedType,
-  //     required this.selectedRelationsOne,
-  //     required this.selectedRelationsTwo,
-  //     required this.emergencyNumberController,
-  //     required this.anthorNotesController,
-  //     required this.sensitificController,
-  //     required this.emailOneController,
-  //     required this.phoneOneController,
-  //     required this.emailTwoController,
-  //     required this.phoneTwoController,
-  //     required this.groupId,
-  //     required this.techerId,
-  //     required this.familyCardPhoto,
-  //     required this.vaccinationCertificate,
-  //     required this.doctuumnet,
-  //     required this.actualselectedDate,
-  //     required this.relationOnefirstNameController,
-  //     required this.relationOneSecondNameController,
-  //     required this.relationOneThirdController,
-  //     required this.relationTwoFirstController,
-  //     required this.relationTwoScecondController,
-  //     required this.relationTwoThirdController,
-  //     required this.emergencyNameController,
-  //     required this.emergencyRelationController,
-  //     required this.streetController,
-  //     required this.cityController,
-  //     required this.stateController,
-  //     required this.postCodeController,
-  //     required this.givenNameController,
-  //     required this.surnameController})
-  //     : super(key: key);
-
   @override
   _FailuarRegisterCheckoutState createState() =>
       _FailuarRegisterCheckoutState();
@@ -162,7 +78,7 @@ class _FailuarRegisterCheckoutState extends State<FailuarRegisterCheckout> {
             SizedBox(height: 10),
             Center(
               child: Text(
-                'فشل فى عملية الدفع',
+                'Payment Failed'.tr,
                 style: TextStyle(
                   fontSize: 35,
                   color: Colors.black,
@@ -173,7 +89,7 @@ class _FailuarRegisterCheckoutState extends State<FailuarRegisterCheckout> {
             SizedBox(height: 20),
             Center(
               child: Text(
-                'كود العملية...',
+                'Operation code...'.tr,
                 style: TextStyle(
                   fontSize: 15,
                   color: AppColors.accentColor,
@@ -186,14 +102,14 @@ class _FailuarRegisterCheckoutState extends State<FailuarRegisterCheckout> {
               onPressed: () async {
                 _retryPayment();
               },
-              label: 'المحاولة من جديد',
+              label: 'Try again'.tr,
             ),
             SizedBox(height: 20),
             ActionButton(
               onPressed: () async {
                 Get.offAll(HomeScreen());
               },
-              label: 'العودة للقائمة الرئسية',
+              label: 'Back to main menu'.tr,
             )
           ],
         ),

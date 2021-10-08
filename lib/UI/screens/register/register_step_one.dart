@@ -64,160 +64,157 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                 ),
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 50),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.arrow_back_ios),
-                            onPressed: () {
-                              Get.back();
-                            },
-                          ),
-                          Image.asset(
-                            AppImages.appSubLogo,
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'التسجيل',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 6,
-                                color: AppColors.accentColor,
-                              ),
-                            ),
-                            child: Text(
-                              '1/6',
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        'البيانات الشخصية',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.accentColor,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      CustomeTextFormField(
-                        controller: _nameController,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          }
-                          if (val.length < 3) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          }
-                        },
-                        prefixIcon:
-                            Icon(Icons.person, color: AppColors.accentColor),
-                        hintText: 'الاسم',
-                      ),
-                      CustomeTextFormField(
-                        controller: _emailController,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          } else if (!val.isEmail) {
-                            return 'البريد الالكترونى غير صالح';
-                          }
-                        },
-                        hintText: 'البريد الألكترونى',
-                        prefixIcon: Image.asset(AppImages.appEmailIcon),
-                      ),
-                      CustomeTextFormField(
-                        controller: _phoneController,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          }
-                          if (val.length < 8) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          }
-                        },
-                        prefixIcon: Image.asset(AppImages.appPhoneIcon),
-                        hintText: 'رقم الجوال',
-                      ),
-                      Container(
-                        width: _deviceWidth * 0.86,
-                        child: TextFormField(
-                          controller: _passwordController,
-                          obscureText: _obscureText,
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'من فضلك ادخل قيمة صحيحة';
-                            } else if (val.length <= 3) {
-                              return 'كلمة السر قصيرة للغاية';
-                            }
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 50),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.arrow_back_ios),
+                          onPressed: () {
+                            Get.back();
                           },
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(top: 18),
-                            prefixIcon: Image.asset(AppImages.appPasswordIcon),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _obscureText
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: AppColors.accentColor,
-                              ),
-                              onPressed: () {
-                                _toggle();
-                              },
-                            ),
-                            hintText: 'كلمة المرور',
-                            hintStyle: TextStyle(
+                        ),
+                        Image.asset(
+                          AppImages.appSubLogo,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Register'.tr,
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                        Container(
+                          height: 50,
+                          width: 50,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              width: 6,
                               color: AppColors.accentColor,
                             ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          child: Text(
+                            '1/6',
+                            style: TextStyle(
+                              fontSize: 20,
                             ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[300]!),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Personal Data'.tr,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.accentColor,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    CustomeTextFormField(
+                      controller: _nameController,
+                      validator: (val) {
+                        if (val.isEmpty) {
+                          return 'Please enter a valid value'.tr;
+                        }
+                        if (val.length < 3) {
+                          return 'Please enter a valid value'.tr;
+                        }
+                      },
+                      prefixIcon:
+                          Icon(Icons.person, color: AppColors.accentColor),
+                      hintText: 'Name'.tr,
+                    ),
+                    CustomeTextFormField(
+                      controller: _emailController,
+                      validator: (val) {
+                        if (val.isEmpty) {
+                          return 'Please enter a valid value'.tr;
+                        } else if (!val.isEmail) {
+                          return 'The email is invalid'.tr;
+                        }
+                      },
+                      hintText: 'Email'.tr,
+                      prefixIcon: Image.asset(AppImages.appEmailIcon),
+                    ),
+                    CustomeTextFormField(
+                      controller: _phoneController,
+                      validator: (val) {
+                        if (val.isEmpty) {
+                          return 'Please enter a valid value'.tr;
+                        }
+                        if (val.length < 8) {
+                          return 'Please enter a valid value'.tr;
+                        }
+                      },
+                      prefixIcon: Image.asset(AppImages.appPhoneIcon),
+                      hintText: 'Phone Number'.tr,
+                    ),
+                    Container(
+                      width: _deviceWidth * 0.86,
+                      child: TextFormField(
+                        controller: _passwordController,
+                        obscureText: _obscureText,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Please enter a valid value'.tr;
+                          } else if (val.length <= 3) {
+                            return 'Please enter a valid value'.tr;
+                          }
+                        },
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(top: 18),
+                          prefixIcon: Image.asset(AppImages.appPasswordIcon),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: AppColors.accentColor,
                             ),
-                            border: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[300]!),
-                            ),
+                            onPressed: () {
+                              _toggle();
+                            },
+                          ),
+                          hintText: 'Password'.tr,
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 35,
-                      ),
-                      ActionButton(
-                          label: 'التالى',
-                          onPressed: () async {
-                            registerStepOne();
-                          }),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 35,
+                    ),
+                    ActionButton(
+                        label: 'Next'.tr,
+                        onPressed: () async {
+                          registerStepOne();
+                        }),
+                  ],
                 ),
               ),
             ),

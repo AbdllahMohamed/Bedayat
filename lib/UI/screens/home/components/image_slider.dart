@@ -53,6 +53,7 @@ class ImageSliderWidget extends StatelessWidget {
           Positioned(
             top: 120,
             right: 30,
+            left: 30,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 8),
               width: kIsWeb ? _deviceWidth / 2.5 : 300,

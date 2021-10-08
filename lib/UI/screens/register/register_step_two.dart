@@ -93,77 +93,77 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
             ),
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 50),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          Get.back();
-                        },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 50),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ),
+                    Image.asset(
+                      AppImages.appSubLogo,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Register'.tr,
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w300,
                       ),
-                      Image.asset(
-                        AppImages.appSubLogo,
+                    ),
+                    Container(
+                      height: 50,
+                      width: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          width: 6,
+                          color: AppColors.accentColor,
+                        ),
                       ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'التسجيل',
+                      child: Text(
+                        '2/6',
                         style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w300,
+                          fontSize: 20,
                         ),
+                        textAlign: TextAlign.center,
                       ),
-                      Container(
-                        height: 50,
-                        width: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 6,
-                            color: AppColors.accentColor,
-                          ),
-                        ),
-                        child: Text(
-                          '2/6',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    ],
+                    )
+                  ],
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Choose your business location or your residence location'.tr,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppColors.accentColor,
+                    fontWeight: FontWeight.w300,
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    'اختر موقع عملك او موقع السكن الخاص بك',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.accentColor,
-                      fontWeight: FontWeight.w300,
-                    ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 500,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 500,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
                     child: GoogleMap(
                       mapType: MapType.normal,
                       initialCameraPosition: _kGooglePlex,
@@ -172,15 +172,15 @@ class _RegisterStepTwoScreenState extends State<RegisterStepTwoScreen> {
                       },
                     ),
                   ),
-                  SizedBox(height: 15),
-                  ActionButton(
-                      label: 'حدد موقعك',
-                      onPressed: () async {
-                        registerStepTwo();
-                      }),
-                  SizedBox(height: 15),
-                ],
-              ),
+                ),
+                SizedBox(height: 15),
+                ActionButton(
+                    label: 'Select your location'.tr,
+                    onPressed: () async {
+                      registerStepTwo();
+                    }),
+                SizedBox(height: 15),
+              ],
             ),
           ),
         ),

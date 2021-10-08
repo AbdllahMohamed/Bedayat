@@ -51,135 +51,133 @@ class _ReportScreenState extends State<ReportScreen>
           headerSliverBuilder: (context, value) {
             return [
               SliverToBoxAdapter(
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 50),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.arrow_back_ios),
-                              onPressed: () {
-                                Get.back();
-                              },
-                            ),
-                            Image.asset(
-                              AppImages.appSubLogo,
-                            ),
-                          ],
-                        ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 50),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
                       ),
-                      SizedBox(height: 20),
-                      Row(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(width: 15),
-                          CircleAvatar(
-                            backgroundColor: Colors.transparent,
-                            backgroundImage: NetworkImage(widget.image!),
-                            radius: 40,
+                          IconButton(
+                            icon: Icon(Icons.arrow_back_ios),
+                            onPressed: () {
+                              Get.back();
+                            },
                           ),
-                          SizedBox(width: 20),
-                          Column(
-                            children: [
-                              Text(
-                                widget.name!,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: AppColors.titleColor,
-                                ),
-                              ),
-                              Text(
-                                ' الفصل ${widget.classNmber!}',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: AppColors.accentColor,
-                                ),
-                              ),
-                            ],
-                          )
+                          Image.asset(
+                            AppImages.appSubLogo,
+                          ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15.0, right: 25),
-                        child: Row(
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        SizedBox(width: 15),
+                        CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: NetworkImage(widget.image!),
+                          radius: 40,
+                        ),
+                        SizedBox(width: 20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Image.asset(
-                              AppImages.appReport,
-                              color: AppColors.primaryColor,
-                            ),
-                            SizedBox(width: 25),
                             Text(
-                              'التقرير',
+                              widget.name!,
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 20,
                                 color: AppColors.titleColor,
                               ),
                             ),
+                            Text(
+                              "${'Class'.tr}  ${widget.classNmber!}",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: AppColors.accentColor,
+                              ),
+                            ),
                           ],
-                        ),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 15.0, right: 25, left: 25),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            AppImages.appReport,
+                            color: AppColors.primaryColor,
+                            width: 40,
+                            height: 50,
+                          ),
+                          SizedBox(width: 15),
+                          Text(
+                            'Report'.tr,
+                            style: TextStyle(
+                              fontSize: 23,
+                              color: AppColors.titleColor,
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                  ],
                 ),
               ),
               SliverToBoxAdapter(
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
-                    child: TabBar(
-                      indicatorColor: AppColors.primaryColor,
-                      tabs: [
-                        Tab(
-                          child: Text(
-                            'التقييم',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: AppColors.titleColor,
-                            ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 5,
+                  ),
+                  child: TabBar(
+                    indicatorColor: AppColors.primaryColor,
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          'ُEstimate'.tr,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: AppColors.titleColor,
                           ),
                         ),
-                        Tab(
-                          child: Text(
-                            'النشاط',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: AppColors.titleColor,
-                            ),
+                      ),
+                      Tab(
+                        child: Text(
+                          'Activity'.tr,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: AppColors.titleColor,
                           ),
                         ),
-                        Tab(
-                          child: Text(
-                            'عام',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: AppColors.titleColor,
-                            ),
+                      ),
+                      Tab(
+                        child: Text(
+                          'General'.tr,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: AppColors.titleColor,
                           ),
                         ),
-                        Tab(
-                          child: Image.asset(
-                            AppImages.appGallery,
-                            width: 25,
-                            color: AppColors.primaryColor,
-                          ),
+                      ),
+                      Tab(
+                        child: Image.asset(
+                          AppImages.appGallery,
+                          width: 25,
+                          color: AppColors.primaryColor,
                         ),
-                      ],
-                      controller: _tabController,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                    ),
+                      ),
+                    ],
+                    controller: _tabController,
+                    indicatorSize: TabBarIndicatorSize.tab,
                   ),
                 ),
               ),
@@ -196,72 +194,68 @@ class _ReportScreenState extends State<ReportScreen>
               : reportController.reportsList.length == 0
                   ? Center(
                       child: Text(
-                        'لاتوجد بيانات',
+                        'Not Found Data'.tr,
                         style: TextStyle(
                             fontSize: 22, color: AppColors.accentColor),
                       ),
                     )
-                  : Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: TabBarView(
-                        controller: _tabController,
-                        children: [
-                          EvaluationWidget(
-                              newletter:
-                                  reportController.reportsList[0].newLetter!,
-                              knowTheLetter: reportController
-                                  .reportsList[0].knowTheLetter!,
-                              knowTheLetterSound: reportController
-                                  .reportsList[0].knowtheLetterSound!,
-                              masteredWriteLetter: reportController
-                                  .reportsList[0].masteredWriteLetter!,
-                              enjoyWitharkan: reportController
-                                  .reportsList[0].enjoyWitharkan!,
-                              masteredTheActivity: reportController
-                                  .reportsList[0].masteredTheActivity!,
-                              organizeAfterPlay: reportController
-                                  .reportsList[0].organizeAfterPlay!,
-                              enjoyWithArtActivity: reportController
-                                  .reportsList[0].enjoyWithArtActivity!,
-                              helpHimeselfInArtActivity: reportController
-                                  .reportsList[0].helpHimeselfInArtActivity!,
-                              enjoyWithTheStory: reportController
-                                  .reportsList[0].enjoyWithTheStory!),
-                          ActivityWidget(
-                            enjoyWithMorningActivity: reportController
-                                .reportsList[0].enjoyWithMorningActivity!,
-                            loveSharingWithFriends: reportController
-                                .reportsList[0].loveSharingWithFriends!,
-                            sayWelcome:
-                                reportController.reportsList[0].sayWelcome!,
-                            enjoyWithhalqa:
-                                reportController.reportsList[0].enjoyWithhalqa!,
-                            sayWehda: reportController.reportsList[0].sayWehda!,
-                            listeningToQuran: reportController
-                                .reportsList[0].listeningToQuran!,
-                            reapeatAyat:
-                                reportController.reportsList[0].reapeatAyat!,
-                          ),
-                          GeneralWidget(
-                            moodSatus:
-                                reportController.reportsList[0].moodSatus!,
-                            foodStatus:
-                                reportController.reportsList[0].foodStatus!,
-                            drinkStatus:
-                                reportController.reportsList[0].drinkStatus!,
-                            sleepStatus:
-                                reportController.reportsList[0].sleepStatus!,
-                            sleepdration:
-                                reportController.reportsList[0].sleepdration!,
-                            tempratureDegree: reportController
-                                .reportsList[0].tempratureDegree!,
-                          ),
-                          GalleryWidget(
-                            galleryController: galleryController,
-                            childId: reportController.reportsList[0].childId!,
-                          )
-                        ],
-                      ),
+                  : TabBarView(
+                      controller: _tabController,
+                      children: [
+                        EvaluationWidget(
+                          newletter: reportController.reportsList[0].newLetter!,
+                          knowTheLetter:
+                              reportController.reportsList[0].knowTheLetter!,
+                          knowTheLetterSound: reportController
+                              .reportsList[0].knowtheLetterSound!,
+                          masteredWriteLetter: reportController
+                              .reportsList[0].masteredWriteLetter!,
+                          enjoyWitharkan:
+                              reportController.reportsList[0].enjoyWitharkan!,
+                          masteredTheActivity: reportController
+                              .reportsList[0].masteredTheActivity!,
+                          organizeAfterPlay: reportController
+                              .reportsList[0].organizeAfterPlay!,
+                          enjoyWithArtActivity: reportController
+                              .reportsList[0].enjoyWithArtActivity!,
+                          helpHimeselfInArtActivity: reportController
+                              .reportsList[0].helpHimeselfInArtActivity!,
+                          enjoyWithTheStory: reportController
+                              .reportsList[0].enjoyWithTheStory!,
+                        ),
+                        ActivityWidget(
+                          enjoyWithMorningActivity: reportController
+                              .reportsList[0].enjoyWithMorningActivity!,
+                          loveSharingWithFriends: reportController
+                              .reportsList[0].loveSharingWithFriends!,
+                          sayWelcome:
+                              reportController.reportsList[0].sayWelcome!,
+                          enjoyWithhalqa:
+                              reportController.reportsList[0].enjoyWithhalqa!,
+                          sayWehda: reportController.reportsList[0].sayWehda!,
+                          listeningToQuran:
+                              reportController.reportsList[0].listeningToQuran!,
+                          reapeatAyat:
+                              reportController.reportsList[0].reapeatAyat!,
+                        ),
+                        GeneralWidget(
+                          moodSatus: reportController.reportsList[0].moodSatus!,
+                          foodStatus:
+                              reportController.reportsList[0].foodStatus!,
+                          drinkStatus:
+                              reportController.reportsList[0].drinkStatus!,
+                          sleepStatus:
+                              reportController.reportsList[0].sleepStatus!,
+                          sleepdration:
+                              reportController.reportsList[0].sleepdration!,
+                          tempratureDegree:
+                              reportController.reportsList[0].tempratureDegree!,
+                        ),
+                        GalleryWidget(
+                          galleryController: galleryController,
+                          childId: reportController.reportsList[0].childId!,
+                        )
+                      ],
                     )),
         ),
       ),

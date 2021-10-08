@@ -1,14 +1,13 @@
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/controllers/app_bindings.dart';
 import 'package:bedayat/routes.dart';
+import 'package:bedayat/utils/translation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import 'UI/screens/bottom_navigation/bottom_navigation.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -91,8 +90,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.light(primary: AppColors.primaryColor)
             .copyWith(secondary: AppColors.accentColor),
       ),
-      //home: token != null ? BottomNavigationWidget() : LoginScreen(),
-
+      translations: Translation(),
+      locale: Locale("${GetStorage().read('languageCode')}"),
+      fallbackLocale: Locale('ar'),
       initialRoute: token != null ? '/home' : '/login',
       onGenerateRoute: RouteGenerator.generateRoute,
     );

@@ -10,17 +10,8 @@ class NotificationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print('hi1');
     fetchGroups();
     scrollController.addListener(_scrollListner);
-
-    // scrollController.addListener(() {
-    //   if (scrollController.position.pixels ==
-    //       scrollController.position.maxScrollExtent) {
-    //     print('Perform');
-    //   }
-    // });
-    print('hi2');
   }
 
   void fetchGroups() async {
@@ -40,29 +31,5 @@ class NotificationController extends GetxController {
         scrollController.position.maxScrollExtent) {
       print("----------");
     }
-    // if (scrollController.position.atEdge) {
-    //   print('h3');
-    //   if (scrollController.position.pixels == 0) {
-    //     // You're at the top.
-    //     print('top');
-    //   } else {
-    //     print('bottom');
-    //   }
-    // }
-
-    // double maxPosition = scrollController.position.maxScrollExtent;
-    // double currentPosition = scrollController.position.pixels;
-
-    // /// You can change this value . It's a default value for the
-    // /// test if the difference between the great value and the current value is smaller
-    // /// or equal
-    // double difference = 200.0;
-
-    // /// bottom position
-    // if (maxPosition - currentPosition <= difference) {
-    //   print('bottom');
-    // } else {
-    //   print('top');
-    // }
   }
 }

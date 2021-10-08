@@ -1,5 +1,4 @@
 import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
-import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +41,7 @@ class _AddChildStepFiveScreenState extends State<AddChildStepFiveScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'اضافة طفل',
+                            'Add Child'.tr,
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.w300,
@@ -76,7 +75,7 @@ class _AddChildStepFiveScreenState extends State<AddChildStepFiveScreen> {
                     SizedBox(height: 10),
                     Center(
                       child: Text(
-                        'تم اضافة طفل بنجاح',
+                        'Your child has been successfully added'.tr,
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w200,
@@ -97,7 +96,7 @@ class _AddChildStepFiveScreenState extends State<AddChildStepFiveScreen> {
                               color: AppColors.primaryColor,
                               borderRadius: BorderRadius.circular(8)),
                           child: Text(
-                            'قم بفحصه الان',
+                            'Check it now'.tr,
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
