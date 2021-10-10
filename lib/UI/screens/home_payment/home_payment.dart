@@ -177,7 +177,7 @@ class _HomePaymentScreenState extends State<HomePaymentScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Payment'.tr,
+                        'payment'.tr,
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w300,
@@ -194,11 +194,11 @@ class _HomePaymentScreenState extends State<HomePaymentScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                        right: 8,
+                        right: 20,
                         left: 20,
                       ),
                       child: Text(
-                        'Start From :'.tr,
+                        'Start From'.tr + ' :',
                         style: TextStyle(
                           fontSize: 14,
                           color: AppColors.accentColor,

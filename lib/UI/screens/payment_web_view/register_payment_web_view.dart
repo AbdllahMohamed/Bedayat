@@ -67,7 +67,8 @@ class _RegisterPaymentWebviewScreenState
 
   @override
   Widget build(BuildContext context) {
-    String url = baseUrl + widget.checkoutId;
+    String url = baseUrl + '/payments/${widget.checkoutId}';
+
     print(url);
 
     return Scaffold(
