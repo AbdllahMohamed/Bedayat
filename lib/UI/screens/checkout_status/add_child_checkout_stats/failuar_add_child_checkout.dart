@@ -1,6 +1,6 @@
 import 'package:bedayat/UI/screens/add_child/add_child_step_four.dart';
-import 'package:bedayat/UI/screens/home/home.dart';
-import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.dart';
+import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
+import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
@@ -40,7 +40,7 @@ class _FailuarAddChildCheckoutState extends State<FailuarAddChildCheckout> {
     if (error != "") {
       Get.defaultDialog(title: "Something went wrong".tr, middleText: error);
     } else {
-      Get.to(AddChildPaymentWebviewScreen(
+      Get.to(PaymentWebviewScreen(
         checkoutId: "${GetStorage().read('checkoutId')}",
       ));
     }
@@ -111,7 +111,7 @@ class _FailuarAddChildCheckoutState extends State<FailuarAddChildCheckout> {
             SizedBox(height: 20),
             ActionButton(
               onPressed: () async {
-                Get.offAll(HomeScreen());
+                Get.offAll(BottomNavigationWidget());
               },
               label: 'Back to main menu'.tr,
             )

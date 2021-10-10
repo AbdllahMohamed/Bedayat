@@ -55,7 +55,8 @@ class UsersServices {
     String? email,
     String? phone,
     String? password,
-    String? childname,
+    String? childFirstName,
+    String? childSecondName,
     String? ageGroup,
     String? gender,
     String? emergencyNumber,
@@ -94,7 +95,8 @@ class UsersServices {
       "email": email,
       "phone": phone,
       "password": password,
-      "name": childname,
+      'frist_name': childFirstName,
+      'last_name': childSecondName,
       "age_group": ageGroup,
       "gender": gender,
       "emergency_number": emergencyNumber,
@@ -158,7 +160,8 @@ class UsersServices {
     String? email,
     String? phone,
     String? password,
-    String? childname,
+    String? childFirstName,
+    String? childSecondName,
     String? ageGroup,
     String? gender,
     String? emergencyNumber,
@@ -198,7 +201,8 @@ class UsersServices {
 
     print(password);
 
-    print(childname);
+    print(childFirstName);
+    print(childSecondName);
 
     print(ageGroup);
 
@@ -276,7 +280,8 @@ class UsersServices {
     request.fields["email"] = email!;
     request.fields["phone"] = phone!;
     request.fields["password"] = password!;
-    request.fields["name"] = childname!;
+    request.fields["frist_name"] = childFirstName!;
+    request.fields["last_name"] = childSecondName!;
     request.fields["age_group"] = '1';
     request.fields["gender"] = gender!;
     request.fields["emergency_number"] = emergencyNumber!;
@@ -327,7 +332,8 @@ class UsersServices {
   }
 
   static Future<String> addchild({
-    String? childname,
+    String? childFirstName,
+    String? childSecondName,
     String? gender,
     String? emergencyNumber,
     String? parentOneRealation,
@@ -362,7 +368,8 @@ class UsersServices {
         vaccinationCertificate!.path.split('/').last;
     String documentFile = document!.path.split('/').last;
     FormData formData = FormData.fromMap({
-      "name": childname,
+      "frist_name": childFirstName,
+      "last_name": childSecondName,
       "gender": gender,
       "emergency_number": emergencyNumber,
       "parent_one_realation": parentOneRealation,
@@ -421,7 +428,8 @@ class UsersServices {
   }
 
   static Future<String> addchildWeb({
-    String? childname,
+    String? childFirstName,
+    String? childSecondName,
     String? gender,
     String? emergencyNumber,
     String? parentOneRealation,
@@ -448,7 +456,8 @@ class UsersServices {
   }) async {
     var addChilderror = "";
 
-    print(childname);
+    print(childFirstName);
+    print(childSecondName);
     print(gender);
     print(emergencyNumber);
     print(parentOneRealation);
@@ -520,7 +529,8 @@ class UsersServices {
     request.files.add(multipartFile2);
     request.files.add(multipartFile3);
 
-    request.fields["name"] = childname!;
+    request.fields["frist_name"] = childFirstName!;
+    request.fields["last_name"] = childSecondName!;
     request.fields["gender"] = gender!;
     request.fields["emergency_number"] = emergencyNumber!;
     request.fields["parent_one_realation"] = parentOneRealation!;

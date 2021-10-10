@@ -180,8 +180,8 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
 
   void _addChildWeb() async {
     String addchildError = await authController.addChildWeb(
-      //childname: _childNameController.text,
-      childname: 'ali',
+      childFirstName: _childFirstNameController.text,
+      childSecondName: _childSecondNameController.text,
       gender: _selectedType == 'ولد' ? 'male' : 'female',
       emergencyNumber: _emergencyNumberController.text,
       parentOneRealation: _relationsOneController.text,
@@ -221,8 +221,8 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
 
   void _addChildMobile() async {
     String addchildError = await authController.addChild(
-      //childname: _childNameController.text,
-      childname: 'ali',
+      childFirstName: _childFirstNameController.text,
+      childSecondName: _childSecondNameController.text,
       gender: _selectedType == 'ولد' ? 'male' : 'female',
       emergencyNumber: _emergencyNumberController.text,
       parentOneRealation: _relationsOneController.text,
