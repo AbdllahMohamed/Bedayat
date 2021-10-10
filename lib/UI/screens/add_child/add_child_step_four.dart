@@ -239,7 +239,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                           left: 20,
                         ),
                         child: Text(
-                          'Start From :'.tr,
+                          'Start From'.tr + ' :',
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.accentColor,

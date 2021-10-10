@@ -241,7 +241,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                         left: 20,
                       ),
                       child: Text(
-                        'Start From :'.tr,
+                        'Start From'.tr + ' :',
                         style: TextStyle(
                           fontSize: 14,
                           color: AppColors.accentColor,
