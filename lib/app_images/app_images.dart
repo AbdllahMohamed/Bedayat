@@ -43,6 +43,7 @@ class AppImages {
 
   static const appLowDrinkNormal = 'assets/images/low_drink_normal.png';
   static const appLowDrinkColored = 'assets/images/low_drink_colored.png';
+
   static const appHighDrinkNormal = 'assets/images/high_drink_normal.png';
   static const appHighDrinkColored = 'assets/images/high_drink_colored.png';
 
