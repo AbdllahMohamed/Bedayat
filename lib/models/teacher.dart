@@ -1,7 +1,9 @@
 class Teacher {
   int? id;
-  String? name;
-  String? description;
+  String? arabicName;
+  String? englishName;
+  String? arabicDescription;
+  String? englishDescription;
   bool? availability;
   String? profileImg;
   int? classId;
@@ -10,8 +12,10 @@ class Teacher {
 
   Teacher({
     this.id,
-    this.name,
-    this.description,
+    this.arabicName,
+    this.englishName,
+    this.arabicDescription,
+    this.englishDescription,
     this.availability,
     this.profileImg,
     this.classId,
@@ -21,24 +25,26 @@ class Teacher {
 
   Teacher.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        name = json['name'],
-        description = json['description'],
+        arabicName = json['arabic_name'],
+        arabicDescription = json['english_name'],
+        englishName = json['arabic_description'],
+        englishDescription = json['arabic_description'],
         availability = json['availability'],
         profileImg = json['profile_img'],
         classId = json['class_id'],
         updatedAt = json['updated_at'],
         createdAt = json['created_at'];
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['profile_img'] = this.profileImg;
-    data['availability'] = this.availability;
-    data['class_id'] = this.classId;
-    data['created_at'] = this.updatedAt;
-    data['updated_at'] = this.updatedAt;
-    return data;
-  }
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = new Map<String, dynamic>();
+  //   data['id'] = this.id;
+  //   data['name'] = this.name;
+  //   data['description'] = this.description;
+  //   data['profile_img'] = this.profileImg;
+  //   data['availability'] = this.availability;
+  //   data['class_id'] = this.classId;
+  //   data['created_at'] = this.updatedAt;
+  //   data['updated_at'] = this.updatedAt;
+  //   return data;
+  // }
 }

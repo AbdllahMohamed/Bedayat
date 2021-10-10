@@ -23,6 +23,7 @@ class GeneralWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(foodStatus);
     return Padding(
       padding:
           const EdgeInsets.only(top: 25.0, right: 20, left: 20, bottom: 10),
@@ -43,7 +44,7 @@ class GeneralWidget extends StatelessWidget {
               firstImagePath: moodSatus == 'low'
                   ? AppImages.appHappyColored
                   : AppImages.appHappyNormal,
-              secondImagePath: moodSatus == 'meduim'
+              secondImagePath: moodSatus == 'medium'
                   ? AppImages.appSilentColored
                   : AppImages.appSilentNormal,
               thirdImagePath: moodSatus == 'high'
@@ -57,7 +58,7 @@ class GeneralWidget extends StatelessWidget {
               firstImagePath: moodSatus == 'low'
                   ? AppImages.appHappyColored
                   : AppImages.appHappyNormal,
-              secondImagePath: moodSatus == 'meduim'
+              secondImagePath: moodSatus == 'medium'
                   ? AppImages.appSilentColored
                   : AppImages.appSilentNormal,
               thirdImagePath: moodSatus == 'high'
@@ -67,11 +68,11 @@ class GeneralWidget extends StatelessWidget {
             height: 15,
           ),
           MoodSatusItem(
-              label: 'afternoon'.tr,
+              label: 'afternoon time'.tr,
               firstImagePath: moodSatus == 'low'
                   ? AppImages.appHappyColored
                   : AppImages.appHappyNormal,
-              secondImagePath: moodSatus == 'meduim'
+              secondImagePath: moodSatus == 'medium'
                   ? AppImages.appSilentColored
                   : AppImages.appSilentNormal,
               thirdImagePath: moodSatus == 'high'
@@ -95,7 +96,7 @@ class GeneralWidget extends StatelessWidget {
             firstImagePath: foodStatus == 'low'
                 ? AppImages.applowFoodColored
                 : AppImages.appLowFoodNormal,
-            secondImagePath: foodStatus == 'meduim'
+            secondImagePath: foodStatus == 'medium'
                 ? AppImages.appMeduimFoodColored
                 : AppImages.appMeduimFoodNormal,
             thirdImagePath: foodStatus == 'high'
@@ -110,7 +111,7 @@ class GeneralWidget extends StatelessWidget {
             firstImagePath: foodStatus == 'low'
                 ? AppImages.applowFoodColored
                 : AppImages.appLowFoodNormal,
-            secondImagePath: foodStatus == 'meduim'
+            secondImagePath: foodStatus == 'medium'
                 ? AppImages.appMeduimFoodColored
                 : AppImages.appMeduimFoodNormal,
             thirdImagePath: foodStatus == 'high'
@@ -125,7 +126,7 @@ class GeneralWidget extends StatelessWidget {
             firstImagePath: foodStatus == 'low'
                 ? AppImages.applowFoodColored
                 : AppImages.appLowFoodNormal,
-            secondImagePath: foodStatus == 'meduim'
+            secondImagePath: foodStatus == 'medium'
                 ? AppImages.appMeduimFoodColored
                 : AppImages.appMeduimFoodNormal,
             thirdImagePath: foodStatus == 'high'

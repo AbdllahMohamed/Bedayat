@@ -79,6 +79,8 @@ class MyApp extends StatelessWidget {
   MyApp({this.token});
   @override
   Widget build(BuildContext context) {
+    print('languageCode');
+    print("${GetStorage().read('languageCode')}");
     return GetMaterialApp(
       title: 'Bedayat',
       debugShowCheckedModeBanner: false,
@@ -86,13 +88,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: AppColors.primaryColor,
         scaffoldBackgroundColor: Colors.white,
-        fontFamily: 'GESSTWO',
+        fontFamily: 'CAIROBLACK',
         colorScheme: ColorScheme.light(primary: AppColors.primaryColor)
             .copyWith(secondary: AppColors.accentColor),
       ),
       translations: Translation(),
-      locale: Locale("${GetStorage().read('languageCode')}"),
-      fallbackLocale: Locale('ar'),
+      locale: Locale("${GetStorage().read('languageCode')}" == null
+          ? 'ar'
+          : "${GetStorage().read('languageCode')}"),
+      //fallbackLocale: Locale('ar'),
       initialRoute: token != null ? '/home' : '/login',
       onGenerateRoute: RouteGenerator.generateRoute,
     );

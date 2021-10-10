@@ -59,6 +59,7 @@ class _AddChildPaymentWebviewScreenState
   @override
   Widget build(BuildContext context) {
     String url = baseUrl + 'payments/${widget.checkoutId}';
+    print(url);
 
     return Scaffold(
       backgroundColor: Color(0xfff6f6f5),

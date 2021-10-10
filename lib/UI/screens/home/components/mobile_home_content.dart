@@ -161,7 +161,6 @@ class MobileHomeContentWidget extends StatelessWidget {
                                         },
                                         child: Container(
                                           width: 320,
-                                          height: 35,
                                           alignment: Alignment.center,
                                           padding: EdgeInsets.all(8),
                                           margin: EdgeInsets.only(
@@ -344,7 +343,8 @@ class MobileHomeContentWidget extends StatelessWidget {
                   // ignore: unnecessary_null_comparison
                   expireDate == 'null'
                       ? Padding(
-                          padding: const EdgeInsets.only(right: 15, top: 5),
+                          padding: const EdgeInsets.only(
+                              right: 15, top: 6, bottom: 2),
                           child: ElevatedButton(
                             onPressed: () async {
                               Get.to(HomePaymentScreen(
@@ -366,8 +366,8 @@ class MobileHomeContentWidget extends StatelessWidget {
                               'Your child is not registered to subscribe now'
                                   .tr,
                               style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.white,
                               ),
                             ),

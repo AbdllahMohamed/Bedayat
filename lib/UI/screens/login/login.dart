@@ -8,6 +8,7 @@ import 'package:bedayat/controllers/auth_Controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -84,12 +85,39 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 60),
                     Center(child: Image.asset(AppImages.appLogo)),
                     SizedBox(height: 20),
-                    Text(
-                      'Login'.tr,
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w300,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          'Login'.tr,
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                        Spacer(),
+                        InkWell(
+                            onTap: () {
+                              final locale = Get.locale;
+                              final box = GetStorage();
+                              if (locale == Locale('en')) {
+                                Get.updateLocale(Locale('ar'));
+                                box.write('languageCode', 'ar');
+                              } else {
+                                Get.updateLocale(Locale('en'));
+                                box.write('languageCode', 'en');
+                              }
+                            },
+                            child: Icon(Icons.language_rounded, size: 30)),
+                        Text(
+                          "${GetStorage().read('languageCode')}" == null
+                              ? 'Ar'
+                              : "${GetStorage().read('languageCode')}"
+                                  .toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 30),
                     CustomeTextFormField(
