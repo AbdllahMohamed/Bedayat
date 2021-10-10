@@ -251,6 +251,8 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
       });
   }
 
+  final locale = Get.locale;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -473,9 +475,13 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    teacherController
-                                                        .teacherList[index]
-                                                        .name!,
+                                                    locale == Locale('en')
+                                                        ? teacherController
+                                                            .teacherList[index]
+                                                            .englishName!
+                                                        : teacherController
+                                                            .teacherList[index]
+                                                            .arabicName!,
                                                     style: TextStyle(
                                                       fontSize: 16,
                                                       fontWeight:
@@ -485,9 +491,13 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    teacherController
-                                                        .teacherList[index]
-                                                        .description!,
+                                                    locale == Locale('en')
+                                                        ? teacherController
+                                                            .teacherList[index]
+                                                            .englishDescription!
+                                                        : teacherController
+                                                            .teacherList[index]
+                                                            .arabicDescription!,
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                       color:

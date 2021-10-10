@@ -70,7 +70,7 @@ WebView.platform = SurfaceAndroidWebView();
 
   @override
   Widget build(BuildContext context) {
-    String url = baseUrl + 'payments/${GetStorage().read('checkoutId')}';
+    String url = baseUrl + widget.checkoutId;
     print(url);
 
     return Scaffold(
