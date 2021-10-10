@@ -40,11 +40,12 @@ class _RegisterPaymentWebviewScreenState
   void initState() {
     super.initState();
 
-    if (Platform.isAndroid) 
-WebView.platform = SurfaceAndroidWebView();
-  }
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
 
       kIsWeb ? _setUrl() : WebView.platform = SurfaceAndroidWebView();
+
+  }
+
 
 
   void _setUrl() {
