@@ -365,7 +365,6 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                               ),
                             )
                           : Container(
-                              height: 290,
                               margin: EdgeInsets.only(
                                   right: 10, left: 10, bottom: 10),
                               width: double.infinity,
@@ -374,7 +373,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    height: 98,
+                                    height: 105,
                                     child: ListView.builder(
                                       physics: BouncingScrollPhysics(),
                                       scrollDirection: Axis.horizontal,

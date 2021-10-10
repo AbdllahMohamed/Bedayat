@@ -330,7 +330,7 @@ class _HomePaymentScreenState extends State<HomePaymentScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    height: 98,
+                                    height: 105,
                                     child: ListView.builder(
                                       physics: BouncingScrollPhysics(),
                                       scrollDirection: Axis.horizontal,
