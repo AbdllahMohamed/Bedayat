@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
             .copyWith(secondary: AppColors.accentColor),
       ),
       translations: Translation(),
-      locale: Locale("${GetStorage().read('languageCode')}" == null
+      locale: Locale("${GetStorage().read('languageCode')}" == "null"
           ? 'ar'
           : "${GetStorage().read('languageCode')}"),
       //fallbackLocale: Locale('ar'),

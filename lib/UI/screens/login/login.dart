@@ -95,28 +95,33 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         Spacer(),
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: Text(
+                            "${GetStorage().read('languageCode')}" == "null"
+                                ? 'EN'
+                                : "${GetStorage().read('languageCode')}"
+                                    .toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
                         InkWell(
                             onTap: () {
                               final locale = Get.locale;
                               final box = GetStorage();
                               if (locale == Locale('en')) {
                                 Get.updateLocale(Locale('ar'));
-                                box.write('languageCode', 'ar');
+                                box.write('languageCode', 'ع');
                               } else {
                                 Get.updateLocale(Locale('en'));
                                 box.write('languageCode', 'en');
                               }
                             },
                             child: Icon(Icons.language_rounded, size: 30)),
-                        Text(
-                          "${GetStorage().read('languageCode')}" == null
-                              ? 'Ar'
-                              : "${GetStorage().read('languageCode')}"
-                                  .toUpperCase(),
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
                       ],
                     ),
                     SizedBox(height: 30),
