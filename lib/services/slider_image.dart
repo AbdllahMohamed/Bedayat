@@ -20,6 +20,7 @@ class SliderImagesServices {
       ),
     );
     List<SliderImage> temp = [];
+    print("SliderImage");
     print(response.data);
     response.data['data'].forEach((e) => temp.add(SliderImage.fromJson(e)));
 

@@ -8,6 +8,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hijri_picker/hijri_picker.dart';
+import 'package:hijri/hijri_calendar.dart';
 
 int? selectedPackageIndex = 0;
 TextEditingController streetController = new TextEditingController();
@@ -70,18 +72,26 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
           middleText: 'Please choose the payment method'.tr);
       return;
     }
+    if (_actualselectedDate == 'Date'.tr) {
+      Get.defaultDialog(
+          title: "Something went wrong".tr,
+          middleText: 'Please choose the date'.tr);
+      return;
+    }
 
     String error = await paymentController.getCheckoutId(
-        packageId: (selectedPackageIndex!).toString(),
-        email: '"${GetStorage().read('userEmail')}"',
-        street: streetController.text,
-        city: cityController.text,
-        state: stateController.text,
-        postcode: postCodeController.text,
-        givenName: givenNameController.text,
-        surname: surnameController.text,
-        paymentMethod: seletctedBank,
-        childId: "${GetStorage().read('childId')}");
+      packageId: (selectedPackageIndex!).toString(),
+      email: '"${GetStorage().read('userEmail')}"',
+      street: streetController.text,
+      city: cityController.text,
+      state: stateController.text,
+      postcode: postCodeController.text,
+      givenName: givenNameController.text,
+      surname: surnameController.text,
+      paymentMethod: seletctedBank,
+      childId: "${GetStorage().read('childId')}",
+      startAt: _actualselectedDate,
+    );
 
     print((selectedPackageIndex!).toString());
     print('"${GetStorage().read('userEmail')}"');
@@ -118,6 +128,24 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
       print(packageController.pakagesSelection.length);
     });
   }
+
+  String _actualselectedDate = 'Date'.tr;
+
+  Future<void> _selectMeldadyDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      lastDate: DateTime.now(),
+      firstDate: DateTime(2000, 8),
+    );
+
+    if (picked != null)
+      setState(() {
+        _actualselectedDate = picked.toString().substring(0, 10);
+      });
+  }
+
+  final locale = Get.locale;
 
   @override
   Widget build(BuildContext context) {
@@ -201,6 +229,44 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        right: 8,
+                        left: 20,
+                      ),
+                      child: Text(
+                        'Start From :'.tr,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.accentColor,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          _selectMeldadyDate(context);
+                        },
+                        icon: Icon(Icons.date_range)),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      _actualselectedDate,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.accentColor,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    )
+                  ],
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -208,6 +274,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                       padding: const EdgeInsets.only(
                         right: 20,
                         left: 20,
+                        bottom: 10,
                       ),
                       child: Text(
                         'Choose the period :'.tr,
@@ -219,17 +286,16 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 15.0),
+                      padding: const EdgeInsets.only(top: 5.0),
                       child: Container(
                         width: 120,
-                        height: 65,
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton(
                             iconEnabledColor: Color(0xffAA9E9E),
                             isExpanded: true,
                             iconSize: 30,
                             icon: Padding(
-                              padding: EdgeInsets.only(bottom: 20),
+                              padding: EdgeInsets.only(bottom: 15),
                               child: Icon(Icons.arrow_drop_down),
                             ),
                             hint: Padding(
@@ -269,6 +335,9 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                       ),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 Obx(
                   () => packageController.loadingProcess.value
@@ -355,7 +424,9 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  '${packageController.pakagesSelection[index].title!}',
+                                                  locale == Locale('en')
+                                                      ? '${packageController.pakagesSelection[index].englishTitle!}'
+                                                      : '${packageController.pakagesSelection[index].arabicTitle!}',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Colors.white,

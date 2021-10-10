@@ -63,6 +63,8 @@ class _AddChildStepTwoScreenState extends State<AddChildStepTwoScreen> {
     }
   }
 
+  final locale = Get.locale;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -204,8 +206,13 @@ class _AddChildStepTwoScreenState extends State<AddChildStepTwoScreen> {
                                           ),
                                           Expanded(
                                             child: Text(
-                                              branchController
-                                                  .branchsList[index].title!,
+                                              locale == Locale('en')
+                                                  ? branchController
+                                                      .branchsList[index]
+                                                      .englistTitle!
+                                                  : branchController
+                                                      .branchsList[index]
+                                                      .arabicTitle!,
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 color: AppColors.titleColor,

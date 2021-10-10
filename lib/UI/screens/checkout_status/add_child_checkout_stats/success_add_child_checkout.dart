@@ -1,7 +1,7 @@
 import 'package:bedayat/UI/screens/add_child/add_child_step_five.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:bedayat/controllers/auth_services.dart';
+import 'package:bedayat/controllers/auth_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

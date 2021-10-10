@@ -38,17 +38,7 @@ class _AddChildPaymentWebviewScreenState
   @override
   void initState() {
     super.initState();
-<<<<<<< HEAD
-    // Enable hybrid composition.
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
-
-    // kIsWeb
-    //     // ignore: unnecessary_statements
-    //     ? _setUrl()
-    //     : WebView.platform = SurfaceAndroidWebView();
-=======
     kIsWeb ? _setUrl() : WebView.platform = SurfaceAndroidWebView();
->>>>>>> add_languag
   }
 
   void _setUrl() {
@@ -73,11 +63,7 @@ class _AddChildPaymentWebviewScreenState
     return Scaffold(
       backgroundColor: Color(0xfff6f6f5),
       appBar: AppBar(
-<<<<<<< HEAD
-        title: const Text('Payement '),
-=======
         title: Text('Payement'.tr),
->>>>>>> add_languag
         centerTitle: true,
       ),
       body: kIsWeb

@@ -13,6 +13,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -57,229 +58,257 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  final locale = Get.locale;
+
   @override
   Widget build(BuildContext context) {
     var _deviceWidth = MediaQuery.of(context).size.width;
     var _devicHeight = MediaQuery.of(context).size.height;
     print(_deviceWidth);
-    return Scaffold(
-      key: _scaffoldkey,
-      backgroundColor: Colors.white,
-      drawer: AppDrawer(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          controller: scrollController,
-          padding: EdgeInsets.all(0),
-          child: Stack(
-            children: <Widget>[
-              HomeHeaderWidget(
-                onTap: () {
-                  _scaffoldkey.currentState!.openDrawer();
-                },
-              ),
-              Obx(
-                () => sliderImagesController.loadingProcess.value
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 100.0),
-                        child: Container(
-                          width: _deviceWidth,
-                          height: 240,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                AppColors.accentColor,
+    return WillPopScope(
+      onWillPop: () async {
+        SystemNavigator.pop();
+        return false;
+      },
+      child: Scaffold(
+        key: _scaffoldkey,
+        backgroundColor: Colors.white,
+        drawer: AppDrawer(),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            controller: scrollController,
+            padding: EdgeInsets.all(0),
+            child: Stack(
+              children: <Widget>[
+                HomeHeaderWidget(
+                  onTap: () {
+                    _scaffoldkey.currentState!.openDrawer();
+                  },
+                ),
+                Obx(
+                  () => sliderImagesController.loadingProcess.value
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 100.0),
+                          child: Container(
+                            width: _deviceWidth,
+                            height: 240,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColors.accentColor,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      )
-                    : sliderImagesController.sliderImagesList.length == 0
-                        ? Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 200.0),
-                              child: Text(
-                                'Not Found Data'.tr,
-                                style: TextStyle(
-                                    fontSize: 22, color: AppColors.accentColor),
+                        )
+                      : sliderImagesController.sliderImagesList.length == 0
+                          ? Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 200.0),
+                                child: Text(
+                                  'Not Found Data'.tr,
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      color: AppColors.accentColor),
+                                ),
                               ),
-                            ),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 100.0),
-                            child: Container(
-                              width: _deviceWidth,
-                              height: kIsWeb ? 300 : 240,
-                              child: PageView.builder(
-                                allowImplicitScrolling: true,
-                                physics: BouncingScrollPhysics(),
-                                itemCount: sliderImagesController
-                                    .sliderImagesList.length,
-                                controller: controller,
-                                itemBuilder: (_, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      Get.to(SliderImageDetails(
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(top: 100.0),
+                              child: Container(
+                                width: _deviceWidth,
+                                height: kIsWeb ? 300 : 240,
+                                child: PageView.builder(
+                                  allowImplicitScrolling: true,
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount: sliderImagesController
+                                      .sliderImagesList.length,
+                                  controller: controller,
+                                  itemBuilder: (_, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        Get.to(SliderImageDetails(
+                                          imagePath:
+                                              "$baseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
+                                          title: locale == Locale('en')
+                                              ? sliderImagesController
+                                                  .sliderImagesList[index]
+                                                  .englishContent!
+                                              : sliderImagesController
+                                                  .sliderImagesList[index]
+                                                  .arabicContent!,
+                                          description: locale == Locale('en')
+                                              ? sliderImagesController
+                                                  .sliderImagesList[index]
+                                                  .englishContent!
+                                              : sliderImagesController
+                                                  .sliderImagesList[index]
+                                                  .arabicContent!,
+                                        ));
+                                      },
+                                      child: ImageSliderWidget(
                                         imagePath:
                                             "$baseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
-                                        title: sliderImagesController
-                                            .sliderImagesList[index].title!,
-                                        description: sliderImagesController
-                                            .sliderImagesList[index].content!,
-                                      ));
-                                    },
-                                    child: ImageSliderWidget(
-                                      imagePath:
-                                          "$baseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
-                                      imageTitle: sliderImagesController
-                                          .sliderImagesList[index].title!,
-                                      imageContent: sliderImagesController
-                                          .sliderImagesList[index].content!,
-                                    ),
-                                  );
-                                },
+                                        imageTitle: locale == Locale('en')
+                                            ? sliderImagesController
+                                                .sliderImagesList[index]
+                                                .englishContent!
+                                            : sliderImagesController
+                                                .sliderImagesList[index]
+                                                .arabicContent!,
+                                        imageContent: locale == Locale('en')
+                                            ? sliderImagesController
+                                                .sliderImagesList[index]
+                                                .englishContent!
+                                            : sliderImagesController
+                                                .sliderImagesList[index]
+                                                .arabicContent!,
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-              ),
-              Obx(
-                () => Padding(
-                  padding: const EdgeInsets.only(
-                      top: kIsWeb ? 330 : 315.0, right: 180, left: 180),
-                  child: SmoothPageIndicator(
-                    controller: controller, // PageController
-                    count: sliderImagesController.sliderImagesList.length,
-                    effect: ExpandingDotsEffect(
-                      dotColor: Colors.white,
-                      activeDotColor: Colors.white,
-                      dotWidth: 9,
-                      dotHeight: 11,
+                ),
+                Obx(
+                  () => Padding(
+                    padding: const EdgeInsets.only(
+                        top: kIsWeb ? 330 : 315.0, right: 180, left: 180),
+                    child: SmoothPageIndicator(
+                      controller: controller, // PageController
+                      count: sliderImagesController.sliderImagesList.length,
+                      effect: ExpandingDotsEffect(
+                        dotColor: Colors.white,
+                        activeDotColor: Colors.white,
+                        dotWidth: 9,
+                        dotHeight: 11,
+                      ),
+                      onDotClicked: (index) {},
                     ),
-                    onDotClicked: (index) {},
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: kIsWeb ? 440 : 370.0,
-                  right: 20,
-                  left: 20,
-                ),
-                child: Text(
-                  'Children'.tr,
-                  style: TextStyle(
-                    color: AppColors.titleColor,
-                    fontSize: 28,
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: kIsWeb ? 440 : 370.0,
+                    right: 20,
+                    left: 20,
+                  ),
+                  child: Text(
+                    'Children'.tr,
+                    style: TextStyle(
+                      color: AppColors.titleColor,
+                      fontSize: 28,
+                    ),
                   ),
                 ),
-              ),
-              Obx(
-                () => childernController.loadingProcess.value
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 100.0),
-                        child: Container(
-                          width: _deviceWidth,
-                          height: _devicHeight,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                AppColors.accentColor,
+                Obx(
+                  () => childernController.loadingProcess.value
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 100.0),
+                          child: Container(
+                            width: _deviceWidth,
+                            height: _devicHeight,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColors.accentColor,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      )
-                    : childernController.childernList.length == 0
-                        ? Center(
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    top: 450,
-                                  ),
-                                  child: Text(
-                                    'Not Found Data'.tr,
-                                    style: TextStyle(
-                                        fontSize: 22,
-                                        color: AppColors.accentColor),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    top: _devicHeight * 0.3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.only(
-                              top: kIsWeb ? 500 : 420.0,
-                              left: 5,
-                              bottom: 25,
-                            ),
-                            child: kIsWeb && _deviceWidth > 500
-                                ? GridView.builder(
-                                    shrinkWrap: true,
-                                    physics: BouncingScrollPhysics(),
-                                    padding: EdgeInsets.only(top: 20),
-                                    itemCount:
-                                        childernController.childernList.length,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 5,
-                                      mainAxisSpacing: 15,
-                                      childAspectRatio:
-                                          _deviceWidth / (_devicHeight / 1.4),
+                        )
+                      : childernController.childernList.length == 0
+                          ? Center(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      top: 450,
                                     ),
-                                    itemBuilder: (BuildContext context, i) {
-                                      return HomeWebContentWidget(
-                                        name: childernController
-                                            .childernList[i].name!,
-                                        agegroupe: childernController
-                                            .childernList[i].ageGroup!,
-                                        imagePath:
-                                            "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
-                                        childId: childernController
-                                            .childernList[i].id!,
-                                        createdAt: childernController
-                                            .childernList[i].createdAt!,
-                                        expireDate: childernController
-                                                .childernList[i].expireDate ??
-                                            "null",
-                                      );
-                                    },
-                                  )
-                                : ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: BouncingScrollPhysics(),
-                                    itemCount:
-                                        childernController.childernList.length,
-                                    itemBuilder: (_, i) {
-                                      return MobileHomeContentWidget(
-                                        name: childernController
-                                                .childernList[i].name ??
-                                            "",
-                                        ageGroup: childernController
-                                                .childernList[i].ageGroup ??
-                                            "",
-                                        imagePath:
-                                            "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
-                                        childId: childernController
-                                                .childernList[i].id ??
-                                            1,
-                                        createdAt: childernController
-                                                .childernList[i].createdAt ??
-                                            "",
-                                        expireDate: childernController
-                                                .childernList[i].expireDate ??
-                                            'null',
-                                      );
-                                    },
+                                    child: Text(
+                                      'Not Found Data'.tr,
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          color: AppColors.accentColor),
+                                    ),
                                   ),
-                          ),
-              ),
-            ],
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      top: _devicHeight * 0.3,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(
+                                top: kIsWeb ? 500 : 420.0,
+                                left: 5,
+                                bottom: 25,
+                              ),
+                              child: kIsWeb && _deviceWidth > 500
+                                  ? GridView.builder(
+                                      shrinkWrap: true,
+                                      physics: BouncingScrollPhysics(),
+                                      padding: EdgeInsets.only(top: 20),
+                                      itemCount: childernController
+                                          .childernList.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 5,
+                                        mainAxisSpacing: 15,
+                                        childAspectRatio:
+                                            _deviceWidth / (_devicHeight / 1.4),
+                                      ),
+                                      itemBuilder: (BuildContext context, i) {
+                                        return HomeWebContentWidget(
+                                          name: childernController
+                                              .childernList[i].firstName!,
+                                          agegroupe: childernController
+                                              .childernList[i].ageGroup!,
+                                          imagePath:
+                                              "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                          childId: childernController
+                                              .childernList[i].id!,
+                                          createdAt: childernController
+                                              .childernList[i].createdAt!,
+                                          expireDate: childernController
+                                                  .childernList[i].expireDate ??
+                                              "null",
+                                        );
+                                      },
+                                    )
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: BouncingScrollPhysics(),
+                                      itemCount: childernController
+                                          .childernList.length,
+                                      itemBuilder: (_, i) {
+                                        return MobileHomeContentWidget(
+                                          name: childernController
+                                                  .childernList[i].firstName ??
+                                              "",
+                                          ageGroup: childernController
+                                                  .childernList[i].ageGroup ??
+                                              "",
+                                          imagePath:
+                                              "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
+                                          childId: childernController
+                                              .childernList[i].id!,
+                                          createdAt: childernController
+                                                  .childernList[i].createdAt ??
+                                              "",
+                                          expireDate: childernController
+                                                  .childernList[i].expireDate ??
+                                              'null',
+                                        );
+                                      },
+                                    ),
+                            ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

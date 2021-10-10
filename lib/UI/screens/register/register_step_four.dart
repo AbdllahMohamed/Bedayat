@@ -5,7 +5,7 @@ import 'package:bedayat/UI/widgets/cutome_textFormfield.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
-import 'package:bedayat/controllers/auth_services.dart';
+import 'package:bedayat/controllers/auth_Controller.dart';
 import 'package:bedayat/controllers/group_controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:flutter/foundation.dart';
@@ -50,7 +50,8 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _childNameController = TextEditingController();
+  TextEditingController _childFirstNameController = TextEditingController();
+  TextEditingController _childSecondNameController = TextEditingController();
 
   TextEditingController _relationOnefirstNameController =
       TextEditingController();
@@ -88,9 +89,9 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
 
   final ImagePicker _picker = ImagePicker();
 
-  XFile? _familyCardPhoto = XFile('');
-  XFile? _vaccinationCertificate = XFile('');
-  XFile? _doctuumnet = XFile('');
+  XFile _familyCardPhoto = XFile('');
+  XFile _vaccinationCertificate = XFile('');
+  XFile _doctuumnet = XFile('');
 
   int? selectedGroupIndex;
   int? selectedTeacherIndex;
@@ -111,9 +112,9 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
           middleText:
               'Please make sure to choose your age group and gender'.tr);
       return;
-    } else if (_familyCardPhoto!.path.isEmpty ||
-        _vaccinationCertificate!.path.isEmpty ||
-        _doctuumnet!.path.isEmpty ||
+    } else if (_familyCardPhoto.path.isEmpty ||
+        _vaccinationCertificate.path.isEmpty ||
+        _doctuumnet.path.isEmpty ||
         _selectedType == 'Gender'.tr) {
       await Get.defaultDialog(
           title: "Something went wrong".tr,
@@ -132,7 +133,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
       password: widget.passwordController,
       groupId: selectedGroupIndex.toString(),
       teacherId: selectedTeacherIndex.toString(),
-      childname: _childNameController.text,
+      // childname: _childNameController.text,
       relationOnefirstNameController: _relationOnefirstNameController.text,
       relationOneSecondNameController: _relationOneSecondNameController.text,
       relationOneThirdController: _relationOneThirdController.text,
@@ -179,7 +180,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
       password: widget.passwordController,
       groupId: selectedGroupIndex.toString(),
       teacherId: selectedTeacherIndex.toString(),
-      childname: _childNameController.text,
+      //childname: _childNameController.text,
       gender: _selectedType == 'ولد' ? 'male' : 'female',
       relationOnefirstNameController: _relationOnefirstNameController.text,
       relationOneSecondNameController: _relationOneSecondNameController.text,
@@ -218,7 +219,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
     }
   }
 
-  Future<void> _selectMedladyDate(BuildContext context) async {
+  Future<void> _selectMeldadyDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -248,22 +249,6 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
       setState(() {
         _actualselectedDate = "${picked.hYear}/${picked.hMonth}/${picked.hDay}";
       });
-    // hi.SfHijriDateRangePicker(
-    //   selectionMode: hi.DateRangePickerSelectionMode.single,
-    //   controller: _controller,
-    // );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _childNameController.dispose();
-    _emergencyNumberController.dispose();
-    _anthorNotesController.dispose();
-    _emailOneController.dispose();
-    _phoneOneController.dispose();
-    _emailTwoController.dispose();
-    _phoneTwoController.dispose();
   }
 
   @override
@@ -522,7 +507,18 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       height: 10,
                     ),
                     CustomeTextFormField(
-                      controller: _childNameController,
+                      controller: _childFirstNameController,
+                      validator: (val) {
+                        if (val.isEmpty) {
+                          return 'Please enter a valid value'.tr;
+                        } else if (val.length <= 2) {
+                          return 'Please enter a valid value'.tr;
+                        }
+                      },
+                      hintText: 'First Name'.tr,
+                    ),
+                    CustomeTextFormField(
+                      controller: _childSecondNameController,
                       validator: (val) {
                         if (val.isEmpty) {
                           return 'Please enter a valid value'.tr;
@@ -566,7 +562,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                               ),
                               onChanged: (String? newValue) {
                                 newValue == 'Gregorian'.tr
-                                    ? _selectMedladyDate(context)
+                                    ? _selectMeldadyDate(context)
                                     : _selectHijrDate(context);
                               },
                               items: _dates.map((type) {
@@ -817,8 +813,8 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                     ),
                     InkWell(
                       onTap: () async {
-                        _familyCardPhoto = await _picker.pickImage(
-                            source: ImageSource.gallery);
+                        _familyCardPhoto = (await _picker.pickImage(
+                            source: ImageSource.gallery))!;
                         setState(() {});
                       },
                       child: Container(
@@ -864,7 +860,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15.0),
                               child: Image.asset(
-                                (_familyCardPhoto!.path.isEmpty)
+                                (_familyCardPhoto.path.isEmpty)
                                     ? AppImages.appUploadNormal
                                     : AppImages.appUploadColored,
                               ),
@@ -878,8 +874,8 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                     ),
                     InkWell(
                       onTap: () async {
-                        _vaccinationCertificate = await _picker.pickImage(
-                            source: ImageSource.gallery);
+                        _vaccinationCertificate = (await _picker.pickImage(
+                            source: ImageSource.gallery))!;
                         setState(() {});
                       },
                       child: Container(
@@ -925,7 +921,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15.0),
                               child: Image.asset(
-                                (_vaccinationCertificate!.path.isEmpty)
+                                (_vaccinationCertificate.path.isEmpty)
                                     ? AppImages.appUploadNormal
                                     : AppImages.appUploadColored,
                               ),
@@ -939,8 +935,8 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                     ),
                     InkWell(
                       onTap: () async {
-                        _doctuumnet = await _picker.pickImage(
-                            source: ImageSource.gallery);
+                        _doctuumnet = (await _picker.pickImage(
+                            source: ImageSource.gallery))!;
                         setState(() {});
                       },
                       child: Container(
@@ -986,7 +982,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15.0),
                               child: Image.asset(
-                                (_doctuumnet!.path.isEmpty)
+                                (_doctuumnet.path.isEmpty)
                                     ? AppImages.appUploadNormal
                                     : AppImages.appUploadColored,
                               ),

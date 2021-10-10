@@ -1,7 +1,8 @@
 import 'package:bedayat/UI/screens/add_child/add_child_step_one.dart';
 import 'package:bedayat/UI/screens/events/events.dart';
+import 'package:bedayat/UI/screens/terms_and_condtion/terms_and_condtions.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:bedayat/controllers/auth_services.dart';
+import 'package:bedayat/controllers/auth_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -56,6 +57,13 @@ class AppDrawer extends StatelessWidget {
                   box.write('languageCode', 'en');
                   print("${GetStorage().read('languageCode')}");
                 }
+              },
+            ),
+            DrawerItem(
+              label: 'Terms and Condtions'.tr,
+              imagePath: AppImages.appTermsAndConditions,
+              onTap: () {
+                Get.to(TermsAndConditionsScreen());
               },
             ),
             DrawerItem(

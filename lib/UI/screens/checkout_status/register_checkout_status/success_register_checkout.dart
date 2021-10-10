@@ -1,7 +1,7 @@
 import 'package:bedayat/UI/screens/register/register_step_six.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:bedayat/controllers/auth_services.dart';
+import 'package:bedayat/controllers/auth_Controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

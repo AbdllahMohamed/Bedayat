@@ -4,7 +4,7 @@ import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/UI/widgets/cutome_textFormfield.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:bedayat/controllers/auth_services.dart';
+import 'package:bedayat/controllers/auth_Controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,7 +43,9 @@ class _LoginScreenState extends State<LoginScreen> {
       String? token = await FirebaseMessaging.instance.getToken();
       print(token);
       authController.sendToken(token!);
-      Get.offAll(BottomNavigationWidget());
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => BottomNavigationWidget()),
+          (Route<dynamic> route) => false);
     }
   }
 

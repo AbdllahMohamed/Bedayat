@@ -19,9 +19,6 @@ class ChildrenServices {
     List<Child> temp = [];
     print('children responce');
     print(response.data['data']);
-    print(response.data['data'][0]['id']);
-    print(response.data['data'][0]['name']);
-    print(response.data['data'][0]['expire_date']);
     response.data['data'].forEach((e) => temp.add(Child.fromJson(e)));
 
     return temp;

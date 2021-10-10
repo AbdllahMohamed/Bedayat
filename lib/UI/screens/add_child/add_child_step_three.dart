@@ -5,7 +5,7 @@ import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/add_child_controller.dart';
-import 'package:bedayat/controllers/auth_services.dart';
+import 'package:bedayat/controllers/auth_Controller.dart';
 import 'package:bedayat/controllers/group_controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:flutter/foundation.dart';
@@ -68,7 +68,8 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _childNameController = TextEditingController();
+  TextEditingController _childFirstNameController = TextEditingController();
+  TextEditingController _childSecondNameController = TextEditingController();
   TextEditingController _sensitificController = TextEditingController();
   late TextEditingController _emergencyNumberController;
   late TextEditingController _anthorNotesController;
@@ -141,9 +142,9 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
 
   final ImagePicker _picker = ImagePicker();
 
-  XFile? _familyCardPhoto = XFile('');
-  XFile? _vaccinationCertificate = XFile('');
-  XFile? _doctuumnet = XFile('');
+  XFile _familyCardPhoto = XFile('');
+  XFile _vaccinationCertificate = XFile('');
+  XFile _doctuumnet = XFile('');
 
   int? selectedGroupIndex;
   int? selectedTeacherIndex;
@@ -164,9 +165,9 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
           middleText:
               'Please make sure to choose your age group and gender'.tr);
       return;
-    } else if (_familyCardPhoto!.path.isEmpty ||
-        _vaccinationCertificate!.path.isEmpty ||
-        _doctuumnet!.path.isEmpty ||
+    } else if (_familyCardPhoto.path.isEmpty ||
+        _vaccinationCertificate.path.isEmpty ||
+        _doctuumnet.path.isEmpty ||
         _selectedType == 'Gender'.tr) {
       await Get.defaultDialog(
           title: "Something went wrong".tr,
@@ -179,7 +180,8 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
 
   void _addChildWeb() async {
     String addchildError = await authController.addChildWeb(
-      childname: _childNameController.text,
+      //childname: _childNameController.text,
+      childname: 'ali',
       gender: _selectedType == 'ولد' ? 'male' : 'female',
       emergencyNumber: _emergencyNumberController.text,
       parentOneRealation: _relationsOneController.text,
@@ -194,7 +196,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
       groupId: selectedGroupIndex.toString(),
       familyCard: _familyCardPhoto,
       vaccinationCertificate: _vaccinationCertificate,
-      document: _doctuumnet!,
+      document: _doctuumnet,
       actualselectedDate: _actualselectedDate,
       relationOnefirstNameController: _relationOnefirstNameController.text,
       relationOneSecondNameController: _relationOneSecondNameController.text,
@@ -219,7 +221,8 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
 
   void _addChildMobile() async {
     String addchildError = await authController.addChild(
-      childname: _childNameController.text,
+      //childname: _childNameController.text,
+      childname: 'ali',
       gender: _selectedType == 'ولد' ? 'male' : 'female',
       emergencyNumber: _emergencyNumberController.text,
       parentOneRealation: _relationsOneController.text,
@@ -233,7 +236,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
       groupId: selectedGroupIndex.toString(),
       familyCard: _familyCardPhoto,
       vaccinationCertificate: _vaccinationCertificate,
-      document: _doctuumnet!,
+      document: _doctuumnet,
       actualselectedDate: _actualselectedDate,
       relationOnefirstNameController: _relationOnefirstNameController.text,
       relationOneSecondNameController: _relationOneSecondNameController.text,
@@ -286,18 +289,6 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
       setState(() {
         _actualselectedDate = "${picked.hYear}/${picked.hMonth}/${picked.hDay}";
       });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _childNameController.dispose();
-    _emergencyNumberController.dispose();
-    _anthorNotesController.dispose();
-    _emailOneController.dispose();
-    _phoneOneController.dispose();
-    _emailTwoController.dispose();
-    _phoneTwoController.dispose();
   }
 
   @override
@@ -564,7 +555,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                       height: 10,
                     ),
                     TextFormField(
-                      controller: _childNameController,
+                      controller: _childFirstNameController,
                       validator: (val) {
                         if (val!.isEmpty) {
                           return 'Please enter a valid value'.tr;
@@ -582,7 +573,30 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                         border: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[300]!),
                         ),
-                        hintText: 'Name'.tr,
+                        hintText: 'First Name'.tr,
+                        hintStyle: TextStyle(color: AppColors.accentColor),
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _childSecondNameController,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return 'Please enter a valid value'.tr;
+                        } else if (val.length <= 2) {
+                          return 'Please enter a valid value'.tr;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[300]!),
+                        ),
+                        hintText: 'Second Name'.tr,
                         hintStyle: TextStyle(color: AppColors.accentColor),
                       ),
                     ),
@@ -1061,10 +1075,9 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                     ),
                     InkWell(
                       onTap: () async {
-                        _familyCardPhoto = await _picker.pickImage(
-                            source: ImageSource.gallery);
+                        _familyCardPhoto = (await _picker.pickImage(
+                            source: ImageSource.gallery))!;
                         setState(() {});
-                        print(_familyCardPhoto!.path);
                       },
                       child: Container(
                         height: 80,
@@ -1109,7 +1122,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15.0),
                               child: Image.asset(
-                                (_familyCardPhoto!.path.isEmpty)
+                                (_familyCardPhoto.path.isEmpty)
                                     ? AppImages.appUploadNormal
                                     : AppImages.appUploadColored,
                               ),
@@ -1123,10 +1136,9 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                     ),
                     InkWell(
                       onTap: () async {
-                        _vaccinationCertificate = await _picker.pickImage(
-                            source: ImageSource.gallery);
+                        _vaccinationCertificate = (await _picker.pickImage(
+                            source: ImageSource.gallery))!;
                         setState(() {});
-                        print(_vaccinationCertificate!.path);
                       },
                       child: Container(
                         height: 80,
@@ -1171,7 +1183,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15.0),
                               child: Image.asset(
-                                (_vaccinationCertificate!.path.isEmpty)
+                                (_vaccinationCertificate.path.isEmpty)
                                     ? AppImages.appUploadNormal
                                     : AppImages.appUploadColored,
                               ),
@@ -1185,10 +1197,9 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                     ),
                     InkWell(
                       onTap: () async {
-                        _doctuumnet = await _picker.pickImage(
-                            source: ImageSource.gallery);
+                        _doctuumnet = (await _picker.pickImage(
+                            source: ImageSource.gallery))!;
                         setState(() {});
-                        print(_doctuumnet!.path);
                       },
                       child: Container(
                         height: 80,
@@ -1233,7 +1244,7 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15.0),
                               child: Image.asset(
-                                (_doctuumnet!.path.isEmpty)
+                                (_doctuumnet.path.isEmpty)
                                     ? AppImages.appUploadNormal
                                     : AppImages.appUploadColored,
                               ),

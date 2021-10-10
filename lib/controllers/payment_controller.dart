@@ -16,6 +16,7 @@ class PaymentController extends GetxController {
     String? surname,
     String? paymentMethod,
     String? childId,
+    String? startAt,
   }) async {
     var paymentError = "";
     try {
@@ -31,6 +32,7 @@ class PaymentController extends GetxController {
         surname: surname,
         paymentMethod: paymentMethod,
         childId: childId,
+        startAt: startAt,
       );
     } catch (e) {
       print(e);

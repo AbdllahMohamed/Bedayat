@@ -78,12 +78,11 @@ class _AddChildMapScreenState extends State<AddChildMapScreen> {
         onTap: _handelTap,
         markers: Set.from(myMarker),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,
         onPressed: () async {
-          print(selectedPoint.latitude);
-          print(selectedPoint.longitude);
           Get.to(
             AddChildStepTwoScreen(
                 // location: selectedPoint.latitude.toString(),

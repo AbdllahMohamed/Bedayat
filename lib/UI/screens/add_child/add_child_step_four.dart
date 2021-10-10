@@ -2,7 +2,7 @@ import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.d
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:bedayat/controllers/auth_services.dart';
+import 'package:bedayat/controllers/auth_Controller.dart';
 import 'package:bedayat/controllers/package_controller.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/foundation.dart';
@@ -70,10 +70,27 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
           middleText: 'Please choose the payment method'.tr);
       return;
     }
+    if (_actualselectedDate == 'Date'.tr) {
+      Get.defaultDialog(
+          title: "Something went wrong".tr,
+          middleText: 'Please choose the date'.tr);
+      return;
+    }
+
+    print(selectedPackageIndex.toString());
+    print("${GetStorage().read('userEmail')}");
+    print(streetController.text);
+    print(cityController.text);
+    print(stateController.text);
+    print(postCodeController.text);
+    print(givenNameController.text);
+    print(surnameController.text);
     print(seletctedBank);
+    print(_actualselectedDate);
+    print("${GetStorage().read('addChildId')}");
 
     String paymentError = await paymentController.getCheckoutId(
-      packageId: (selectedPackageIndex!).toString(),
+      packageId: selectedPackageIndex.toString(),
       email: "${GetStorage().read('userEmail')}",
       street: streetController.text,
       city: cityController.text,
@@ -83,6 +100,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
       surname: surnameController.text,
       paymentMethod: seletctedBank,
       childId: "${GetStorage().read('addChildId')}",
+      startAt: _actualselectedDate,
     );
 
     if (paymentError != "") {
@@ -105,6 +123,24 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
       print(packageController.pakagesSelection.length);
     });
   }
+
+  String _actualselectedDate = 'Date'.tr;
+
+  Future<void> _selectMeldadyDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      lastDate: DateTime.now(),
+      firstDate: DateTime(2000, 8),
+    );
+
+    if (picked != null)
+      setState(() {
+        _actualselectedDate = picked.toString().substring(0, 10);
+      });
+  }
+
+  final locale = Get.locale;
 
   @override
   Widget build(BuildContext context) {
@@ -191,13 +227,52 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          right: 8,
+                          left: 20,
+                        ),
+                        child: Text(
+                          'Start From :'.tr,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.accentColor,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            _selectMeldadyDate(context);
+                          },
+                          icon: Icon(Icons.date_range)),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        _actualselectedDate,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.accentColor,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      )
+                    ],
+                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
                           right: 20,
-                          left: 10,
+                          left: 20,
+                          bottom: 10,
                         ),
                         child: Text(
                           'Choose the period :'.tr,
@@ -209,17 +284,16 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 15.0),
+                        padding: const EdgeInsets.only(top: 5.0),
                         child: Container(
                           width: 120,
-                          height: 65,
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
                               iconEnabledColor: Color(0xffAA9E9E),
                               isExpanded: true,
                               iconSize: 30,
                               icon: Padding(
-                                padding: EdgeInsets.only(bottom: 20),
+                                padding: EdgeInsets.only(bottom: 15),
                                 child: Icon(Icons.arrow_drop_down),
                               ),
                               hint: Padding(
@@ -238,7 +312,6 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                 setState(() {
                                   _selectedPeroid = newValue.toString();
                                 });
-                                print(_selectedPeroid);
                                 if (_selectedPeroid == 'من 2 الى 7')
                                   _changePakge('from7to2');
                                 if (_selectedPeroid == 'من 5 الى 7')
@@ -260,6 +333,9 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   Obx(
                     () => packageController.loadingProcess.value
@@ -344,7 +420,9 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    '${packageController.pakagesSelection[index].title!}',
+                                                    locale == Locale('en')
+                                                        ? '${packageController.pakagesSelection[index].englishTitle!}'
+                                                        : '${packageController.pakagesSelection[index].arabicTitle!}',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       color: Colors.white,
