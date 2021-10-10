@@ -7,7 +7,7 @@ import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/childern_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -19,13 +19,16 @@ class ProfileScreen extends StatelessWidget {
     var _deviceWidth = MediaQuery.of(context).size.width;
     var _devicHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(0),
-          child: Directionality(
-            textDirection: TextDirection.rtl,
+    return WillPopScope(
+      onWillPop: () async {
+        SystemNavigator.pop();
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.all(0),
             child: Stack(
               children: <Widget>[
                 Padding(
@@ -36,10 +39,13 @@ class ProfileScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        AppImages.appLogo,
-                        width: 106,
-                        height: 56,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Image.asset(
+                          AppImages.appLogo,
+                          width: 106,
+                          height: 56,
+                        ),
                       ),
                       Spacer(),
                     ],
@@ -49,9 +55,10 @@ class ProfileScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(
                     top: 100.0,
                     right: 20,
+                    left: 20,
                   ),
                   child: Text(
-                    'الابناء',
+                    'Children'.tr,
                     style: TextStyle(
                       color: AppColors.titleColor,
                       fontSize: 28,
@@ -82,7 +89,7 @@ class ProfileScreen extends StatelessWidget {
                                     Padding(
                                       padding: EdgeInsets.only(top: 200.0),
                                       child: Text(
-                                        'لاتوجد بيانات',
+                                        'Not Found Data'.tr,
                                         style: TextStyle(
                                             fontSize: 22,
                                             color: AppColors.accentColor),
@@ -98,7 +105,7 @@ class ProfileScreen extends StatelessWidget {
                               )
                             : Padding(
                                 padding: const EdgeInsets.only(
-                                  top: 150.0,
+                                  top: 150,
                                   left: 5,
                                   bottom: 25,
                                 ),
@@ -120,17 +127,24 @@ class ProfileScreen extends StatelessWidget {
                                         itemBuilder: (BuildContext context, i) {
                                           return HomeWebContentWidget(
                                             name: childernController
-                                                .childernList[i].name!,
+                                                    .childernList[i]
+                                                    .firstName ??
+                                                "",
                                             agegroupe: childernController
-                                                .childernList[i].ageGroup!,
+                                                    .childernList[i].ageGroup ??
+                                                "",
                                             imagePath:
                                                 "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                             childId: childernController
                                                 .childernList[i].id!,
                                             createdAt: childernController
-                                                .childernList[i].createdAt!,
+                                                    .childernList[i]
+                                                    .createdAt ??
+                                                "",
                                             expireDate: childernController
-                                                .childernList[i].expireDate!,
+                                                    .childernList[i]
+                                                    .expireDate ??
+                                                "null",
                                           );
                                         },
                                       )
@@ -142,17 +156,24 @@ class ProfileScreen extends StatelessWidget {
                                         itemBuilder: (_, i) {
                                           return MobileHomeContentWidget(
                                             name: childernController
-                                                .childernList[i].name!,
+                                                    .childernList[i]
+                                                    .firstName ??
+                                                "",
                                             ageGroup: childernController
-                                                .childernList[i].ageGroup!,
+                                                    .childernList[i].ageGroup ??
+                                                "",
                                             imagePath:
                                                 "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                             childId: childernController
                                                 .childernList[i].id!,
                                             createdAt: childernController
-                                                .childernList[i].createdAt!,
+                                                    .childernList[i]
+                                                    .createdAt ??
+                                                "",
                                             expireDate: childernController
-                                                .childernList[i].expireDate!,
+                                                    .childernList[i]
+                                                    .expireDate ??
+                                                'null',
                                           );
                                         },
                                       ),

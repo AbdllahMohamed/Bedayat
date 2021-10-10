@@ -1,5 +1,6 @@
 import 'package:bedayat/const/const.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get_storage/get_storage.dart';
 
 class PaymentServices {
@@ -14,6 +15,7 @@ class PaymentServices {
     String? surname,
     String? paymentMethod,
     String? childId,
+    String? startAt,
   }) async {
     var paymentError = "";
 
@@ -32,6 +34,7 @@ class PaymentServices {
         "surname": surname,
         "payment_method": paymentMethod,
         "child_id": childId,
+        "start_at": startAt,
       },
       options: Options(
           headers: {
@@ -45,7 +48,7 @@ class PaymentServices {
     print('payment responce');
     print(response.data);
     if (response.data['id'] == null) {
-      paymentError = 'من فضلك تحقق من بياناتك وحاول مرة اخرى';
+      paymentError = 'Please try again'.tr;
     } else {
       final box = GetStorage();
       await box.write('checkoutId', response.data['id']);

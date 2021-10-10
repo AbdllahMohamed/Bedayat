@@ -1,6 +1,4 @@
-import 'package:bedayat/UI/home_payment/home_payment.dart';
-import 'package:bedayat/UI/screens/payment_web_view/add_child_payment_web_view.dart';
-import 'package:bedayat/UI/screens/register/register_step_five.dart';
+import 'package:bedayat/UI/screens/home_payment/home_payment.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
 import 'package:bedayat/UI/widgets/circle_image.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
@@ -9,7 +7,6 @@ import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 // ignore: must_be_immutable
@@ -87,74 +84,69 @@ class MobileHomeContentWidget extends StatelessWidget {
                                         padding: const EdgeInsets.only(
                                             right: 18.0, top: 5),
                                         child: Text(
-                                          'اليوم $name اداء',
+                                          "${'Perform of'.tr} $name ${'Today'.tr}",
                                           style: TextStyle(
                                             color: AppColors.accentColor,
                                             fontSize: 13,
                                           ),
                                         ),
                                       ),
-                                      Directionality(
-                                        textDirection: TextDirection.rtl,
-                                        child: Stack(
-                                          children: [
-                                            SliderTheme(
-                                              data: SliderThemeData(
-                                                trackHeight: 10,
-                                                thumbShape:
-                                                    RoundSliderThumbShape(
-                                                  enabledThumbRadius: 6,
-                                                  elevation: 0,
-                                                ),
-                                                overlayShape:
-                                                    RoundSliderOverlayShape(
-                                                  overlayRadius: 20.0,
-                                                ),
+                                      Stack(
+                                        children: [
+                                          SliderTheme(
+                                            data: SliderThemeData(
+                                              trackHeight: 10,
+                                              thumbShape: RoundSliderThumbShape(
+                                                enabledThumbRadius: 6,
+                                                elevation: 0,
                                               ),
-                                              child: Slider(
-                                                value: 75,
-                                                onChanged: (v) {},
-                                                min: 1,
-                                                max: 100,
-                                                activeColor: Color(0xff22A8A4),
-                                                focusNode: FocusNode(),
-                                                inactiveColor:
-                                                    Color(0xffF5F5F5),
+                                              overlayShape:
+                                                  RoundSliderOverlayShape(
+                                                overlayRadius: 20.0,
                                               ),
                                             ),
-                                            // Positioned(
-                                            //   left:
-                                            //       6,
-                                            //   top:
-                                            //       6,
-                                            //   child:
-                                            //       Container(
-                                            //     width:
-                                            //         30,
-                                            //     height:
-                                            //         30,
-                                            //     alignment:
-                                            //         Alignment.center,
-                                            //     decoration:
-                                            //         BoxDecoration(
-                                            //       shape: BoxShape.circle,
-                                            //       color: const Color(0xffffffff),
-                                            //       boxShadow: [
-                                            //         BoxShadow(
-                                            //           color: const Color(0x29000000),
-                                            //           offset: Offset(0, 3),
-                                            //           blurRadius: 6,
-                                            //         ),
-                                            //       ],
-                                            //     ),
-                                            //     child:
-                                            //         Text(
-                                            //       _currentRangeValues.end.ceil().toString(),
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                          ],
-                                        ),
+                                            child: Slider(
+                                              value: 75,
+                                              onChanged: (v) {},
+                                              min: 1,
+                                              max: 100,
+                                              activeColor: Color(0xff22A8A4),
+                                              focusNode: FocusNode(),
+                                              inactiveColor: Color(0xffF5F5F5),
+                                            ),
+                                          ),
+                                          // Positioned(
+                                          //   left:
+                                          //       6,
+                                          //   top:
+                                          //       6,
+                                          //   child:
+                                          //       Container(
+                                          //     width:
+                                          //         30,
+                                          //     height:
+                                          //         30,
+                                          //     alignment:
+                                          //         Alignment.center,
+                                          //     decoration:
+                                          //         BoxDecoration(
+                                          //       shape: BoxShape.circle,
+                                          //       color: const Color(0xffffffff),
+                                          //       boxShadow: [
+                                          //         BoxShadow(
+                                          //           color: const Color(0x29000000),
+                                          //           offset: Offset(0, 3),
+                                          //           blurRadius: 6,
+                                          //         ),
+                                          //       ],
+                                          //     ),
+                                          //     child:
+                                          //         Text(
+                                          //       _currentRangeValues.end.ceil().toString(),
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                        ],
                                       ),
                                       InkWell(
                                         onTap: () {
@@ -174,6 +166,7 @@ class MobileHomeContentWidget extends StatelessWidget {
                                           padding: EdgeInsets.all(8),
                                           margin: EdgeInsets.only(
                                             right: 15,
+                                            left: 15,
                                             top: 15,
                                           ),
                                           decoration: BoxDecoration(
@@ -184,7 +177,7 @@ class MobileHomeContentWidget extends StatelessWidget {
                                                 BorderRadius.circular(8),
                                           ),
                                           child: Text(
-                                            'عرض التقرير اليومى',
+                                            'View The Daily Report'.tr,
                                             style: TextStyle(
                                               color: AppColors.primaryColor,
                                             ),
@@ -207,7 +200,7 @@ class MobileHomeContentWidget extends StatelessWidget {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'مشاركة',
+                                            'Share'.tr,
                                             style: TextStyle(
                                               color: Color(0xff818080),
                                             ),
@@ -237,7 +230,7 @@ class MobileHomeContentWidget extends StatelessWidget {
           },
           child: Container(
             width: _deviceWidth,
-            margin: EdgeInsets.only(right: 50, top: 15),
+            margin: EdgeInsets.only(left: 30, right: 30, top: 15),
             padding: EdgeInsets.only(
               bottom: 10,
             ),
@@ -253,12 +246,13 @@ class MobileHomeContentWidget extends StatelessWidget {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.only(right: 45.0),
+              padding: const EdgeInsets.only(left: 45, right: 45.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 18.0, top: 10),
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 18.0, top: 10),
                     child: Text(
                       name,
                       style: TextStyle(
@@ -268,9 +262,10 @@ class MobileHomeContentWidget extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 18.0, top: 5),
+                    padding:
+                        const EdgeInsets.only(left: 30, right: 25.0, top: 5),
                     child: Text(
-                      'اداء $name اليوم',
+                      "${'Perform of'.tr} $name ${'Today'.tr}",
                       style: TextStyle(
                         color: AppColors.accentColor,
                         fontSize: 13,
@@ -279,24 +274,27 @@ class MobileHomeContentWidget extends StatelessWidget {
                   ),
                   Stack(
                     children: [
-                      SliderTheme(
-                        data: SliderThemeData(
-                          trackHeight: 10,
-                          thumbShape: RoundSliderThumbShape(
-                            enabledThumbRadius: 6,
-                            elevation: 0,
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15, left: 15),
+                        child: SliderTheme(
+                          data: SliderThemeData(
+                            trackHeight: 10,
+                            thumbShape: RoundSliderThumbShape(
+                              enabledThumbRadius: 6,
+                              elevation: 0,
+                            ),
+                            overlayShape: RoundSliderOverlayShape(
+                              overlayRadius: 20.0,
+                            ),
                           ),
-                          overlayShape: RoundSliderOverlayShape(
-                            overlayRadius: 20.0,
+                          child: Slider(
+                            value: 75,
+                            onChanged: (v) {},
+                            min: 0,
+                            max: 100,
+                            activeColor: Color(0xff22A8A4),
+                            inactiveColor: Color(0xffF5F5F5),
                           ),
-                        ),
-                        child: Slider(
-                          value: 75,
-                          onChanged: (v) {},
-                          min: 0,
-                          max: 100,
-                          activeColor: Color(0xff22A8A4),
-                          inactiveColor: Color(0xffF5F5F5),
                         ),
                       ),
                       // Positioned(
@@ -332,14 +330,14 @@ class MobileHomeContentWidget extends StatelessWidget {
                   ),
                   Container(
                     padding: EdgeInsets.all(5),
-                    margin: EdgeInsets.only(right: 15, top: 5),
+                    margin: EdgeInsets.only(left: 30, right: 30, top: 5),
                     decoration: BoxDecoration(
                         border: Border.all(
                           color: AppColors.primaryColor,
                         ),
                         borderRadius: BorderRadius.circular(8)),
                     child: Text(
-                      'عرض التقرير اليومى',
+                      'View The Daily Report'.tr,
                       style: TextStyle(color: AppColors.primaryColor),
                     ),
                   ),
@@ -365,7 +363,8 @@ class MobileHomeContentWidget extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              'طفلك غير مسجل باشتراك   اشترك الان',
+                              'Your child is not registered to subscribe now'
+                                  .tr,
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
@@ -376,9 +375,13 @@ class MobileHomeContentWidget extends StatelessWidget {
                         )
                       : SizedBox(),
                   Align(
-                    alignment: Alignment.bottomLeft,
+                    alignment: Get.locale == Locale('en')
+                        ? Alignment.topRight
+                        : Alignment.topLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 5),
+                      padding: Get.locale == Locale('en')
+                          ? EdgeInsets.only(left: 15.0, top: 5)
+                          : EdgeInsets.only(right: 15.0, top: 5),
                       child: Image.asset(
                         AppImages.appSmallBarcode,
                         width: 30,
@@ -396,10 +399,11 @@ class MobileHomeContentWidget extends StatelessWidget {
           ),
         ),
         Padding(
-            padding: const EdgeInsets.only(top: 60.0, left: 5, right: 5),
-            child: CircleImageWidget(
-              imagePath: imagePath,
-            )),
+          padding: const EdgeInsets.only(top: 60.0, left: 5, right: 5),
+          child: CircleImageWidget(
+            imagePath: imagePath,
+          ),
+        ),
       ],
     );
   }

@@ -1,6 +1,7 @@
 class Branch {
   int? id;
-  String? title;
+  String? arabicTitle;
+  String? englistTitle;
   String? longitude;
   String? latitude;
   String? createdAt;
@@ -8,7 +9,8 @@ class Branch {
 
   Branch({
     this.id,
-    this.title,
+    this.arabicTitle,
+    this.englistTitle,
     this.longitude,
     this.latitude,
     this.createdAt,
@@ -17,7 +19,8 @@ class Branch {
 
   Branch.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        title = json['title'],
+        arabicTitle = json['arabic_title'],
+        englistTitle = json['english_title'],
         longitude = json['longitude'],
         latitude = json['Latitude'],
         createdAt = json['created_at'],
@@ -26,7 +29,7 @@ class Branch {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['title'] = this.title;
+    data['arabic_title'] = this.arabicTitle;
     data['longitude'] = this.longitude;
     data['Latitude'] = this.latitude;
     data['created_at'] = this.createdAt;

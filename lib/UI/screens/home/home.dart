@@ -6,7 +6,6 @@ import 'package:bedayat/UI/screens/home/components/mobile_home_content.dart';
 import 'package:bedayat/UI/screens/home/components/web_content.dart';
 import 'package:bedayat/UI/screens/slider_image_details/sllider_image_details.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
-import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/childern_controller.dart';
 import 'package:bedayat/controllers/slider_image_controller.dart';
@@ -14,7 +13,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -59,44 +58,28 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  final locale = Get.locale;
+
   @override
   Widget build(BuildContext context) {
     var _deviceWidth = MediaQuery.of(context).size.width;
     var _devicHeight = MediaQuery.of(context).size.height;
     print(_deviceWidth);
-    return Scaffold(
-      key: _scaffoldkey,
-      backgroundColor: Colors.white,
-      drawer: AppDrawer(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          controller: scrollController,
-          padding: EdgeInsets.all(0),
-          child: Directionality(
-            textDirection: TextDirection.rtl,
+    return WillPopScope(
+      onWillPop: () async {
+        SystemNavigator.pop();
+        return false;
+      },
+      child: Scaffold(
+        key: _scaffoldkey,
+        backgroundColor: Colors.white,
+        drawer: AppDrawer(),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            controller: scrollController,
+            padding: EdgeInsets.all(0),
             child: Stack(
               children: <Widget>[
-                // kIsWeb && _deviceWidth >= 825
-                //     ? Positioned(
-                //         top: -_devicHeight * 0.25,
-                //         left: -_deviceWidth * 0.25,
-                //         bottom: -200,
-                //         child: Image.asset(
-                //           AppImages.appCurve,
-                //           fit: BoxFit.fitHeight,
-                //         ),
-                //       )
-                //     : Positioned(
-                //         top: -_devicHeight * .82,
-                //         left: -_deviceWidth * 0.4,
-                //         bottom: -_devicHeight * 0.2,
-                //         child: SvgPicture.asset(
-                //           AppImages.appCurveSvg,
-                //           width: _deviceWidth,
-                //           color: AppColors.primaryColor,
-                //           fit: BoxFit.fitHeight,
-                //         ),
-                //       ),
                 HomeHeaderWidget(
                   onTap: () {
                     _scaffoldkey.currentState!.openDrawer();
@@ -123,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 200.0),
                                 child: Text(
-                                  'لاتوجد بيانات',
+                                  'Not Found Data'.tr,
                                   style: TextStyle(
                                       fontSize: 22,
                                       color: AppColors.accentColor),
@@ -147,19 +130,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Get.to(SliderImageDetails(
                                           imagePath:
                                               "$baseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
-                                          title: sliderImagesController
-                                              .sliderImagesList[index].title!,
-                                          description: sliderImagesController
-                                              .sliderImagesList[index].content!,
+                                          title: locale == Locale('en')
+                                              ? sliderImagesController
+                                                  .sliderImagesList[index]
+                                                  .englishContent!
+                                              : sliderImagesController
+                                                  .sliderImagesList[index]
+                                                  .arabicContent!,
+                                          description: locale == Locale('en')
+                                              ? sliderImagesController
+                                                  .sliderImagesList[index]
+                                                  .englishContent!
+                                              : sliderImagesController
+                                                  .sliderImagesList[index]
+                                                  .arabicContent!,
                                         ));
                                       },
                                       child: ImageSliderWidget(
                                         imagePath:
                                             "$baseUrl${sliderImagesController.sliderImagesList[index].img!.replaceAll('public', 'storage')}",
-                                        imageTitle: sliderImagesController
-                                            .sliderImagesList[index].title!,
-                                        imageContent: sliderImagesController
-                                            .sliderImagesList[index].content!,
+                                        imageTitle: locale == Locale('en')
+                                            ? sliderImagesController
+                                                .sliderImagesList[index]
+                                                .englishContent!
+                                            : sliderImagesController
+                                                .sliderImagesList[index]
+                                                .arabicContent!,
+                                        imageContent: locale == Locale('en')
+                                            ? sliderImagesController
+                                                .sliderImagesList[index]
+                                                .englishContent!
+                                            : sliderImagesController
+                                                .sliderImagesList[index]
+                                                .arabicContent!,
                                       ),
                                     );
                                   },
@@ -170,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Obx(
                   () => Padding(
                     padding: const EdgeInsets.only(
-                        top: kIsWeb ? 330 : 315.0, right: 180),
+                        top: kIsWeb ? 330 : 315.0, right: 180, left: 180),
                     child: SmoothPageIndicator(
                       controller: controller, // PageController
                       count: sliderImagesController.sliderImagesList.length,
@@ -186,11 +189,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: kIsWeb ? 440 : 355.0,
+                    top: kIsWeb ? 440 : 370.0,
                     right: 20,
+                    left: 20,
                   ),
                   child: Text(
-                    'الابناء',
+                    'Children'.tr,
                     style: TextStyle(
                       color: AppColors.titleColor,
                       fontSize: 28,
@@ -222,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       top: 450,
                                     ),
                                     child: Text(
-                                      'لاتوجد بيانات',
+                                      'Not Found Data'.tr,
                                       style: TextStyle(
                                           fontSize: 22,
                                           color: AppColors.accentColor),
@@ -260,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       itemBuilder: (BuildContext context, i) {
                                         return HomeWebContentWidget(
                                           name: childernController
-                                              .childernList[i].name!,
+                                              .childernList[i].firstName!,
                                           agegroupe: childernController
                                               .childernList[i].ageGroup!,
                                           imagePath:
@@ -283,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       itemBuilder: (_, i) {
                                         return MobileHomeContentWidget(
                                           name: childernController
-                                                  .childernList[i].name ??
+                                                  .childernList[i].firstName ??
                                               "",
                                           ageGroup: childernController
                                                   .childernList[i].ageGroup ??
@@ -291,8 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           imagePath:
                                               "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
                                           childId: childernController
-                                                  .childernList[i].id ??
-                                              1,
+                                              .childernList[i].id!,
                                           createdAt: childernController
                                                   .childernList[i].createdAt ??
                                               "",

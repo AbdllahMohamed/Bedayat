@@ -23,6 +23,7 @@ class _SliderImageDetailsState extends State<SliderImageDetails> {
   Widget build(BuildContext context) {
     var _deviceWidth = MediaQuery.of(context).size.width;
     var _devicHeight = MediaQuery.of(context).size.height;
+    print(widget.imagePath);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(

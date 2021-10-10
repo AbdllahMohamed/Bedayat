@@ -8,8 +8,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hijri_picker/hijri_picker.dart';
-import 'package:hijri/hijri_calendar.dart';
 
 int? selectedPackageIndex = 0;
 TextEditingController streetController = new TextEditingController();
@@ -21,16 +19,18 @@ TextEditingController surnameController = new TextEditingController();
 String? seletctedBank;
 String? peroid = 'from7to2';
 
-class RegisterStepFiveScreen extends StatefulWidget {
-  const RegisterStepFiveScreen({
+class HomePaymentScreen extends StatefulWidget {
+  final int childId;
+  const HomePaymentScreen({
     Key? key,
+    required this.childId,
   }) : super(key: key);
 
   @override
-  _RegisterStepFiveScreenState createState() => _RegisterStepFiveScreenState();
+  _HomePaymentScreenState createState() => _HomePaymentScreenState();
 }
 
-class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
+class _HomePaymentScreenState extends State<HomePaymentScreen> {
   PaymentController paymentController = Get.put(PaymentController());
 
   final _formKey = GlobalKey<FormState>();
@@ -49,10 +49,10 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
   ];
 
   List<String> _peroids = [
-    'From 2 to 7'.tr,
-    'From 5 to 7'.tr,
+    'من 2 الى 7',
+    'من 5 الى 7',
   ];
-  String _selectedPeroid = 'From 2 to 7'.tr;
+  String _selectedPeroid = 'من 2 الى 7';
   int? selectedBankIndex;
   int? updatePakageIndex = 0;
 
@@ -62,14 +62,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     }
     if (selectedPackageIndex == 0) {
       Get.defaultDialog(
-          title: "Something went wrong".tr,
-          middleText: 'Please choose the subscription value'.tr);
-      return;
-    }
-    if (seletctedBank == null) {
-      Get.defaultDialog(
-          title: "Something went wrong".tr,
-          middleText: 'Please choose the payment method'.tr);
+          title: "حدث خطأ ما", middleText: 'يرجى اختيار قيمة الاشتراك');
       return;
     }
     if (_actualselectedDate == 'Date'.tr) {
@@ -80,8 +73,8 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     }
 
     String error = await paymentController.getCheckoutId(
-      packageId: (selectedPackageIndex!).toString(),
-      email: '"${GetStorage().read('userEmail')}"',
+      packageId: selectedPackageIndex.toString(),
+      email: '${GetStorage().read('userEmail')}',
       street: streetController.text,
       city: cityController.text,
       state: stateController.text,
@@ -89,28 +82,25 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
       givenName: givenNameController.text,
       surname: surnameController.text,
       paymentMethod: seletctedBank,
-      childId: "${GetStorage().read('childId')}",
+      childId: widget.childId.toString(),
       startAt: _actualselectedDate,
     );
 
     print((selectedPackageIndex!).toString());
-    print('"${GetStorage().read('userEmail')}"');
-
-    print(
-      streetController.text,
-    );
+    print('${GetStorage().read('userEmail')}');
+    print(streetController.text);
     print(cityController.text);
     print(stateController.text);
     print(postCodeController.text);
     print(givenNameController.text);
     print(surnameController.text);
     print(seletctedBank);
-    print("${GetStorage().read('childId')}");
-    print("${GetStorage().read('checkoutId')}");
+    print(widget.childId);
+    print(_actualselectedDate);
 
     print(error);
     if (error != "") {
-      Get.defaultDialog(title: "Something went wrong".tr, middleText: error);
+      Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
       Get.to(RegisterPaymentWebviewScreen(
           checkoutId: "${GetStorage().read('checkoutId')}"));
@@ -161,7 +151,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                 SizedBox(height: 50),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
+                    horizontal: 10,
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -187,46 +177,13 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Register'.tr,
+                        'Payment'.tr,
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w300,
                         ),
                       ),
-                      Container(
-                        height: 50,
-                        width: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 6,
-                            color: AppColors.accentColor,
-                          ),
-                        ),
-                        child: Text(
-                          '5/6',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      )
                     ],
-                  ),
-                ),
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  child: Text(
-                    'Payment'.tr,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.accentColor,
-                      fontWeight: FontWeight.w300,
-                    ),
                   ),
                 ),
                 SizedBox(
@@ -365,7 +322,6 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                               ),
                             )
                           : Container(
-                              height: 290,
                               margin: EdgeInsets.only(
                                   right: 10, left: 10, bottom: 10),
                               width: double.infinity,
@@ -434,7 +390,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  '${packageController.pakagesSelection[index].price!} \n ${'Rial'.tr}',
+                                                  '${packageController.pakagesSelection[index].price! + '\n' + 'Rial'.tr} ',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Colors.white,
@@ -579,7 +535,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
+                    horizontal: 20,
                   ),
                   child: Text(
                     'Pill :'.tr,
@@ -626,12 +582,11 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15.0),
+                              padding: const EdgeInsets.only(right: 15.0),
                               child: Image.asset(_banckImage[index]),
                             ),
                             SizedBox(
-                              width: 20,
+                              width: 40,
                             ),
                             Text(
                               _banckName[index],
@@ -651,7 +606,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
+                    horizontal: 20,
                   ),
                   child: Text(
                     'Requirments for Payment'.tr,
@@ -712,7 +667,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                     decoration: InputDecoration(
                       prefixIcon:
                           Icon(Icons.person, color: AppColors.accentColor),
-                      hintText: 'Second Name'.tr,
+                      hintText: 'الاسم الثانى',
                       hintStyle: TextStyle(color: AppColors.accentColor),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey[300]!),
@@ -857,9 +812,9 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                   height: 20,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  padding: const EdgeInsets.only(right: 15.0),
                   child: Text(
-                    'By registering, you agree to the terms and conditions',
+                    'By registering, you agree to the terms and conditions'.tr,
                     style: TextStyle(
                       fontSize: 14,
                       color: AppColors.accentColor,

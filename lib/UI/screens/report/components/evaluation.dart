@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:bedayat/app_colors/app_colors.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 // ignore: must_be_immutable
 class EvaluationWidget extends StatelessWidget {
@@ -32,11 +33,12 @@ class EvaluationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 25.0, right: 20, bottom: 10),
+      padding:
+          const EdgeInsets.only(top: 25.0, right: 20, bottom: 10, left: 20),
       child: ListView(
         children: [
           Text(
-            'النمو اللغوي',
+            'language development'.tr,
             style: TextStyle(
               fontSize: 20,
               color: AppColors.titleColor,
@@ -46,35 +48,35 @@ class EvaluationWidget extends StatelessWidget {
             height: 15,
           ),
           EvaluationValue(
-            label: 'يتعرف علي الحرف الجديد',
+            label: 'Learn new crafts'.tr,
             value: newletter,
           ),
           SizedBox(
             height: 15,
           ),
           EvaluationValue(
-            label: 'يميز شكل الحرف',
+            label: 'Distinguish the shape of the letter'.tr,
             value: knowTheLetter,
           ),
           SizedBox(
             height: 15,
           ),
           EvaluationValue(
-            label: 'يميز صوت الحرف',
+            label: 'Distinguish the sound of the letter'.tr,
             value: knowTheLetterSound,
           ),
           SizedBox(
             height: 15,
           ),
           EvaluationValue(
-            label: 'متمكن من كتابة الحرف',
+            label: 'Able to write letters'.tr,
             value: masteredWriteLetter,
           ),
           SizedBox(
             height: 20,
           ),
           Text(
-            'الأركان الادراكية',
+            'Cognitive pillars'.tr,
             style: TextStyle(
               fontSize: 20,
               color: AppColors.titleColor,
@@ -84,28 +86,28 @@ class EvaluationWidget extends StatelessWidget {
             height: 15,
           ),
           EvaluationValue(
-            label: 'يستمتع و يندمج بالاركان',
+            label: 'Enjoy and immerse with Pillars'.tr,
             value: enjoyWitharkan,
           ),
           SizedBox(
             height: 15,
           ),
           EvaluationValue(
-            label: 'يتقن النشاط ( المنتسوري ) ',
+            label: 'Mastering the activity (Montessori)'.tr,
             value: masteredTheActivity,
           ),
           SizedBox(
             height: 15,
           ),
           EvaluationValue(
-            label: 'يعيد الالعاب والادوات بعد الانتهاء منها',
+            label: 'Returns toys and tools after completing them'.tr,
             value: organizeAfterPlay,
           ),
           SizedBox(
             height: 20,
           ),
           Text(
-            'النشاط الفني',
+            'Artistic activity'.tr,
             style: TextStyle(
               fontSize: 20,
               color: AppColors.titleColor,
@@ -115,21 +117,21 @@ class EvaluationWidget extends StatelessWidget {
             height: 15,
           ),
           EvaluationValue(
-            label: 'يندمج في الركن الفني ',
+            label: 'Merges into the Artistic side'.tr,
             value: enjoyWithArtActivity,
           ),
           SizedBox(
             height: 15,
           ),
           EvaluationValue(
-            label: 'يعتمد علي نفسه في الركن الفني',
+            label: 'Depends on himself in the Artistic side'.tr,
             value: helpHimeselfInArtActivity,
           ),
           SizedBox(
             height: 20,
           ),
           Text(
-            'القصة',
+            'The Story'.tr,
             style: TextStyle(
               fontSize: 20,
               color: AppColors.titleColor,
@@ -139,7 +141,7 @@ class EvaluationWidget extends StatelessWidget {
             height: 15,
           ),
           EvaluationValue(
-            label: 'يستمتع بسماع القصة',
+            label: 'Enjoys hearing the story'.tr,
             value: enjoyWithTheStory,
           )
         ],

@@ -4,8 +4,7 @@ import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/UI/widgets/cutome_textFormfield.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
-import 'package:bedayat/controllers/auth_services.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:bedayat/controllers/auth_Controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _obscureText = true;
 
-  // Toggles the password show status
   void _toggle() {
     setState(() {
       _obscureText = !_obscureText;
@@ -40,12 +38,14 @@ class _LoginScreenState extends State<LoginScreen> {
     String error = await authController.login(_email.text, _password.text);
 
     if (error != "") {
-      Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
+      Get.defaultDialog(title: "Something went wrong".tr, middleText: error);
     } else {
-      // String? token = await FirebaseMessaging.instance.getToken();
-      // print(token);
-      // authController.sendToken(token!);
-      Get.offAll(BottomNavigationWidget());
+      String? token = await FirebaseMessaging.instance.getToken();
+      print(token);
+      authController.sendToken(token!);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => BottomNavigationWidget()),
+          (Route<dynamic> route) => false);
     }
   }
 
@@ -77,113 +77,108 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                 ),
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 60),
-                      Center(child: Image.asset(AppImages.appLogo)),
-                      SizedBox(height: 20),
-                      Text(
-                        'دخول',
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w300,
-                        ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 60),
+                    Center(child: Image.asset(AppImages.appLogo)),
+                    SizedBox(height: 20),
+                    Text(
+                      'Login'.tr,
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w300,
                       ),
-                      SizedBox(height: 30),
-                      CustomeTextFormField(
-                        controller: _email,
+                    ),
+                    SizedBox(height: 30),
+                    CustomeTextFormField(
+                      controller: _email,
+                      validator: (val) {
+                        if (val.isEmpty) {
+                          return 'Please enter a valid value'.tr;
+                        } else if (!val.isEmail) {
+                          return 'The email is invalid'.tr;
+                        }
+                      },
+                      hintText: 'Email'.tr,
+                      prefixIcon: Image.asset(AppImages.appEmailIcon),
+                    ),
+                    Container(
+                      width: _deviceWidth * 0.86,
+                      child: TextFormField(
+                        controller: _password,
+                        obscureText: _obscureText,
                         validator: (val) {
-                          if (val.isEmpty) {
-                            return 'من فضلك ادخل قيمة صحيحة';
-                          } else if (!val.isEmail) {
-                            return 'البريد الالكترونى غير صالح';
+                          if (val!.isEmpty) {
+                            return 'Please enter a valid value'.tr;
+                          } else if (val.length <= 3) {
+                            return 'Please enter a valid value'.tr;
                           }
                         },
-                        hintText: 'البريد الألكترونى',
-                        prefixIcon: Image.asset(AppImages.appEmailIcon),
-                      ),
-                      Container(
-                        width: _deviceWidth * 0.86,
-                        child: TextFormField(
-                          controller: _password,
-                          obscureText: _obscureText,
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'من فضلك ادخل قيمة صحيحة';
-                            } else if (val.length <= 3) {
-                              return 'كلمة السر قصيرة للغاية';
-                            }
-                          },
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(top: 18),
-                            prefixIcon: Image.asset(
-                              AppImages.appPasswordIcon,
-                              width: 5,
-                            ),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _obscureText
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: AppColors.accentColor,
-                              ),
-                              onPressed: () {
-                                _toggle();
-                              },
-                            ),
-                            hintText: 'كلمة المرور',
-                            hintStyle: TextStyle(
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(top: 18),
+                          prefixIcon: Image.asset(
+                            AppImages.appPasswordIcon,
+                            width: 5,
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
                               color: AppColors.accentColor,
                             ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[300]!),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[300]!),
-                            ),
-                            border: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[300]!),
-                            ),
+                            onPressed: () {
+                              _toggle();
+                            },
+                          ),
+                          hintText: 'Password'.tr,
+                          hintStyle: TextStyle(
+                            color: AppColors.accentColor,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
+                          ),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[300]!),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Obx(() {
-                        // ignore: unrelated_type_equality_checks
-                        return authController.loadingProcess == true
-                            ? Center(child: CircularProgressIndicator())
-                            : ActionButton(
-                                label: 'دخول',
-                                onPressed: () async {
-                                  login();
-                                });
-                      }),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      Center(
-                        child: InkWell(
-                          onTap: () async {
-                            // await CountriesServices.getAll();
-                            Get.to(RegisterStepOneScreen());
-                          },
-                          child: Text(
-                            'ليس لديك حساب ، قم بالتسجيل من هنا',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Color(0xff5D5E5E),
-                            ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Obx(() {
+                      return authController.loadingProcess.value
+                          ? Center(child: CircularProgressIndicator())
+                          : ActionButton(
+                              label: 'Login'.tr,
+                              onPressed: () async {
+                                login();
+                              });
+                    }),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Center(
+                      child: InkWell(
+                        onTap: () async {
+                          Get.to(RegisterStepOneScreen());
+                        },
+                        child: Text(
+                          'You do not have an account, register here'.tr,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0xff5D5E5E),
                           ),
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

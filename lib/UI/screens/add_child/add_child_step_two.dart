@@ -19,7 +19,9 @@ class _AddChildStepTwoScreenState extends State<AddChildStepTwoScreen> {
 
   addChildStepTwo() async {
     if (selectedBranchIndex == null) {
-      Get.defaultDialog(title: "حدث خطأ ما", middleText: 'يجب اختيار الفرع');
+      Get.defaultDialog(
+          title: "Something went wrong".tr,
+          middleText: 'Branch must be selected'.tr);
       return;
     } else {
       Get.to(
@@ -61,6 +63,8 @@ class _AddChildStepTwoScreenState extends State<AddChildStepTwoScreen> {
     }
   }
 
+  final locale = Get.locale;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -72,165 +76,164 @@ class _AddChildStepTwoScreenState extends State<AddChildStepTwoScreen> {
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
               ),
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 50),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.arrow_back_ios),
-                          onPressed: () {
-                            Get.back();
-                          },
-                        ),
-                        Image.asset(
-                          AppImages.appSubLogo,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'اضافة طفل',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                        Container(
-                          height: 50,
-                          width: 50,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 6,
-                              color: AppColors.accentColor,
-                            ),
-                          ),
-                          child: Text(
-                            '2/5',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'اختر الفرع الاقرب لك',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: AppColors.accentColor,
-                        fontWeight: FontWeight.w300,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 50),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.arrow_back_ios),
+                        onPressed: () {
+                          Get.back();
+                        },
                       ),
+                      Image.asset(
+                        AppImages.appSubLogo,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Add Child'.tr,
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      Container(
+                        height: 50,
+                        width: 50,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 6,
+                            color: AppColors.accentColor,
+                          ),
+                        ),
+                        child: Text(
+                          '2/5',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Choose the branch closest to you'.tr,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: AppColors.accentColor,
+                      fontWeight: FontWeight.w300,
                     ),
-                    SizedBox(height: 20),
-                    Obx(
-                      () => branchController.loadingProcess.value
-                          ? Center(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 130),
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      AppColors.accentColor),
-                                ),
+                  ),
+                  SizedBox(height: 20),
+                  Obx(
+                    () => branchController.loadingProcess.value
+                        ? Center(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 130),
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    AppColors.accentColor),
                               ),
-                            )
-                          : branchController.branchsList.length == 0
-                              ? Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 200.0),
-                                    child: Text(
-                                      'لاتوجد بيانات',
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          color: AppColors.accentColor),
-                                    ),
+                            ),
+                          )
+                        : branchController.branchsList.length == 0
+                            ? Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 200.0),
+                                  child: Text(
+                                    'Not Found Data'.tr,
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        color: AppColors.accentColor),
                                   ),
-                                )
-                              : ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemCount:
-                                      branchController.branchsList.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          selectedBranchIndex = branchController
-                                              .branchsList[index].id;
-                                        });
-                                      },
-                                      child: Container(
-                                        margin: EdgeInsets.only(bottom: 10),
-                                        height: 65,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          border: Border.all(
-                                            color: selectedBranchIndex ==
-                                                    branchController
-                                                        .branchsList[index].id
-                                                ? AppColors.primaryColor
-                                                : Colors.grey,
-                                            width: selectedBranchIndex ==
-                                                    branchController
-                                                        .branchsList[index].id
-                                                ? 2
-                                                : 1,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 10,
-                                              ),
-                                              child: Image.asset(index.isEven
-                                                  ? AppImages.appBranchOdd
-                                                  : AppImages.appBranchEven),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                branchController
-                                                    .branchsList[index].title!,
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: AppColors.titleColor,
-                                                ),
-                                              ),
-                                            )
-                                          ],
+                                ),
+                              )
+                            : ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: branchController.branchsList.length,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedBranchIndex = branchController
+                                            .branchsList[index].id;
+                                      });
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      height: 65,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          color: selectedBranchIndex ==
+                                                  branchController
+                                                      .branchsList[index].id
+                                              ? AppColors.primaryColor
+                                              : Colors.grey,
+                                          width: selectedBranchIndex ==
+                                                  branchController
+                                                      .branchsList[index].id
+                                              ? 2
+                                              : 1,
                                         ),
                                       ),
-                                    );
-                                  },
-                                ),
-                    ),
-                    SizedBox(height: 20),
-                    ActionButton(
-                        label: 'التالى',
-                        onPressed: () async {
-                          addChildStepTwo();
-                        }),
-                    SizedBox(height: 15),
-                  ],
-                ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 10,
+                                            ),
+                                            child: Image.asset(index.isEven
+                                                ? AppImages.appBranchOdd
+                                                : AppImages.appBranchEven),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              locale == Locale('en')
+                                                  ? branchController
+                                                      .branchsList[index]
+                                                      .englistTitle!
+                                                  : branchController
+                                                      .branchsList[index]
+                                                      .arabicTitle!,
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                color: AppColors.titleColor,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                  ),
+                  SizedBox(height: 20),
+                  ActionButton(
+                      label: 'Next'.tr,
+                      onPressed: () async {
+                        addChildStepTwo();
+                      }),
+                  SizedBox(height: 15),
+                ],
               ),
             ),
           ),

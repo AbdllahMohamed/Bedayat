@@ -1,6 +1,7 @@
 class Child {
   int? id;
-  String? name;
+  String? firstName;
+  String? lastName;
   String? ageGroup;
   String? gender;
   String? emergencyNumber;
@@ -24,7 +25,8 @@ class Child {
 
   Child({
     this.id,
-    this.name,
+    this.firstName,
+    this.lastName,
     this.ageGroup,
     this.gender,
     this.emergencyNumber,
@@ -49,7 +51,8 @@ class Child {
 
   Child.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        name = json['name'],
+        firstName = json['frist_name'],
+        lastName = json['last_name'],
         ageGroup = json['age_group'],
         gender = json['gender'],
         emergencyNumber = json['emergency_number'],
@@ -75,7 +78,7 @@ class Child {
     final Map<String, dynamic> data = new Map<String, dynamic>();
 
     data['id'] = id;
-    data['name'] = name;
+    data['frist_name'] = firstName;
     data['age_group'] = ageGroup;
     data['gender'] = gender;
     data['emergency_number'] = emergencyNumber;

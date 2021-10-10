@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 class PackageController extends GetxController {
   var packageList = <Package>[].obs;
-  var pakagesSelection = [];
+  var pakagesSelection = <Package>[];
   var loadingProcess = false.obs;
 
   @override

@@ -15,6 +15,7 @@ class HomeHeaderWidget extends StatelessWidget {
       padding: const EdgeInsets.only(
         top: 28.0,
         right: 15,
+        left: 15,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
