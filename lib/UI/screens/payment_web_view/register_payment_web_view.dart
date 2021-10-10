@@ -39,10 +39,13 @@ class _RegisterPaymentWebviewScreenState
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
 
-    kIsWeb ? _setUrl() : WebView.platform = SurfaceAndroidWebView();
+    if (Platform.isAndroid) 
+WebView.platform = SurfaceAndroidWebView();
   }
+
+      kIsWeb ? _setUrl() : WebView.platform = SurfaceAndroidWebView();
+
 
   void _setUrl() {
     Future.delayed(Duration(seconds: 2), () {
