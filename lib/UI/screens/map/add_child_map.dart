@@ -57,6 +57,8 @@ class _AddChildMapScreenState extends State<AddChildMapScreen> {
     );
   }
 
+  final locale = Get.locale;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,8 +80,7 @@ class _AddChildMapScreenState extends State<AddChildMapScreen> {
         onTap: _handelTap,
         markers: Set.from(myMarker),
       ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,
         onPressed: () async {
@@ -92,7 +93,9 @@ class _AddChildMapScreenState extends State<AddChildMapScreen> {
           );
         },
         child: Icon(
-          Icons.forward_rounded,
+          locale != Locale('en')
+              ? Icons.arrow_back_ios_rounded
+              : Icons.arrow_forward_ios_outlined,
           color: Colors.white,
         ),
       ),

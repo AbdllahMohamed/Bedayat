@@ -18,12 +18,16 @@ TextEditingController givenNameController = new TextEditingController();
 TextEditingController surnameController = new TextEditingController();
 String? seletctedBank;
 String? peroid = 'from7to2';
+String actualselectedDate = 'Date'.tr;
 
 class PaymentScreen extends StatefulWidget {
-  final int childId;
+  final String childId;
+  final String routeName;
+
   const PaymentScreen({
     Key? key,
     required this.childId,
+    required this.routeName,
   }) : super(key: key);
 
   @override
@@ -65,7 +69,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           title: "حدث خطأ ما", middleText: 'يرجى اختيار قيمة الاشتراك');
       return;
     }
-    if (_actualselectedDate == 'Date'.tr) {
+    if (actualselectedDate == 'Date'.tr) {
       Get.defaultDialog(
           title: "Something went wrong".tr,
           middleText: 'Please choose the date'.tr);
@@ -83,7 +87,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       surname: surnameController.text,
       paymentMethod: seletctedBank,
       childId: widget.childId.toString(),
-      startAt: _actualselectedDate,
+      startAt: actualselectedDate,
     );
 
     print((selectedPackageIndex!).toString());
@@ -96,14 +100,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
     print(surnameController.text);
     print(seletctedBank);
     print(widget.childId);
-    print(_actualselectedDate);
+    print(actualselectedDate);
 
     print(error);
     if (error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      Get.to(PaymentWebviewScreen(
-          checkoutId: "${GetStorage().read('checkoutId')}"));
+      Get.to(
+        PaymentWebviewScreen(
+          checkoutId: "${GetStorage().read('checkoutId')}",
+          routeName: widget.routeName,
+        ),
+      );
     }
   }
 
@@ -119,8 +127,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     });
   }
 
-  String _actualselectedDate = 'Date'.tr;
-
   Future<void> _selectMeldadyDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -131,7 +137,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
     if (picked != null)
       setState(() {
-        _actualselectedDate = picked.toString().substring(0, 10);
+        actualselectedDate = picked.toString().substring(0, 10);
       });
   }
 
@@ -171,42 +177,117 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'payment'.tr,
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w300,
+                  if (widget.routeName == 'home')
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'payment'.tr,
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w300,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
+                  if (widget.routeName == 'addChild')
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Add Child'.tr,
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                          Container(
+                            height: 50,
+                            width: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: 6,
+                                color: AppColors.accentColor,
+                              ),
+                            ),
+                            child: Text(
+                              '4/5',
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  if (widget.routeName == 'register')
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Register'.tr,
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                          Container(
+                            height: 50,
+                            width: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: 6,
+                                color: AppColors.accentColor,
+                              ),
+                            ),
+                            child: Text(
+                              '5/6',
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   SizedBox(
                     height: 10,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          right: 20,
-                          left: 20,
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        'Start From'.tr + '  :',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.accentColor,
+                          fontWeight: FontWeight.w300,
                         ),
-                        child: Text(
-                          'Start From'.tr + ':',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: AppColors.accentColor,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
                       ),
                       IconButton(
                           onPressed: () {
@@ -217,7 +298,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         width: 10,
                       ),
                       Text(
-                        _actualselectedDate,
+                        actualselectedDate,
                         style: TextStyle(
                           fontSize: 14,
                           color: AppColors.accentColor,
@@ -814,7 +895,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     height: 20,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Text(
                       'By registering, you agree to the terms and conditions'
                           .tr,

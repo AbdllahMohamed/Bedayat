@@ -2,7 +2,7 @@ import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:bedayat/UI/screens/login/login.dart';
 import 'package:flutter/material.dart';
 
-import 'UI/screens/checkout_status/register_checkout_status/register_checkout_status.dart';
+import 'UI/screens/checkout_status/checkout_status.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings? settings) {
@@ -20,8 +20,9 @@ class RouteGenerator {
           final checkoutId = settingsUri.queryParameters['id'];
           print("checkoutId : $checkoutId");
           return GeneratePageRoute(
-              widget: RegisterCheckoutStautusScreen(
+              widget: CheckoutStatusScreen(
                 checkoutId: checkoutId!,
+                routeName: 'register',
               ),
               routeName: settings.name!);
         } else

@@ -64,6 +64,8 @@ class _RegisterMapScreenState extends State<RegisterMapScreen> {
     );
   }
 
+  final locale = Get.locale;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,12 +87,10 @@ class _RegisterMapScreenState extends State<RegisterMapScreen> {
         onTap: _handelTap,
         markers: Set.from(myMarker),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,
         onPressed: () async {
-          print(selectedPoint.latitude);
-          print(selectedPoint.longitude);
           Get.to(
             RegisterStepThreeScreen(
               // location: selectedPoint.latitude.toString(),
@@ -103,7 +103,9 @@ class _RegisterMapScreenState extends State<RegisterMapScreen> {
           );
         },
         child: Icon(
-          Icons.forward_rounded,
+          locale != Locale('en')
+              ? Icons.arrow_back_ios_rounded
+              : Icons.arrow_forward_ios_outlined,
           color: Colors.white,
         ),
       ),

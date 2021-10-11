@@ -1,3 +1,4 @@
+import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/UI/screens/register/register_step_five.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/UI/widgets/circle_image.dart';
@@ -81,7 +82,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
   List<String> _dates = ['Gregorian'.tr, 'Hijri'.tr];
   String _actualselectedDate = 'birth date'.tr;
 
-  List<String> _types = ['Male'.tr, 'Female'.tr];
+  List<String> _types = ['male'.tr, 'female'.tr];
   String _selectedType = 'Gender'.tr;
 
   bool _isSensitific = false;
@@ -216,7 +217,10 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
         widget.passwordController,
       )
           .then((value) {
-        Get.to(RegisterStepFiveScreen());
+        Get.to(PaymentScreen(
+          childId: "${GetStorage().read('childId')}",
+          routeName: 'register',
+        ));
       });
     }
   }
@@ -538,7 +542,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                           return 'Please enter a valid value'.tr;
                         }
                       },
-                      hintText: 'Name'.tr,
+                      hintText: 'Second Name'.tr,
                     ),
                     SizedBox(height: 15),
                     Row(
@@ -719,6 +723,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       prefixIcon: Image.asset(AppImages.appEmailIcon),
                     ),
                     CustomeTextFormField(
+                      keyboardType: TextInputType.number,
                       controller: _phoneOneController,
                       validator: (val) {
                         if (val.isEmpty) {
@@ -809,6 +814,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
                       ),
                     ),
                     CustomeTextFormField(
+                      keyboardType: TextInputType.number,
                       controller: _phoneTwoController,
                       validator: (val) {
                         if (val.isEmpty) {

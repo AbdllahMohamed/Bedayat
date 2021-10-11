@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bedayat/UI/screens/checkout_status/add_child_checkout_stats/add_child_checkout_status.dart';
+import 'package:bedayat/UI/screens/checkout_status/checkout_status.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/checkout_status_controller.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +12,12 @@ import 'package:webview_flutter/webview_flutter.dart' as webview;
 // ignore: must_be_immutable
 class PaymentWebviewScreen extends StatefulWidget {
   final String checkoutId;
+  final String routeName;
 
   PaymentWebviewScreen({
     Key? key,
     required this.checkoutId,
+    required this.routeName,
   }) : super(key: key);
 
   @override
@@ -48,8 +50,9 @@ class _PaymentWebviewScreenState extends State<PaymentWebviewScreen> {
   }
 
   void _navegatoTo() {
-    Get.to(AddChildCheckotStatusScreen(
+    Get.to(CheckoutStatusScreen(
       checkoutId: widget.checkoutId,
+      routeName: widget.routeName,
     ));
   }
 

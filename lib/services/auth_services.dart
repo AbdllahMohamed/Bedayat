@@ -572,7 +572,6 @@ class UsersServices {
         print(value);
         Map<String, dynamic> responce = json.decode(value);
         final box = GetStorage();
-        print(responce["data"]['id']);
 
         box.write('addChildId', responce["data"]['id']);
       });

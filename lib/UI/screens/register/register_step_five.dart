@@ -110,8 +110,12 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
     if (error != "") {
       Get.defaultDialog(title: "Something went wrong".tr, middleText: error);
     } else {
-      Get.to(PaymentWebviewScreen(
-          checkoutId: "${GetStorage().read('checkoutId')}"));
+      Get.to(
+        PaymentWebviewScreen(
+          checkoutId: "${GetStorage().read('checkoutId')}",
+          routeName: 'register',
+        ),
+      );
     }
   }
 
@@ -221,7 +225,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                       horizontal: 20,
                     ),
                     child: Text(
-                      'Payment'.tr,
+                      'payment'.tr,
                       style: TextStyle(
                         fontSize: 14,
                         color: AppColors.accentColor,
@@ -235,19 +239,19 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          right: 8,
-                          left: 20,
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        'Start From'.tr + '  :',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.accentColor,
+                          fontWeight: FontWeight.w300,
                         ),
-                        child: Text(
-                          'Start From :'.tr,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: AppColors.accentColor,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
                       ),
                       IconButton(
                           onPressed: () {
@@ -255,7 +259,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                           },
                           icon: Icon(Icons.date_range)),
                       SizedBox(
-                        width: 10,
+                        width: 8,
                       ),
                       Text(
                         _actualselectedDate,
@@ -826,7 +830,7 @@ class _RegisterStepFiveScreenState extends State<RegisterStepFiveScreen> {
                     ),
                     child: TextFormField(
                       controller: postCodeController,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                       validator: (val) {
                         if (val!.isEmpty) {
                           return 'Please enter a valid value'.tr;

@@ -343,7 +343,8 @@ class HomeWebContentWidget extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () async {
                               Get.to(PaymentScreen(
-                                childId: childId,
+                                childId: childId.toString(),
+                                routeName: 'home',
                               ));
                             },
                             style: ElevatedButton.styleFrom(

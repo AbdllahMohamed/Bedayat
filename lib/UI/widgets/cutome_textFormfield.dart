@@ -10,6 +10,7 @@ class CustomeTextFormField extends StatelessWidget {
   final double? width;
   final TextEditingController? controller;
   final Function(String value)? validator;
+  final TextInputType? keyboardType;
 
   CustomeTextFormField({
     this.controller,
@@ -20,6 +21,7 @@ class CustomeTextFormField extends StatelessWidget {
     this.hintTextStyle,
     this.boderColorColor,
     this.width,
+    this.keyboardType,
   });
 
   @override
@@ -30,7 +32,7 @@ class CustomeTextFormField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         validator: (value) => validator!(value!),
-        keyboardType: TextInputType.text,
+        keyboardType: keyboardType ?? TextInputType.text,
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.grey[300]!),

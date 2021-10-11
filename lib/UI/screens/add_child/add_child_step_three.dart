@@ -1,4 +1,5 @@
 import 'package:bedayat/UI/screens/add_child/add_child_step_four.dart';
+import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/UI/widgets/circle_image.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
@@ -11,6 +12,7 @@ import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hijri_picker/hijri_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:hijri/hijri_calendar.dart';
@@ -254,7 +256,10 @@ class _AddChildStepThreeScreenState extends State<AddChildStepThreeScreen> {
           title: "Something went wrong".tr, middleText: addchildError);
     } else {
       Future.delayed(Duration(milliseconds: 200), () {
-        Get.to(AddChildStepFourScreen());
+        Get.to(PaymentScreen(
+          childId: "${GetStorage().read('addChildId')}",
+          routeName: 'addChild',
+        ));
       });
     }
   }

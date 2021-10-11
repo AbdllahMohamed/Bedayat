@@ -153,6 +153,7 @@ class _RegisterStepOneScreenState extends State<RegisterStepOneScreen> {
                     ),
                     CustomeTextFormField(
                       controller: _phoneController,
+                      keyboardType: TextInputType.number,
                       validator: (val) {
                         if (val.isEmpty) {
                           return 'Please enter a valid value'.tr;

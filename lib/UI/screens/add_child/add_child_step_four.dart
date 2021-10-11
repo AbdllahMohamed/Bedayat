@@ -108,7 +108,9 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
           title: "Something went wrong".tr, middleText: paymentError);
     } else {
       Get.to(PaymentWebviewScreen(
-          checkoutId: "${GetStorage().read('checkoutId')}"));
+        checkoutId: "${GetStorage().read('checkoutId')}",
+        routeName: 'addChild',
+      ));
     }
   }
 
@@ -235,19 +237,19 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            right: 8,
-                            left: 20,
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text(
+                          'Start From'.tr + '  :',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.accentColor,
+                            fontWeight: FontWeight.w300,
                           ),
-                          child: Text(
-                            'Start From'.tr + ' :',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.accentColor,
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
                         ),
                         IconButton(
                             onPressed: () {
@@ -838,7 +840,7 @@ class _AddChildStepFourScreenState extends State<AddChildStepFourScreen> {
                       ),
                       child: TextFormField(
                         controller: postCodeController,
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.number,
                         validator: (val) {
                           if (val!.isEmpty) {
                             return 'Please enter a valid value'.tr;

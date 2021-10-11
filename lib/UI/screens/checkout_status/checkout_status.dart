@@ -1,5 +1,5 @@
-import 'package:bedayat/UI/screens/checkout_status/register_checkout_status/failuar_register_checkout.dart';
-import 'package:bedayat/UI/screens/checkout_status/register_checkout_status/success_register_checkout.dart';
+import 'package:bedayat/UI/screens/checkout_status/failuar_checkout.dart';
+import 'package:bedayat/UI/screens/checkout_status/success_checkout.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,21 +7,21 @@ import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/controllers/checkout_status_controller.dart';
 
 // ignore: must_be_immutable
-class RegisterCheckoutStautusScreen extends StatefulWidget {
+class CheckoutStatusScreen extends StatefulWidget {
   String checkoutId;
+  final String routeName;
 
-  RegisterCheckoutStautusScreen({
+  CheckoutStatusScreen({
     Key? key,
     required this.checkoutId,
+    required this.routeName,
   }) : super(key: key);
 
   @override
-  _RegisterCheckoutStautusScreenState createState() =>
-      _RegisterCheckoutStautusScreenState();
+  _CheckoutStatusScreenState createState() => _CheckoutStatusScreenState();
 }
 
-class _RegisterCheckoutStautusScreenState
-    extends State<RegisterCheckoutStautusScreen> {
+class _CheckoutStatusScreenState extends State<CheckoutStatusScreen> {
   CheckoutStatusController checkoutStatusController =
       Get.put(CheckoutStatusController());
 
@@ -71,8 +71,12 @@ class _RegisterCheckoutStautusScreenState
                           checkoutStatusController
                                   .checkoutstatusCodeList[i].code ==
                               "000.300.103")
-                      ? SuccessRegisterCheckout()
-                      : FailuarRegisterCheckout();
+                      ? SuccessCheckout(
+                          routeName: widget.routeName,
+                        )
+                      : FailuarCheckout(
+                          routeName: widget.routeName,
+                        );
                 },
               ),
       ),

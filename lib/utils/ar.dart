@@ -68,7 +68,7 @@ const Map<String, String> ar = {
   'Choose the branch closest to you': 'اختر الفرع الاقرب لك',
   'Next': 'التالى',
   'Gregorian': 'ميلادى',
-  'Hijri ': 'هجرى',
+  'Hijri': 'هجرى',
   'birth date ': 'تاريخ الميلاد',
   'male': 'ولد',
   'female': 'بنت',
