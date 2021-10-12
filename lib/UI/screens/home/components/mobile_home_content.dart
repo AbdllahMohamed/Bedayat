@@ -1,4 +1,4 @@
-import 'package:bedayat/UI/screens/home_payment/home_payment.dart';
+import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
 import 'package:bedayat/UI/widgets/circle_image.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
@@ -347,7 +347,7 @@ class MobileHomeContentWidget extends StatelessWidget {
                               right: 15, top: 6, bottom: 2),
                           child: ElevatedButton(
                             onPressed: () async {
-                              Get.to(HomePaymentScreen(
+                              Get.to(PaymentScreen(
                                 childId: childId,
                               ));
                             },
@@ -366,7 +366,7 @@ class MobileHomeContentWidget extends StatelessWidget {
                               'Your child is not registered to subscribe now'
                                   .tr,
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 13,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.white,
                               ),

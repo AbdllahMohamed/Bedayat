@@ -1,4 +1,4 @@
-import 'package:bedayat/UI/screens/add_child/add_child_step_five.dart';
+import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_Controller.dart';
@@ -22,7 +22,7 @@ class _SuccessAddChildCheckoutState extends State<SuccessAddChildCheckout> {
 
   _navigateTo() {
     Future.delayed(Duration(milliseconds: 200), () {
-      Get.to(AddChildStepFiveScreen());
+      Get.offAll(BottomNavigationWidget());
     });
   }
 

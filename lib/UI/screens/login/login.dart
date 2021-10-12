@@ -102,8 +102,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text(
                             "${GetStorage().read('languageCode')}" == "null"
                                 ? 'EN'
-                                : "${GetStorage().read('languageCode')}"
-                                    .toUpperCase(),
+                                : "${GetStorage().read('languageCode')}" == 'en'
+                                    ? 'ع'
+                                    : 'en'.toUpperCase(),
                             style: TextStyle(
                               fontSize: 16,
                             ),

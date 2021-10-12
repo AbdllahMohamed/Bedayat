@@ -26,7 +26,8 @@ class AuthController extends GetxController {
     String? email,
     String? phone,
     String? password,
-    String? childname,
+    String? childFirstName,
+    String? childSecondName,
     String? ageGroup,
     String? gender,
     String? emergencyNumber,
@@ -60,7 +61,8 @@ class AuthController extends GetxController {
         email: email,
         phone: phone,
         password: password,
-        childname: childname,
+        childFirstName: childFirstName,
+        childSecondName: childSecondName,
         ageGroup: ageGroup,
         gender: gender,
         emergencyNumber: emergencyNumber,
@@ -100,7 +102,8 @@ class AuthController extends GetxController {
     String? email,
     String? phone,
     String? password,
-    String? childname,
+    String? childFirstName,
+    String? childSecondName,
     String? ageGroup,
     String? gender,
     String? emergencyNumber,
@@ -134,7 +137,8 @@ class AuthController extends GetxController {
         email: email,
         phone: phone,
         password: password,
-        childname: childname,
+        childFirstName: childFirstName,
+        childSecondName: childSecondName,
         ageGroup: ageGroup,
         gender: gender,
         emergencyNumber: emergencyNumber,
@@ -172,7 +176,8 @@ class AuthController extends GetxController {
   }
 
   Future<String> addChild({
-    String? childname,
+    String? childFirstName,
+    String? childSecondName,
     String? ageGroup,
     String? gender,
     String? emergencyNumber,
@@ -204,7 +209,8 @@ class AuthController extends GetxController {
       loadingProcess(true);
 
       registerError = await UsersServices.addchild(
-        childname: childname,
+        childFirstName: childFirstName,
+        childSecondName: childSecondName,
         gender: gender,
         emergencyNumber: emergencyNumber,
         parentOneRealation: parentOneRealation,
@@ -246,7 +252,8 @@ class AuthController extends GetxController {
   }
 
   Future<String> addChildWeb({
-    String? childname,
+    String? childFirstName,
+    String? childSecondName,
     String? ageGroup,
     String? gender,
     String? emergencyNumber,
@@ -276,7 +283,8 @@ class AuthController extends GetxController {
     try {
       loadingProcess(true);
       registerError = await UsersServices.addchildWeb(
-        childname: childname,
+        childFirstName: childFirstName,
+        childSecondName: childSecondName,
         gender: gender,
         emergencyNumber: emergencyNumber,
         parentOneRealation: parentOneRealation,

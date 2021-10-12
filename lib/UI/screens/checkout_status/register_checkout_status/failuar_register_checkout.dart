@@ -1,5 +1,5 @@
-import 'package:bedayat/UI/screens/home/home.dart';
-import 'package:bedayat/UI/screens/payment_web_view/register_payment_web_view.dart';
+import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
+import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
 import 'package:bedayat/UI/screens/register/register_step_five.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
@@ -36,7 +36,7 @@ class _FailuarRegisterCheckoutState extends State<FailuarRegisterCheckout> {
     if (error != "") {
       Get.defaultDialog(title: "حدث خطأ ما", middleText: error);
     } else {
-      Get.to(RegisterPaymentWebviewScreen(
+      Get.to(PaymentWebviewScreen(
         checkoutId: "${GetStorage().read('checkoutId')}",
       ));
     }
@@ -107,7 +107,7 @@ class _FailuarRegisterCheckoutState extends State<FailuarRegisterCheckout> {
             SizedBox(height: 20),
             ActionButton(
               onPressed: () async {
-                Get.offAll(HomeScreen());
+                Get.offAll(BottomNavigationWidget());
               },
               label: 'Back to main menu'.tr,
             )

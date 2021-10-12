@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:bedayat/UI/screens/checkout_status/add_child_checkout_stats/add_child_checkout_status.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/checkout_status_controller.dart';
@@ -11,21 +10,19 @@ import 'package:webviewx/webviewx.dart' as webviewX;
 import 'package:webview_flutter/webview_flutter.dart' as webview;
 
 // ignore: must_be_immutable
-class AddChildPaymentWebviewScreen extends StatefulWidget {
+class PaymentWebviewScreen extends StatefulWidget {
   final String checkoutId;
 
-  AddChildPaymentWebviewScreen({
+  PaymentWebviewScreen({
     Key? key,
     required this.checkoutId,
   }) : super(key: key);
 
   @override
-  _AddChildPaymentWebviewScreenState createState() =>
-      _AddChildPaymentWebviewScreenState();
+  _PaymentWebviewScreenState createState() => _PaymentWebviewScreenState();
 }
 
-class _AddChildPaymentWebviewScreenState
-    extends State<AddChildPaymentWebviewScreen> {
+class _PaymentWebviewScreenState extends State<PaymentWebviewScreen> {
   CheckoutStatusController checkoutStatusController =
       Get.put(CheckoutStatusController());
   late webviewX.WebViewXController webviewController;

@@ -1,4 +1,4 @@
-import 'package:bedayat/UI/screens/home_payment/home_payment.dart';
+import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
 import 'package:bedayat/UI/widgets/circle_image.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
@@ -342,7 +342,7 @@ class HomeWebContentWidget extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 15, top: 5),
                           child: ElevatedButton(
                             onPressed: () async {
-                              Get.to(HomePaymentScreen(
+                              Get.to(PaymentScreen(
                                 childId: childId,
                               ));
                             },
