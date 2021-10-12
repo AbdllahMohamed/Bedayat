@@ -96,6 +96,7 @@ class _RegisterStepFourScreenState extends State<RegisterStepFourScreen> {
 
   int? selectedGroupIndex;
   int? selectedTeacherIndex;
+
   registerStepFour() async {
     if (!_formKey.currentState!.validate()) {
       return;

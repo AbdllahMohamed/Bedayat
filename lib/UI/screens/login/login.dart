@@ -1,10 +1,13 @@
 import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
+import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
 import 'package:bedayat/UI/screens/register/register_step_one.dart';
+import 'package:bedayat/UI/screens/reset_password/reset_password.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/UI/widgets/cutome_textFormfield.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_Controller.dart';
+import 'package:bedayat/controllers/child_editor_controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -195,13 +198,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                 login();
                               });
                     }),
+                    InkWell(
+                      onTap: () async {
+                        Get.to(ResetPasswordScreen());
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10.0, left: 8),
+                        child: Text(
+                          'did you forget your password ?'.tr,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Color(0xff5D5E5E),
+                          ),
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: 25,
                     ),
                     Center(
                       child: InkWell(
                         onTap: () async {
-                          Get.to(RegisterStepOneScreen());
+                          childEditorController.step.value = 0;
+                          Get.to(ChildEditorScreen(
+                            routename: 'register',
+                          ));
                         },
                         child: Text(
                           'You do not have an account, register here'.tr,

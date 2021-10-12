@@ -1,3 +1,4 @@
+import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
 import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
 import 'package:bedayat/UI/widgets/circle_image.dart';
@@ -251,15 +252,28 @@ class HomeWebContentWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 18.0, top: 10),
-                    child: Text(
-                      name,
-                      style: TextStyle(
-                        color: AppColors.titleColor,
-                        fontSize: 20,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 18.0, top: 10),
+                        child: Text(
+                          name,
+                          style: TextStyle(
+                            color: AppColors.titleColor,
+                            fontSize: 20,
+                          ),
+                        ),
                       ),
-                    ),
+                      InkWell(
+                        onTap: () {
+                          childEditorController.step.value = 4;
+                          Get.to(ChildEditorScreen(routename: 'editChild'));
+                        },
+                        child: Image.asset(AppImages.appEditIcon),
+                      )
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 18.0, top: 5),

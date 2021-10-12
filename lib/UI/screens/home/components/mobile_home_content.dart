@@ -1,3 +1,4 @@
+import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
 import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
 import 'package:bedayat/UI/widgets/circle_image.dart';
@@ -7,6 +8,7 @@ import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 // ignore: must_be_immutable
@@ -249,16 +251,40 @@ class MobileHomeContentWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, right: 18.0, top: 10),
-                    child: Text(
-                      name,
-                      style: TextStyle(
-                        color: AppColors.titleColor,
-                        fontSize: 20,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 18.0, top: 10),
+                        child: Text(
+                          name,
+                          style: TextStyle(
+                            color: AppColors.titleColor,
+                            fontSize: 20,
+                          ),
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50.0),
+                        child: InkWell(
+                          onTap: () {
+                            childEditorController.step.value = 4;
+                            Get.to(
+                              ChildEditorScreen(
+                                routename: 'editChild',
+                                childId: childId.toString(),
+                              ),
+                            );
+                            childEditorController
+                                .getEditChildData(childId.toString());
+                          },
+                          child: Image.asset(
+                            AppImages.appEditIcon,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                   Padding(
                     padding:
@@ -343,8 +369,7 @@ class MobileHomeContentWidget extends StatelessWidget {
                   // ignore: unnecessary_null_comparison
                   expireDate == 'null'
                       ? Padding(
-                          padding: const EdgeInsets.only(
-                              right: 15, top: 6, bottom: 2),
+                          padding: const EdgeInsets.only(top: 6, bottom: 2),
                           child: ElevatedButton(
                             onPressed: () async {
                               Get.to(PaymentScreen(
@@ -354,21 +379,16 @@ class MobileHomeContentWidget extends StatelessWidget {
                             },
                             style: ElevatedButton.styleFrom(
                               primary: AppColors.primaryColor,
-                              minimumSize: Size(
-                                _deviceWidth * 0.1,
-                                35,
-                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.circular(8), // <-- Radius
                               ),
                             ),
                             child: Text(
-                              'Your child is not registered to subscribe now'
-                                  .tr,
+                              'Your child is not registered  subscribe now'.tr,
                               style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
                             ),

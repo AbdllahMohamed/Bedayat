@@ -54,46 +54,46 @@ class AuthController extends GetxController {
     String? emergencyRelationController,
   }) async {
     var registerError = "";
-    try {
-      loadingProcess(true);
-      registerError = await UsersServices.register(
-        username: username,
-        email: email,
-        phone: phone,
-        password: password,
-        childFirstName: childFirstName,
-        childSecondName: childSecondName,
-        ageGroup: ageGroup,
-        gender: gender,
-        emergencyNumber: emergencyNumber,
-        parentOneRealation: parentOneRealation,
-        parentOneEmail: parentOneEmail,
-        parentOnePhone: parentOnePhone,
-        parentTwoRealation: parentTwoRealation,
-        parentTwoEmail: parentTwoEmail,
-        parentTwoPhone: parentTwoPhone,
-        userId: userId,
-        teacherId: teacherId,
-        groupId: groupId,
-        familyCard: familyCard,
-        vaccinationCertificate: vaccinationCertificate,
-        document: document,
-        actualselectedDate: actualselectedDate,
-        relationOnefirstNameController: relationOnefirstNameController,
-        relationOneSecondNameController: relationOneSecondNameController,
-        relationOneThirdController: relationOneThirdController,
-        relationTwoFirstController: relationTwoFirstController,
-        relationTwoScecondController: relationTwoScecondController,
-        relationTwoThirdController: relationTwoThirdController,
-        emergencyNameController: emergencyNameController,
-        emergencyRelationController: emergencyRelationController,
-      );
-    } catch (e) {
-      print(e);
-      registerError = 'Please try again'.tr;
-    } finally {
-      loadingProcess(false);
-    }
+    // try {
+    loadingProcess(true);
+    registerError = await UsersServices.register(
+      username: username,
+      email: email,
+      phone: phone,
+      password: password,
+      childFirstName: childFirstName,
+      childSecondName: childSecondName,
+      ageGroup: ageGroup,
+      gender: gender,
+      emergencyNumber: emergencyNumber,
+      parentOneRealation: parentOneRealation,
+      parentOneEmail: parentOneEmail,
+      parentOnePhone: parentOnePhone,
+      parentTwoRealation: parentTwoRealation,
+      parentTwoEmail: parentTwoEmail,
+      parentTwoPhone: parentTwoPhone,
+      userId: userId,
+      teacherId: teacherId,
+      groupId: groupId,
+      familyCard: familyCard,
+      vaccinationCertificate: vaccinationCertificate,
+      document: document,
+      actualselectedDate: actualselectedDate,
+      relationOnefirstNameController: relationOnefirstNameController,
+      relationOneSecondNameController: relationOneSecondNameController,
+      relationOneThirdController: relationOneThirdController,
+      relationTwoFirstController: relationTwoFirstController,
+      relationTwoScecondController: relationTwoScecondController,
+      relationTwoThirdController: relationTwoThirdController,
+      emergencyNameController: emergencyNameController,
+      emergencyRelationController: emergencyRelationController,
+    );
+    // } catch (e) {
+    //   print(e);
+    //   registerError = 'Please try again'.tr;
+    // } finally {
+    //   loadingProcess(false);
+    // }
     return registerError;
   }
 
@@ -308,6 +308,146 @@ class AuthController extends GetxController {
         relationTwoThirdController: relationTwoThirdController,
         emergencyNameController: emergencyNameController,
         emergencyRelationController: emergencyRelationController,
+      );
+    } catch (e) {
+      print(e);
+      registerError = 'Please try again'.tr;
+    } finally {
+      loadingProcess(false);
+    }
+    return registerError;
+  }
+
+  Future<String> editChild({
+    String? childFirstName,
+    String? childSecondName,
+    String? ageGroup,
+    String? gender,
+    String? emergencyNumber,
+    String? parentOneRealation,
+    String? parentOneEmail,
+    String? parentOnePhone,
+    String? parentTwoRealation,
+    String? parentTwoEmail,
+    String? parentTwoPhone,
+    String? userId,
+    String? teacherId,
+    String? checkoutId,
+    String? groupId,
+    XFile? familyCard,
+    XFile? vaccinationCertificate,
+    XFile? document,
+    String? actualselectedDate,
+    String? relationOnefirstNameController,
+    String? relationOneSecondNameController,
+    String? relationOneThirdController,
+    String? relationTwoFirstController,
+    String? relationTwoScecondController,
+    String? relationTwoThirdController,
+    String? emergencyNameController,
+    String? emergencyRelationController,
+    required String? childId,
+  }) async {
+    var registerError = "";
+    try {
+      loadingProcess(true);
+
+      registerError = await UsersServices.editchild(
+          childFirstName: childFirstName,
+          childSecondName: childSecondName,
+          gender: gender,
+          emergencyNumber: emergencyNumber,
+          parentOneRealation: parentOneRealation,
+          parentOneEmail: parentOneEmail,
+          parentOnePhone: parentOnePhone,
+          parentTwoRealation: parentTwoRealation,
+          parentTwoEmail: parentTwoEmail,
+          parentTwoPhone: parentTwoPhone,
+          userId: userId,
+          teacherId: teacherId,
+          groupId: groupId,
+          checkoutId: checkoutId,
+          familyCard: familyCard,
+          vaccinationCertificate: vaccinationCertificate,
+          document: document,
+          actualselectedDate: actualselectedDate,
+          relationOnefirstNameController: relationOnefirstNameController,
+          relationOneSecondNameController: relationOneSecondNameController,
+          relationOneThirdController: relationOneThirdController,
+          relationTwoFirstController: relationTwoFirstController,
+          relationTwoScecondController: relationTwoScecondController,
+          relationTwoThirdController: relationTwoThirdController,
+          emergencyNameController: emergencyNameController,
+          emergencyRelationController: emergencyRelationController,
+          childId: childId);
+    } catch (e) {
+      print(e);
+      registerError = 'Please try again'.tr;
+    } finally {
+      loadingProcess(false);
+    }
+    return registerError;
+  }
+
+  Future<String> editChildWeb({
+    String? childFirstName,
+    String? childSecondName,
+    String? ageGroup,
+    String? gender,
+    String? emergencyNumber,
+    String? parentOneRealation,
+    String? parentOneEmail,
+    String? parentOnePhone,
+    String? parentTwoRealation,
+    String? parentTwoEmail,
+    String? parentTwoPhone,
+    String? userId,
+    String? teacherId,
+    String? groupId,
+    XFile? familyCard,
+    XFile? vaccinationCertificate,
+    XFile? document,
+    String? actualselectedDate,
+    String? relationOnefirstNameController,
+    String? relationOneSecondNameController,
+    String? relationOneThirdController,
+    String? relationTwoFirstController,
+    String? relationTwoScecondController,
+    String? relationTwoThirdController,
+    String? emergencyNameController,
+    String? emergencyRelationController,
+    required String? childId,
+  }) async {
+    var registerError = "";
+    try {
+      loadingProcess(true);
+      registerError = await UsersServices.editchildWeb(
+        childFirstName: childFirstName,
+        childSecondName: childSecondName,
+        gender: gender,
+        emergencyNumber: emergencyNumber,
+        parentOneRealation: parentOneRealation,
+        parentOneEmail: parentOneEmail,
+        parentOnePhone: parentOnePhone,
+        parentTwoRealation: parentTwoRealation,
+        parentTwoEmail: parentTwoEmail,
+        parentTwoPhone: parentTwoPhone,
+        userId: userId,
+        teacherId: teacherId,
+        groupId: groupId,
+        familyCard: familyCard,
+        vaccinationCertificate: vaccinationCertificate,
+        document: document,
+        actualselectedDate: actualselectedDate,
+        relationOnefirstNameController: relationOnefirstNameController,
+        relationOneSecondNameController: relationOneSecondNameController,
+        relationOneThirdController: relationOneThirdController,
+        relationTwoFirstController: relationTwoFirstController,
+        relationTwoScecondController: relationTwoScecondController,
+        relationTwoThirdController: relationTwoThirdController,
+        emergencyNameController: emergencyNameController,
+        emergencyRelationController: emergencyRelationController,
+        childId: childId,
       );
     } catch (e) {
       print(e);

@@ -665,16 +665,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(right: 15.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0),
                                 child: Image.asset(_banckImage[index]),
                               ),
                               SizedBox(
-                                width: 40,
+                                width: 10,
                               ),
                               Text(
                                 _banckName[index],
                                 style: TextStyle(
-                                  fontSize: 13,
+                                  fontSize: 17,
                                   color: AppColors.titleColor,
                                 ),
                               ),
@@ -750,7 +751,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       decoration: InputDecoration(
                         prefixIcon:
                             Icon(Icons.person, color: AppColors.accentColor),
-                        hintText: 'الاسم الثانى',
+                        hintText: 'Second Name'.tr,
                         hintStyle: TextStyle(color: AppColors.accentColor),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[300]!),
@@ -865,7 +866,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     ),
                     child: TextFormField(
                       controller: postCodeController,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                       validator: (val) {
                         if (val!.isEmpty) {
                           return 'Please enter a valid value'.tr;

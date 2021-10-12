@@ -1,40 +1,33 @@
 class User {
+  int? id;
   String? name;
   String? email;
-  String? phone;
-  String? countryId;
+  String? emailVerifiedAt;
+  String? currentTeamId;
+  String? profilePhotoPath;
+  String? phoneNumber;
   String? updatedAt;
   String? createdAt;
-  int? id;
 
-  User(
-      {this.name,
-      this.email,
-      this.phone,
-      this.countryId,
-      this.updatedAt,
-      this.createdAt,
-      this.id});
+  User({
+    this.id,
+    this.name,
+    this.email,
+    this.emailVerifiedAt,
+    this.currentTeamId,
+    this.profilePhotoPath,
+    this.phoneNumber,
+  });
 
   User.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     email = json['email'];
-    phone = json['phone'];
-    countryId = json['country_id'];
+    emailVerifiedAt = json['email_verified_at'];
+    currentTeamId = json['current_team_id'];
+    profilePhotoPath = json['profile_photo_path'];
+    phoneNumber = json['phone_number'];
     updatedAt = json['updated_at'];
     createdAt = json['created_at'];
     id = json['id'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['country_id'] = this.countryId;
-    data['updated_at'] = this.updatedAt;
-    data['created_at'] = this.createdAt;
-    data['id'] = this.id;
-    return data;
   }
 }

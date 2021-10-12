@@ -12,6 +12,7 @@ import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:bedayat/controllers/report_controller.dart';
 import 'package:bedayat/controllers/slider_image_controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
+import 'package:bedayat/controllers/user_controller.dart';
 import 'package:get/get.dart';
 
 class AppBinding implements Bindings {
@@ -34,5 +35,6 @@ class AppBinding implements Bindings {
     Get.lazyPut<PaymentController>(() => PaymentController(), fenix: true);
     Get.lazyPut<CheckoutStatusController>(() => CheckoutStatusController(),
         fenix: true);
+    Get.lazyPut<UserController>(() => UserController(), fenix: true);
   }
 }

@@ -9,6 +9,7 @@ import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/childern_controller.dart';
 import 'package:bedayat/controllers/slider_image_controller.dart';
+import 'package:bedayat/controllers/user_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -26,6 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final SliderImagesController sliderImagesController =
       Get.put(SliderImagesController());
   final ChildernController childernController = Get.put(ChildernController());
+  final UserController userController = Get.put(UserController());
+
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
 
   CarouselController buttonCarouselController = CarouselController();
@@ -38,7 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    print('inside inti');
     childernController.fetchchildern();
+    userController.fetchUsers();
     controller = PageController(viewportFraction: 1, keepPage: true);
     if (sliderImagesController.sliderImagesList.length > 1) {
       Timer.periodic(Duration(seconds: 2), (Timer timer) {
@@ -65,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var _deviceWidth = MediaQuery.of(context).size.width;
     var _devicHeight = MediaQuery.of(context).size.height;
     print(_deviceWidth);
+
     return WillPopScope(
       onWillPop: () async {
         SystemNavigator.pop();
@@ -85,6 +91,36 @@ class _HomeScreenState extends State<HomeScreen> {
                     _scaffoldkey.currentState!.openDrawer();
                   },
                 ),
+                Obx(() => userController.loadingProcess.value
+                    ? const SizedBox()
+                    : userController.usersList[0].emailVerifiedAt == 'null'
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 82, left: 15),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                // Get.to(PaymentScreen(
+                                //   childId: childId.toString(),
+                                //   routeName: 'home',
+                                // ));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: AppColors.primaryColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(8), // <-- Radius
+                                ),
+                              ),
+                              child: Text(
+                                'Your email is not active  active it now'.tr,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox()),
                 Obx(
                   () => sliderImagesController.loadingProcess.value
                       ? Padding(
@@ -114,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             )
                           : Padding(
-                              padding: const EdgeInsets.only(top: 100.0),
+                              padding: const EdgeInsets.only(top: 130.0),
                               child: Container(
                                 width: _deviceWidth,
                                 height: kIsWeb ? 300 : 240,
@@ -189,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: kIsWeb ? 440 : 370.0,
+                    top: kIsWeb ? 440 : 380.0,
                     right: 20,
                     left: 20,
                   ),

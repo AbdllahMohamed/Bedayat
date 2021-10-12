@@ -1,6 +1,8 @@
 class AddChild {
   int? id;
   String? name;
+  String? childFirstName; // "age_group": "1",
+  String? childSecondName; // "age_group": "1",
   String? ageGroup; // "age_group": "1",
   String? gender;
   String? emergencyNumber; //"emergency_number": "test",
@@ -71,6 +73,8 @@ class AddChild {
         ageGroup = json['age_group'],
         gender = json['gender'],
         notes = json['notes'],
+        childFirstName = json['frist_name'],
+        childSecondName = json['last_name'],
         allergy = json['allergy'],
         photography = json['photography'],
         parentOneRealation = json['parent_one_realation'],

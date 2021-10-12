@@ -10,7 +10,7 @@ const Map<String, String> ar = {
   'View The Daily Report': 'عرض التقرير اليومى',
   'Perform of': 'اداء',
   'Today': 'اليوم',
-  'Your child is not registered to subscribe now':
+  'Your child is not registered  subscribe now':
       'طفلك غير مسجل باشتراك   اشترك الان',
   'Share': 'مشاركة',
   'Class': 'الفصل',
@@ -303,4 +303,9 @@ const Map<String, String> ar = {
   'Date': 'الناريخ',
   'Start From': 'يبدء من',
   'Please choose the date': 'من فضلك تأكد من اختيار التاريخ',
+  'did you forget your password ?': 'هل نسيت كلمة المرور ؟',
+  'Reset Password': 'إستعادة كلمة المرور',
+  'infomration!': 'معلومات',
+  'Save': 'حفظ',
+  'Your email is not active  active it now!': 'البريد الالكترونى غير مفعل',
 };

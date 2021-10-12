@@ -1,4 +1,5 @@
 import 'package:bedayat/UI/screens/add_child/add_child_step_one.dart';
+import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
 import 'package:bedayat/UI/screens/events/events.dart';
 import 'package:bedayat/UI/screens/terms_and_condtion/terms_and_condtions.dart';
 import 'package:bedayat/app_images/app_images.dart';
@@ -32,7 +33,10 @@ class AppDrawer extends StatelessWidget {
               label: 'Add Child'.tr,
               imagePath: AppImages.appChildIcon,
               onTap: () {
-                Get.to(AddChildStepOneScreen());
+                childEditorController.step.value = 1;
+                Get.to(ChildEditorScreen(
+                  routename: 'addChild',
+                ));
               },
             ),
             DrawerItem(

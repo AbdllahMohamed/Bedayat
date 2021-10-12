@@ -10,8 +10,8 @@ const Map<String, String> en = {
   'View The Daily Report': 'View The Daily Report',
   'Perform of': 'Perform of',
   'Today': 'Today',
-  'Your child is not registered to subscribe now':
-      'Your child is not registered to subscribe now',
+  'Your child is not registered  subscribe now':
+      'Your child is not registered  subscribe now',
   'Share': 'Share',
   'Class': 'Class',
   'Report': 'Report',
@@ -309,4 +309,10 @@ const Map<String, String> en = {
   'Date': 'Date',
   'Start From': 'Start From',
   'Please choose the date': 'Please choose the date',
+  'did you forget your password ?': 'did you forget your password ?',
+  'Reset Password': 'Reset Password',
+  'infomration!': 'infomration!',
+  'Save': 'Save',
+  'Your email is not active  active it now!':
+      'Your email is not active  active it now!',
 };
