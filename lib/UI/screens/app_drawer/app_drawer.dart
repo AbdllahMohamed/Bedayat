@@ -1,5 +1,6 @@
 import 'package:bedayat/UI/screens/add_child/add_child_step_one.dart';
 import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
+import 'package:bedayat/UI/screens/edit_account_information/edit_account_information_screen.dart';
 import 'package:bedayat/UI/screens/events/events.dart';
 import 'package:bedayat/UI/screens/terms_and_condtion/terms_and_condtions.dart';
 import 'package:bedayat/app_images/app_images.dart';
@@ -28,6 +29,13 @@ class AppDrawer extends StatelessWidget {
                 'Main Menu'.tr,
                 style: TextStyle(fontSize: 23),
               ),
+            ),
+            DrawerItem(
+              label: 'Edit Account Information'.tr,
+              imagePath: AppImages.appTermsAndConditions,
+              onTap: () {
+                Get.to(EditAccountInformationScreen());
+              },
             ),
             DrawerItem(
               label: 'Add Child'.tr,

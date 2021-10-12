@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:bedayat/const/const.dart';
+import 'package:bedayat/models/user.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get_storage/get_storage.dart';
@@ -13,6 +14,72 @@ import 'package:async/async.dart';
 class UsersServices {
   static String? getToken() {
     return GetStorage().read('token');
+  }
+
+  static Future<User> getUserInfo() async {
+    var loginError = "";
+
+    Dio dio = new Dio();
+
+    Response response = await dio.get(
+      "$baseApiUrl/user/info",
+      options: Options(
+          headers: {
+            "Accept": "application/json",
+            "Authorization": "Bearer ${GetStorage().read('token')}",
+          },
+          contentType: "application/x-www-form-urlencoded",
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+
+    return User.fromJson(response.data);
+  }
+
+
+  static Future<User?> updateUserData({required String name,required String  phone,required String email,String? password,String? newPassword, dynamic errorHandler}) async {
+    var loginError = "";
+
+    Dio dio = new Dio();
+
+    print("---------");
+
+    Response response = await dio.post(
+      "$baseApiUrl/user/update",
+      data: {
+        'name' : name,
+        'email' : email,
+        'phone_number' : phone,
+        'password' : password,
+        'new_password' : newPassword,
+      },
+      options: Options(
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Bearer ${GetStorage().read('token')}",
+        },
+        contentType: "application/x-www-form-urlencoded",
+        followRedirects: false,
+        validateStatus: (status) {
+          return status! < 500;
+      }),
+    );
+
+    print(response.statusCode );
+
+    if(response.statusCode == 200){
+      return User.fromJson(response.data);
+    }else if(response.statusCode == 401){
+      if(response.data['message'] == 'current password is invalid'){
+        errorHandler("Error".tr,"current password is invalid");
+      }
+      return null;
+    }
+
+    return null;
+
   }
 
   static Future<String> login(String email, String password) async {
