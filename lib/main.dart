@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
         DefaultMaterialLocalizations.delegate,
       ],
       supportedLocales: [
-        // Locale('en', 'US'),
+        Locale('en', 'US'),
         Locale('ar', 'SA'),
       ],
       initialBinding: AppBinding(),
