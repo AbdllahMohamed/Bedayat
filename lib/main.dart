@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -79,11 +80,20 @@ class MyApp extends StatelessWidget {
   MyApp({this.token});
   @override
   Widget build(BuildContext context) {
-    print('languageCode');
-    print("${GetStorage().read('languageCode')}");
     return GetMaterialApp(
       title: 'Bedayat',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        DefaultWidgetsLocalizations.delegate,
+        DefaultMaterialLocalizations.delegate,
+      ],
+      supportedLocales: [
+        // Locale('en', 'US'),
+        Locale('ar', 'SA'),
+      ],
       initialBinding: AppBinding(),
       theme: ThemeData(
         primaryColor: AppColors.primaryColor,
@@ -96,7 +106,6 @@ class MyApp extends StatelessWidget {
       locale: Locale("${GetStorage().read('languageCode')}" == "null"
           ? 'ar'
           : "${GetStorage().read('languageCode')}"),
-      //fallbackLocale: Locale('ar'),
       initialRoute: token != null ? '/home' : '/login',
       onGenerateRoute: RouteGenerator.generateRoute,
     );

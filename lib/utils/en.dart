@@ -81,7 +81,7 @@ const Map<String, String> en = {
   'Please make sure to choose your age group and gender':
       'Please make sure to choose your age group and gender',
   'Please make sure to choose photos': 'Please make sure to choose photos',
-  'Child Data': 'Baby Data',
+  'Child Data': 'Child Data',
   'Teachers': 'Teachers',
   'Please enter a valid value': 'Please enter a valid value',
   'Name': 'Name',
@@ -315,4 +315,8 @@ const Map<String, String> en = {
   'Save': 'Save',
   'Your email is not active  active it now!':
       'Your email is not active  active it now!',
+  'Your email is not verified': 'Your email is not verified',
+  'Resend': 'Resend',
+  'Edit Account Information': 'Edit Account Information',
+  'Cancel': 'Cancel',
 };

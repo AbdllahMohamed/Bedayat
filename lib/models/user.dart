@@ -22,7 +22,7 @@ class User {
   User.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     email = json['email'];
-    emailVerifiedAt = json['email_verified_at'];
+    emailVerifiedAt = json['email_verified_at'] ?? 'null';
     currentTeamId = json['current_team_id'];
     profilePhotoPath = json['profile_photo_path'];
     phoneNumber = json['phone_number'];

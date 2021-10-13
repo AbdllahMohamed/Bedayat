@@ -149,7 +149,7 @@ class _SelectBranchScreenState extends State<SelectBranchScreen> {
                   ),
                   SizedBox(height: 20),
                   Obx(
-                    () => childEditorController.loadingProcess.value
+                    () => childEditorController.branchloadingProcess.value
                         ? Center(
                             child: Padding(
                               padding:

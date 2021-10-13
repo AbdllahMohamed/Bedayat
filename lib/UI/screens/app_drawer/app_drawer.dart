@@ -31,13 +31,6 @@ class AppDrawer extends StatelessWidget {
               ),
             ),
             DrawerItem(
-              label: 'Edit Account Information'.tr,
-              imagePath: AppImages.appTermsAndConditions,
-              onTap: () {
-                Get.to(EditAccountInformationScreen());
-              },
-            ),
-            DrawerItem(
               label: 'Add Child'.tr,
               imagePath: AppImages.appChildIcon,
               onTap: () {
@@ -45,6 +38,13 @@ class AppDrawer extends StatelessWidget {
                 Get.to(ChildEditorScreen(
                   routename: 'addChild',
                 ));
+              },
+            ),
+            DrawerItem(
+              label: 'Edit Account Information'.tr,
+              imagePath: AppImages.appEditIcon,
+              onTap: () {
+                Get.to(EditAccountInformationScreen());
               },
             ),
             DrawerItem(

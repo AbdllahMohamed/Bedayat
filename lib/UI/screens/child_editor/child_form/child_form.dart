@@ -34,52 +34,67 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
   @override
   void initState() {
     super.initState();
-    print(widget.childId);
-    childEditorController
-        .fetchGroups(childEditorController.selectedBranchIndex.value);
-
-    if (widget.routename == 'addChild') {
-      childEditorController.emergencyNumberController.text =
-          childEditorController.addChildList[0].emergencyNumber ?? "";
-      childEditorController.anthorNotesController.text =
-          childEditorController.addChildList[0].notes ?? "";
-
-      childEditorController.relationsOneController.text =
-          childEditorController.addChildList[0].parentOneRealation ?? "";
-      childEditorController.emailOneController.text =
-          childEditorController.addChildList[0].parentOneEmail ?? "";
-      childEditorController.phoneOneController.text =
-          childEditorController.addChildList[0].parentOnePhone ?? "";
-      childEditorController.relationsTwoController.text =
-          childEditorController.addChildList[0].parentTwoRealation ?? "";
-      childEditorController.emailTwoController.text =
-          childEditorController.addChildList[0].parentTwoEmail ?? "";
-      childEditorController.phoneTwoController.text =
-          childEditorController.addChildList[0].parentTwoPhone ?? "";
-      childEditorController.relationOnefirstNameController.text =
-          childEditorController.addChildList[0].relationOneFirstName ?? "";
-      childEditorController.relationOneSecondNameController.text =
-          childEditorController.addChildList[0].relationOneSecondName ?? "";
-      childEditorController.relationOneThirdController.text =
-          childEditorController.addChildList[0].relationOneThirdName ?? "";
-      childEditorController.relationTwoFirstNameController.text =
-          childEditorController.addChildList[0].relationTwoFirstName ?? "";
-      childEditorController.relationTwoScecondNameController.text =
-          childEditorController.addChildList[0].relationTwoScecondName ?? "";
-      childEditorController.relationTwoThirdNameController.text =
-          childEditorController.addChildList[0].relationTwoThirdName ?? "";
-      childEditorController.emergencyNameController.text =
-          childEditorController.addChildList[0].emergencyName ?? "";
-      childEditorController.emergencyRelationController.text =
-          childEditorController.addChildList[0].emergencyRelation ?? "";
-    }
+    initializeData();
   }
 
-  _editChildData() {
-    print("widget.childId");
-    print(widget.childId);
+  void initializeData() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      print('fe');
+      if (widget.routename == 'addChild' || widget.routename == 'register') {
+        childEditorController
+            .fetchGroups(childEditorController.selectedBranchIndex.value);
+      }
+
+      if (widget.routename == 'addChild') {
+        childEditorController.emergencyNumberController.text =
+            childEditorController.addChildList[0].emergencyNumber ?? "";
+        childEditorController.anthorNotesController.text =
+            childEditorController.addChildList[0].notes ?? "";
+
+        childEditorController.relationsOneController.text =
+            childEditorController.addChildList[0].parentOneRealation ?? "";
+        childEditorController.emailOneController.text =
+            childEditorController.addChildList[0].parentOneEmail ?? "";
+        childEditorController.phoneOneController.text =
+            childEditorController.addChildList[0].parentOnePhone ?? "";
+        childEditorController.relationsTwoController.text =
+            childEditorController.addChildList[0].parentTwoRealation ?? "";
+        childEditorController.emailTwoController.text =
+            childEditorController.addChildList[0].parentTwoEmail ?? "";
+        childEditorController.phoneTwoController.text =
+            childEditorController.addChildList[0].parentTwoPhone ?? "";
+        childEditorController.relationOnefirstNameController.text =
+            childEditorController.addChildList[0].relationOneFirstName ?? "";
+        childEditorController.relationOneSecondNameController.text =
+            childEditorController.addChildList[0].relationOneSecondName ?? "";
+        childEditorController.relationOneThirdController.text =
+            childEditorController.addChildList[0].relationOneThirdName ?? "";
+        childEditorController.relationTwoFirstNameController.text =
+            childEditorController.addChildList[0].relationTwoFirstName ?? "";
+        childEditorController.relationTwoScecondNameController.text =
+            childEditorController.addChildList[0].relationTwoScecondName ?? "";
+        childEditorController.relationTwoThirdNameController.text =
+            childEditorController.addChildList[0].relationTwoThirdName ?? "";
+        childEditorController.emergencyNameController.text =
+            childEditorController.addChildList[0].emergencyName ?? "";
+        childEditorController.emergencyRelationController.text =
+            childEditorController.addChildList[0].emergencyRelation ?? "";
+      }
+      _editChildData();
+    });
+  }
+
+  _editChildData() async {
+    childEditorController.initLoadingProcess.value = true;
     if (widget.routename == 'editChild' &&
-        childEditorController.editChildLoadingProcess.value == false) {
+        childEditorController.initLoadingProcess.value == true) {
+      await childEditorController.getEditChildData(widget.childId.toString());
+
+      print(childEditorController.editChildList[0].branchId!);
+      await childEditorController
+          .fetchGroups(childEditorController.editChildList[0].branchId!);
+      await childEditorController
+          .fetchTeachers(childEditorController.editChildList[0].groupId!);
       childEditorController.childFirstNameController.text =
           childEditorController.editChildList[0].childFirstName ?? "";
       childEditorController.childSecondNameController.text =
@@ -116,46 +131,84 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
           childEditorController.editChildList[0].emergencyName ?? "";
       childEditorController.emergencyRelationController.text =
           childEditorController.editChildList[0].emergencyRelation ?? "";
+      childEditorController.initLoadingProcess.value = false;
     }
   }
 
   final _formKey = GlobalKey<FormState>();
 
   registerStepFour() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    } else if (childEditorController.actualselectedDate == 'birth date'.tr) {
-      await Get.defaultDialog(
-          title: "Something went wrong".tr,
-          middleText: 'Please make sure to choose your date of birth'.tr);
-    } else if (childEditorController.selectedGroupIndex == null ||
-        childEditorController.selectedTeacherIndex == null) {
-      await Get.defaultDialog(
-          title: "Something went wrong".tr,
-          middleText: 'Please make sure you choose the class and teacher'.tr);
-    } else if (childEditorController.selectedType == 'Gender'.tr) {
-      await Get.defaultDialog(
-          title: "Something went wrong".tr,
-          middleText:
-              'Please make sure to choose your age group and gender'.tr);
-      return;
-    } else if (childEditorController.familyCardPhoto.path.isEmpty ||
-        childEditorController.vaccinationCertificate.path.isEmpty ||
-        childEditorController.doctuumnet.path.isEmpty ||
-        childEditorController.selectedType == 'Gender'.tr) {
-      await Get.defaultDialog(
-          title: "Something went wrong".tr,
-          middleText: 'Please make sure to choose photos'.tr);
-      return;
+    if (widget.routename == 'register' || widget.routename == 'addChild') {
+      if (!_formKey.currentState!.validate()) {
+        return;
+      } else if (childEditorController.actualselectedDate == 'birth date'.tr) {
+        print(childEditorController.actualselectedDate);
+        await Get.defaultDialog(
+            title: "Something went wrong".tr,
+            middleText: 'Please make sure to choose your date of birth'.tr);
+      } else if (childEditorController.selectedGroupIndex == null ||
+          childEditorController.selectedTeacherIndex == null) {
+        await Get.defaultDialog(
+            title: "Something went wrong".tr,
+            middleText: 'Please make sure you choose the class and teacher'.tr);
+      } else if (childEditorController.selectedType == 'Gender'.tr) {
+        await Get.defaultDialog(
+            title: "Something went wrong".tr,
+            middleText:
+                'Please make sure to choose your age group and gender'.tr);
+        return;
+      } else if (childEditorController.familyCardPhoto.path.isEmpty ||
+          childEditorController.vaccinationCertificate.path.isEmpty ||
+          childEditorController.doctuumnet.path.isEmpty ||
+          childEditorController.selectedType == 'Gender'.tr) {
+        await Get.defaultDialog(
+            title: "Something went wrong".tr,
+            middleText: 'Please make sure to choose photos'.tr);
+        return;
+      } else {
+        if (widget.routename == 'register') {
+          kIsWeb ? _registerAndavegatoToWeb() : _registerAndavegatoToMobile();
+        }
+        if (widget.routename == 'addChild') {
+          kIsWeb ? _addChildWeb() : _addChildMobile();
+        }
+      }
     } else {
-      if (widget.routename == 'register') {
-        kIsWeb ? _registerAndavegatoToWeb() : _registerAndavegatoToMobile();
+      if (widget.routename == 'editChild' &&
+          childEditorController.updateChoice.value == false) {
+        childEditorController.actualselectedDate =
+            childEditorController.editChildList[0].birthDate!.substring(0, 10);
+        print(childEditorController.actualselectedDate);
+      } else {
+        print(childEditorController.actualselectedDate);
       }
-      if (widget.routename == 'addChild') {
-        kIsWeb ? _addChildWeb() : _addChildMobile();
+      if (widget.routename == 'editChild' &&
+          childEditorController.updateChoice.value == false) {
+        childEditorController.actualselectedDate =
+            childEditorController.editChildList[0].birthDate!.substring(0, 10);
+        print(childEditorController.actualselectedDate);
+      } else {
+        print(childEditorController.actualselectedDate);
       }
-      if (widget.routename == 'editChild') {
-        kIsWeb ? _editChildWeb() : _editChild();
+
+      if (widget.routename == 'editChild' &&
+          childEditorController.updateChoice.value == false) {
+        childEditorController.selectedType =
+            childEditorController.editChildList[0].gender!;
+        print(childEditorController.selectedType);
+      } else {
+        print(childEditorController.selectedType);
+      }
+
+      if (childEditorController.selectedGroupIndex == null ||
+          childEditorController.selectedTeacherIndex == null) {
+        await Get.defaultDialog(
+            title: "Something went wrong".tr,
+            middleText: 'Please make sure you choose the class and teacher'.tr);
+      } else {
+        if (widget.routename == 'editChild') {
+          kIsWeb ? _editChildWeb() : _editChild();
+        }
       }
     }
   }
@@ -485,25 +538,29 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
 
     if (picked != null)
       setState(() {
+        childEditorController.updateChoice.value = true;
         childEditorController.actualselectedDate =
             picked.toString().substring(0, 10);
       });
   }
 
+  var selectedDate = new HijriCalendar.now();
+
   Future<void> _selectHijrDate(BuildContext context) async {
     final HijriCalendar? picked = await showHijriDatePicker(
-        context: context,
-        initialDate: HijriCalendar.now(),
-        lastDate: HijriCalendar.now(),
-        firstDate: HijriCalendar()
-          ..hYear = 1400
-          ..hMonth = 12
-          ..hDay = 25,
-        initialDatePickerMode: DatePickerMode.year,
-        locale: Locale("${GetStorage().read('languageCode')}"));
+      context: context,
+      initialDate: HijriCalendar.now(),
+      lastDate: HijriCalendar.now(),
+      firstDate: HijriCalendar()
+        ..hYear = 1400
+        ..hMonth = 12
+        ..hDay = 25,
+      initialDatePickerMode: DatePickerMode.year,
+    );
 
     if (picked != null)
       setState(() {
+        childEditorController.updateChoice.value = true;
         childEditorController.actualselectedDate =
             "${picked.hYear}/${picked.hMonth}/${picked.hDay}";
       });
@@ -513,11 +570,12 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    HijriCalendar.setLocal(Localizations.localeOf(context).languageCode);
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(body: Obx(() {
-        _editChildData();
-        return (childEditorController.editChildLoadingProcess.value &&
+        return (childEditorController.initLoadingProcess.value &&
                 widget.routename == 'editChild')
             ? Center(
                 child: CircularProgressIndicator(
@@ -637,7 +695,8 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                           ),
                           SizedBox(height: 15),
                           Obx(
-                            () => childEditorController.loadingProcess.value
+                            () => childEditorController
+                                    .grouploadingProcess.value
                                 ? Center(
                                     child: CircularProgressIndicator(
                                       valueColor: AlwaysStoppedAnimation<Color>(
@@ -645,7 +704,7 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                                       ),
                                     ),
                                   )
-                                : childEditorController.groups.length == 0
+                                : childEditorController.groups.isEmpty
                                     ? Center(
                                         child: Text(
                                           'Not Found Data'.tr,
@@ -668,10 +727,15 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                                                             .selectedGroupIndex =
                                                         childEditorController
                                                             .groups[index].id;
-                                                    childEditorController
-                                                        .fetchTeachers(
-                                                            childEditorController
-                                                                .selectedGroupIndex!);
+                                                    if (widget.routename ==
+                                                            'addChild' ||
+                                                        widget.routename ==
+                                                            'register') {
+                                                      childEditorController
+                                                          .fetchTeachers(
+                                                              childEditorController
+                                                                  .selectedGroupIndex!);
+                                                    }
                                                   });
                                                 },
                                                 child: Container(
@@ -721,7 +785,8 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                             height: 15,
                           ),
                           Obx(
-                            () => childEditorController.loadingProcess.value
+                            () => childEditorController
+                                    .teacherloadingProcess.value
                                 ? Center(
                                     child: CircularProgressIndicator(
                                       valueColor: AlwaysStoppedAnimation<Color>(
@@ -729,7 +794,7 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                                       ),
                                     ),
                                   )
-                                : childEditorController.teachersList.length == 0
+                                : childEditorController.teachersList.isEmpty
                                     ? Center(
                                         child: Text(
                                           'Not Found Data'.tr,
@@ -889,8 +954,15 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                                       padding:
                                           const EdgeInsets.only(bottom: 15.0),
                                       child: Text(
-                                        childEditorController
-                                            .actualselectedDate,
+                                        (widget.routename == 'editChild' &&
+                                                childEditorController
+                                                        .updateChoice.value ==
+                                                    false)
+                                            ? childEditorController
+                                                .editChildList[0].birthDate!
+                                                .substring(0, 10)
+                                            : childEditorController
+                                                .actualselectedDate,
                                         maxLines: 2,
                                         style: TextStyle(
                                           fontSize: 18,
@@ -939,7 +1011,14 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                                       padding:
                                           const EdgeInsets.only(bottom: 15.0),
                                       child: Text(
-                                        childEditorController.selectedType,
+                                        (widget.routename == 'editChild' &&
+                                                childEditorController
+                                                        .updateChoice.value ==
+                                                    false)
+                                            ? childEditorController
+                                                .editChildList[0].gender!
+                                            : childEditorController
+                                                .selectedType,
                                         maxLines: 2,
                                         style: TextStyle(
                                           fontSize: 18,
@@ -950,20 +1029,22 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                                     ),
                                     onChanged: (newValue) {
                                       setState(() {
+                                        childEditorController
+                                            .updateChoice.value = true;
                                         childEditorController.selectedType =
                                             newValue.toString();
                                       });
                                     },
-                                    items: childEditorController.types
-                                        .map((country) {
+                                    items:
+                                        childEditorController.types.map((type) {
                                       return DropdownMenuItem(
                                         child: new Text(
-                                          country.toString(),
+                                          type.toString(),
                                           style: TextStyle(
                                             color: Color(0xff707070),
                                           ),
                                         ),
-                                        value: country.toString(),
+                                        value: type.toString(),
                                       );
                                     }).toList(),
                                   ),
@@ -1570,6 +1651,77 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                 ),
               );
       })),
+    );
+  }
+}
+
+class MyDialog extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _MyDialogState();
+  }
+}
+
+class _MyDialogState extends State<MyDialog> {
+  var selectedDate = new HijriCalendar.now();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 350,
+      width: 350,
+      child: Scaffold(
+        body: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(30.0),
+              child: HijriMonthPicker(
+                lastDate: HijriCalendar()
+                  ..hYear = 1445
+                  ..hMonth = 9
+                  ..hDay = 25,
+                firstDate: HijriCalendar()
+                  ..hYear = 1438
+                  ..hMonth = 12
+                  ..hDay = 25,
+                onChanged: (HijriCalendar value) {
+                  childEditorController.updateChoice.value = true;
+                  setState(() {
+                    print(value);
+                    selectedDate = value;
+                    childEditorController.actualselectedDate =
+                        selectedDate.toString();
+                    print(childEditorController.actualselectedDate);
+                  });
+                },
+                selectedDate: selectedDate,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Spacer(),
+                ActionButton(
+                  width: 80,
+                  label: 'Cancel'.tr,
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+                Spacer(),
+                ActionButton(
+                  width: 80,
+                  label: 'Save'.tr,
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+                Spacer(),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }

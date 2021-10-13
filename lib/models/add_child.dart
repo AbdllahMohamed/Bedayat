@@ -14,7 +14,9 @@ class AddChild {
   String? parentOnePhone; //"parent_one_phone": "test",
   String? parentTwoRealation; //"parent_two_realation": "test",
   String? parentTwoEmail; //"parent_two_email": "test",
-  String? parentTwoPhone; //"parent_two_phone": "test",
+  String? parentTwoPhone;
+  int? branchId; //"parent_two_phone": "test",
+  int? groupId; //"parent_two_phone": "test",
   String?
       familyCard; //"family_card": "public/966wbAayWRp6I2XGMdV6aZSdamqTQ75wOJc7cCrt.jpg",
   String?
@@ -35,6 +37,7 @@ class AddChild {
   String? relationTwoThirdName; //"updated_at": "2021-09-04T18:52:00.000000Z"
   String? emergencyName; //"updated_at": "2021-09-04T18:52:00.000000Z"
   String? emergencyRelation; //"updated_at": "2021-09-04T18:52:00.000000Z"
+  String? birthDate; //"updated_at": "2021-09-04T18:52:00.000000Z"
 
   AddChild(
       {this.id,
@@ -63,8 +66,11 @@ class AddChild {
       this.relationOneFirstName,
       this.relationOneSecondName,
       this.relationOneThirdName,
+      this.branchId,
       this.relationTwoFirstName,
       this.relationTwoScecondName,
+      this.groupId,
+      this.birthDate,
       this.relationTwoThirdName});
 
   AddChild.fromJson(Map<String, dynamic> json)
@@ -73,8 +79,11 @@ class AddChild {
         ageGroup = json['age_group'],
         gender = json['gender'],
         notes = json['notes'],
+        birthDate = json['birth_date'],
         childFirstName = json['frist_name'],
         childSecondName = json['last_name'],
+        branchId = json['branch_id'],
+        groupId = json['group_id'],
         allergy = json['allergy'],
         photography = json['photography'],
         parentOneRealation = json['parent_one_realation'],

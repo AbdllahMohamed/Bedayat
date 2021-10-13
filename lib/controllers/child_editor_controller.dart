@@ -81,8 +81,13 @@ class ChildEditorController extends GetxController {
   var teachersList = <Teacher>[].obs;
   var groups = <Group>[].obs;
   var branches = <Branch>[].obs;
-  var loadingProcess = false.obs;
+  var branchloadingProcess = false.obs;
+  var updateChoice = false.obs;
+  var teacherloadingProcess = false.obs;
+  var grouploadingProcess = false.obs;
   var editChildLoadingProcess = false.obs;
+  var childrenLoadingProcess = false.obs;
+  var initLoadingProcess = false.obs;
 
   @override
   void onInit() {
@@ -91,37 +96,38 @@ class ChildEditorController extends GetxController {
 
   void fetchBranches() async {
     try {
-      loadingProcess(true);
+      branchloadingProcess(true);
       var fetchedbranches = await BranchesServices.getAll();
       if (fetchedbranches != null) {
         branches.value = fetchedbranches;
       }
     } finally {
-      loadingProcess(false);
+      branchloadingProcess(false);
     }
   }
 
-  void fetchGroups(int branchId) async {
+  Future<void> fetchGroups(int branchId) async {
     try {
-      loadingProcess(true);
+      grouploadingProcess(true);
       var fetchedgroups = await GroupsServices.getAll(branchId);
       if (fetchedgroups != null) {
         groups.value = fetchedgroups;
       }
     } finally {
-      loadingProcess(false);
+      grouploadingProcess(false);
     }
   }
 
-  void fetchTeachers(int groupId) async {
+  Future<void> fetchTeachers(int groupId) async {
     try {
-      loadingProcess(true);
+      teacherloadingProcess(true);
       var teachers = await TeachersServices.getAll(groupId);
       if (teachers != null) {
         teachersList.value = teachers;
       }
     } finally {
-      loadingProcess(false);
+      teacherloadingProcess(false);
+      initLoadingProcess(false);
     }
   }
 
@@ -129,13 +135,13 @@ class ChildEditorController extends GetxController {
 
   Future<void> fetchchildern() async {
     try {
-      loadingProcess(true);
+      childrenLoadingProcess(true);
       var addchild = await AddChildServices.getAll();
       if (addchild != null) {
         addChildList.value = addchild;
       }
     } finally {
-      loadingProcess(false);
+      childrenLoadingProcess(false);
     }
   }
 
@@ -143,7 +149,6 @@ class ChildEditorController extends GetxController {
 
   Future<void> getEditChildData(String childId) async {
     try {
-      editChildLoadingProcess(true);
       var editchild = await EditChildServices.getEditChildData(childId);
       if (editchild != null) {
         editChildList.value = editchild;

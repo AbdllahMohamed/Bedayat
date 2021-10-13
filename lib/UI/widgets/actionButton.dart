@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class ActionButton extends StatelessWidget {
   String? label;
+  double? width;
   VoidCallback? onPressed;
-  ActionButton({this.label, this.onPressed});
+  ActionButton({this.label, this.onPressed, this.width});
   @override
   Widget build(BuildContext context) {
     var deviceWidth = MediaQuery.of(context).size.width;
@@ -15,7 +16,7 @@ class ActionButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           primary: AppColors.primaryColor,
           minimumSize: Size(
-            deviceWidth * 0.9,
+            width ?? deviceWidth * 0.9,
             55,
           ),
           shape: RoundedRectangleBorder(

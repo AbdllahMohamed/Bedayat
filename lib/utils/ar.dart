@@ -308,4 +308,8 @@ const Map<String, String> ar = {
   'infomration!': 'معلومات',
   'Save': 'حفظ',
   'Your email is not active  active it now!': 'البريد الالكترونى غير مفعل',
+  'Your email is not verified': 'بريدك الالكرونى غير مفعل',
+  'Resend': 'إعادة ارسال',
+  'Edit Account Information': 'تعديل بيانات الحساب',
+  'Cancel': 'الغاء',
 };
