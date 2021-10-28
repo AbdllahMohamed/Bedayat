@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 class ActionButton extends StatelessWidget {
   String? label;
   double? width;
+  double? height;
   VoidCallback? onPressed;
-  ActionButton({this.label, this.onPressed, this.width});
+  ActionButton({this.label, this.onPressed, this.width, this.height});
   @override
   Widget build(BuildContext context) {
     var deviceWidth = MediaQuery.of(context).size.width;
@@ -17,7 +18,7 @@ class ActionButton extends StatelessWidget {
           primary: AppColors.primaryColor,
           minimumSize: Size(
             width ?? deviceWidth * 0.9,
-            55,
+            height ?? 55,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8), // <-- Radius

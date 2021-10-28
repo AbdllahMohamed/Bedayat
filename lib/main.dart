@@ -1,3 +1,4 @@
+import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/controllers/app_bindings.dart';
 import 'package:bedayat/routes.dart';
@@ -106,8 +107,12 @@ class MyApp extends StatelessWidget {
       locale: Locale("${GetStorage().read('languageCode')}" == "null"
           ? 'ar'
           : "${GetStorage().read('languageCode')}"),
-      initialRoute: token != null ? '/home' : '/login',
-      onGenerateRoute: RouteGenerator.generateRoute,
+      // initialRoute: token != null ? '/home' : '/login',
+      // onGenerateRoute: RouteGenerator.generateRoute,
+      home: PaymentScreen(
+        childId: '1',
+        routeName: 'register',
+      ),
     );
   }
 }

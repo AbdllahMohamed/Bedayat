@@ -1,3 +1,4 @@
+import 'package:bedayat/UI/screens/food_menu/food_menu.dart';
 import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 int? selectedPackageIndex = 0;
 TextEditingController streetController = new TextEditingController();
@@ -142,6 +144,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   final locale = Get.locale;
+  bool _expanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -395,7 +398,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         : packageController.pakagesSelection.length == 0
                             ? Center(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(top: 100.0),
+                                  padding: const EdgeInsets.only(
+                                      top: 30.0, bottom: 30),
                                   child: Text(
                                     'Not Found Data'.tr,
                                     style: TextStyle(
@@ -615,6 +619,131 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   ],
                                 ),
                               ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                    ),
+                    child: Text(
+                      'Food Menu :'.tr,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: AppColors.titleColor,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppColors.primaryColor,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: ExpansionPanelList(
+                        animationDuration: Duration(milliseconds: 500),
+                        children: [
+                          ExpansionPanel(
+                            headerBuilder: (context, isExpanded) {
+                              return ListTile(
+                                title: Text(
+                                  'Full Package'.tr,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: AppColors.titleColor,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                              );
+                            },
+                            body: Column(
+                              children: [
+                                ListTile(
+                                  leading: FaIcon(FontAwesomeIcons.utensils),
+                                  title: Text(
+                                    'breakfast'.tr,
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  trailing: Icon(
+                                    Icons.check_circle_rounded,
+                                    color: Colors.green,
+                                    size: 28,
+                                  ),
+                                ),
+                                ListTile(
+                                  leading: FaIcon(FontAwesomeIcons.hamburger),
+                                  title: Text(
+                                    'lunch'.tr,
+                                  ),
+                                  trailing: Icon(
+                                    Icons.check_circle_rounded,
+                                    color: Colors.green,
+                                    size: 28,
+                                  ),
+                                ),
+                                ListTile(
+                                  leading: FaIcon(FontAwesomeIcons.cookieBite),
+                                  title: Text(
+                                    'Snack'.tr,
+                                  ),
+                                  trailing: Icon(
+                                    Icons.check_circle_rounded,
+                                    color: Colors.green,
+                                    size: 28,
+                                  ),
+                                ),
+                                ListTile(
+                                  leading: FaIcon(FontAwesomeIcons.mugHot),
+                                  title: Text(
+                                    'juice or milk'.tr,
+                                  ),
+                                  trailing: Icon(
+                                    Icons.check_circle_rounded,
+                                    color: Colors.green,
+                                    size: 28,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 15,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      ActionButton(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.4,
+                                        label: "View The Menu".tr,
+                                        height: 40,
+                                        onPressed: () {
+                                          Get.to(FoodMenuScreen());
+                                        },
+                                      ),
+                                      Spacer(),
+                                      Text(
+                                        '350  ' + "${'Rial'.tr}",
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 15),
+                              ],
+                            ),
+                            isExpanded: _expanded,
+                            canTapOnHeader: true,
+                          ),
+                        ],
+                        expansionCallback: (panelIndex, isExpanded) {
+                          _expanded = !_expanded;
+                          setState(() {});
+                        },
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(

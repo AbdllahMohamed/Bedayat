@@ -44,7 +44,7 @@ dependencies:
   flutter_localizations: # Add this line
     sdk: flutter  
   introduction_screen: ^2.1.0
-  syncfusion_flutter_datepicker: ^19.3.45
+  font_awesome_flutter: ^9.2.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.9.2
