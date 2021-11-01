@@ -120,9 +120,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (locale == Locale('en')) {
                                 Get.updateLocale(Locale('ar'));
                                 box.write('languageCode', 'ع');
+                                setState(() {});
                               } else {
                                 Get.updateLocale(Locale('en'));
                                 box.write('languageCode', 'en');
+                                setState(() {});
                               }
                             },
                             child: Icon(Icons.language_rounded, size: 30)),

@@ -62,7 +62,7 @@ class AppDrawer extends StatelessWidget {
                 final box = GetStorage();
                 if (locale == Locale('en')) {
                   Get.updateLocale(Locale('ar'));
-                  box.write('languageCode', 'ع');
+                  box.write('languageCode', 'ar');
                 } else {
                   Get.updateLocale(Locale('en'));
                   box.write('languageCode', 'en');

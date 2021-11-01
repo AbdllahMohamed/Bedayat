@@ -16,14 +16,10 @@ class ChildEditorController extends GetxController {
   String? type; //new register edit
 
   //register step one
-  TextEditingController nameController =
-      new TextEditingController(text: "test");
-  TextEditingController phoneController =
-      new TextEditingController(text: "1111111111111");
-  TextEditingController emailController =
-      new TextEditingController(text: "test02@gmail.com");
-  TextEditingController passwordController =
-      new TextEditingController(text: "test2222222");
+  TextEditingController nameController = new TextEditingController();
+  TextEditingController phoneController = new TextEditingController();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
   //step Map
   double? latitude;
   double? longitude;

@@ -18,6 +18,7 @@ import 'package:hijri_picker/hijri_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:hijri/hijri_calendar.dart';
 
+// ignore: must_be_immutable
 class ChildFormScreen extends StatefulWidget {
   final String routename;
   String? childId;
@@ -39,7 +40,6 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
 
   void initializeData() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      print('fe');
       if (widget.routename == 'addChild' || widget.routename == 'register') {
         childEditorController
             .fetchGroups(childEditorController.selectedBranchIndex.value);
@@ -90,7 +90,7 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
         childEditorController.initLoadingProcess.value == true) {
       await childEditorController.getEditChildData(widget.childId.toString());
 
-      print(childEditorController.editChildList[0].branchId!);
+      // print(childEditorController.editChildList[0].branchId!);
       await childEditorController
           .fetchGroups(childEditorController.editChildList[0].branchId!);
       await childEditorController

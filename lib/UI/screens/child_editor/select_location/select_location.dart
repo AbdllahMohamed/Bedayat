@@ -41,7 +41,6 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
         }
       }
       if (widget.routename == 'addChild') {
-        print('fre');
         childEditorController.fetchchildern();
       }
 

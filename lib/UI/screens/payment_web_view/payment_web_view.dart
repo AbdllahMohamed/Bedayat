@@ -58,7 +58,7 @@ class _PaymentWebviewScreenState extends State<PaymentWebviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String url = baseUrl + '/payments/${widget.checkoutId}';
+    String url = baseUrl + 'payments/${widget.checkoutId}';
     print(url);
 
     return Scaffold(

@@ -198,6 +198,9 @@ class _AccountInformationState extends State<AccountInformation> {
                         onPressed: () async {
                           registerStepOne();
                         }),
+                    SizedBox(
+                      height: 20,
+                    ),
                   ],
                 ),
               ),

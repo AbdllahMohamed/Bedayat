@@ -55,6 +55,7 @@ class _SelectLocationOnMapScreenState extends State<SelectLocationOnMapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(locale);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
@@ -79,9 +80,9 @@ class _SelectLocationOnMapScreenState extends State<SelectLocationOnMapScreen> {
           childEditorController.step += 1;
         },
         child: Icon(
-          locale != Locale('en')
-              ? Icons.arrow_back_ios_rounded
-              : Icons.arrow_forward_ios_outlined,
+          locale == Locale('en')
+              ? Icons.arrow_forward_ios_outlined
+              : Icons.arrow_back_ios_rounded,
           color: Colors.white,
         ),
       ),

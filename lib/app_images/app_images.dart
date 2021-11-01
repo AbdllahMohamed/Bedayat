@@ -64,4 +64,5 @@ class AppImages {
   static const applanguageIcon = 'assets/images/language.png';
   static const appTermsAndConditions = 'assets/images/terms-and-conditions.png';
   static const appEditIcon = 'assets/images/edit.png';
+  static const appAmex = 'assets/images/amex.png';
 }

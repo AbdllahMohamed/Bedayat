@@ -15,7 +15,7 @@ class SliderImagesServices {
         contentType: "application/x-www-form-urlencoded",
         followRedirects: false,
         validateStatus: (status) {
-          return status! < 500;
+          return true;
         },
       ),
     );
