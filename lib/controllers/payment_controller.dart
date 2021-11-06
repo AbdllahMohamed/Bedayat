@@ -7,6 +7,7 @@ class PaymentController extends GetxController {
 
   Future<String> getCheckoutId({
     String? packageId,
+    String? foodPackageId,
     String? email,
     String? street,
     String? city,
@@ -33,6 +34,7 @@ class PaymentController extends GetxController {
         paymentMethod: paymentMethod,
         childId: childId,
         startAt: startAt,
+        foodPackageId: foodPackageId,
       );
     } catch (e) {
       print(e);

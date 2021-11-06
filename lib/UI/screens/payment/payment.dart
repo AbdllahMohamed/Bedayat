@@ -3,6 +3,7 @@ import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:bedayat/controllers/food_package_controller.dart';
 import 'package:bedayat/controllers/package_controller.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/foundation.dart';
@@ -12,6 +13,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 int? selectedPackageIndex = 0;
+int? selectedFoodPackageIndex = 0;
 TextEditingController streetController = new TextEditingController();
 TextEditingController cityController = new TextEditingController();
 TextEditingController stateController = new TextEditingController();
@@ -42,6 +44,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final PackageController packageController = Get.put(PackageController());
+  final FoodPackageController foodPackageController =
+      Get.put(FoodPackageController());
 
   List<String> _banckImage = [
     AppImages.appMadaBank,
@@ -65,16 +69,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
   String _selectedPeroid = 'من 2 الى 7';
   int? selectedBankIndex;
   int? updatePakageIndex = 0;
+  int? updateFoodPakageIndex = 0;
 
   registerStepFive() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    if (selectedPackageIndex == 0) {
-      Get.defaultDialog(
-          title: "حدث خطأ ما", middleText: 'يرجى اختيار قيمة الاشتراك');
-      return;
-    }
     if (actualselectedDate == 'Date'.tr) {
       Get.defaultDialog(
           title: "Something went wrong".tr,
@@ -82,21 +79,35 @@ class _PaymentScreenState extends State<PaymentScreen> {
       return;
     }
 
+    if (selectedFoodPackageIndex == 0) {
+      Get.defaultDialog(
+          title: "Something went wrong".tr,
+          middleText: 'Please choose your Food Package'.tr);
+      return;
+    }
+
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
     String error = await paymentController.getCheckoutId(
-      packageId: selectedPackageIndex.toString(),
-      email: '${GetStorage().read('userEmail')}',
-      street: streetController.text,
-      city: cityController.text,
-      state: stateController.text,
-      postcode: postCodeController.text,
-      givenName: givenNameController.text,
-      surname: surnameController.text,
-      paymentMethod: seletctedBank,
-      childId: widget.childId.toString(),
-      startAt: actualselectedDate,
-    );
+        packageId: selectedPackageIndex.toString(),
+        email: '${GetStorage().read('userEmail')}',
+        street: streetController.text,
+        city: cityController.text,
+        state: stateController.text,
+        postcode: postCodeController.text,
+        givenName: givenNameController.text,
+        surname: surnameController.text,
+        paymentMethod: seletctedBank,
+        childId: widget.childId.toString(),
+        startAt: actualselectedDate,
+        foodPackageId: selectedFoodPackageIndex == 0
+            ? null
+            : selectedFoodPackageIndex.toString());
 
     print((selectedPackageIndex!).toString());
+    print((selectedFoodPackageIndex!).toString());
     print('${GetStorage().read('userEmail')}');
     print(streetController.text);
     print(cityController.text);
@@ -500,6 +511,267 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
+                                        horizontal: 17,
+                                      ),
+                                      child: Text(
+                                        'Food Menu :'.tr,
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: AppColors.titleColor,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                      ),
+                                    ),
+                                    Obx(
+                                      () =>
+                                          foodPackageController
+                                                  .loadingProcess.value
+                                              ? Center(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 100,
+                                                            bottom: 70),
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        AppColors.accentColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              : foodPackageController
+                                                      .foodPackageList.isEmpty
+                                                  ? Center(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                top: 30.0,
+                                                                bottom: 30),
+                                                        child: Text(
+                                                          'Not Found Data'.tr,
+                                                          style: TextStyle(
+                                                              fontSize: 22,
+                                                              color: AppColors
+                                                                  .accentColor),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  : ListView.builder(
+                                                      shrinkWrap: true,
+                                                      itemCount:
+                                                          foodPackageController
+                                                              .foodPackageList
+                                                              .length,
+                                                      itemBuilder:
+                                                          (context, i) =>
+                                                              InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            selectedFoodPackageIndex =
+                                                                foodPackageController
+                                                                    .foodPackageList[
+                                                                        i]
+                                                                    .id;
+                                                            updateFoodPakageIndex =
+                                                                i;
+                                                          });
+                                                        },
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(15.0),
+                                                          child: Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              border:
+                                                                  Border.all(
+                                                                color: selectedFoodPackageIndex ==
+                                                                        foodPackageController
+                                                                            .foodPackageList[
+                                                                                i]
+                                                                            .id
+                                                                    ? AppColors
+                                                                        .primaryColor
+                                                                    : AppColors
+                                                                        .borderColor,
+                                                                width: 2,
+                                                              ),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5),
+                                                            ),
+                                                            child:
+                                                                ExpansionPanelList(
+                                                              animationDuration:
+                                                                  Duration(
+                                                                      milliseconds:
+                                                                          500),
+                                                              children: [
+                                                                ExpansionPanel(
+                                                                  headerBuilder:
+                                                                      (context,
+                                                                          isExpanded) {
+                                                                    return ListTile(
+                                                                      title:
+                                                                          Text(
+                                                                        locale ==
+                                                                                Locale('en')
+                                                                            ? foodPackageController.foodPackageList[i].englishTitle
+                                                                            : foodPackageController.foodPackageList[i].arabicTitle,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              15,
+                                                                          color:
+                                                                              AppColors.titleColor,
+                                                                          fontWeight:
+                                                                              FontWeight.w300,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                  body: Column(
+                                                                    children: [
+                                                                      ListTile(
+                                                                        leading:
+                                                                            FaIcon(FontAwesomeIcons.utensils),
+                                                                        title:
+                                                                            Text(
+                                                                          'breakfast'
+                                                                              .tr,
+                                                                          style:
+                                                                              TextStyle(color: Colors.black),
+                                                                        ),
+                                                                        trailing:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .check_circle_rounded,
+                                                                          color: foodPackageController.foodPackageList[i].breakfastAvailability
+                                                                              ? Colors.green
+                                                                              : Colors.grey,
+                                                                          size:
+                                                                              28,
+                                                                        ),
+                                                                      ),
+                                                                      ListTile(
+                                                                        leading:
+                                                                            FaIcon(FontAwesomeIcons.hamburger),
+                                                                        title:
+                                                                            Text(
+                                                                          'lunch'
+                                                                              .tr,
+                                                                        ),
+                                                                        trailing:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .check_circle_rounded,
+                                                                          color: foodPackageController.foodPackageList[i].lunchAvailability
+                                                                              ? Colors.green
+                                                                              : Colors.grey,
+                                                                          size:
+                                                                              28,
+                                                                        ),
+                                                                      ),
+                                                                      ListTile(
+                                                                        leading:
+                                                                            FaIcon(FontAwesomeIcons.cookieBite),
+                                                                        title:
+                                                                            Text(
+                                                                          'snack'
+                                                                              .tr,
+                                                                        ),
+                                                                        trailing:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .check_circle_rounded,
+                                                                          color: foodPackageController.foodPackageList[i].snackAvailability
+                                                                              ? Colors.green
+                                                                              : Colors.grey,
+                                                                          size:
+                                                                              28,
+                                                                        ),
+                                                                      ),
+                                                                      ListTile(
+                                                                        leading:
+                                                                            FaIcon(FontAwesomeIcons.mugHot),
+                                                                        title:
+                                                                            Text(
+                                                                          'juice or milk'
+                                                                              .tr,
+                                                                        ),
+                                                                        trailing:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .check_circle_rounded,
+                                                                          color: foodPackageController.foodPackageList[i].drinkAvailability
+                                                                              ? Colors.green
+                                                                              : Colors.grey,
+                                                                          size:
+                                                                              28,
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.symmetric(
+                                                                          horizontal:
+                                                                              15,
+                                                                        ),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceAround,
+                                                                          children: [
+                                                                            ActionButton(
+                                                                              width: MediaQuery.of(context).size.width * 0.4,
+                                                                              label: "View The Menu".tr,
+                                                                              height: 40,
+                                                                              onPressed: () {
+                                                                                Get.to(FoodMenuScreen(
+                                                                                  packageId: foodPackageController.foodPackageList[i].id,
+                                                                                ));
+                                                                              },
+                                                                            ),
+                                                                            Spacer(),
+                                                                            Text(
+                                                                              '\$${foodPackageController.foodPackageList[i].price}  ' + "${'Rial'.tr}",
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              15),
+                                                                    ],
+                                                                  ),
+                                                                  isExpanded:
+                                                                      _expanded,
+                                                                  canTapOnHeader:
+                                                                      true,
+                                                                ),
+                                                              ],
+                                                              expansionCallback:
+                                                                  (panelIndex,
+                                                                      isExpanded) {
+                                                                _expanded =
+                                                                    !_expanded;
+                                                                setState(() {});
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                    ),
+                                    SizedBox(
+                                      height: 35,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
                                         horizontal: 20,
                                       ),
                                       child: Text(
@@ -534,7 +806,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           selectedPackageIndex == 0
                                               ? SizedBox()
                                               : Text(
-                                                  '${packageController.pakagesSelection[updatePakageIndex!].price!} ${'Rial'.tr}',
+                                                  '${(double.parse(packageController.pakagesSelection[updatePakageIndex!].price!) + double.parse(foodPackageController.foodPackageList[updateFoodPakageIndex!].price)).toString()} ${'Rial'.tr}',
                                                   style: TextStyle(
                                                     fontSize: 15,
                                                     color: AppColors.titleColor,
@@ -607,7 +879,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           selectedPackageIndex == 0
                                               ? SizedBox()
                                               : Text(
-                                                  '${(double.parse(packageController.pakagesSelection[updatePakageIndex!].price!) + double.parse(packageController.pakagesSelection[updatePakageIndex!].tax!)).toString()} ${'Rial'.tr}',
+                                                  '${(double.parse(packageController.pakagesSelection[updatePakageIndex!].price!) + double.parse(foodPackageController.foodPackageList[updateFoodPakageIndex!].price) + double.parse(packageController.pakagesSelection[updatePakageIndex!].tax!)).toString()} ${'Rial'.tr}',
                                                   style: TextStyle(
                                                     fontSize: 15,
                                                     color: AppColors.titleColor,
@@ -624,131 +896,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ),
                               ),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(
-                  //     horizontal: 20,
-                  //   ),
-                  //   child: Text(
-                  //     'Food Menu :'.tr,
-                  //     style: TextStyle(
-                  //       fontSize: 15,
-                  //       color: AppColors.titleColor,
-                  //       fontWeight: FontWeight.w300,
-                  //     ),
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(15.0),
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //       border: Border.all(
-                  //         color: AppColors.primaryColor,
-                  //         width: 2,
-                  //       ),
-                  //       borderRadius: BorderRadius.circular(25),
-                  //     ),
-                  //     child: ExpansionPanelList(
-                  //       animationDuration: Duration(milliseconds: 500),
-                  //       children: [
-                  //         ExpansionPanel(
-                  //           headerBuilder: (context, isExpanded) {
-                  //             return ListTile(
-                  //               title: Text(
-                  //                 'Full Package'.tr,
-                  //                 style: TextStyle(
-                  //                   fontSize: 15,
-                  //                   color: AppColors.titleColor,
-                  //                   fontWeight: FontWeight.w300,
-                  //                 ),
-                  //               ),
-                  //             );
-                  //           },
-                  //           body: Column(
-                  //             children: [
-                  //               ListTile(
-                  //                 leading: FaIcon(FontAwesomeIcons.utensils),
-                  //                 title: Text(
-                  //                   'breakfast'.tr,
-                  //                   style: TextStyle(color: Colors.black),
-                  //                 ),
-                  //                 trailing: Icon(
-                  //                   Icons.check_circle_rounded,
-                  //                   color: Colors.green,
-                  //                   size: 28,
-                  //                 ),
-                  //               ),
-                  //               ListTile(
-                  //                 leading: FaIcon(FontAwesomeIcons.hamburger),
-                  //                 title: Text(
-                  //                   'lunch'.tr,
-                  //                 ),
-                  //                 trailing: Icon(
-                  //                   Icons.check_circle_rounded,
-                  //                   color: Colors.green,
-                  //                   size: 28,
-                  //                 ),
-                  //               ),
-                  //               ListTile(
-                  //                 leading: FaIcon(FontAwesomeIcons.cookieBite),
-                  //                 title: Text(
-                  //                   'Snack'.tr,
-                  //                 ),
-                  //                 trailing: Icon(
-                  //                   Icons.check_circle_rounded,
-                  //                   color: Colors.green,
-                  //                   size: 28,
-                  //                 ),
-                  //               ),
-                  //               ListTile(
-                  //                 leading: FaIcon(FontAwesomeIcons.mugHot),
-                  //                 title: Text(
-                  //                   'juice or milk'.tr,
-                  //                 ),
-                  //                 trailing: Icon(
-                  //                   Icons.check_circle_rounded,
-                  //                   color: Colors.green,
-                  //                   size: 28,
-                  //                 ),
-                  //               ),
-                  //               Padding(
-                  //                 padding: const EdgeInsets.symmetric(
-                  //                   horizontal: 15,
-                  //                 ),
-                  //                 child: Row(
-                  //                   mainAxisAlignment:
-                  //                       MainAxisAlignment.spaceAround,
-                  //                   children: [
-                  //                     ActionButton(
-                  //                       width:
-                  //                           MediaQuery.of(context).size.width *
-                  //                               0.4,
-                  //                       label: "View The Menu".tr,
-                  //                       height: 40,
-                  //                       onPressed: () {
-                  //                         Get.to(FoodMenuScreen());
-                  //                       },
-                  //                     ),
-                  //                     Spacer(),
-                  //                     Text(
-                  //                       '350  ' + "${'Rial'.tr}",
-                  //                     )
-                  //                   ],
-                  //                 ),
-                  //               ),
-                  //               SizedBox(height: 15),
-                  //             ],
-                  //           ),
-                  //           isExpanded: _expanded,
-                  //           canTapOnHeader: true,
-                  //         ),
-                  //       ],
-                  //       expansionCallback: (panelIndex, isExpanded) {
-                  //         _expanded = !_expanded;
-                  //         setState(() {});
-                  //       },
-                  //     ),
-                  //   ),
-                  // ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,

@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 class PaymentServices {
   static Future<String> getCheckoutId({
     String? packageId,
+    String? foodPackageId,
     String? email,
     String? street,
     String? city,
@@ -35,6 +36,7 @@ class PaymentServices {
         "payment_method": paymentMethod,
         "child_id": childId,
         "start_at": startAt,
+        "food_package_id": foodPackageId,
       },
       options: Options(
           headers: {

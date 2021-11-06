@@ -69,7 +69,7 @@ const Map<String, String> ar = {
   'Next': 'التالى',
   'Gregorian': 'ميلادى',
   'Hijri': 'هجرى',
-  'birth date ': 'تاريخ الميلاد',
+  'birth date': 'تاريخ الميلاد',
   'male': 'ولد',
   'female': 'بنت',
   'Gender': 'النوع',
@@ -84,6 +84,9 @@ const Map<String, String> ar = {
   'Teachers': 'المعلمين',
   'Please enter a valid value': 'من فضلك ادخل قيمة صحيحة',
   'Name': 'الاسم',
+  'Please choose your subscription': 'يرجى التأكد من اختيار الباقة المناسبة',
+  'Please choose your Food Package':
+      'يرجى التأكد من اختيار باقة الطعام المناسبة',
   'Anthor Notes': 'ملاحظات اخرى',
   'First Parent': 'ولى الامر الاول',
   'First Name': 'الاسم الاول',
