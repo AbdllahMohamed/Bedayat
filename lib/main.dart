@@ -109,12 +109,12 @@ class MyApp extends StatelessWidget {
       locale: Locale("${GetStorage().read('languageCode')}" == "null"
           ? 'ar'
           : "${GetStorage().read('languageCode')}"),
-      // initialRoute: token != null ? '/home' : '/login',
-      // onGenerateRoute: RouteGenerator.generateRoute,
-      home: PaymentScreen(
-        childId: '1',
-        routeName: 'register',
-      ),
+      initialRoute: token != null ? '/home' : '/login',
+      onGenerateRoute: RouteGenerator.generateRoute,
+      // home: PaymentScreen(
+      //   childId: '1',
+      //   routeName: 'register',
+      // ),
     );
   }
 }
