@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
 import 'package:bedayat/UI/screens/register/register_step_one.dart';
@@ -9,6 +11,7 @@ import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_Controller.dart';
 import 'package:bedayat/controllers/child_editor_controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -44,12 +47,16 @@ class _LoginScreenState extends State<LoginScreen> {
     if (error != "") {
       Get.defaultDialog(title: "Something went wrong".tr, middleText: error);
     } else {
-      String? token = await FirebaseMessaging.instance.getToken();
-      print(token);
-      authController.sendToken(token!);
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => BottomNavigationWidget()),
-          (Route<dynamic> route) => false);
+      print(kIsWeb);
+      if (!kIsWeb) {
+        String? token = await FirebaseMessaging.instance.getToken();
+        print(token);
+        authController.sendToken(token!);
+      } else {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => BottomNavigationWidget()),
+            (Route<dynamic> route) => false);
+      }
     }
   }
 

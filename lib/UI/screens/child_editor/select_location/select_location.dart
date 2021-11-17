@@ -1,5 +1,6 @@
 import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -18,7 +19,14 @@ class SelectLocationScreen extends StatefulWidget {
 
 class _SelectLocationScreenState extends State<SelectLocationScreen> {
   registerStepTwo() async {
-    if (Platform.isAndroid) {
+    print(kIsWeb);
+    if (kIsWeb) {
+      print('web');
+      childEditorController.step += 1;
+
+      childEditorController.latitude = 23.8859;
+      childEditorController.longitude = 45.0792;
+    } else {
       Location location = new Location();
 
       bool _serviceEnabled;
@@ -49,29 +57,67 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
 
       childEditorController.latitude = _locationData.latitude;
       childEditorController.longitude = _locationData.longitude;
-
-      // Get.to(
-      //   SelectLocationOnMapScreen(
-      //     latitude: _locationData.latitude!,
-      //     longitude: _locationData.longitude!,
-      //     nameController: widget.nameController,
-      //     phoneController: widget.phoneController,
-      //     emailController: widget.emailController,
-      //     passwordController: widget.passwordController,
-      //   ),
-      // );
-    } else {
-      // Get.to(
-      // SelectLocationOnMapScreen(
-      //   latitude: 23.8859,
-      //   longitude: 45.0792,
-      //   nameController: widget.nameController,
-      //   phoneController: widget.phoneController,
-      //   emailController: widget.emailController,
-      //   passwordController: widget.passwordController,
-      // ),
-      // );
     }
+    // if (Platform.isAndroid || Platform.isIOS) {
+    //   Location location = new Location();
+
+    //   bool _serviceEnabled;
+    //   PermissionStatus _permissionGranted;
+    //   LocationData _locationData;
+
+    //   _serviceEnabled = await location.serviceEnabled();
+    //   if (!_serviceEnabled) {
+    //     _serviceEnabled = await location.requestService();
+    //     if (!_serviceEnabled) {
+    //       return;
+    //     }
+    //   }
+
+    //   _permissionGranted = await location.hasPermission();
+    //   if (_permissionGranted == PermissionStatus.denied) {
+    //     _permissionGranted = await location.requestPermission();
+    //     if (_permissionGranted != PermissionStatus.granted) {
+    //       return;
+    //     }
+    //   }
+    //   if (widget.routename == 'addChild') {
+    //     childEditorController.fetchchildern();
+    //   }
+
+    //   _locationData = await location.getLocation();
+    //   childEditorController.step += 1;
+
+    //   childEditorController.latitude = _locationData.latitude;
+    //   childEditorController.longitude = _locationData.longitude;
+
+    //   // Get.to(
+    //   //   SelectLocationOnMapScreen(
+    //   //     latitude: _locationData.latitude!,
+    //   //     longitude: _locationData.longitude!,
+    //   //     nameController: widget.nameController,
+    //   //     phoneController: widget.phoneController,
+    //   //     emailController: widget.emailController,
+    //   //     passwordController: widget.passwordController,
+    //   //   ),
+    //   // );
+    // } else {
+    //   print('web');
+    //   childEditorController.step += 1;
+
+    //   childEditorController.latitude = 23.8859;
+    //   childEditorController.longitude = 45.0792;
+
+    //   // Get.to(
+    //   // SelectLocationOnMapScreen(
+    //   //   latitude: 23.8859,
+    //   //   longitude: 45.0792,
+    //   //   nameController: widget.nameController,
+    //   //   phoneController: widget.phoneController,
+    //   //   emailController: widget.emailController,
+    //   //   passwordController: widget.passwordController,
+    //   // ),
+    //   // );
+    // }
   }
 
   Completer<GoogleMapController> _controller = Completer();

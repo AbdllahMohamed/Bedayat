@@ -106,7 +106,8 @@ class _EditAccountInformationScreenState
                                 }
                               },
                               hintText: 'Name'.tr,
-                              prefixIcon: Image.asset(AppImages.appCalender),
+                              prefixIcon: Icon(Icons.person,
+                                  color: AppColors.accentColor),
                             ),
                           ),
                           Padding(
@@ -118,8 +119,8 @@ class _EditAccountInformationScreenState
                                   return 'Please enter a valid value'.tr;
                                 }
                               },
-                              hintText: 'Password'.tr,
-                              prefixIcon: Image.asset(AppImages.appCalender),
+                              hintText: 'Phone Number'.tr,
+                              prefixIcon: Image.asset(AppImages.appPhoneIcon),
                             ),
                           ),
                           Padding(
@@ -173,7 +174,8 @@ class _EditAccountInformationScreenState
                                 }
                               },
                               hintText: 'current password'.tr,
-                              prefixIcon: Image.asset(AppImages.appEmailIcon),
+                              prefixIcon:
+                                  Image.asset(AppImages.appPasswordIcon),
                             ),
                           ),
                           Padding(
@@ -189,7 +191,8 @@ class _EditAccountInformationScreenState
                                 }
                               },
                               hintText: 'new password'.tr,
-                              prefixIcon: Image.asset(AppImages.appEmailIcon),
+                              prefixIcon:
+                                  Image.asset(AppImages.appPasswordIcon),
                             ),
                           ),
                           Padding(
@@ -206,7 +209,8 @@ class _EditAccountInformationScreenState
                                 }
                               },
                               hintText: 'confirm new password'.tr,
-                              prefixIcon: Image.asset(AppImages.appEmailIcon),
+                              prefixIcon:
+                                  Image.asset(AppImages.appPasswordIcon),
                             ),
                           ),
                           SizedBox(

@@ -75,23 +75,20 @@ class MobileHomeContentWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 50.0),
-                      child: InkWell(
-                        onTap: () {
-                          childEditorController.step.value = 4;
-                          Get.to(
-                            ChildEditorScreen(
-                              routename: 'editChild',
-                              childId: childId.toString(),
-                            ),
-                          );
-                        },
-                        child: Image.asset(
-                          AppImages.appEditIcon,
-                          width: 25,
-                          height: 25,
-                        ),
+                    InkWell(
+                      onTap: () {
+                        childEditorController.step.value = 4;
+                        Get.to(
+                          ChildEditorScreen(
+                            routename: 'editChild',
+                            childId: childId.toString(),
+                          ),
+                        );
+                      },
+                      child: Image.asset(
+                        AppImages.appEditIcon,
+                        width: 25,
+                        height: 25,
                       ),
                     )
                   ],

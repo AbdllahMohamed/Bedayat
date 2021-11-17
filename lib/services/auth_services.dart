@@ -17,8 +17,6 @@ class UsersServices {
   }
 
   static Future<User> getUserInfo() async {
-    var loginError = "";
-
     Dio dio = new Dio();
 
     Response response = await dio.get(
@@ -34,7 +32,7 @@ class UsersServices {
             return status! < 500;
           }),
     );
-
+    print(response.data);
     return User.fromJson(response.data);
   }
 
@@ -45,8 +43,6 @@ class UsersServices {
       String? password,
       String? newPassword,
       dynamic errorHandler}) async {
-    var loginError = "";
-
     Dio dio = new Dio();
 
     print("---------");

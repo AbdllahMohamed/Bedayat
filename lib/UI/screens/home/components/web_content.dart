@@ -71,12 +71,19 @@ class HomeWebContentWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        childEditorController.step.value = 4;
-                        Get.to(ChildEditorScreen(routename: 'editChild'));
-                      },
-                      child: Image.asset(AppImages.appEditIcon),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: InkWell(
+                        onTap: () {
+                          childEditorController.step.value = 4;
+                          Get.to(ChildEditorScreen(routename: 'editChild'));
+                        },
+                        child: Image.asset(
+                          AppImages.appEditIcon,
+                          width: 25,
+                          height: 25,
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -395,9 +402,8 @@ class HomeWebContentWidget extends StatelessWidget {
                       ? Alignment.topRight
                       : Alignment.topLeft,
                   child: Padding(
-                    padding: Get.locale == Locale('en')
-                        ? EdgeInsets.only(left: 15.0, top: 5)
-                        : EdgeInsets.only(right: 15.0, top: 5),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 5),
                     child: Image.asset(
                       AppImages.appSmallBarcode,
                       width: 30,

@@ -331,4 +331,10 @@ const Map<String, String> ar = {
   'Second': 'الثانى',
   'Third': 'الثالث',
   'Fourth': 'الرابع',
+  'My account': 'حسابى',
+  'Account Details': 'تفاصيل الحساب',
+  'save': 'حفظ',
+  'current password': 'كلمة المرور الحالية',
+  'new password': 'كلمة المرور الجديدة',
+  'confirm new password': 'تأكيد كلمة المرور الجديدة',
 };

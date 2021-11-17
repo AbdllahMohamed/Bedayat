@@ -145,11 +145,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   Future<void> _selectMeldadyDate(BuildContext context) async {
+    int year = int.parse(DateTime.now().toString().substring(0, 4));
+    print(year);
+    print(year + 1);
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      lastDate: DateTime.now(),
-      firstDate: DateTime(2000, 8),
+      lastDate: DateTime(year + 1),
+      firstDate: DateTime.now(),
     );
 
     if (picked != null)

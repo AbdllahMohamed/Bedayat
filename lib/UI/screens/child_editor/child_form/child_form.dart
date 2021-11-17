@@ -846,10 +846,10 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                                               ),
                                               child: Row(
                                                 children: [
-                                                  CircleImageWidget(
-                                                    imagePath:
-                                                        "$baseUrl${childEditorController.teachersList[index].profileImg!.replaceAll('public', 'storage')}",
-                                                  ),
+                                                  // CircleImageWidget(
+                                                  //   imagePath:
+                                                  //       "$baseUrl${childEditorController.teachersList[index].profileImg!.replaceAll('public', 'storage')}",
+                                                  // ),
                                                   SizedBox(
                                                     width: 10,
                                                   ),
@@ -1120,7 +1120,7 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                                 return 'Please enter a valid value'.tr;
                               }
                             },
-                            hintText: 'Relative Relation'.tr,
+                            hintText: 'relative relation'.tr,
                             prefixIcon: Icon(
                               Icons.family_restroom,
                               color: AppColors.accentColor,
@@ -1134,7 +1134,7 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                                 return 'Please enter a valid value'.tr;
                               }
                             },
-                            hintText: 'Email',
+                            hintText: 'Email'.tr,
                             prefixIcon: Image.asset(AppImages.appEmailIcon),
                           ),
                           CustomeTextFormField(

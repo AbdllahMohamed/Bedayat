@@ -338,7 +338,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -355,7 +355,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -367,25 +367,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .breakFaskfirstWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .breakFaskfirstWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .breakFaskfirstWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .breakFaskfirstWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -473,7 +483,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -490,7 +500,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -502,25 +512,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .lunchfirstWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .lunchfirstWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .lunchfirstWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .lunchfirstWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -608,7 +628,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -625,7 +645,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -637,25 +657,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .drinkfirstWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .drinkfirstWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .drinkfirstWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .drinkfirstWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -743,7 +773,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -760,7 +790,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -772,25 +802,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .snackFourthWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .snackFourthWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .snackFourthWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .snackFourthWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -886,7 +926,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -903,7 +943,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -915,25 +955,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .breakFaskSecondWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .breakFaskSecondWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .breakFaskSecondWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .breakFaskSecondWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -1021,7 +1071,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -1038,7 +1088,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -1050,25 +1100,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .lunchSecondWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .lunchSecondWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .lunchSecondWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .lunchSecondWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -1156,7 +1216,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -1173,7 +1233,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -1185,25 +1245,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .drinkSecondWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .drinkSecondWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .drinkSecondWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .drinkSecondWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -1291,7 +1361,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -1308,7 +1378,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -1320,25 +1390,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .snackSecondWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .snackSecondWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .snackSecondWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .snackSecondWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -1434,7 +1514,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -1451,7 +1531,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -1463,25 +1543,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .breakFaskThirdWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .breakFaskThirdWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .breakFaskThirdWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .breakFaskThirdWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -1569,7 +1659,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -1586,7 +1676,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -1598,25 +1688,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .lunchThirdWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .lunchThirdWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .lunchThirdWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .lunchThirdWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -1704,7 +1804,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -1721,7 +1821,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -1733,25 +1833,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .drinkThirdWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .drinkThirdWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .drinkThirdWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .drinkThirdWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -1839,7 +1949,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -1856,7 +1966,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -1868,25 +1978,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .snackThirdWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .snackThirdWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .snackThirdWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .snackThirdWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -1982,7 +2102,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -1999,7 +2119,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -2011,25 +2131,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .breakFaskFourthWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .breakFaskFourthWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .breakFaskFourthWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .breakFaskFourthWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -2117,7 +2247,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -2134,7 +2264,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -2146,25 +2276,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .lunchFourthWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .lunchFourthWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .lunchFourthWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .lunchFourthWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -2252,7 +2392,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -2269,7 +2409,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -2281,25 +2421,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .drinkFourthWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .drinkFourthWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .drinkFourthWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .drinkFourthWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -2387,7 +2537,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                       children: [
                                                         Container(
                                                           height: 100,
-                                                          width: 100,
+                                                          width: 110,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -2404,7 +2554,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                           bottom: 0,
                                                           child: Container(
                                                             height: 30,
-                                                            width: 100,
+                                                            width: 110,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -2416,25 +2566,35 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                             ),
                                                             alignment: Alignment
                                                                 .bottomCenter,
-                                                            child: Text(
-                                                              locale ==
-                                                                      Locale(
-                                                                          'en')
-                                                                  ? foodPackageDetailsController
-                                                                      .snackFourthWeek[
-                                                                          index]
-                                                                      .englishTitle
-                                                                  : foodPackageDetailsController
-                                                                      .snackFourthWeek[
-                                                                          index]
-                                                                      .arabicTitle,
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                              child: Text(
+                                                                locale ==
+                                                                        Locale(
+                                                                            'en')
+                                                                    ? foodPackageDetailsController
+                                                                        .snackFourthWeek[
+                                                                            index]
+                                                                        .englishTitle
+                                                                    : foodPackageDetailsController
+                                                                        .snackFourthWeek[
+                                                                            index]
+                                                                        .arabicTitle,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),

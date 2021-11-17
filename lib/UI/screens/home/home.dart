@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       );
                                     },
                                     child: Text(
-                                      'Resend',
+                                      'Resend'.tr,
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,

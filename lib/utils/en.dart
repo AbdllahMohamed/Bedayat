@@ -337,4 +337,10 @@ const Map<String, String> en = {
   'Second': 'Second',
   'Third': 'Third',
   'Fourth': 'Fourth',
+  'My account': 'My account',
+  'Account Details': 'Account Details',
+  'save': 'save',
+  'current password': 'current password',
+  'new password': 'new password',
+  'confirm new password': 'confirm new password',
 };
