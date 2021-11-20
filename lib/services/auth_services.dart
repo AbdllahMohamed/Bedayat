@@ -133,6 +133,7 @@ class UsersServices {
     String? parentTwoRealation,
     String? parentTwoEmail,
     String? parentTwoPhone,
+    String? branchId,
     String? userId,
     String? teacherId,
     String? groupId,
@@ -213,6 +214,7 @@ class UsersServices {
       "parent_two_email": parentTwoEmail,
       "parent_two_phone": parentTwoPhone,
       "user_id": userId,
+      "branch_id": branchId,
       "teacher_id": teacherId,
       "group_id": groupId,
       "family_card": await MultipartFile.fromFile(familyCard.path,
@@ -277,6 +279,7 @@ class UsersServices {
     String? parentTwoRealation,
     String? parentTwoEmail,
     String? parentTwoPhone,
+    String? branchId,
     String? userId,
     String? teacherId,
     String? checkoutId,
@@ -399,6 +402,7 @@ class UsersServices {
     request.fields["parent_two_phone"] = parentTwoPhone!;
     request.fields["user_id"] = userId!;
     request.fields["teacher_id"] = teacherId!;
+    request.fields["branch_id"] = branchId!;
     request.fields["group_id"] = groupId!;
     request.fields["relation_one_first_name"] = relationOnefirstNameController!;
     request.fields["relation_one_second_name"] =
@@ -450,6 +454,7 @@ class UsersServices {
     String? parentTwoPhone,
     String? userId,
     String? teacherId,
+    String? branchId,
     String? groupId,
     String? checkoutId,
     XFile? familyCard,
@@ -487,6 +492,7 @@ class UsersServices {
       "user_id": userId,
       "teacher_id": teacherId,
       "group_id": groupId,
+      "branch_id": branchId,
       "checkout_id": checkoutId,
       "family_card": await MultipartFile.fromFile(familyCard.path,
           filename: familyCardFile),
@@ -545,6 +551,7 @@ class UsersServices {
     String? parentTwoEmail,
     String? parentTwoPhone,
     String? userId,
+    String? branchId,
     String? teacherId,
     String? groupId,
     XFile? familyCard,
@@ -648,6 +655,7 @@ class UsersServices {
     request.fields["user_id"] = userId!;
     request.fields["teacher_id"] = teacherId!;
     request.fields["group_id"] = groupId!;
+    request.fields["branch_id"] = branchId!;
 
     request.fields["birth_date"] = actualselectedDate!;
     request.fields["relation_one_first_name"] = relationOnefirstNameController!;
@@ -757,6 +765,7 @@ class UsersServices {
     String? userId,
     String? teacherId,
     String? groupId,
+    String? branchId,
     String? checkoutId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
@@ -788,6 +797,7 @@ class UsersServices {
     print(parentTwoPhone);
     print(userId);
     print(teacherId);
+    print('branchId' + branchId!);
     print(groupId);
     print(familyCard);
     print(vaccinationCertificate);
@@ -824,6 +834,7 @@ class UsersServices {
         "parent_two_email": parentTwoEmail,
         "parent_two_phone": parentTwoPhone,
         "user_id": userId,
+        "branch_id": branchId,
         "teacher_id": teacherId,
         "group_id": groupId,
         "checkout_id": checkoutId,
@@ -936,6 +947,7 @@ class UsersServices {
     String? parentTwoPhone,
     String? userId,
     String? teacherId,
+    String? branchId,
     String? groupId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
@@ -1044,6 +1056,7 @@ class UsersServices {
       request.fields["user_id"] = userId!;
       request.fields["teacher_id"] = teacherId!;
       request.fields["group_id"] = groupId!;
+      request.fields["branch_id"] = branchId!;
 
       request.fields["birth_date"] = actualselectedDate!;
       request.fields["relation_one_first_name"] =

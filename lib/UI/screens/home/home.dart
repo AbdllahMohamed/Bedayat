@@ -80,6 +80,8 @@ class _HomeScreenState extends State<HomeScreen> {
     var _deviceWidth = MediaQuery.of(context).size.width;
     var _devicHeight = MediaQuery.of(context).size.height;
     print(_deviceWidth);
+    double cardWidth = MediaQuery.of(context).size.width / 3.3;
+    double cardHeight = MediaQuery.of(context).size.height / 3.6;
 
     return WillPopScope(
       onWillPop: () async {
@@ -276,7 +278,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 Obx(
                   () => childernController.loadingProcess.value
                       ? Padding(
-                          padding: const EdgeInsets.only(top: 100.0),
+                          padding:
+                              const EdgeInsets.only(top: kIsWeb ? 200 : 100.0),
                           child: Container(
                             width: _deviceWidth,
                             height: _devicHeight,
@@ -318,7 +321,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 left: 5,
                                 bottom: 25,
                               ),
-                              child: kIsWeb && _deviceWidth > 500
+                              child: kIsWeb && _deviceWidth > 850
                                   ? GridView.builder(
                                       shrinkWrap: true,
                                       physics: BouncingScrollPhysics(),
@@ -330,8 +333,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         crossAxisCount: 2,
                                         crossAxisSpacing: 5,
                                         mainAxisSpacing: 15,
+                                        // childAspectRatio:
+                                        //     _deviceWidth / (_devicHeight / 1.2),
+
                                         childAspectRatio:
-                                            _deviceWidth / (_devicHeight / 1.4),
+                                            cardWidth / cardHeight,
                                       ),
                                       itemBuilder: (BuildContext context, i) {
                                         return HomeWebContentWidget(

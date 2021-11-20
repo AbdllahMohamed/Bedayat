@@ -26,9 +26,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _email = new TextEditingController();
+  TextEditingController _email =
+      new TextEditingController(text: 'admin@admin.com');
 
-  TextEditingController _password = new TextEditingController();
+  TextEditingController _password = new TextEditingController(text: 'admin');
 
   bool _obscureText = true;
 
@@ -52,6 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
         String? token = await FirebaseMessaging.instance.getToken();
         print(token);
         authController.sendToken(token!);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => BottomNavigationWidget()),
+            (Route<dynamic> route) => false);
       } else {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => BottomNavigationWidget()),

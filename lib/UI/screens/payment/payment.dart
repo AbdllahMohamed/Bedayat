@@ -162,7 +162,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   final locale = Get.locale;
-  bool _expanded = false;
+  bool _expanded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -565,206 +565,219 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                     )
                                                   : ListView.builder(
                                                       shrinkWrap: true,
+                                                      physics:
+                                                          BouncingScrollPhysics(),
                                                       itemCount:
                                                           foodPackageController
                                                               .foodPackageList
                                                               .length,
                                                       itemBuilder:
                                                           (context, i) =>
-                                                              InkWell(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            selectedFoodPackageIndex =
-                                                                foodPackageController
-                                                                    .foodPackageList[
-                                                                        i]
-                                                                    .id;
-                                                            updateFoodPakageIndex =
-                                                                i;
-                                                          });
-                                                        },
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(15.0),
-                                                          child: Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              border:
-                                                                  Border.all(
-                                                                color: selectedFoodPackageIndex ==
-                                                                        foodPackageController
-                                                                            .foodPackageList[
-                                                                                i]
-                                                                            .id
-                                                                    ? AppColors
-                                                                        .primaryColor
-                                                                    : AppColors
-                                                                        .borderColor,
-                                                                width: 2,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
+                                                              Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(15.0),
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            border: Border.all(
+                                                              color: selectedFoodPackageIndex ==
+                                                                      foodPackageController
+                                                                          .foodPackageList[
+                                                                              i]
+                                                                          .id
+                                                                  ? AppColors
+                                                                      .primaryColor
+                                                                  : AppColors
+                                                                      .borderColor,
+                                                              width: 2,
                                                             ),
-                                                            child:
-                                                                ExpansionPanelList(
-                                                              animationDuration:
-                                                                  Duration(
-                                                                      milliseconds:
-                                                                          500),
-                                                              children: [
-                                                                ExpansionPanel(
-                                                                  headerBuilder:
-                                                                      (context,
-                                                                          isExpanded) {
-                                                                    return ListTile(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                          ),
+                                                          child:
+                                                              ExpansionPanelList(
+                                                            animationDuration:
+                                                                Duration(
+                                                                    milliseconds:
+                                                                        500),
+                                                            children: [
+                                                              ExpansionPanel(
+                                                                headerBuilder:
+                                                                    (context,
+                                                                        isExpanded) {
+                                                                  return ListTile(
+                                                                    title: Text(
+                                                                      locale == Locale('en')
+                                                                          ? foodPackageController
+                                                                              .foodPackageList[
+                                                                                  i]
+                                                                              .englishTitle
+                                                                          : foodPackageController
+                                                                              .foodPackageList[i]
+                                                                              .arabicTitle,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontSize:
+                                                                            15,
+                                                                        color: AppColors
+                                                                            .titleColor,
+                                                                        fontWeight:
+                                                                            FontWeight.w300,
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                                body: Column(
+                                                                  children: [
+                                                                    ListTile(
+                                                                      leading: FaIcon(
+                                                                          FontAwesomeIcons
+                                                                              .utensils),
                                                                       title:
                                                                           Text(
-                                                                        locale ==
-                                                                                Locale('en')
-                                                                            ? foodPackageController.foodPackageList[i].englishTitle
-                                                                            : foodPackageController.foodPackageList[i].arabicTitle,
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              15,
-                                                                          color:
-                                                                              AppColors.titleColor,
-                                                                          fontWeight:
-                                                                              FontWeight.w300,
-                                                                        ),
+                                                                        'breakfast'
+                                                                            .tr,
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.black),
                                                                       ),
-                                                                    );
-                                                                  },
-                                                                  body: Column(
-                                                                    children: [
-                                                                      ListTile(
-                                                                        leading:
-                                                                            FaIcon(FontAwesomeIcons.utensils),
-                                                                        title:
-                                                                            Text(
-                                                                          'breakfast'
-                                                                              .tr,
-                                                                          style:
-                                                                              TextStyle(color: Colors.black),
-                                                                        ),
-                                                                        trailing:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .check_circle_rounded,
-                                                                          color: foodPackageController.foodPackageList[i].breakfastAvailability
-                                                                              ? Colors.green
-                                                                              : Colors.grey,
-                                                                          size:
-                                                                              28,
-                                                                        ),
+                                                                      trailing:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .check_circle_rounded,
+                                                                        color: foodPackageController.foodPackageList[i].breakfastAvailability
+                                                                            ? Colors.green
+                                                                            : Colors.grey,
+                                                                        size:
+                                                                            28,
                                                                       ),
-                                                                      ListTile(
-                                                                        leading:
-                                                                            FaIcon(FontAwesomeIcons.hamburger),
-                                                                        title:
-                                                                            Text(
-                                                                          'lunch'
-                                                                              .tr,
-                                                                        ),
-                                                                        trailing:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .check_circle_rounded,
-                                                                          color: foodPackageController.foodPackageList[i].lunchAvailability
-                                                                              ? Colors.green
-                                                                              : Colors.grey,
-                                                                          size:
-                                                                              28,
-                                                                        ),
+                                                                    ),
+                                                                    ListTile(
+                                                                      leading: FaIcon(
+                                                                          FontAwesomeIcons
+                                                                              .hamburger),
+                                                                      title:
+                                                                          Text(
+                                                                        'lunch'
+                                                                            .tr,
                                                                       ),
-                                                                      ListTile(
-                                                                        leading:
-                                                                            FaIcon(FontAwesomeIcons.cookieBite),
-                                                                        title:
-                                                                            Text(
-                                                                          'snack'
-                                                                              .tr,
-                                                                        ),
-                                                                        trailing:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .check_circle_rounded,
-                                                                          color: foodPackageController.foodPackageList[i].snackAvailability
-                                                                              ? Colors.green
-                                                                              : Colors.grey,
-                                                                          size:
-                                                                              28,
-                                                                        ),
+                                                                      trailing:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .check_circle_rounded,
+                                                                        color: foodPackageController.foodPackageList[i].lunchAvailability
+                                                                            ? Colors.green
+                                                                            : Colors.grey,
+                                                                        size:
+                                                                            28,
                                                                       ),
-                                                                      ListTile(
-                                                                        leading:
-                                                                            FaIcon(FontAwesomeIcons.mugHot),
-                                                                        title:
-                                                                            Text(
-                                                                          'juice or milk'
-                                                                              .tr,
-                                                                        ),
-                                                                        trailing:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .check_circle_rounded,
-                                                                          color: foodPackageController.foodPackageList[i].drinkAvailability
-                                                                              ? Colors.green
-                                                                              : Colors.grey,
-                                                                          size:
-                                                                              28,
-                                                                        ),
+                                                                    ),
+                                                                    ListTile(
+                                                                      leading: FaIcon(
+                                                                          FontAwesomeIcons
+                                                                              .cookieBite),
+                                                                      title:
+                                                                          Text(
+                                                                        'snack'
+                                                                            .tr,
                                                                       ),
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.symmetric(
-                                                                          horizontal:
-                                                                              15,
-                                                                        ),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceAround,
-                                                                          children: [
-                                                                            ActionButton(
-                                                                              width: MediaQuery.of(context).size.width * 0.4,
-                                                                              label: "View The Menu".tr,
-                                                                              height: 40,
-                                                                              onPressed: () {
-                                                                                Get.to(FoodMenuScreen(
-                                                                                  packageId: foodPackageController.foodPackageList[i].id,
-                                                                                ));
-                                                                              },
-                                                                            ),
-                                                                            Spacer(),
-                                                                            Text(
-                                                                              '\$${foodPackageController.foodPackageList[i].price}  ' + "${'Rial'.tr}",
-                                                                            )
-                                                                          ],
-                                                                        ),
+                                                                      trailing:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .check_circle_rounded,
+                                                                        color: foodPackageController.foodPackageList[i].snackAvailability
+                                                                            ? Colors.green
+                                                                            : Colors.grey,
+                                                                        size:
+                                                                            28,
                                                                       ),
-                                                                      SizedBox(
-                                                                          height:
-                                                                              15),
-                                                                    ],
-                                                                  ),
-                                                                  isExpanded:
-                                                                      _expanded,
-                                                                  canTapOnHeader:
-                                                                      true,
+                                                                    ),
+                                                                    ListTile(
+                                                                      leading: FaIcon(
+                                                                          FontAwesomeIcons
+                                                                              .mugHot),
+                                                                      title:
+                                                                          Text(
+                                                                        'juice or milk'
+                                                                            .tr,
+                                                                      ),
+                                                                      trailing:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .check_circle_rounded,
+                                                                        color: foodPackageController.foodPackageList[i].drinkAvailability
+                                                                            ? Colors.green
+                                                                            : Colors.grey,
+                                                                        size:
+                                                                            28,
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                              .symmetric(
+                                                                        horizontal:
+                                                                            15,
+                                                                      ),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceAround,
+                                                                        children: [
+                                                                          ActionButton(
+                                                                            width:
+                                                                                MediaQuery.of(context).size.width * 0.4,
+                                                                            label:
+                                                                                "View The Menu".tr,
+                                                                            height:
+                                                                                40,
+                                                                            onPressed:
+                                                                                () {
+                                                                              Get.to(FoodMenuScreen(
+                                                                                packageId: foodPackageController.foodPackageList[i].id,
+                                                                              ));
+                                                                            },
+                                                                          ),
+                                                                          Spacer(),
+                                                                          Text(
+                                                                            '${foodPackageController.foodPackageList[i].price}  ' +
+                                                                                "${'Rial'.tr}",
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                        height:
+                                                                            15),
+                                                                  ],
                                                                 ),
-                                                              ],
-                                                              expansionCallback:
-                                                                  (panelIndex,
-                                                                      isExpanded) {
-                                                                _expanded =
-                                                                    !_expanded;
-                                                                setState(() {});
-                                                              },
-                                                            ),
+                                                                isExpanded: selectedFoodPackageIndex ==
+                                                                        foodPackageController
+                                                                            .foodPackageList[i]
+                                                                            .id
+                                                                    ? true
+                                                                    : false,
+                                                                canTapOnHeader:
+                                                                    true,
+                                                              ),
+                                                            ],
+                                                            expansionCallback:
+                                                                (panelIndex,
+                                                                    isExpanded) {
+                                                              selectedFoodPackageIndex =
+                                                                  foodPackageController
+                                                                      .foodPackageList[
+                                                                          i]
+                                                                      .id;
+                                                              updateFoodPakageIndex =
+                                                                  i;
+                                                              // _expanded =
+                                                              //     !_expanded;
+                                                              setState(() {});
+                                                            },
                                                           ),
                                                         ),
                                                       ),

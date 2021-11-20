@@ -83,6 +83,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     print('languageCode');
     print('${GetStorage().read('languageCode')}');
+    print('${GetStorage().read('token')}');
     return GetMaterialApp(
       title: 'Bedayat',
       debugShowCheckedModeBanner: false,

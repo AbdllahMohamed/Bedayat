@@ -25,7 +25,7 @@ class ChildEditorController extends GetxController {
   double? longitude;
 
   //step two
-  RxInt selectedBranchIndex = 1.obs;
+  RxInt selectedBranchIndex = 0.obs;
 
 //step three
   TextEditingController childFirstNameController = TextEditingController();

@@ -39,6 +39,7 @@ class AuthController extends GetxController {
     String? parentTwoPhone,
     String? userId,
     String? teacherId,
+    String? branchId,
     String? groupId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
@@ -74,6 +75,7 @@ class AuthController extends GetxController {
       parentTwoPhone: parentTwoPhone,
       userId: userId,
       teacherId: teacherId,
+      branchId: branchId,
       groupId: groupId,
       familyCard: familyCard,
       vaccinationCertificate: vaccinationCertificate,
@@ -116,6 +118,7 @@ class AuthController extends GetxController {
     String? userId,
     String? teacherId,
     String? groupId,
+    String? branchId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
@@ -150,6 +153,7 @@ class AuthController extends GetxController {
         parentTwoPhone: parentTwoPhone,
         userId: userId,
         teacherId: teacherId,
+        branchId: branchId,
         groupId: groupId,
         familyCard: familyCard,
         vaccinationCertificate: vaccinationCertificate,
@@ -191,6 +195,7 @@ class AuthController extends GetxController {
     String? teacherId,
     String? checkoutId,
     String? groupId,
+    String? branchId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
@@ -221,6 +226,7 @@ class AuthController extends GetxController {
         parentTwoPhone: parentTwoPhone,
         userId: userId,
         teacherId: teacherId,
+        branchId: branchId,
         groupId: groupId,
         checkoutId: checkoutId,
         familyCard: familyCard,
@@ -245,9 +251,10 @@ class AuthController extends GetxController {
     return registerError;
   }
 
-  void logut() {
+  void logut() async {
     final box = GetStorage();
-    box.remove('token');
+
+    await box.remove('token');
     Get.offAll(LoginScreen());
   }
 
@@ -264,6 +271,7 @@ class AuthController extends GetxController {
     String? parentTwoEmail,
     String? parentTwoPhone,
     String? userId,
+    String? branchId,
     String? teacherId,
     String? groupId,
     XFile? familyCard,
@@ -295,6 +303,7 @@ class AuthController extends GetxController {
         parentTwoPhone: parentTwoPhone,
         userId: userId,
         teacherId: teacherId,
+        branchId: branchId,
         groupId: groupId,
         familyCard: familyCard,
         vaccinationCertificate: vaccinationCertificate,
@@ -334,6 +343,7 @@ class AuthController extends GetxController {
     String? teacherId,
     String? checkoutId,
     String? groupId,
+    String? branchId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
@@ -365,6 +375,7 @@ class AuthController extends GetxController {
           parentTwoPhone: parentTwoPhone,
           userId: userId,
           teacherId: teacherId,
+          branchId: branchId,
           groupId: groupId,
           checkoutId: checkoutId,
           familyCard: familyCard,
@@ -404,6 +415,7 @@ class AuthController extends GetxController {
     String? userId,
     String? teacherId,
     String? groupId,
+    String? branchId,
     XFile? familyCard,
     XFile? vaccinationCertificate,
     XFile? document,
@@ -434,6 +446,7 @@ class AuthController extends GetxController {
         parentTwoPhone: parentTwoPhone,
         userId: userId,
         teacherId: teacherId,
+        branchId: branchId,
         groupId: groupId,
         familyCard: familyCard,
         vaccinationCertificate: vaccinationCertificate,

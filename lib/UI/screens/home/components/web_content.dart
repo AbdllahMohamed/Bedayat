@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
 import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
@@ -6,8 +8,14 @@ import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
+import 'dart:html' as html; //ignore: avoid_web_libraries_in_flutter
+import 'dart:js' as js; // ignore: avoid_web_libraries_in_flutter
 
 // ignore: must_be_immutable
 class HomeWebContentWidget extends StatelessWidget {
@@ -27,6 +35,7 @@ class HomeWebContentWidget extends StatelessWidget {
     required this.expireDate,
   });
   PaymentController paymentController = Get.put(PaymentController());
+  ScreenshotController screenshotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +172,7 @@ class HomeWebContentWidget extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.only(top: 40),
                               width: double.infinity,
-                              height: _devicHeight - 140,
+                              height: _devicHeight - 100,
                               color: Colors.transparent,
                               child: Container(
                                 padding: EdgeInsets.only(
@@ -282,7 +291,6 @@ class HomeWebContentWidget extends StatelessWidget {
                                                 },
                                                 child: Container(
                                                   width: 320,
-                                                  height: 35,
                                                   alignment: Alignment.center,
                                                   padding: EdgeInsets.all(8),
                                                   margin: EdgeInsets.only(
@@ -308,7 +316,7 @@ class HomeWebContentWidget extends StatelessWidget {
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: 15,
+                                                height: 10,
                                               ),
                                               QrImage(
                                                 data: createdAt,
@@ -316,25 +324,72 @@ class HomeWebContentWidget extends StatelessWidget {
                                                 size: 200.0,
                                               ),
                                               SizedBox(
-                                                height: 15,
+                                                height: 10,
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    'Share'.tr,
-                                                    style: TextStyle(
-                                                      color: Color(0xff818080),
+                                              InkWell(
+                                                onTap: () async {
+                                                  screenshotController
+                                                      .captureFromWidget(
+                                                    Container(
+                                                      color: Colors.white,
+                                                      child: QrImage(
+                                                        data: createdAt,
+                                                        version:
+                                                            QrVersions.auto,
+                                                        size: 190.0,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Image.asset(
-                                                    AppImages.appShareIcon,
+                                                    context: context,
                                                   )
-                                                ],
+                                                      .then(
+                                                          (capturedImage) async {
+                                                    // ignore: unnecessary_null_comparison
+                                                    if (capturedImage != null) {
+                                                      // final directory =
+                                                      //     await getApplicationDocumentsDirectory();
+                                                      // final imagePath = await File(
+                                                      //         '${directory.path}/image.png')
+                                                      //     .create();
+                                                      // await imagePath
+                                                      //     .writeAsBytes(
+                                                      //         capturedImage);
+                                                      // print(imagePath.path);
+
+                                                      // Share.shareFiles(
+                                                      //     [imagePath.path]);
+
+                                                      // await js.context
+                                                      //     .callMethod(
+                                                      //         "saveAs", [
+                                                      //   html.Blob(
+                                                      //       [capturedImage]),
+                                                      //   'image.png'
+                                                      // ]);
+
+                                                      Share.share(
+                                                          'Downloads/image.png');
+                                                    }
+                                                  });
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      'Share'.tr,
+                                                      style: TextStyle(
+                                                        color:
+                                                            Color(0xff818080),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 20,
+                                                    ),
+                                                    Image.asset(
+                                                      AppImages.appShareIcon,
+                                                    )
+                                                  ],
+                                                ),
                                               )
                                             ],
                                           ),
@@ -387,7 +442,7 @@ class HomeWebContentWidget extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            'Your child is not registered to subscribe now'.tr,
+                            'Your child is not registered  subscribe now'.tr,
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
@@ -407,7 +462,7 @@ class HomeWebContentWidget extends StatelessWidget {
                     child: Image.asset(
                       AppImages.appSmallBarcode,
                       width: 30,
-                      height: 30,
+                      height: 20,
                       fit: BoxFit.cover,
                     ),
                   ),

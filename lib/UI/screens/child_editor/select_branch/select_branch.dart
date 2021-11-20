@@ -21,7 +21,7 @@ class _SelectBranchScreenState extends State<SelectBranchScreen> {
 
   registerStepThreeS() async {
     // ignore: unnecessary_null_comparison
-    if (childEditorController.selectedBranchIndex.value == null) {
+    if (childEditorController.selectedBranchIndex.value == 0) {
       Get.defaultDialog(
           title: "Something went wrong".tr,
           middleText: 'Branch must be selected'.tr);
@@ -37,6 +37,7 @@ class _SelectBranchScreenState extends State<SelectBranchScreen> {
       //   selectedBranchIndex: selectedBranchIndex!,
       // ));
     }
+    print(childEditorController.selectedBranchIndex.value);
   }
 
   final locale = Get.locale;

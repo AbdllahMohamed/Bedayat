@@ -48,35 +48,49 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
       if (widget.routename == 'addChild') {
         childEditorController.emergencyNumberController.text =
             childEditorController.addChildList[0].emergencyNumber ?? "";
+
         childEditorController.anthorNotesController.text =
             childEditorController.addChildList[0].notes ?? "";
 
         childEditorController.relationsOneController.text =
             childEditorController.addChildList[0].parentOneRealation ?? "";
+
         childEditorController.emailOneController.text =
             childEditorController.addChildList[0].parentOneEmail ?? "";
+
         childEditorController.phoneOneController.text =
             childEditorController.addChildList[0].parentOnePhone ?? "";
+
         childEditorController.relationsTwoController.text =
             childEditorController.addChildList[0].parentTwoRealation ?? "";
+
         childEditorController.emailTwoController.text =
             childEditorController.addChildList[0].parentTwoEmail ?? "";
+
         childEditorController.phoneTwoController.text =
             childEditorController.addChildList[0].parentTwoPhone ?? "";
+
         childEditorController.relationOnefirstNameController.text =
             childEditorController.addChildList[0].relationOneFirstName ?? "";
+
         childEditorController.relationOneSecondNameController.text =
             childEditorController.addChildList[0].relationOneSecondName ?? "";
+
         childEditorController.relationOneThirdController.text =
             childEditorController.addChildList[0].relationOneThirdName ?? "";
+
         childEditorController.relationTwoFirstNameController.text =
             childEditorController.addChildList[0].relationTwoFirstName ?? "";
+
         childEditorController.relationTwoScecondNameController.text =
             childEditorController.addChildList[0].relationTwoScecondName ?? "";
+
         childEditorController.relationTwoThirdNameController.text =
             childEditorController.addChildList[0].relationTwoThirdName ?? "";
+
         childEditorController.emergencyNameController.text =
             childEditorController.addChildList[0].emergencyName ?? "";
+
         childEditorController.emergencyRelationController.text =
             childEditorController.addChildList[0].emergencyRelation ?? "";
       }
@@ -90,11 +104,17 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
         childEditorController.initLoadingProcess.value == true) {
       await childEditorController.getEditChildData(widget.childId.toString());
 
-      // print(childEditorController.editChildList[0].branchId!);
-      await childEditorController
-          .fetchGroups(childEditorController.editChildList[0].branchId!);
+      await childEditorController.fetchGroups(
+          childEditorController.selectedBranchIndex.value == 0
+              ? childEditorController.editChildList[0].branchId!
+              : childEditorController.selectedBranchIndex.value);
       await childEditorController
           .fetchTeachers(childEditorController.editChildList[0].groupId!);
+
+      childEditorController.selectedBranchIndex.value =
+          childEditorController.selectedBranchIndex.value == 0
+              ? childEditorController.editChildList[0].branchId!
+              : childEditorController.selectedBranchIndex.value;
       childEditorController.childFirstNameController.text =
           childEditorController.editChildList[0].childFirstName ?? "";
       childEditorController.childSecondNameController.text =
@@ -215,40 +235,40 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
 
   void _addChildWeb() async {
     String addchildError = await authController.addChildWeb(
-      childFirstName: childEditorController.childFirstNameController.text,
-      childSecondName: childEditorController.childSecondNameController.text,
-      gender: childEditorController.selectedType == 'ولد' ? 'male' : 'female',
-      emergencyNumber: childEditorController.emergencyNumberController.text,
-      parentOneRealation: childEditorController.relationsOneController.text,
-      parentOneEmail: childEditorController.emailOneController.text,
-      parentOnePhone: childEditorController.phoneOneController.text,
-      parentTwoRealation: childEditorController.relationsTwoController.text,
-      parentTwoEmail: childEditorController.emailTwoController.text,
-      parentTwoPhone: childEditorController.phoneTwoController.text,
-      userId: "1",
-      teacherId: childEditorController.selectedTeacherIndex.toString(),
-      groupId: childEditorController.selectedGroupIndex.toString(),
-      familyCard: childEditorController.familyCardPhoto,
-      vaccinationCertificate: childEditorController.vaccinationCertificate,
-      document: childEditorController.doctuumnet,
-      actualselectedDate: childEditorController.actualselectedDate,
-      relationOnefirstNameController:
-          childEditorController.relationOnefirstNameController.text,
-      relationOneSecondNameController:
-          childEditorController.relationOneSecondNameController.text,
-      relationOneThirdController:
-          childEditorController.relationOneThirdController.text,
-      relationTwoFirstController:
-          childEditorController.relationTwoFirstNameController.text,
-      relationTwoScecondController:
-          childEditorController.relationTwoScecondNameController.text,
-      relationTwoThirdController:
-          childEditorController.relationTwoThirdNameController.text,
-      emergencyNameController:
-          childEditorController.emergencyNameController.text,
-      emergencyRelationController:
-          childEditorController.emergencyRelationController.text,
-    );
+        childFirstName: childEditorController.childFirstNameController.text,
+        childSecondName: childEditorController.childSecondNameController.text,
+        gender: childEditorController.selectedType == 'ولد' ? 'male' : 'female',
+        emergencyNumber: childEditorController.emergencyNumberController.text,
+        parentOneRealation: childEditorController.relationsOneController.text,
+        parentOneEmail: childEditorController.emailOneController.text,
+        parentOnePhone: childEditorController.phoneOneController.text,
+        parentTwoRealation: childEditorController.relationsTwoController.text,
+        parentTwoEmail: childEditorController.emailTwoController.text,
+        parentTwoPhone: childEditorController.phoneTwoController.text,
+        userId: "1",
+        teacherId: childEditorController.selectedTeacherIndex.toString(),
+        groupId: childEditorController.selectedGroupIndex.toString(),
+        familyCard: childEditorController.familyCardPhoto,
+        vaccinationCertificate: childEditorController.vaccinationCertificate,
+        document: childEditorController.doctuumnet,
+        actualselectedDate: childEditorController.actualselectedDate,
+        relationOnefirstNameController:
+            childEditorController.relationOnefirstNameController.text,
+        relationOneSecondNameController:
+            childEditorController.relationOneSecondNameController.text,
+        relationOneThirdController:
+            childEditorController.relationOneThirdController.text,
+        relationTwoFirstController:
+            childEditorController.relationTwoFirstNameController.text,
+        relationTwoScecondController:
+            childEditorController.relationTwoScecondNameController.text,
+        relationTwoThirdController:
+            childEditorController.relationTwoThirdNameController.text,
+        emergencyNameController:
+            childEditorController.emergencyNameController.text,
+        emergencyRelationController:
+            childEditorController.emergencyRelationController.text,
+        branchId: childEditorController.selectedBranchIndex.value.toString());
 
     print(addchildError);
     if (addchildError != "") {
@@ -267,40 +287,40 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
 
   void _addChildMobile() async {
     String addchildError = await authController.addChild(
-      childFirstName: childEditorController.childFirstNameController.text,
-      childSecondName: childEditorController.childSecondNameController.text,
-      gender: childEditorController.selectedType == 'ولد' ? 'male' : 'female',
-      emergencyNumber: childEditorController.emergencyNumberController.text,
-      parentOneRealation: childEditorController.relationsOneController.text,
-      parentOneEmail: childEditorController.emailOneController.text,
-      parentOnePhone: childEditorController.phoneOneController.text,
-      parentTwoRealation: childEditorController.relationsTwoController.text,
-      parentTwoEmail: childEditorController.emailTwoController.text,
-      parentTwoPhone: childEditorController.phoneTwoController.text,
-      userId: "1",
-      teacherId: childEditorController.selectedTeacherIndex.toString(),
-      groupId: childEditorController.selectedGroupIndex.toString(),
-      familyCard: childEditorController.familyCardPhoto,
-      vaccinationCertificate: childEditorController.vaccinationCertificate,
-      document: childEditorController.doctuumnet,
-      actualselectedDate: childEditorController.actualselectedDate,
-      relationOnefirstNameController:
-          childEditorController.relationOnefirstNameController.text,
-      relationOneSecondNameController:
-          childEditorController.relationOneSecondNameController.text,
-      relationOneThirdController:
-          childEditorController.relationOneThirdController.text,
-      relationTwoFirstController:
-          childEditorController.relationTwoFirstNameController.text,
-      relationTwoScecondController:
-          childEditorController.relationTwoScecondNameController.text,
-      relationTwoThirdController:
-          childEditorController.relationTwoThirdNameController.text,
-      emergencyNameController:
-          childEditorController.emergencyNameController.text,
-      emergencyRelationController:
-          childEditorController.emergencyRelationController.text,
-    );
+        childFirstName: childEditorController.childFirstNameController.text,
+        childSecondName: childEditorController.childSecondNameController.text,
+        gender: childEditorController.selectedType == 'ولد' ? 'male' : 'female',
+        emergencyNumber: childEditorController.emergencyNumberController.text,
+        parentOneRealation: childEditorController.relationsOneController.text,
+        parentOneEmail: childEditorController.emailOneController.text,
+        parentOnePhone: childEditorController.phoneOneController.text,
+        parentTwoRealation: childEditorController.relationsTwoController.text,
+        parentTwoEmail: childEditorController.emailTwoController.text,
+        parentTwoPhone: childEditorController.phoneTwoController.text,
+        userId: "1",
+        teacherId: childEditorController.selectedTeacherIndex.toString(),
+        groupId: childEditorController.selectedGroupIndex.toString(),
+        familyCard: childEditorController.familyCardPhoto,
+        vaccinationCertificate: childEditorController.vaccinationCertificate,
+        document: childEditorController.doctuumnet,
+        actualselectedDate: childEditorController.actualselectedDate,
+        relationOnefirstNameController:
+            childEditorController.relationOnefirstNameController.text,
+        relationOneSecondNameController:
+            childEditorController.relationOneSecondNameController.text,
+        relationOneThirdController:
+            childEditorController.relationOneThirdController.text,
+        relationTwoFirstController:
+            childEditorController.relationTwoFirstNameController.text,
+        relationTwoScecondController:
+            childEditorController.relationTwoScecondNameController.text,
+        relationTwoThirdController:
+            childEditorController.relationTwoThirdNameController.text,
+        emergencyNameController:
+            childEditorController.emergencyNameController.text,
+        emergencyRelationController:
+            childEditorController.emergencyRelationController.text,
+        branchId: childEditorController.selectedBranchIndex.value.toString());
 
     print(addchildError);
     if (addchildError != "") {
@@ -313,41 +333,41 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
 
   void _editChildWeb() async {
     String addchildError = await authController.editChildWeb(
-      childFirstName: childEditorController.childFirstNameController.text,
-      childSecondName: childEditorController.childSecondNameController.text,
-      gender: childEditorController.selectedType == 'ولد' ? 'male' : 'female',
-      emergencyNumber: childEditorController.emergencyNumberController.text,
-      parentOneRealation: childEditorController.relationsOneController.text,
-      parentOneEmail: childEditorController.emailOneController.text,
-      parentOnePhone: childEditorController.phoneOneController.text,
-      parentTwoRealation: childEditorController.relationsTwoController.text,
-      parentTwoEmail: childEditorController.emailTwoController.text,
-      parentTwoPhone: childEditorController.phoneTwoController.text,
-      userId: "1",
-      teacherId: childEditorController.selectedTeacherIndex.toString(),
-      groupId: childEditorController.selectedGroupIndex.toString(),
-      familyCard: childEditorController.familyCardPhoto,
-      vaccinationCertificate: childEditorController.vaccinationCertificate,
-      document: childEditorController.doctuumnet,
-      actualselectedDate: childEditorController.actualselectedDate,
-      relationOnefirstNameController:
-          childEditorController.relationOnefirstNameController.text,
-      relationOneSecondNameController:
-          childEditorController.relationOneSecondNameController.text,
-      relationOneThirdController:
-          childEditorController.relationOneThirdController.text,
-      relationTwoFirstController:
-          childEditorController.relationTwoFirstNameController.text,
-      relationTwoScecondController:
-          childEditorController.relationTwoScecondNameController.text,
-      relationTwoThirdController:
-          childEditorController.relationTwoThirdNameController.text,
-      emergencyNameController:
-          childEditorController.emergencyNameController.text,
-      emergencyRelationController:
-          childEditorController.emergencyRelationController.text,
-      childId: widget.childId,
-    );
+        childFirstName: childEditorController.childFirstNameController.text,
+        childSecondName: childEditorController.childSecondNameController.text,
+        gender: childEditorController.selectedType == 'ولد' ? 'male' : 'female',
+        emergencyNumber: childEditorController.emergencyNumberController.text,
+        parentOneRealation: childEditorController.relationsOneController.text,
+        parentOneEmail: childEditorController.emailOneController.text,
+        parentOnePhone: childEditorController.phoneOneController.text,
+        parentTwoRealation: childEditorController.relationsTwoController.text,
+        parentTwoEmail: childEditorController.emailTwoController.text,
+        parentTwoPhone: childEditorController.phoneTwoController.text,
+        userId: "1",
+        teacherId: childEditorController.selectedTeacherIndex.toString(),
+        groupId: childEditorController.selectedGroupIndex.toString(),
+        familyCard: childEditorController.familyCardPhoto,
+        vaccinationCertificate: childEditorController.vaccinationCertificate,
+        document: childEditorController.doctuumnet,
+        actualselectedDate: childEditorController.actualselectedDate,
+        relationOnefirstNameController:
+            childEditorController.relationOnefirstNameController.text,
+        relationOneSecondNameController:
+            childEditorController.relationOneSecondNameController.text,
+        relationOneThirdController:
+            childEditorController.relationOneThirdController.text,
+        relationTwoFirstController:
+            childEditorController.relationTwoFirstNameController.text,
+        relationTwoScecondController:
+            childEditorController.relationTwoScecondNameController.text,
+        relationTwoThirdController:
+            childEditorController.relationTwoThirdNameController.text,
+        emergencyNameController:
+            childEditorController.emergencyNameController.text,
+        emergencyRelationController:
+            childEditorController.emergencyRelationController.text,
+        childId: widget.childId,
+        branchId: childEditorController.selectedBranchIndex.value.toString());
 
     print(addchildError);
     if (addchildError != "") {
@@ -362,41 +382,41 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
 
   void _editChild() async {
     String addchildError = await authController.editChild(
-      childFirstName: childEditorController.childFirstNameController.text,
-      childSecondName: childEditorController.childSecondNameController.text,
-      gender: childEditorController.selectedType == 'ولد' ? 'male' : 'female',
-      emergencyNumber: childEditorController.emergencyNumberController.text,
-      parentOneRealation: childEditorController.relationsOneController.text,
-      parentOneEmail: childEditorController.emailOneController.text,
-      parentOnePhone: childEditorController.phoneOneController.text,
-      parentTwoRealation: childEditorController.relationsTwoController.text,
-      parentTwoEmail: childEditorController.emailTwoController.text,
-      parentTwoPhone: childEditorController.phoneTwoController.text,
-      userId: "1",
-      teacherId: childEditorController.selectedTeacherIndex.toString(),
-      groupId: childEditorController.selectedGroupIndex.toString(),
-      familyCard: childEditorController.familyCardPhoto,
-      vaccinationCertificate: childEditorController.vaccinationCertificate,
-      document: childEditorController.doctuumnet,
-      actualselectedDate: childEditorController.actualselectedDate,
-      relationOnefirstNameController:
-          childEditorController.relationOnefirstNameController.text,
-      relationOneSecondNameController:
-          childEditorController.relationOneSecondNameController.text,
-      relationOneThirdController:
-          childEditorController.relationOneThirdController.text,
-      relationTwoFirstController:
-          childEditorController.relationTwoFirstNameController.text,
-      relationTwoScecondController:
-          childEditorController.relationTwoScecondNameController.text,
-      relationTwoThirdController:
-          childEditorController.relationTwoThirdNameController.text,
-      emergencyNameController:
-          childEditorController.emergencyNameController.text,
-      emergencyRelationController:
-          childEditorController.emergencyRelationController.text,
-      childId: widget.childId,
-    );
+        childFirstName: childEditorController.childFirstNameController.text,
+        childSecondName: childEditorController.childSecondNameController.text,
+        gender: childEditorController.selectedType == 'ولد' ? 'male' : 'female',
+        emergencyNumber: childEditorController.emergencyNumberController.text,
+        parentOneRealation: childEditorController.relationsOneController.text,
+        parentOneEmail: childEditorController.emailOneController.text,
+        parentOnePhone: childEditorController.phoneOneController.text,
+        parentTwoRealation: childEditorController.relationsTwoController.text,
+        parentTwoEmail: childEditorController.emailTwoController.text,
+        parentTwoPhone: childEditorController.phoneTwoController.text,
+        userId: "1",
+        teacherId: childEditorController.selectedTeacherIndex.toString(),
+        groupId: childEditorController.selectedGroupIndex.toString(),
+        familyCard: childEditorController.familyCardPhoto,
+        vaccinationCertificate: childEditorController.vaccinationCertificate,
+        document: childEditorController.doctuumnet,
+        actualselectedDate: childEditorController.actualselectedDate,
+        relationOnefirstNameController:
+            childEditorController.relationOnefirstNameController.text,
+        relationOneSecondNameController:
+            childEditorController.relationOneSecondNameController.text,
+        relationOneThirdController:
+            childEditorController.relationOneThirdController.text,
+        relationTwoFirstController:
+            childEditorController.relationTwoFirstNameController.text,
+        relationTwoScecondController:
+            childEditorController.relationTwoScecondNameController.text,
+        relationTwoThirdController:
+            childEditorController.relationTwoThirdNameController.text,
+        emergencyNameController:
+            childEditorController.emergencyNameController.text,
+        emergencyRelationController:
+            childEditorController.emergencyRelationController.text,
+        childId: widget.childId,
+        branchId: childEditorController.selectedBranchIndex.value.toString());
 
     print(addchildError);
     if (addchildError != "") {
@@ -409,45 +429,45 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
 
   void _registerAndavegatoToWeb() async {
     String registerError = await authController.registerWeb(
-      username: childEditorController.nameController.text,
-      phone: childEditorController.phoneController.text,
-      email: childEditorController.emailController.text,
-      password: childEditorController.passwordController.text,
-      groupId: childEditorController.selectedGroupIndex.toString(),
-      teacherId: childEditorController.selectedTeacherIndex.toString(),
-      childFirstName: childEditorController.childFirstNameController.text,
-      childSecondName: childEditorController.childSecondNameController.text,
-      relationOnefirstNameController:
-          childEditorController.relationOnefirstNameController.text,
-      relationOneSecondNameController:
-          childEditorController.relationOneSecondNameController.text,
-      relationOneThirdController:
-          childEditorController.relationOneThirdController.text,
-      relationTwoFirstController:
-          childEditorController.relationTwoFirstNameController.text,
-      relationTwoScecondController:
-          childEditorController.relationTwoScecondNameController.text,
-      relationTwoThirdController:
-          childEditorController.relationTwoThirdNameController.text,
-      emergencyNameController:
-          childEditorController.emergencyNameController.text,
-      emergencyRelationController:
-          childEditorController.emergencyRelationController.text,
-      parentTwoRealation: childEditorController.relationsTwoController.text,
-      parentTwoEmail: childEditorController.emailTwoController.text,
-      parentTwoPhone: childEditorController.phoneTwoController.text,
-      parentOneRealation: childEditorController.relationsOneController.text,
-      parentOneEmail: childEditorController.emailOneController.text,
-      parentOnePhone: childEditorController.phoneOneController.text,
-      familyCard: childEditorController.familyCardPhoto,
-      vaccinationCertificate: childEditorController.vaccinationCertificate,
-      document: childEditorController.doctuumnet,
-      emergencyNumber: childEditorController.emergencyNumberController.text,
-      ageGroup: '1',
-      userId: '1',
-      birthDate: childEditorController.actualselectedDate,
-      gender: childEditorController.selectedType == 'ولد' ? 'male' : 'female',
-    );
+        username: childEditorController.nameController.text,
+        phone: childEditorController.phoneController.text,
+        email: childEditorController.emailController.text,
+        password: childEditorController.passwordController.text,
+        groupId: childEditorController.selectedGroupIndex.toString(),
+        teacherId: childEditorController.selectedTeacherIndex.toString(),
+        childFirstName: childEditorController.childFirstNameController.text,
+        childSecondName: childEditorController.childSecondNameController.text,
+        relationOnefirstNameController:
+            childEditorController.relationOnefirstNameController.text,
+        relationOneSecondNameController:
+            childEditorController.relationOneSecondNameController.text,
+        relationOneThirdController:
+            childEditorController.relationOneThirdController.text,
+        relationTwoFirstController:
+            childEditorController.relationTwoFirstNameController.text,
+        relationTwoScecondController:
+            childEditorController.relationTwoScecondNameController.text,
+        relationTwoThirdController:
+            childEditorController.relationTwoThirdNameController.text,
+        emergencyNameController:
+            childEditorController.emergencyNameController.text,
+        emergencyRelationController:
+            childEditorController.emergencyRelationController.text,
+        parentTwoRealation: childEditorController.relationsTwoController.text,
+        parentTwoEmail: childEditorController.emailTwoController.text,
+        parentTwoPhone: childEditorController.phoneTwoController.text,
+        parentOneRealation: childEditorController.relationsOneController.text,
+        parentOneEmail: childEditorController.emailOneController.text,
+        parentOnePhone: childEditorController.phoneOneController.text,
+        familyCard: childEditorController.familyCardPhoto,
+        vaccinationCertificate: childEditorController.vaccinationCertificate,
+        document: childEditorController.doctuumnet,
+        emergencyNumber: childEditorController.emergencyNumberController.text,
+        ageGroup: '1',
+        userId: '1',
+        birthDate: childEditorController.actualselectedDate,
+        gender: childEditorController.selectedType == 'ولد' ? 'male' : 'female',
+        branchId: childEditorController.selectedBranchIndex.value.toString());
     if (registerError != "") {
       Get.defaultDialog(
           title: "Something went wrong".tr, middleText: registerError);
@@ -469,45 +489,45 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
 
   void _registerAndavegatoToMobile() async {
     String registerError = await authController.register(
-      username: childEditorController.nameController.text,
-      phone: childEditorController.phoneController.text,
-      email: childEditorController.emailController.text,
-      password: childEditorController.passwordController.text,
-      groupId: childEditorController.selectedGroupIndex.toString(),
-      teacherId: childEditorController.selectedTeacherIndex.toString(),
-      childFirstName: childEditorController.childFirstNameController.text,
-      childSecondName: childEditorController.childSecondNameController.text,
-      relationOnefirstNameController:
-          childEditorController.relationOnefirstNameController.text,
-      relationOneSecondNameController:
-          childEditorController.relationOneSecondNameController.text,
-      relationOneThirdController:
-          childEditorController.relationOneThirdController.text,
-      relationTwoFirstController:
-          childEditorController.relationTwoFirstNameController.text,
-      relationTwoScecondController:
-          childEditorController.relationTwoScecondNameController.text,
-      relationTwoThirdController:
-          childEditorController.relationTwoThirdNameController.text,
-      emergencyNameController:
-          childEditorController.emergencyNameController.text,
-      emergencyRelationController:
-          childEditorController.emergencyRelationController.text,
-      parentTwoRealation: childEditorController.relationsTwoController.text,
-      parentTwoEmail: childEditorController.emailTwoController.text,
-      parentTwoPhone: childEditorController.phoneTwoController.text,
-      parentOneRealation: childEditorController.relationsOneController.text,
-      parentOneEmail: childEditorController.emailOneController.text,
-      parentOnePhone: childEditorController.phoneOneController.text,
-      familyCard: childEditorController.familyCardPhoto,
-      vaccinationCertificate: childEditorController.vaccinationCertificate,
-      document: childEditorController.doctuumnet,
-      emergencyNumber: childEditorController.emergencyNumberController.text,
-      ageGroup: '1',
-      userId: '1',
-      actualselectedDate: childEditorController.actualselectedDate,
-      gender: childEditorController.selectedType == 'ولد' ? 'male' : 'female',
-    );
+        username: childEditorController.nameController.text,
+        phone: childEditorController.phoneController.text,
+        email: childEditorController.emailController.text,
+        password: childEditorController.passwordController.text,
+        groupId: childEditorController.selectedGroupIndex.toString(),
+        teacherId: childEditorController.selectedTeacherIndex.toString(),
+        childFirstName: childEditorController.childFirstNameController.text,
+        childSecondName: childEditorController.childSecondNameController.text,
+        relationOnefirstNameController:
+            childEditorController.relationOnefirstNameController.text,
+        relationOneSecondNameController:
+            childEditorController.relationOneSecondNameController.text,
+        relationOneThirdController:
+            childEditorController.relationOneThirdController.text,
+        relationTwoFirstController:
+            childEditorController.relationTwoFirstNameController.text,
+        relationTwoScecondController:
+            childEditorController.relationTwoScecondNameController.text,
+        relationTwoThirdController:
+            childEditorController.relationTwoThirdNameController.text,
+        emergencyNameController:
+            childEditorController.emergencyNameController.text,
+        emergencyRelationController:
+            childEditorController.emergencyRelationController.text,
+        parentTwoRealation: childEditorController.relationsTwoController.text,
+        parentTwoEmail: childEditorController.emailTwoController.text,
+        parentTwoPhone: childEditorController.phoneTwoController.text,
+        parentOneRealation: childEditorController.relationsOneController.text,
+        parentOneEmail: childEditorController.emailOneController.text,
+        parentOnePhone: childEditorController.phoneOneController.text,
+        familyCard: childEditorController.familyCardPhoto,
+        vaccinationCertificate: childEditorController.vaccinationCertificate,
+        document: childEditorController.doctuumnet,
+        emergencyNumber: childEditorController.emergencyNumberController.text,
+        ageGroup: '1',
+        userId: '1',
+        actualselectedDate: childEditorController.actualselectedDate,
+        gender: childEditorController.selectedType == 'ولد' ? 'male' : 'female',
+        branchId: childEditorController.selectedBranchIndex.value.toString());
     if (registerError != "") {
       Get.defaultDialog(
           title: "Something went wrong".tr, middleText: registerError);
@@ -727,15 +747,15 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                                                             .selectedGroupIndex =
                                                         childEditorController
                                                             .groups[index].id;
-                                                    if (widget.routename ==
-                                                            'addChild' ||
-                                                        widget.routename ==
-                                                            'register') {
-                                                      childEditorController
-                                                          .fetchTeachers(
-                                                              childEditorController
-                                                                  .selectedGroupIndex!);
-                                                    }
+                                                    // if (widget.routename ==
+                                                    //         'addChild' ||
+                                                    //     widget.routename ==
+                                                    //         'register') {
+                                                    childEditorController
+                                                        .fetchTeachers(
+                                                            childEditorController
+                                                                .selectedGroupIndex!);
+                                                    // }
                                                   });
                                                 },
                                                 child: Container(

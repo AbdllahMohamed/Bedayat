@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:ui';
 import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
 import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
@@ -6,10 +8,12 @@ import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 
 // ignore: must_be_immutable
 class MobileHomeContentWidget extends StatelessWidget {
@@ -31,6 +35,7 @@ class MobileHomeContentWidget extends StatelessWidget {
 
   PaymentController paymentController = Get.put(PaymentController());
 
+  ScreenshotController screenshotController = ScreenshotController();
   @override
   Widget build(BuildContext context) {
     var _deviceWidth = MediaQuery.of(context).size.width;
@@ -323,23 +328,59 @@ class MobileHomeContentWidget extends StatelessWidget {
                                               SizedBox(
                                                 height: 15,
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    'Share'.tr,
-                                                    style: TextStyle(
-                                                      color: Color(0xff818080),
+                                              InkWell(
+                                                onTap: () async {
+                                                  screenshotController
+                                                      .captureFromWidget(
+                                                    Container(
+                                                      color: Colors.white,
+                                                      child: QrImage(
+                                                        data: createdAt,
+                                                        version:
+                                                            QrVersions.auto,
+                                                        size: 200.0,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Image.asset(
-                                                    AppImages.appShareIcon,
+                                                    context: context,
                                                   )
-                                                ],
+                                                      .then(
+                                                          (capturedImage) async {
+                                                    // ignore: unnecessary_null_comparison
+                                                    if (capturedImage != null) {
+                                                      final directory =
+                                                          await getApplicationDocumentsDirectory();
+                                                      final imagePath = await File(
+                                                              '${directory.path}/image.png')
+                                                          .create();
+                                                      await imagePath
+                                                          .writeAsBytes(
+                                                              capturedImage);
+                                                      print(imagePath.path);
+
+                                                      Share.shareFiles(
+                                                          [imagePath.path]);
+                                                    }
+                                                  });
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      'Share'.tr,
+                                                      style: TextStyle(
+                                                        color:
+                                                            Color(0xff818080),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 20,
+                                                    ),
+                                                    Image.asset(
+                                                      AppImages.appShareIcon,
+                                                    )
+                                                  ],
+                                                ),
                                               )
                                             ],
                                           ),
