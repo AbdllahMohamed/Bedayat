@@ -117,7 +117,7 @@ const Map<String, String> en = {
   'Please choose the subscription value':
       'Please choose the subscription value',
   'Choose the period :': 'Choose the period :',
-  'Pill :': 'Pill',
+  'Bill :': 'Bill',
   'Price :': 'Price',
   'Tax :': 'Tax',
   'Rial': 'Rial',

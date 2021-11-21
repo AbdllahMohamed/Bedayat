@@ -116,7 +116,7 @@ const Map<String, String> ar = {
   'Please choose the subscription value': 'يرجى اختيار قيمة الاشتراك',
   'Please choose the payment method': 'يرجى اختيار طريقة الدفع',
   'Choose the period :': 'اختر الفترة  : ',
-  'Pill :': 'الفاتورة',
+  'Bill :': 'الفاتورة',
   'Price :': 'السعر',
   'Tax :': 'الضريبة',
   'Rial': 'ريال',

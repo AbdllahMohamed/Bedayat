@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 // ignore: must_be_immutable
 class FoodMenuScreen extends StatefulWidget {
@@ -359,8 +360,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.breakFaskfirstWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.breakFaskfirstWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -488,8 +498,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.lunchfirstWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.lunchfirstWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -617,8 +636,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.drinkfirstWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.drinkfirstWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -746,8 +774,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.snackfirstWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.snackfirstWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -879,8 +916,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.breakFaskSecondWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.breakFaskSecondWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -1008,8 +1054,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.lunchSecondWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.lunchSecondWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -1137,8 +1192,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.drinkSecondWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.drinkSecondWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -1266,8 +1330,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.snackSecondWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.snackSecondWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -1399,8 +1472,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.breakFaskThirdWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.breakFaskThirdWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -1528,8 +1610,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.lunchThirdWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.lunchThirdWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -1657,8 +1748,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.drinkThirdWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.drinkThirdWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -1786,8 +1886,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.snackThirdWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.snackThirdWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -1919,8 +2028,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.breakFaskFourthWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.breakFaskFourthWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -2048,8 +2166,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.lunchFourthWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.lunchFourthWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -2177,8 +2304,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.drinkFourthWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.drinkFourthWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,
@@ -2306,8 +2442,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Image.network(
-                                                        '$baseUrl${foodPackageDetailsController.snackFourthWeek[index].image.replaceAll('public', 'storage')}',
+                                                      CachedNetworkImage(
+                                                        imageUrl:
+                                                            "$baseUrl${foodPackageDetailsController.snackFourthWeek[index].image.replaceAll('public', 'storage')}",
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Icon(Icons.error),
                                                         width: 80,
                                                         height: 80,
                                                         fit: BoxFit.cover,

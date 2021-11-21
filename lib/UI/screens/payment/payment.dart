@@ -791,7 +791,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         horizontal: 20,
                                       ),
                                       child: Text(
-                                        'Pill :'.tr,
+                                        'Bill :'.tr,
                                         style: TextStyle(
                                           fontSize: 15,
                                           color: AppColors.titleColor,
@@ -917,7 +917,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       horizontal: 20,
                     ),
                     child: Text(
-                      'Pill :'.tr,
+                      'Bill :'.tr,
                       style: TextStyle(
                         fontSize: 15,
                         color: AppColors.titleColor,
@@ -969,7 +969,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 width: 10,
                               ),
                               Text(
-                                _banckName[index],
+                                _banckName[index].replaceAll('_', ' '),
                                 style: TextStyle(
                                   fontSize: 17,
                                   color: AppColors.titleColor,
