@@ -29,7 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _email =
       new TextEditingController(text: 'admin@admin.com');
 
-  TextEditingController _password = new TextEditingController(text: 'admin');
+  TextEditingController _password =
+      new TextEditingController(text: 'Bedayaat2292021@#');
 
   bool _obscureText = true;
 

@@ -26,9 +26,9 @@ class Teacher {
   Teacher.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         arabicName = json['arabic_name'],
-        arabicDescription = json['english_name'],
-        englishName = json['arabic_description'],
-        englishDescription = json['arabic_description'],
+        arabicDescription = json['arabic_description'],
+        englishName = json['english_name'],
+        englishDescription = json['english_description'],
         availability = json['availability'],
         profileImg = json['profile_img'],
         classId = json['class_id'],
