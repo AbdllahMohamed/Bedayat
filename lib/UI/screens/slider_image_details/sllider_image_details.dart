@@ -28,87 +28,84 @@ class _SliderImageDetailsState extends State<SliderImageDetails> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-            child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 15,
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 28.0,
+                right: 15,
+                left: 15,
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 28.0,
-                  right: 15,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image.asset(
-                      AppImages.appLogo,
-                      width: 106,
-                      height: 56,
-                    ),
-                    Spacer(),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        icon: Icon(
-                          Icons.close,
-                          size: 30,
-                        ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    AppImages.appLogo,
+                    width: 106,
+                    height: 56,
+                  ),
+                  Spacer(),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        size: 30,
                       ),
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.network(
-                    widget.imagePath,
-                    fit: BoxFit.cover,
-                    width: _deviceWidth,
-                    height: _devicHeight / 2,
                   ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  widget.imagePath,
+                  fit: BoxFit.cover,
+                  width: _deviceWidth,
+                  height: _devicHeight / 2,
                 ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                child: Text(
-                  widget.title,
-                  style: TextStyle(
-                    color: AppColors.titleColor,
-                    fontSize: 22,
-                  ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                  color: AppColors.titleColor,
+                  fontSize: 22,
                 ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Text(
-                  widget.description,
-                  style: TextStyle(
-                    color: AppColors.titleColor,
-                    fontSize: 20,
-                  ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                widget.description,
+                style: TextStyle(
+                  color: AppColors.titleColor,
+                  fontSize: 20,
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         )),
       ),
     );

@@ -18,6 +18,8 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var _deviceWidth = MediaQuery.of(context).size.width;
     var _devicHeight = MediaQuery.of(context).size.height;
+    double cardWidth = MediaQuery.of(context).size.width / 3.3;
+    double cardHeight = MediaQuery.of(context).size.height / 3.6;
 
     return WillPopScope(
       onWillPop: () async {
@@ -109,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
                                   left: 5,
                                   bottom: 25,
                                 ),
-                                child: kIsWeb && _deviceWidth > 500
+                                child: kIsWeb && _deviceWidth > 850
                                     ? GridView.builder(
                                         shrinkWrap: true,
                                         physics: BouncingScrollPhysics(),
@@ -121,8 +123,8 @@ class ProfileScreen extends StatelessWidget {
                                           crossAxisCount: 2,
                                           crossAxisSpacing: 5,
                                           mainAxisSpacing: 15,
-                                          childAspectRatio: _deviceWidth /
-                                              (_devicHeight / 1.4),
+                                          childAspectRatio:
+                                              cardWidth / cardHeight,
                                         ),
                                         itemBuilder: (BuildContext context, i) {
                                           return HomeWebContentWidget(
