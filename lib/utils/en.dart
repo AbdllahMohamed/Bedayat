@@ -107,7 +107,7 @@ const Map<String, String> en = {
   'Does the child have an allergy?': 'Does the child have an allergy?',
   'Please tell us what type of allergy your child has':
       'Please tell us what type of allergy your child has',
-  'I want my baby to be photographed': 'I want my baby to be photographed',
+  'I want my child to be photographed': 'I want my child to be photographed',
   'To post on social media': 'To post on social media',
   'for emergency': 'for emergency',
   'emergency number': 'emergency number',

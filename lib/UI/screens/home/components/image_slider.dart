@@ -37,6 +37,7 @@ class ImageSliderWidget extends StatelessWidget {
           Positioned(
             top: 60,
             right: 30,
+            left: 30,
             child: Container(
               width: 300,
               child: Text(

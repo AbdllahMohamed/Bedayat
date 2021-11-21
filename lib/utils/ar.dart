@@ -106,7 +106,7 @@ const Map<String, String> ar = {
   'Does the child have an allergy?': 'هل يعانى الطفل من حساسية',
   'Please tell us what type of allergy your child has':
       'فضلا اخبرنا نوع الحساسية الخاصة بطفلك',
-  'I want my baby to be photographed': 'اقبل ان يتم تصوير طفلى',
+  'I want my child to be photographed': 'اقبل ان يتم تصوير طفلى',
   'To post on social media': 'للنشر على وسائل التواصل الاجتماعى',
   'for emergency': 'للطوارئ',
   'emergency number': 'رقم الطوارئ',

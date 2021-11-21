@@ -1,7 +1,6 @@
 import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:bedayat/UI/screens/login/login.dart';
 import 'package:flutter/material.dart';
-
 import 'UI/screens/checkout_status/checkout_status.dart';
 
 class RouteGenerator {
@@ -11,10 +10,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case RouteNames.login:
-        if (pathComponents[1] == '/') {
-          return GeneratePageRoute(
-              widget: LoginScreen(), routeName: settings.name!);
-        } else if (pathComponents[1].contains('payment')) {
+        if (pathComponents[1].contains('payment')) {
           final settingsUri = Uri.parse(settings.name!);
           //settingsUri.queryParameters is a map of all the query keys and values
           final checkoutId = settingsUri.queryParameters['id'];
@@ -25,6 +21,9 @@ class RouteGenerator {
                 routeName: 'register',
               ),
               routeName: settings.name!);
+        } else if (pathComponents[1] == '/') {
+          return GeneratePageRoute(
+              widget: LoginScreen(), routeName: settings.name!);
         } else
           return GeneratePageRoute(
               widget: LoginScreen(), routeName: settings.name!);
