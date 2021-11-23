@@ -1,6 +1,4 @@
-import 'package:bedayat/UI/screens/add_child/add_child_step_five.dart';
 import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
-import 'package:bedayat/UI/screens/register/register_step_six.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/auth_Controller.dart';
@@ -33,14 +31,14 @@ class _SuccessCheckoutState extends State<SuccessCheckout> {
   _navigateTo() {
     if (widget.routeName == 'register') {
       Future.delayed(Duration(seconds: 2), () {
-        Get.offAll(RegisterStepSixScreen());
+        // Get.offAll(RegisterStepSixScreen());
       });
     } else if (widget.routeName == 'home') {
       Future.delayed(Duration(seconds: 2), () {
         Get.offAll(BottomNavigationWidget());
       });
     } else {
-      Get.offAll(AddChildStepFiveScreen());
+      // Get.offAll(AddChildStepFiveScreen());
     }
   }
 

@@ -14,8 +14,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
-import 'dart:html' as html; //ignore: avoid_web_libraries_in_flutter
-import 'dart:js' as js; // ignore: avoid_web_libraries_in_flutter
 
 // ignore: must_be_immutable
 class HomeWebContentWidget extends StatelessWidget {

@@ -27,6 +27,11 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
       childEditorController.latitude = 23.8859;
       childEditorController.longitude = 45.0792;
     } else {
+      childEditorController.step += 1;
+
+      childEditorController.latitude = 23.8859;
+      childEditorController.longitude = 45.0792;
+      return;
       Location location = new Location();
 
       bool _serviceEnabled;

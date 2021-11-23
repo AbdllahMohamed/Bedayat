@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
-import 'package:bedayat/UI/screens/register/register_step_one.dart';
+// import 'package:bedayat/UI/screens/register/register_step_one.dart';
 import 'package:bedayat/UI/screens/reset_password/reset_password.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
 import 'package:bedayat/UI/widgets/cutome_textFormfield.dart';
