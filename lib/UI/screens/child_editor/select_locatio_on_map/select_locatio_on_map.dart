@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:bedayat/app_colors/app_colors.dart';
 
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SelectLocationOnMapScreen extends StatefulWidget {
   final String routename;
@@ -16,40 +16,40 @@ class SelectLocationOnMapScreen extends StatefulWidget {
 }
 
 class _SelectLocationOnMapScreenState extends State<SelectLocationOnMapScreen> {
-  // late List<Marker> myMarker;
-  // late LatLng selectedPoint;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   selectedPoint = LatLng(
-  //       childEditorController.latitude!, childEditorController.longitude!);
-  //   myMarker = [
-  //     Marker(
-  //       markerId: MarkerId('m1'),
-  //       infoWindow: InfoWindow(title: 'الموقع'),
-  //       position: LatLng(
-  //           childEditorController.latitude!, childEditorController.longitude!),
-  //     ),
-  //   ];
-  // }
+  late List<Marker> myMarker;
+  late LatLng selectedPoint;
+  @override
+  void initState() {
+    super.initState();
+    selectedPoint = LatLng(
+        childEditorController.latitude!, childEditorController.longitude!);
+    myMarker = [
+      Marker(
+        markerId: MarkerId('m1'),
+        infoWindow: InfoWindow(title: 'الموقع'),
+        position: LatLng(
+            childEditorController.latitude!, childEditorController.longitude!),
+      ),
+    ];
+  }
 
-  // _handelTap(tappedPoint) {
-  //   setState(
-  //     () {
-  //       myMarker = [];
+  _handelTap(tappedPoint) {
+    setState(
+      () {
+        myMarker = [];
 
-  //       myMarker.add(Marker(
-  //         markerId: MarkerId(
-  //           tappedPoint.toString(),
-  //         ),
-  //         position: tappedPoint,
-  //       ));
+        myMarker.add(Marker(
+          markerId: MarkerId(
+            tappedPoint.toString(),
+          ),
+          position: tappedPoint,
+        ));
 
-  //       selectedPoint = tappedPoint;
-  //       print(selectedPoint);
-  //     },
-  //   );
-  // }
+        selectedPoint = tappedPoint;
+        print(selectedPoint);
+      },
+    );
+  }
 
   final locale = Get.locale;
 
@@ -64,15 +64,15 @@ class _SelectLocationOnMapScreenState extends State<SelectLocationOnMapScreen> {
         ),
         centerTitle: true,
       ),
-      // body: GoogleMap(
-      //   initialCameraPosition: CameraPosition(
-      //     target: LatLng(childEditorController.latitude!,
-      //         childEditorController.longitude!),
-      //     zoom: 10,
-      //   ),
-      //   onTap: _handelTap,
-      //   markers: Set.from(myMarker),
-      // ),
+      body: GoogleMap(
+        initialCameraPosition: CameraPosition(
+          target: LatLng(childEditorController.latitude!,
+              childEditorController.longitude!),
+          zoom: 10,
+        ),
+        onTap: _handelTap,
+        markers: Set.from(myMarker),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,

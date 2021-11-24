@@ -1,6 +1,7 @@
 import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
 import 'package:bedayat/app_images/app_images.dart';
 import 'package:flutter/foundation.dart';
+import 'package:geolocator/geolocator.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -18,6 +19,43 @@ class SelectLocationScreen extends StatefulWidget {
 }
 
 class _SelectLocationScreenState extends State<SelectLocationScreen> {
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
+  }
+
   registerStepTwo() async {
     print(kIsWeb);
     if (kIsWeb) {
@@ -27,102 +65,17 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
       childEditorController.latitude = 23.8859;
       childEditorController.longitude = 45.0792;
     } else {
-      childEditorController.step += 1;
+      Position position = await _determinePosition();
 
-      childEditorController.latitude = 23.8859;
-      childEditorController.longitude = 45.0792;
-      return;
-      Location location = new Location();
-
-      bool _serviceEnabled;
-      PermissionStatus _permissionGranted;
-      LocationData _locationData;
-
-      _serviceEnabled = await location.serviceEnabled();
-      if (!_serviceEnabled) {
-        _serviceEnabled = await location.requestService();
-        if (!_serviceEnabled) {
-          return;
-        }
-      }
-
-      _permissionGranted = await location.hasPermission();
-      if (_permissionGranted == PermissionStatus.denied) {
-        _permissionGranted = await location.requestPermission();
-        if (_permissionGranted != PermissionStatus.granted) {
-          return;
-        }
-      }
       if (widget.routename == 'addChild') {
         childEditorController.fetchchildern();
       }
 
-      _locationData = await location.getLocation();
       childEditorController.step += 1;
 
-      childEditorController.latitude = _locationData.latitude;
-      childEditorController.longitude = _locationData.longitude;
+      childEditorController.latitude = position.latitude;
+      childEditorController.longitude = position.longitude;
     }
-    // if (Platform.isAndroid || Platform.isIOS) {
-    //   Location location = new Location();
-
-    //   bool _serviceEnabled;
-    //   PermissionStatus _permissionGranted;
-    //   LocationData _locationData;
-
-    //   _serviceEnabled = await location.serviceEnabled();
-    //   if (!_serviceEnabled) {
-    //     _serviceEnabled = await location.requestService();
-    //     if (!_serviceEnabled) {
-    //       return;
-    //     }
-    //   }
-
-    //   _permissionGranted = await location.hasPermission();
-    //   if (_permissionGranted == PermissionStatus.denied) {
-    //     _permissionGranted = await location.requestPermission();
-    //     if (_permissionGranted != PermissionStatus.granted) {
-    //       return;
-    //     }
-    //   }
-    //   if (widget.routename == 'addChild') {
-    //     childEditorController.fetchchildern();
-    //   }
-
-    //   _locationData = await location.getLocation();
-    //   childEditorController.step += 1;
-
-    //   childEditorController.latitude = _locationData.latitude;
-    //   childEditorController.longitude = _locationData.longitude;
-
-    //   // Get.to(
-    //   //   SelectLocationOnMapScreen(
-    //   //     latitude: _locationData.latitude!,
-    //   //     longitude: _locationData.longitude!,
-    //   //     nameController: widget.nameController,
-    //   //     phoneController: widget.phoneController,
-    //   //     emailController: widget.emailController,
-    //   //     passwordController: widget.passwordController,
-    //   //   ),
-    //   // );
-    // } else {
-    //   print('web');
-    //   childEditorController.step += 1;
-
-    //   childEditorController.latitude = 23.8859;
-    //   childEditorController.longitude = 45.0792;
-
-    //   // Get.to(
-    //   // SelectLocationOnMapScreen(
-    //   //   latitude: 23.8859,
-    //   //   longitude: 45.0792,
-    //   //   nameController: widget.nameController,
-    //   //   phoneController: widget.phoneController,
-    //   //   emailController: widget.emailController,
-    //   //   passwordController: widget.passwordController,
-    //   // ),
-    //   // );
-    // }
   }
 
   Completer<GoogleMapController> _controller = Completer();
@@ -257,7 +210,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                 SizedBox(height: 15),
                 ActionButton(
                     label: 'Select your location'.tr,
-                    onPressed: () async {
+                    onPressed: () {
                       registerStepTwo();
                     }),
                 SizedBox(height: 15),
