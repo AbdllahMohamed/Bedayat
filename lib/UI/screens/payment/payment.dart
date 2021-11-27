@@ -63,10 +63,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
   ];
 
   List<String> _peroids = [
-    'من 2 الى 7',
-    'من 5 الى 7',
+    'من 7 صباحا الي 2 مساء',
+    'من 7 صباحا الي 5 مساء',
   ];
-  String _selectedPeroid = 'من 2 الى 7';
+  String _selectedPeroid = 'من 7 صباحا الي 2 مساء';
   int? selectedBankIndex;
   int? updatePakageIndex = 0;
   int? updateFoodPakageIndex = 0;
@@ -346,10 +346,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: Container(
-                          width: 120,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 5.0, left: 5, right: 5),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
                               iconEnabledColor: Color(0xffAA9E9E),
@@ -375,9 +375,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 setState(() {
                                   _selectedPeroid = newValue.toString();
                                 });
-                                if (_selectedPeroid == 'من 2 الى 7')
+                                if (_selectedPeroid == 'من 7 صباحا الي 2 مساء')
                                   _changePakge('from7to2');
-                                if (_selectedPeroid == 'من 5 الى 7')
+                                if (_selectedPeroid == 'من 7 صباحا الي 5 مساء')
                                   _changePakge('from7to5');
                               },
                               items: _peroids.map((country) {
