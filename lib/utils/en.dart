@@ -120,7 +120,7 @@ const Map<String, String> en = {
   'Bill :': 'Bill',
   'Price :': 'Price',
   'Tax :': 'Tax',
-  'Rial': 'Rial',
+  'Rial': 'SR',
   'Total :': 'Total',
   'Requirments for Payment': 'Requirments for Payment',
   'street': 'street',
@@ -343,4 +343,5 @@ const Map<String, String> en = {
   'current password': 'current password',
   'new password': 'new password',
   'confirm new password': 'confirm new password',
+  'coming_soon': 'Coming Soon',
 };
