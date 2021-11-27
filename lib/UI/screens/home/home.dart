@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -74,6 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   final locale = Get.locale;
+  int _current = 0;
+  final CarouselController _controller = CarouselController();
 
   @override
   Widget build(BuildContext context) {
@@ -315,6 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                             )
+                          // : SizedBox()
                           : Padding(
                               padding: const EdgeInsets.only(
                                 top: kIsWeb ? 500 : 430.0,
@@ -357,31 +361,43 @@ class _HomeScreenState extends State<HomeScreen> {
                                         );
                                       },
                                     )
-                                  : ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: BouncingScrollPhysics(),
-                                      itemCount: childernController
-                                          .childernList.length,
-                                      itemBuilder: (_, i) {
-                                        return MobileHomeContentWidget(
-                                          name: childernController
-                                                  .childernList[i].firstName ??
-                                              "",
-                                          ageGroup: childernController
-                                                  .childernList[i].ageGroup ??
-                                              "",
-                                          imagePath:
-                                              "$baseUrl${childernController.childernList[i].document!.replaceAll('public', 'storage')}",
-                                          childId: childernController
-                                              .childernList[i].id!,
-                                          createdAt: childernController
-                                                  .childernList[i].createdAt ??
-                                              "",
-                                          expireDate: childernController
-                                                  .childernList[i].expireDate ??
-                                              'null',
-                                        );
-                                      },
+                                  : Column(
+                                      children: [
+                                        CarouselSlider(
+                                          items: [
+                                            ...childernController.childernList
+                                                .map((child) =>
+                                                    MobileHomeContentWidget(
+                                                      name:
+                                                          child.firstName ?? "",
+                                                      ageGroup:
+                                                          child.ageGroup ?? "",
+                                                      imagePath:
+                                                          "$baseUrl${child.document!.replaceAll('public', 'storage')}",
+                                                      childId: child.id!,
+                                                      createdAt:
+                                                          child.createdAt ?? "",
+                                                      expireDate:
+                                                          child.expireDate ??
+                                                              'null',
+                                                      isActive: true,
+                                                    ))
+                                                .toList()
+                                          ],
+                                          carouselController: _controller,
+                                          options: CarouselOptions(
+                                              // height: 600,
+                                              autoPlay: true,
+                                              enlargeCenterPage: true,
+                                              aspectRatio: 0.5,
+                                              viewportFraction: 0.9,
+                                              onPageChanged: (index, reason) {
+                                                setState(() {
+                                                  _current = index;
+                                                });
+                                              }),
+                                        ),
+                                      ],
                                     ),
                             ),
                 ),

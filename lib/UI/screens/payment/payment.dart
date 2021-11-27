@@ -609,24 +609,32 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                                     (context,
                                                                         isExpanded) {
                                                                   return ListTile(
-                                                                    title: Text(
-                                                                      locale == Locale('en')
-                                                                          ? foodPackageController
-                                                                              .foodPackageList[
-                                                                                  i]
-                                                                              .englishTitle
-                                                                          : foodPackageController
-                                                                              .foodPackageList[i]
-                                                                              .arabicTitle,
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontSize:
-                                                                            15,
-                                                                        color: AppColors
-                                                                            .titleColor,
-                                                                        fontWeight:
-                                                                            FontWeight.w300,
-                                                                      ),
+                                                                    title: Row(
+                                                                      children: [
+                                                                        Text(
+                                                                          locale == Locale('en')
+                                                                              ? foodPackageController.foodPackageList[i].englishTitle
+                                                                              : foodPackageController.foodPackageList[i].arabicTitle,
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontSize:
+                                                                                15,
+                                                                            color:
+                                                                                AppColors.titleColor,
+                                                                            fontWeight:
+                                                                                FontWeight.w300,
+                                                                          ),
+                                                                        ),
+                                                                        !isExpanded
+                                                                            ? SizedBox()
+                                                                            : TextButton.icon(
+                                                                                onPressed: () {
+                                                                                  selectedFoodPackageIndex = 0;
+                                                                                  setState(() {});
+                                                                                },
+                                                                                icon: FaIcon(FontAwesomeIcons.trash),
+                                                                                label: Text("".tr)),
+                                                                      ],
                                                                     ),
                                                                   );
                                                                 },
