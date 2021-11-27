@@ -1,5 +1,6 @@
 import 'package:bedayat/UI/screens/home/home.dart';
 import 'package:bedayat/UI/screens/profile/profile.dart';
+import 'package:bedayat/UI/screens/settings/settings.dart';
 import 'package:bedayat/UI/screens/store/store.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
@@ -34,7 +35,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     // AccountScreen(),
     HomeScreen(),
     Store(),
-    ProfileScreen(),
+    SettingsScreen(),
   ];
 
   @override
