@@ -338,4 +338,5 @@ const Map<String, String> ar = {
   'new password': 'كلمة المرور الجديدة',
   'confirm new password': 'تأكيد كلمة المرور الجديدة',
   'coming_soon': 'قريبا',
+  'remember_me': 'تذكرني',
 };

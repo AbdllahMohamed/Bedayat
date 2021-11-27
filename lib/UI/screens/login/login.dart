@@ -26,13 +26,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _email =
-      new TextEditingController(text: 'admin@admin.com');
+  TextEditingController _email = new TextEditingController(text: '');
 
-  TextEditingController _password =
-      new TextEditingController(text: 'Bedayaat2292021@#');
+  TextEditingController _password = new TextEditingController(text: '');
 
   bool _obscureText = true;
+  bool? rememberme = false;
 
   void _toggle() {
     setState(() {
@@ -41,6 +40,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   login() async {
+    if (rememberme == true) {
+      GetStorage().write("email", _email.text);
+      GetStorage().write("password", _password.text);
+    } else {
+      GetStorage().remove("email");
+      GetStorage().remove("password");
+    }
+
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -68,6 +75,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    _email.text = GetStorage().read("email") ?? '';
+    _password.text = GetStorage().read("password") ?? '';
+    rememberme = true;
     print(Uri.base.toString());
     print(Uri.base.query);
   }
@@ -201,7 +211,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 20,
+                    ),
+                    CheckboxListTile(
+                      title: Text("remember_me".tr),
+                      value: rememberme,
+                      onChanged: (newValue) {
+                        setState(() {
+                          rememberme = newValue;
+                        });
+                      },
+                      controlAffinity: ListTileControlAffinity
+                          .leading, //  <-- leading Checkbox
+                    ),
+                    SizedBox(
+                      height: 20,
                     ),
                     Obx(() {
                       return authController.loadingProcess.value
