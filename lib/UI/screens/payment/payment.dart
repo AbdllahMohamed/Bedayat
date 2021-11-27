@@ -71,6 +71,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   int? updatePakageIndex = 0;
   int? updateFoodPakageIndex = 0;
 
+  bool foodPackageIsSelected = false;
+
   registerStepFive() async {
     if (actualselectedDate == 'Date'.tr) {
       Get.defaultDialog(
@@ -79,12 +81,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
       return;
     }
 
-    if (selectedFoodPackageIndex == 0) {
-      Get.defaultDialog(
-          title: "Something went wrong".tr,
-          middleText: 'Please choose your Food Package'.tr);
-      return;
-    }
+    // if (selectedFoodPackageIndex == 0) {
+    //   Get.defaultDialog(
+    //       title: "Something went wrong".tr,
+    //       middleText: 'Please choose your Food Package'.tr);
+    //   return;
+    // }
 
     if (!_formKey.currentState!.validate()) {
       return;
@@ -630,7 +632,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                                             : TextButton.icon(
                                                                                 onPressed: () {
                                                                                   selectedFoodPackageIndex = 0;
-                                                                                  setState(() {});
+                                                                                  setState(() {
+                                                                                    updateFoodPakageIndex = 0;
+                                                                                    foodPackageIsSelected = false;
+                                                                                  });
                                                                                 },
                                                                                 icon: FaIcon(FontAwesomeIcons.trash),
                                                                                 label: Text("".tr)),
@@ -784,7 +789,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                                   i;
                                                               // _expanded =
                                                               //     !_expanded;
-                                                              setState(() {});
+                                                              setState(() {
+                                                                foodPackageIsSelected =
+                                                                    true;
+                                                              });
                                                             },
                                                           ),
                                                         ),
@@ -830,7 +838,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           selectedPackageIndex == 0
                                               ? SizedBox()
                                               : Text(
-                                                  '${(double.parse(packageController.pakagesSelection[updatePakageIndex!].price!) + double.parse(foodPackageController.foodPackageList[updateFoodPakageIndex!].price)).toString()} ${'Rial'.tr}',
+                                                  '${(double.parse(packageController.pakagesSelection[updatePakageIndex!].price!) + (foodPackageIsSelected == true ? double.parse(foodPackageController.foodPackageList[updateFoodPakageIndex!].price) : 0)).toString()} ${'Rial'.tr}',
                                                   style: TextStyle(
                                                     fontSize: 15,
                                                     color: AppColors.titleColor,
@@ -903,7 +911,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           selectedPackageIndex == 0
                                               ? SizedBox()
                                               : Text(
-                                                  '${(double.parse(packageController.pakagesSelection[updatePakageIndex!].price!) + double.parse(foodPackageController.foodPackageList[updateFoodPakageIndex!].price) + double.parse(packageController.pakagesSelection[updatePakageIndex!].tax!)).toString()} ${'Rial'.tr}',
+                                                  '${(double.parse(packageController.pakagesSelection[updatePakageIndex!].price!) + (foodPackageIsSelected == true ? double.parse(foodPackageController.foodPackageList[updateFoodPakageIndex!].price) : 0) + double.parse(packageController.pakagesSelection[updatePakageIndex!].tax!)).toString()} ${'Rial'.tr}',
                                                   style: TextStyle(
                                                     fontSize: 15,
                                                     color: AppColors.titleColor,

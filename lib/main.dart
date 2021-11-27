@@ -11,6 +11,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'UI/screens/payment_web_view/payment_web_view.dart';
+
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
@@ -112,6 +114,11 @@ class MyApp extends StatelessWidget {
           : "${GetStorage().read('languageCode')}"),
       initialRoute: token != null ? '/home' : '/login',
       onGenerateRoute: RouteGenerator.generateRoute,
+      // home: PaymentWebviewScreen(
+      //   routeName: "register",
+      //   checkoutId: "405F555EDB56649D6154B1BF91F8517C.prod01-vm-tx17",
+      // ),
+
       // home: PaymentScreen(
       //   childId: '1',
       //   routeName: 'register',

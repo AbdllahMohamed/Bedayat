@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:bedayat/UI/screens/checkout_status/checkout_status.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/controllers/checkout_status_controller.dart';
@@ -37,7 +38,9 @@ class _PaymentWebviewScreenState extends State<PaymentWebviewScreen> {
   @override
   void initState() {
     super.initState();
-    kIsWeb ? _setUrl() : WebView.platform = SurfaceAndroidWebView();
+    if (kIsWeb) {
+      _setUrl();
+    } else {}
   }
 
   void _setUrl() {
@@ -58,8 +61,8 @@ class _PaymentWebviewScreenState extends State<PaymentWebviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String url = baseUrl + 'payments/${widget.checkoutId}';
-    print(url);
+    String url = baseUrlPayments + 'payments/${widget.checkoutId}';
+    // url = "http://google.com";
 
     return Scaffold(
       backgroundColor: Color(0xfff6f6f5),
