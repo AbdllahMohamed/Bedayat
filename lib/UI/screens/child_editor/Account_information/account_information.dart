@@ -30,7 +30,7 @@ class _AccountInformationState extends State<AccountInformation> {
       return;
     }
 
-    childEditorController.step += 1;
+    childEditorController.step += 3;
   }
 
   @override
