@@ -1,5 +1,12 @@
+import 'package:bedayat/UI/screens/offers/offers_controller.dart';
+import 'package:bedayat/const/const.dart';
+import 'package:bedayat/models/offer.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:intl/intl.dart';
+
+import '../../../utilities.dart';
 
 class OffersScreen extends StatefulWidget {
   const OffersScreen({Key? key}) : super(key: key);
@@ -9,17 +16,35 @@ class OffersScreen extends StatefulWidget {
 }
 
 class _OffersScreenState extends State<OffersScreen> {
+  OffersController offersController = Get.put(OffersController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Expanded(
-      child: OffersPlaceHolder(),
-    ));
+            child: Obx(() => offersController.isLoading.value
+                ? const OffersPlaceHolder()
+                : offersController.isZeroItems.value
+                    ? const Center(
+                        child: Text("No Offers"),
+                      )
+                    : ListView.builder(
+                        controller: offersController.listController,
+                        itemCount: offersController.offersList.length,
+                        itemBuilder: (context, i) {
+                          var offer = offersController.offersList[i];
+                          // DateTime p = DateTime.parse(notification.createdAt);
+                          return OfferItem(
+                            offer: offer,
+                          );
+                        }))));
   }
 }
 
 class OfferItem extends StatelessWidget {
-  const OfferItem({Key? key}) : super(key: key);
+  Offer offer;
+  OfferItem({Key? key, required this.offer}) : super(key: key);
+  final locale = Get.locale;
 
   @override
   Widget build(BuildContext context) {
@@ -35,19 +60,24 @@ class OfferItem extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(20.0),
             child: Image.network(
-              "https://img.freepik.com/free-vector/special-offer-sale-discount-banner_180786-46.jpg?size=626&ext=jpg",
+              fullImageUrl(shortUrl: offer.image),
               height: height * 0.23,
             ),
           ),
           Text(
-            "Offer Name",
+            locale == Locale('en') ? offer.englishTitle : offer.arabicTitle,
             style: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
           ),
           Text(
-              "Offer Description Offer Description Offer Description Offer Description"),
+            locale == Locale('en')
+                ? offer.englishDescription
+                : offer.arabicDescription,
+          ),
           Text(
-            "End at : 1/1/2022",
+            "End at : ".tr +
+                DateFormat('yyyy-MM-dd  kk:mm a')
+                    .format(DateTime.parse(offer.endAt)),
             style: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
           ),
@@ -61,7 +91,7 @@ class OfferItem extends StatelessWidget {
                 borderRadius:
                     new BorderRadius.all(const Radius.circular(10.0))),
             child: Text(
-              "Promo code : Go12",
+              "Promo code : ".tr + offer.promoCode,
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

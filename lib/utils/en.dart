@@ -345,4 +345,6 @@ const Map<String, String> en = {
   'confirm new password': 'confirm new password',
   'coming_soon': 'Coming Soon',
   'remember_me': 'Remember me',
+  'Promo code : ': 'Promo code : ',
+  'End at : ': 'End at : '
 };
