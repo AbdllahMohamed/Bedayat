@@ -1,4 +1,5 @@
 import 'package:bedayat/UI/screens/home/home.dart';
+import 'package:bedayat/UI/screens/offers/offers_screen.dart';
 import 'package:bedayat/UI/screens/profile/profile.dart';
 import 'package:bedayat/UI/screens/settings/settings.dart';
 import 'package:bedayat/UI/screens/store/store.dart';
@@ -35,6 +36,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     // AccountScreen(),
     HomeScreen(),
     Store(),
+    OffersScreen(),
     SettingsScreen(),
   ];
 
@@ -83,8 +85,19 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
               icon: Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: FaIcon(
-                  FontAwesomeIcons.cog,
+                  FontAwesomeIcons.percent,
                   color: _currentIndex == 2
+                      ? AppColors.primaryColor
+                      : AppColors.accentColor,
+                ),
+              ),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: FaIcon(
+                  FontAwesomeIcons.cog,
+                  color: _currentIndex == 3
                       ? AppColors.primaryColor
                       : AppColors.accentColor,
                 ),
