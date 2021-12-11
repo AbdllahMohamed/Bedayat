@@ -26,10 +26,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _email =
-      new TextEditingController(text: 'admin@admin.com');
+  TextEditingController _email = new TextEditingController(text: '');
 
-  TextEditingController _password = new TextEditingController(text: 'admin');
+  TextEditingController _password = new TextEditingController(text: '');
 
   bool _obscureText = true;
   bool? rememberme = false;
@@ -76,11 +75,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // _email.text = GetStorage().read("email") ?? '';
-    // _password.text = GetStorage().read("password") ?? '';
-    // rememberme = true;
-    // print(Uri.base.toString());
-    // print(Uri.base.query);
+    _email.text = GetStorage().read("email") ?? '';
+    _password.text = GetStorage().read("password") ?? '';
+    rememberme = true;
+    print(Uri.base.toString());
+    print(Uri.base.query);
   }
 
   @override
