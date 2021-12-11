@@ -22,23 +22,22 @@ class _OffersScreenState extends State<OffersScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Expanded(
-            child: Obx(() => offersController.isLoading.value
-                ? const OffersPlaceHolder()
-                : offersController.isZeroItems.value
-                    ? const Center(
-                        child: Text("No Offers"),
-                      )
-                    : ListView.builder(
-                        controller: offersController.listController,
-                        itemCount: offersController.offersList.length,
-                        itemBuilder: (context, i) {
-                          var offer = offersController.offersList[i];
-                          // DateTime p = DateTime.parse(notification.createdAt);
-                          return OfferItem(
-                            offer: offer,
-                          );
-                        }))));
+        child: Obx(() => offersController.isLoading.value
+            ? const OffersPlaceHolder()
+            : offersController.isZeroItems.value
+                ? const Center(
+                    child: Text("No Offers"),
+                  )
+                : ListView.builder(
+                    controller: offersController.listController,
+                    itemCount: offersController.offersList.length,
+                    itemBuilder: (context, i) {
+                      var offer = offersController.offersList[i];
+                      // DateTime p = DateTime.parse(notification.createdAt);
+                      return OfferItem(
+                        offer: offer,
+                      );
+                    })));
   }
 }
 
