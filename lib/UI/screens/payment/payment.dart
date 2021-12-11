@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:bedayat/UI/screens/food_menu/food_menu.dart';
 import 'package:bedayat/UI/screens/payment_web_view/payment_web_view.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shimmer/shimmer.dart';
 
 int? selectedPackageIndex = 0;
 int? selectedFoodPackageIndex = 0;
@@ -72,6 +75,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   int? updateFoodPakageIndex = 0;
 
   bool foodPackageIsSelected = false;
+  bool packageIsSelected = false;
 
   registerStepFive() async {
     if (actualselectedDate == 'Date'.tr) {
@@ -168,6 +172,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // calculate price
+    double price = (packageIsSelected == true
+            ? double.parse(
+                packageController.pakagesSelection[updatePakageIndex!].price!)
+            : 0) +
+        (foodPackageIsSelected
+            ? double.parse(foodPackageController
+                .foodPackageList[updateFoodPakageIndex!].price)
+            : 0);
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -305,7 +318,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         'Start From'.tr + '  :',
                         style: TextStyle(
                           fontSize: 14,
-                          color: AppColors.accentColor,
+                          color: Colors.black,
                           fontWeight: FontWeight.w300,
                         ),
                       ),
@@ -324,7 +337,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         actualselectedDate,
                         style: TextStyle(
                           fontSize: 14,
-                          color: AppColors.accentColor,
+                          color: Colors.black,
                           fontWeight: FontWeight.w300,
                         ),
                       )
@@ -343,7 +356,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           'Choose the period :'.tr,
                           style: TextStyle(
                             fontSize: 14,
-                            color: AppColors.accentColor,
+                            color: Colors.black,
                             fontWeight: FontWeight.w300,
                           ),
                         ),
@@ -369,7 +382,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
-                                    color: AppColors.accentColor,
+                                    color: Colors.black,
                                   ),
                                 ),
                               ),
@@ -453,6 +466,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                         .pakagesSelection[index]
                                                         .id!;
                                                 updatePakageIndex = index;
+                                                packageIsSelected = true;
                                               });
                                             },
                                             child: Container(
@@ -800,7 +814,124 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                                     ),
                                     ),
                                     SizedBox(
-                                      height: 35,
+                                      height: 10,
+                                    ),
+                                    Obx(
+                                      () => Row(
+                                        children: [
+                                          Expanded(
+                                            child: paymentController
+                                                        .offer.value !=
+                                                    null
+                                                ? Shimmer.fromColors(
+                                                    baseColor: Colors.red
+                                                        .withOpacity(0.9),
+                                                    highlightColor: Colors.red
+                                                        .withOpacity(0.5),
+                                                    enabled: true,
+                                                    child: Center(
+                                                        child: Text(
+                                                      (paymentController
+                                                                      .offer
+                                                                      .value!
+                                                                      .additionalDays ==
+                                                                  0
+                                                              ? ""
+                                                              : "${paymentController.offer.value!.additionalDays.toString()} " +
+                                                                  "يوم مجانا"
+                                                                      .tr) +
+                                                          (paymentController
+                                                                          .offer
+                                                                          .value!
+                                                                          .additionalDays !=
+                                                                      0 &&
+                                                                  double.parse(paymentController
+                                                                          .offer
+                                                                          .value!
+                                                                          .discountRatio) !=
+                                                                      0
+                                                              ? " & "
+                                                              : "") +
+                                                          (double.parse(paymentController
+                                                                      .offer
+                                                                      .value!
+                                                                      .discountRatio) ==
+                                                                  0
+                                                              ? ""
+                                                              : ('${paymentController.offer.value!.discountRatio}% ' +
+                                                                  "تخفيض".tr)),
+                                                      style: TextStyle(
+                                                          color: Colors.red,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 18),
+                                                    )),
+                                                  )
+                                                : TextFormField(
+                                                    controller:
+                                                        paymentController
+                                                            .promoCode,
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                    decoration: InputDecoration(
+                                                      prefixIcon: Icon(
+                                                          FontAwesomeIcons
+                                                              .percent,
+                                                          color: AppColors
+                                                              .accentColor),
+                                                      hintText: 'Promo code'.tr,
+                                                      hintStyle: TextStyle(
+                                                          color: AppColors
+                                                              .accentColor),
+                                                      enabledBorder:
+                                                          UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors
+                                                                .grey[300]!),
+                                                      ),
+                                                      focusedBorder:
+                                                          UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors
+                                                                .grey[300]!),
+                                                      ),
+                                                      border:
+                                                          UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors
+                                                                .grey[300]!),
+                                                      ),
+                                                    ),
+                                                  ),
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          paymentController
+                                                  .loadingProcessForVerifyPromoCode
+                                                  .value
+                                              ? CircularProgressIndicator()
+                                              : TextButton(
+                                                  onPressed: () => paymentController
+                                                              .offer.value !=
+                                                          null
+                                                      ? paymentController
+                                                          .deletePromoCode()
+                                                      : paymentController
+                                                          .verifyPromoCode(
+                                                              childId: int
+                                                                  .parse(widget
+                                                                      .childId)),
+                                                  child: paymentController
+                                                              .offer.value !=
+                                                          null
+                                                      ? Text("حذف")
+                                                      : Text("تحقق")),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 20,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -838,7 +969,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           selectedPackageIndex == 0
                                               ? SizedBox()
                                               : Text(
-                                                  '${(double.parse(packageController.pakagesSelection[updatePakageIndex!].price!) + (foodPackageIsSelected == true ? double.parse(foodPackageController.foodPackageList[updateFoodPakageIndex!].price) : 0)).toString()} ${'Rial'.tr}',
+                                                  '$price ${'Rial'.tr}',
                                                   style: TextStyle(
                                                     fontSize: 15,
                                                     color: AppColors.titleColor,
@@ -851,35 +982,103 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     SizedBox(
                                       height: 10,
                                     ),
+                                    Obx(
+                                      () {
+                                        // check offer is not null
+                                        if (paymentController.offer.value ==
+                                            null) return SizedBox();
+
+                                        var discountRatio = double.parse(
+                                            paymentController
+                                                .offer.value!.discountRatio);
+                                        var discount =
+                                            discountRatio / 100 * price;
+
+                                        if (discountRatio == 0)
+                                          return SizedBox();
+
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 20,
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Discount :'.tr,
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: AppColors.accentColor,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 15,
+                                              ),
+                                              selectedPackageIndex == 0
+                                                  ? SizedBox()
+                                                  : Text(
+                                                      '${(discount).toStringAsFixed(2)} ${'Rial'.tr}',
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: AppColors
+                                                            .titleColor,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                    )
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: 20,
                                       ),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            'Tax :'.tr,
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              color: AppColors.accentColor,
-                                              fontWeight: FontWeight.w300,
+                                      child: Obx(() {
+                                        var discount;
+                                        if (paymentController.offer.value !=
+                                            null) {
+                                          var discountRatio = double.parse(
+                                              paymentController
+                                                  .offer.value!.discountRatio);
+                                          discount =
+                                              discountRatio / 100 * price;
+                                        } else {
+                                          discount = 0;
+                                        }
+
+                                        return Row(
+                                          children: [
+                                            Text(
+                                              'Tax :'.tr,
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: AppColors.accentColor,
+                                                fontWeight: FontWeight.w300,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: 15,
-                                          ),
-                                          selectedPackageIndex == 0
-                                              ? SizedBox()
-                                              : Text(
-                                                  '${packageController.pakagesSelection[updatePakageIndex!].tax!} ${'Rial'.tr}',
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: AppColors.titleColor,
-                                                    fontWeight: FontWeight.w300,
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            selectedPackageIndex == 0
+                                                ? SizedBox()
+                                                : Text(
+                                                    '${((price - discount) * paymentController.taxRatio.value).toStringAsFixed(2)} ${'Rial'.tr}',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      color:
+                                                          AppColors.titleColor,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
                                                   ),
-                                                ),
-                                        ],
-                                      ),
+                                          ],
+                                        );
+                                      }),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -895,31 +1094,47 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: 20,
                                       ),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            'Total :'.tr,
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              color: AppColors.accentColor,
-                                              fontWeight: FontWeight.w300,
+                                      child: Obx(() {
+                                        var discount;
+                                        if (paymentController.offer.value !=
+                                            null) {
+                                          var discountRatio = double.parse(
+                                              paymentController
+                                                  .offer.value!.discountRatio);
+                                          discount =
+                                              discountRatio / 100 * price;
+                                        } else {
+                                          discount = 0;
+                                        }
+
+                                        return Row(
+                                          children: [
+                                            Text(
+                                              'Total :'.tr,
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: AppColors.accentColor,
+                                                fontWeight: FontWeight.w300,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: 15,
-                                          ),
-                                          selectedPackageIndex == 0
-                                              ? SizedBox()
-                                              : Text(
-                                                  '${(double.parse(packageController.pakagesSelection[updatePakageIndex!].price!) + (foodPackageIsSelected == true ? double.parse(foodPackageController.foodPackageList[updateFoodPakageIndex!].price) : 0) + double.parse(packageController.pakagesSelection[updatePakageIndex!].tax!)).toString()} ${'Rial'.tr}',
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: AppColors.titleColor,
-                                                    fontWeight: FontWeight.w300,
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            selectedPackageIndex == 0
+                                                ? SizedBox()
+                                                : Text(
+                                                    '${((price - discount) * (1 + paymentController.taxRatio.value)).toStringAsFixed(2)} ${'Rial'.tr}',
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      color:
+                                                          AppColors.titleColor,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
                                                   ),
-                                                ),
-                                        ],
-                                      ),
+                                          ],
+                                        );
+                                      }),
                                     ),
                                     SizedBox(
                                       height: 15,

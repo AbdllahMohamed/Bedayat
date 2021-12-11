@@ -2,6 +2,7 @@ import 'package:bedayat/UI/screens/offers/offers_controller.dart';
 import 'package:bedayat/const/const.dart';
 import 'package:bedayat/models/offer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:intl/intl.dart';
@@ -84,18 +85,33 @@ class OfferItem extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Container(
-            padding: EdgeInsets.all(5),
-            decoration: new BoxDecoration(
-                color: Colors.red,
-                borderRadius:
-                    new BorderRadius.all(const Radius.circular(10.0))),
-            child: Text(
-              "Promo code : ".tr + offer.promoCode,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15),
+          InkWell(
+            onTap: () {
+              Clipboard.setData(ClipboardData(text: offer.promoCode))
+                  .then((value) {
+                final snackBar = SnackBar(
+                  content: Text('Copied to Clipboard'.tr),
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: () {},
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              });
+            },
+            child: Container(
+              padding: EdgeInsets.all(5),
+              decoration: new BoxDecoration(
+                  color: Colors.red,
+                  borderRadius:
+                      new BorderRadius.all(const Radius.circular(10.0))),
+              child: Text(
+                "Promo code : ".tr + offer.promoCode,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+              ),
             ),
           ),
         ],

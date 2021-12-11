@@ -346,5 +346,14 @@ const Map<String, String> en = {
   'coming_soon': 'Coming Soon',
   'remember_me': 'Remember me',
   'Promo code : ': 'Promo code : ',
-  'End at : ': 'End at : '
+  'End at : ': 'End at : ',
+  'Promo code': 'Promo code',
+  "Copied to Clipboard": "Copied to Clipboard",
+  'Discount :': "Discount :",
+  'Promo code error': "Promo code error",
+  'offer reach for max numbers of redeems':
+      "offer reach for max numbers of redeems",
+  'promo code is not available for you': "promo code is not available for you",
+  'promo code is out of range': "promo code is out of range",
+  'Promo code is not valid': "Promo code is not valid",
 };

@@ -340,5 +340,14 @@ const Map<String, String> ar = {
   'coming_soon': 'قريبا',
   'remember_me': 'تذكرني',
   'Promo code : ': 'كود العرض : ',
-  'End at : ': 'ينتهي في : '
+  'End at : ': 'ينتهي في : ',
+  'Promo code': 'كود الخصم',
+  "Copied to Clipboard": "تم نسخ الي الحافظة",
+  'Discount :': "الخصم :",
+  'Promo code error': "خطا كود الخصم",
+  'offer reach for max numbers of redeems':
+      "لقد وصل العرض الي الحد الاقصي من الاستخدام",
+  'promo code is not available for you': "كود الخصم غير متاح لطفلك",
+  'promo code is out of range': "لقد انتهت صلاحية كود الخصم",
+  'Promo code is not valid': "كود الخصم غير صحيح",
 };

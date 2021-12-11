@@ -3,7 +3,33 @@ import 'package:dio/dio.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../utilities.dart';
+
 class PaymentServices {
+  // ignore: non_constant_identifier_names
+  static getTaxRatio() async {
+    String token = GetStorage().read('token');
+
+    var response = await Dio().get(
+      '$baseApiUrl/taxes',
+      options: Options(
+          headers: {"Authorization": "Bearer $token"},
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+
+    if (response.statusCode == 200) {
+      return double.parse(response.data["ratio"]);
+    } else {
+      showErrorSnackbar(
+          title: "taxes error",
+          message:
+              "not able to get tax ratio , maybe you will face incorrect numbers in payment page please reopren the page");
+    }
+  }
+
   static Future<String> getCheckoutId({
     String? packageId,
     String? foodPackageId,
@@ -17,6 +43,7 @@ class PaymentServices {
     String? paymentMethod,
     String? childId,
     String? startAt,
+    String? promoCode,
   }) async {
     var paymentError = "";
 
@@ -37,6 +64,7 @@ class PaymentServices {
         "child_id": childId,
         "start_at": startAt,
         "food_package_id": foodPackageId,
+        "promo_code": promoCode,
       },
       options: Options(
           headers: {

@@ -10,7 +10,8 @@ showErrorSnackbar({required String message, required String title}) {
   Get.snackbar(
     title,
     message,
-    // padding: const EdgeInsets.all(10),
+    margin: const EdgeInsets.all(10),
+    padding: const EdgeInsets.all(10),
     colorText: Colors.white,
     backgroundColor: Colors.red,
     icon: Padding(
