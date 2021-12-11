@@ -58,22 +58,14 @@ class _ChildEditorScreenState extends State<ChildEditorScreen> {
     } else if (widget.routename == 'addChild') {
       return Obx(
         () => childEditorController.step.value == 1
-            ? SelectLocationScreen(
+            ? SelectBranchScreen(
                 routename: widget.routename,
               )
             : childEditorController.step.value == 2
-                ? SelectLocationOnMapScreen(
+                ? ChildFormScreen(
                     routename: widget.routename,
                   )
-                : childEditorController.step.value == 3
-                    ? SelectBranchScreen(
-                        routename: widget.routename,
-                      )
-                    : childEditorController.step.value == 4
-                        ? ChildFormScreen(
-                            routename: widget.routename,
-                          )
-                        : SizedBox(),
+                : SizedBox(),
       );
     } else {
       return Obx(

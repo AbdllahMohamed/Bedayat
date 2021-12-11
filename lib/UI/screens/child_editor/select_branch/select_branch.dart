@@ -66,7 +66,11 @@ class _SelectBranchScreenState extends State<SelectBranchScreen> {
                           : IconButton(
                               icon: Icon(Icons.arrow_back_ios),
                               onPressed: () {
-                                childEditorController.step -= 3;
+                                if (childEditorController.step == 1) {
+                                  Get.back();
+                                  return;
+                                }
+                                childEditorController.step -= 1;
                               },
                             ),
                       Image.asset(

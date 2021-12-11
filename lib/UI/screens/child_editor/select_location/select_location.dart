@@ -105,6 +105,10 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                     IconButton(
                       icon: Icon(Icons.arrow_back_ios),
                       onPressed: () {
+                        if (childEditorController.step == 1) {
+                          Get.back();
+                          return;
+                        }
                         childEditorController.step -= 1;
                       },
                     ),
