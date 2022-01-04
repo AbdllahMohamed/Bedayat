@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
 import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
+import 'package:bedayat/UI/screens/teacher/teacher_screen.dart';
 import 'package:bedayat/UI/widgets/circle_image.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/app_images/app_images.dart';
@@ -164,6 +165,32 @@ class MobileHomeContentWidget extends StatelessWidget {
                   ),
                 ),
 
+                InkWell(
+                  onTap: () {
+                    Get.to(
+                      TeacherScreen(
+                          // name: name,
+                          // classNmber: ageGroup,
+                          // image: imagePath,
+                          // childId: childId,
+                          ),
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.only(left: 30, right: 30, top: 5),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppColors.primaryColor,
+                        ),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Text(
+                      'View Teacher Profile'.tr,
+                      style: TextStyle(color: AppColors.primaryColor),
+                    ),
+                  ),
+                ),
+
                 SizedBox(
                   height: 15,
                 ),
@@ -176,6 +203,7 @@ class MobileHomeContentWidget extends StatelessWidget {
                           size: 200.0,
                         ),
                       ),
+
                 SizedBox(
                   height: 15,
                 ),
