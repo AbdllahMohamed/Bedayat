@@ -62,6 +62,13 @@ class _ReportEditorScreenState extends State<ReportEditorScreen> {
         selectedItemColor: Colors.red,
         onTap: _onItemTapped,
       ),
+      floatingActionButton: _selectedIndex == 1
+          ? new FloatingActionButton(
+              elevation: 0.0,
+              child: FaIcon(FontAwesomeIcons.plus, color: Colors.white),
+              backgroundColor: Colors.red,
+              onPressed: () {})
+          : null,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
         child: SingleChildScrollView(
