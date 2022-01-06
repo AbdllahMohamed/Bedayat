@@ -247,6 +247,189 @@ class _ReportEditorScreenState extends State<ReportEditorScreen> {
                           ),
 
                           Text("activites".tr, style: headingStyle),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("enjoy_with_morning_activity".tr),
+                            value: reportsEditorController
+                                .enjoy_with_morning_activity.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_enjoy_with_morning_activity(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("love_sharing_with_friends".tr),
+                            value: reportsEditorController
+                                .love_sharing_with_friends.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_love_sharing_with_friends(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("say_welcome".tr),
+                            value: reportsEditorController.say_welcome.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_say_welcome(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("enjoy_with_halqa".tr),
+                            value:
+                                reportsEditorController.enjoy_with_halqa.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_enjoy_with_halqa(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("say_wehda".tr),
+                            value: reportsEditorController.say_wehda.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_say_wehda(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("listening_to_quran".tr),
+                            value: reportsEditorController
+                                .listening_to_quran.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_listening_to_quran(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("repeat_ayat".tr),
+                            value: reportsEditorController.repeat_ayat.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_repeat_ayat(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("new_letter".tr),
+                            value: reportsEditorController.new_letter.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_new_letter(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("know_the_letter".tr),
+                            value:
+                                reportsEditorController.know_the_letter.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_know_the_letter(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("know_the_letter_sound".tr),
+                            value: reportsEditorController
+                                .know_the_letter_sound.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_know_the_letter_sound(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("mastered_write_letter".tr),
+                            value: reportsEditorController
+                                .mastered_write_letter.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_mastered_write_letter(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("enjoy_with_arkan".tr),
+                            value:
+                                reportsEditorController.enjoy_with_arkan.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_enjoy_with_arkan(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("orgnize_after_play".tr),
+                            value: reportsEditorController
+                                .orgnize_after_play.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_orgnize_after_play(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("mastered_the_activity".tr),
+                            value: reportsEditorController
+                                .mastered_the_activity.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_mastered_the_activity(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("enjoy_with_art_activity".tr),
+                            value: reportsEditorController
+                                .enjoy_with_art_activity.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_enjoy_with_art_activity(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("help_himself_in_art_activity".tr),
+                            value: reportsEditorController
+                                .help_himself_in_art_activity.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_help_himself_in_art_activity(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+
+                          CheckboxListTile(
+                            activeColor: Colors.red,
+                            title: Text("enjoy_with_the_story".tr),
+                            value: reportsEditorController
+                                .enjoy_with_the_story.value,
+                            onChanged: (newValue) => reportsEditorController
+                                .change_enjoy_with_the_story(newValue),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
                         ],
                       ),
                     ),
