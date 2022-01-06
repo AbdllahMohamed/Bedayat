@@ -1,5 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:io';
+
+import 'package:bedayat/UI/screens/report/report_editor/report_editor_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -12,9 +15,6 @@ class ReportEditorScreen extends StatefulWidget {
 }
 
 class _ReportEditorScreenState extends State<ReportEditorScreen> {
-  double temp = 37;
-  double sleep = 37;
-
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -24,6 +24,9 @@ class _ReportEditorScreenState extends State<ReportEditorScreen> {
       _selectedIndex = index;
     });
   }
+
+  ReportEditorController reportsEditorController =
+      Get.put(ReportEditorController());
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +70,7 @@ class _ReportEditorScreenState extends State<ReportEditorScreen> {
               elevation: 0.0,
               child: FaIcon(FontAwesomeIcons.plus, color: Colors.white),
               backgroundColor: Colors.red,
-              onPressed: () {})
+              onPressed: reportsEditorController.pickupFiles)
           : null,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -81,142 +84,171 @@ class _ReportEditorScreenState extends State<ReportEditorScreen> {
                           6, // any number you need (It works as the rows for the textarea)
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
+                      controller: reportsEditorController.notes,
                     )
                   ],
                 )
               : _selectedIndex == 1
-                  ? Column(
-                      children: [FileItem(name: "homework", type: "pdf")],
+                  ? Obx(
+                      () => Column(
+                        children: [
+                          ...reportsEditorController.attachments.value
+                              .map((attachment) => FileItem(
+                                    attachment: attachment,
+                                    deleteHandler:
+                                        reportsEditorController.deleteFiles,
+                                  ))
+                              .toList()
+                        ],
+                      ),
                     )
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ///// child mood
-                        Text("child_mood".tr, style: headingStyle),
-                        ListOfOtions(options: [
-                          OptionItem(
-                            image: "assets/images/good_mood.png",
-                            label: "good".tr,
-                            value: "bad",
-                            isSelected: true,
-                            selectHandler: () {},
-                          ),
-                          OptionItem(
-                            image: "assets/images/medium_mood.png",
-                            label: "medium".tr,
-                            value: "bad",
-                            isSelected: false,
-                            selectHandler: () {},
-                          ),
-                          OptionItem(
-                            image: "assets/images/bad_mood.png",
-                            label: "sad".tr,
-                            value: "bad",
-                            isSelected: false,
-                            selectHandler: () {},
-                          ),
-                        ]),
+                  : Obx(
+                      () => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ///// child mood
+                          Text("child_mood".tr, style: headingStyle),
+                          ListOfOtions(options: [
+                            OptionItem(
+                              image: "assets/images/good_mood.png",
+                              label: "good".tr,
+                              value: "high",
+                              isSelected:
+                                  reportsEditorController.childMood == "high",
+                              selectHandler:
+                                  reportsEditorController.changeChildMood,
+                            ),
+                            OptionItem(
+                              image: "assets/images/medium_mood.png",
+                              label: "medium".tr,
+                              value: "medium",
+                              isSelected:
+                                  reportsEditorController.childMood == "medium",
+                              selectHandler:
+                                  reportsEditorController.changeChildMood,
+                            ),
+                            OptionItem(
+                              image: "assets/images/bad_mood.png",
+                              label: "sad".tr,
+                              value: "low",
+                              isSelected:
+                                  reportsEditorController.childMood == "low",
+                              selectHandler:
+                                  reportsEditorController.changeChildMood,
+                            ),
+                          ]),
 
-                        ///// food
-                        Text("food_status".tr, style: headingStyle),
-                        ListOfOtions(options: [
-                          OptionItem(
-                            image: "assets/images/food_high.png",
-                            label: "good".tr,
-                            value: "bad",
-                            isSelected: true,
-                            selectHandler: () {},
-                          ),
-                          OptionItem(
-                            image: "assets/images/food_medium.png",
-                            label: "medium".tr,
-                            value: "bad",
-                            isSelected: false,
-                            selectHandler: () {},
-                          ),
-                          OptionItem(
-                            image: "assets/images/food_low.png",
-                            label: "low".tr,
-                            value: "bad",
-                            isSelected: false,
-                            selectHandler: () {},
-                          ),
-                        ]),
+                          ///// food
+                          Text("food_status".tr, style: headingStyle),
+                          ListOfOtions(options: [
+                            OptionItem(
+                              image: "assets/images/food_high.png",
+                              label: "good".tr,
+                              value: "high",
+                              isSelected:
+                                  reportsEditorController.foodStatus == "high",
+                              selectHandler:
+                                  reportsEditorController.changeFoodStatus,
+                            ),
+                            OptionItem(
+                              image: "assets/images/food_medium.png",
+                              label: "medium".tr,
+                              value: "medium",
+                              isSelected: reportsEditorController.foodStatus ==
+                                  "medium",
+                              selectHandler:
+                                  reportsEditorController.changeFoodStatus,
+                            ),
+                            OptionItem(
+                              image: "assets/images/food_low.png",
+                              label: "low".tr,
+                              value: "low",
+                              isSelected:
+                                  reportsEditorController.foodStatus == "low",
+                              selectHandler:
+                                  reportsEditorController.changeFoodStatus,
+                            ),
+                          ]),
 
-                        /////// drink
-                        Text("drink_status".tr, style: headingStyle),
-                        ListOfOtions(options: [
-                          OptionItem(
-                            image: "assets/images/drink_high.png",
-                            label: "good".tr,
-                            value: "bad",
-                            isSelected: true,
-                            selectHandler: () {},
-                          ),
-                          OptionItem(
-                            image: "assets/images/drink_medium.png",
-                            label: "medium".tr,
-                            value: "bad",
-                            isSelected: false,
-                            selectHandler: () {},
-                          ),
-                          OptionItem(
-                            image: "assets/images/drink_low.png",
-                            label: "low".tr,
-                            value: "bad",
-                            isSelected: false,
-                            selectHandler: () {},
-                          ),
-                        ]),
+                          /////// drink
+                          Text("drink_status".tr, style: headingStyle),
+                          ListOfOtions(options: [
+                            OptionItem(
+                              image: "assets/images/drink_high.png",
+                              label: "good".tr,
+                              value: "high",
+                              isSelected:
+                                  reportsEditorController.drinkStatus == "high",
+                              selectHandler:
+                                  reportsEditorController.changeDrinkStatus,
+                            ),
+                            // OptionItem(
+                            //   image: "assets/images/drink_medium.png",
+                            //   label: "medium".tr,
+                            //   value: "bad",
+                            //   isSelected: false,
+                            //   selectHandler: () {},
+                            // ),
+                            OptionItem(
+                              image: "assets/images/drink_low.png",
+                              label: "low".tr,
+                              value: "low",
+                              isSelected:
+                                  reportsEditorController.drinkStatus == "low",
+                              selectHandler:
+                                  reportsEditorController.changeDrinkStatus,
+                            ),
+                          ]),
 
-                        /////// sleep
-                        Text("sleep_status".tr, style: headingStyle),
-                        ListOfOtions(options: [
-                          OptionItem(
-                            image: "assets/images/good_sleep.png",
-                            label: "good".tr,
-                            value: "bad",
-                            isSelected: true,
-                            selectHandler: () {},
+                          /////// sleep
+                          Text("sleep_status".tr, style: headingStyle),
+                          ListOfOtions(options: [
+                            OptionItem(
+                              image: "assets/images/good_sleep.png",
+                              label: "good".tr,
+                              value: "high",
+                              isSelected:
+                                  reportsEditorController.sleepStatus == "high",
+                              selectHandler:
+                                  reportsEditorController.changeSleepStatus,
+                            ),
+                            OptionItem(
+                              image: "assets/images/bad_sleep.png",
+                              label: "low".tr,
+                              value: "low",
+                              isSelected:
+                                  reportsEditorController.sleepStatus == "low",
+                              selectHandler:
+                                  reportsEditorController.changeSleepStatus,
+                            ),
+                          ]),
+
+                          Slider(
+                            value: reportsEditorController.sleep.value,
+                            min: 0,
+                            max: 120,
+                            onChanged: (newValue) {
+                              reportsEditorController.sleep.value = newValue;
+                            },
+                            label: "${reportsEditorController.sleep.value}",
+                            divisions: 24,
                           ),
-                          OptionItem(
-                            image: "assets/images/bad_sleep.png",
-                            label: "medium".tr,
-                            value: "bad",
-                            isSelected: false,
-                            selectHandler: () {},
+
+                          Text("temperature_degree".tr, style: headingStyle),
+                          Slider(
+                            value: reportsEditorController.temp.value,
+                            min: 35,
+                            max: 40,
+                            onChanged: (newValue) {
+                              reportsEditorController.temp.value = newValue;
+                            },
+                            label: "${reportsEditorController.temp.value}",
+                            divisions: 5,
                           ),
-                        ]),
 
-                        Slider(
-                          value: sleep,
-                          min: 0,
-                          max: 120,
-                          onChanged: (newValue) {
-                            setState(() {
-                              sleep = newValue;
-                            });
-                          },
-                          label: "$sleep",
-                          divisions: 24,
-                        ),
-
-                        Text("temperature_degree".tr, style: headingStyle),
-                        Slider(
-                          value: temp,
-                          min: 35,
-                          max: 40,
-                          onChanged: (newValue) {
-                            setState(() {
-                              temp = newValue;
-                            });
-                          },
-                          label: "$temp",
-                          divisions: 5,
-                        ),
-
-                        Text("activites".tr, style: headingStyle),
-                      ],
+                          Text("activites".tr, style: headingStyle),
+                        ],
+                      ),
                     ),
         ),
       ),
@@ -225,23 +257,31 @@ class _ReportEditorScreenState extends State<ReportEditorScreen> {
 }
 
 class FileItem extends StatelessWidget {
-  String name;
-  String type;
+  // String name;
+  // String type;
   dynamic deleteHandler;
+  File attachment;
 
   FileItem(
-      {Key? key, required this.name, required this.type, this.deleteHandler})
+      {Key? key,
+      // required this.name,
+      // required this.type,
+      this.deleteHandler,
+      required this.attachment})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: FaIcon(FontAwesomeIcons.file),
-      title: Text(name),
-      subtitle: Text(type),
-      trailing: FaIcon(
-        FontAwesomeIcons.trash,
-        color: Colors.red,
+      title: Text(attachment.path.split("/").last.split(".").first),
+      subtitle: Text(attachment.path.split("/").last.split(".").last),
+      trailing: InkWell(
+        onTap: () => deleteHandler(attachment),
+        child: FaIcon(
+          FontAwesomeIcons.trash,
+          color: Colors.red,
+        ),
       ),
     );
   }
@@ -282,38 +322,41 @@ class OptionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.symmetric(horizontal: 5),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10)),
-          border: Border.all(
-              color: isSelected ? Colors.red : Colors.white, width: 3),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(0, 3), // changes position of shadow
+    return InkWell(
+      onTap: () => selectHandler(value),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.symmetric(horizontal: 5),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10)),
+            border: Border.all(
+                color: isSelected ? Colors.red : Colors.white, width: 3),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ]),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              image,
+              height: 80,
             ),
-          ]),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            image,
-            height: 80,
-          ),
-          Text(
-            label,
-            style: TextStyle(color: Colors.black, fontSize: 20),
-          )
-        ],
+            Text(
+              label,
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            )
+          ],
+        ),
       ),
     );
   }
