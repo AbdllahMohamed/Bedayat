@@ -13,6 +13,7 @@ class AuthController extends GetxController {
     try {
       loadingProcess(true);
       loginError = await UsersServices.login(email, password);
+      print(loginError);
     } catch (e) {
       loginError = 'Please try again'.tr;
     } finally {

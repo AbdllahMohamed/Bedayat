@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:bedayat/UI/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
+import 'package:bedayat/UI/screens/children/children_list_screen.dart';
+import 'package:bedayat/UI/screens/report/report_editor/report_editor_screen.dart';
 // import 'package:bedayat/UI/screens/register/register_step_one.dart';
 import 'package:bedayat/UI/screens/reset_password/reset_password.dart';
 import 'package:bedayat/UI/widgets/actionButton.dart';
@@ -54,21 +56,26 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     String error = await authController.login(_email.text, _password.text);
 
+    print(error);
+
     if (error != "") {
       Get.defaultDialog(title: "Something went wrong".tr, middleText: error);
     } else {
-      print(kIsWeb);
       if (!kIsWeb) {
         // String? token = await FirebaseMessaging.instance.getToken();
         // print(token);
         // authController.sendToken(token!);
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => BottomNavigationWidget()),
-            (Route<dynamic> route) => false);
+        if (GetStorage().read("userType") == "parent") {
+          Get.to(BottomNavigationWidget());
+        } else if (GetStorage().read("userType") == "teacher") {
+          Get.to(ChildrenListScreen());
+        }
       } else {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => BottomNavigationWidget()),
-            (Route<dynamic> route) => false);
+        if (GetStorage().read("userType") == "parent") {
+          Get.to(BottomNavigationWidget());
+        } else if (GetStorage().read("userType") == "teacher") {
+          Get.to(ChildrenListScreen());
+        }
       }
     }
   }

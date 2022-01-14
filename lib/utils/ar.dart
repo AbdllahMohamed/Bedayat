@@ -350,4 +350,6 @@ const Map<String, String> ar = {
   'promo code is not available for you': "كود الخصم غير متاح لطفلك",
   'promo code is out of range': "لقد انتهت صلاحية كود الخصم",
   'Promo code is not valid': "كود الخصم غير صحيح",
+  'children_list': "قائمة الاطفال",
+  'children': "الاطفال",
 };

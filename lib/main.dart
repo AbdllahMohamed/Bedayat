@@ -1,14 +1,18 @@
+import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/controllers/app_bindings.dart';
 import 'package:bedayat/routes.dart';
 import 'package:bedayat/utils/translation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'UI/screens/children/children_list_screen.dart';
+import 'UI/screens/payment_web_view/payment_web_view.dart';
 import 'UI/screens/report/report_editor/report_editor_screen.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -112,9 +116,9 @@ class MyApp extends StatelessWidget {
       locale: Locale("${GetStorage().read('languageCode')}" == "null"
           ? 'ar'
           : "${GetStorage().read('languageCode')}"),
-      // initialRoute: token != null ? '/home' : '/login',
+      initialRoute: token != null ? '/home' : '/login',
       onGenerateRoute: RouteGenerator.generateRoute,
-      home: ReportEditorScreen(),
+      // home: ReportEditorScreen(),
 
       // home: PaymentScreen(
       //   childId: '1',

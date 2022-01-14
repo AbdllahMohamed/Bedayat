@@ -108,10 +108,10 @@ class UsersServices {
       loginError = 'Please try again'.tr;
     } else {
       final box = GetStorage();
-      print("token" + response.data["token"]);
       box.write('token', response.data["token"]);
       box.write('userEmail', email);
-      print("${GetStorage().read('userEmail')}");
+      box.write('userType', response.data["user"]["type"]);
+      box.write('userId', response.data["user"]["id"]);
     }
 
     return loginError;

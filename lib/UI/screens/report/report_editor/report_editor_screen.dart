@@ -42,7 +42,7 @@ class _ReportEditorScreenState extends State<ReportEditorScreen> {
           actions: [
             IconButton(
               icon: Icon(Icons.save, color: Colors.white),
-              onPressed: () => Get.back(),
+              onPressed: () => reportsEditorController.save(),
             ),
           ],
           title: Text("add_report".tr)),

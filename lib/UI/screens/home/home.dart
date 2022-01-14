@@ -249,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Obx(
                   () => Padding(
                     padding: const EdgeInsets.only(
-                        top: kIsWeb ? 330 : 315.0, right: 180, left: 180),
+                        top: false ? 330 : 315.0, right: 180, left: 180),
                     child: SmoothPageIndicator(
                       controller: controller, // PageController
                       count: sliderImagesController.sliderImagesList.length,
@@ -265,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: kIsWeb ? 450 : 390.0,
+                    top: false ? 450 : 390.0,
                     right: 20,
                     left: 20,
                     bottom: 15,
@@ -282,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   () => childernController.loadingProcess.value
                       ? Padding(
                           padding:
-                              const EdgeInsets.only(top: kIsWeb ? 200 : 100.0),
+                              const EdgeInsets.only(top: false ? 200 : 100.0),
                           child: Container(
                             width: _deviceWidth,
                             height: _devicHeight,
@@ -321,7 +321,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           // : SizedBox()
                           : Padding(
                               padding: const EdgeInsets.only(
-                                top: kIsWeb ? 500 : 430.0,
+                                top: false ? 500 : 430.0,
                                 left: 5,
                                 bottom: 25,
                               ),

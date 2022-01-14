@@ -13,6 +13,8 @@ class ReportEditorController extends GetxController {
   final notes = TextEditingController();
   RxList attachments = [].obs;
 
+  RxBool isLoading = false.obs;
+
   /// activities values
 
   RxBool enjoy_with_morning_activity = false.obs;
@@ -101,5 +103,18 @@ class ReportEditorController extends GetxController {
 
   deleteFiles(File attachment) {
     attachments.remove(attachment);
+  }
+
+  save() {
+    Get.defaultDialog(
+        title: "save".tr,
+        // middleText: ,
+        content: Column(
+          children: [
+            Text("theـreportـisـbeingـsentـtoـtheـparent".tr),
+            Image.asset("assets/images/rocket_animation.gif")
+          ],
+        ));
+    print("test");
   }
 }
