@@ -68,13 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
         if (GetStorage().read("userType") == "parent") {
           Get.to(BottomNavigationWidget());
         } else if (GetStorage().read("userType") == "teacher") {
-          Get.to(ChildrenListScreen());
+          Get.offAll(ChildrenListScreen());
         }
       } else {
         if (GetStorage().read("userType") == "parent") {
           Get.to(BottomNavigationWidget());
         } else if (GetStorage().read("userType") == "teacher") {
-          Get.to(ChildrenListScreen());
+          Get.offAll(ChildrenListScreen());
         }
       }
     }

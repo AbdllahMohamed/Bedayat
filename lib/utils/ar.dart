@@ -352,4 +352,7 @@ const Map<String, String> ar = {
   'Promo code is not valid': "كود الخصم غير صحيح",
   'children_list': "قائمة الاطفال",
   'children': "الاطفال",
+  'report_status': "التقرير اليومي",
+  'uncompleted': "غير مكتمل",
+  'completed': "مكتمل",
 };

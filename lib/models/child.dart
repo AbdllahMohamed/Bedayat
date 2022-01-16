@@ -16,12 +16,15 @@ class Child {
   String? parentTwoPhone;
   String? familyCard;
   String? vaccinationCertificate;
-  String? document;
+  String document;
   int? userId;
   String? profilePic;
   String? createdAt;
   String? updatedAt;
   String? expireDate;
+
+  dynamic reports;
+  Attendance? attendance;
 
   Child({
     this.id,
@@ -41,12 +44,14 @@ class Child {
     this.parentTwoPhone,
     this.familyCard,
     this.vaccinationCertificate,
-    this.document,
+    required this.document,
     this.userId,
     this.profilePic,
     this.expireDate,
     this.createdAt,
     this.updatedAt,
+    this.reports,
+    this.attendance,
   });
 
   Child.fromJson(Map<String, dynamic> json)
@@ -72,7 +77,11 @@ class Child {
         userId = json['user_id'],
         profilePic = json['profile_pic'],
         createdAt = json['created_at'],
-        updatedAt = json['updated_at'];
+        updatedAt = json['updated_at'],
+        reports = json['reports'],
+        attendance = json['attendance'] == null
+            ? null
+            : Attendance.fromJson(json['attendance']);
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -98,6 +107,57 @@ class Child {
     data['profile_pic'] = profilePic;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
+    data['reports'] = reports;
+    data['attendance'] = attendance?.toJson();
     return data;
+  }
+}
+
+class Attendance {
+  Attendance({
+    required this.id,
+    required this.time,
+    required this.attendType,
+    required this.branchId,
+    required this.childId,
+    required this.teacherId,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+  late final int id;
+  late final String time;
+  late final String attendType;
+  late final int branchId;
+  late final int childId;
+  late final int teacherId;
+  late final String createdAt;
+  late final String updatedAt;
+  late final Null deletedAt;
+
+  Attendance.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    time = json['time'];
+    attendType = json['attend_type'];
+    branchId = json['branch_id'];
+    childId = json['child_id'];
+    teacherId = json['teacher_id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    deletedAt = null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['time'] = time;
+    _data['attend_type'] = attendType;
+    _data['branch_id'] = branchId;
+    _data['child_id'] = childId;
+    _data['teacher_id'] = teacherId;
+    _data['created_at'] = createdAt;
+    _data['updated_at'] = updatedAt;
+    _data['deleted_at'] = deletedAt;
+    return _data;
   }
 }
