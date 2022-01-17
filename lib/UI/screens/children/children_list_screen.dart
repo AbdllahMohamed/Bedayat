@@ -1,4 +1,5 @@
 import 'package:bedayat/UI/screens/children/children_list_controller.dart';
+import 'package:bedayat/UI/screens/report/report_editor/report_editor_screen.dart';
 import 'package:bedayat/models/child.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -59,82 +60,129 @@ class ChildItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 5,
-              blurRadius: 8,
-              offset: Offset(3, 3), // changes position of shadow
+    return InkWell(
+      onTap: () {
+        showModalBottomSheet(
+            context: context,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-          ]),
-      child: ListTile(
-        // trailing: Text("test"),
-        leading: CachedNetworkImage(
-          imageUrl: child.document,
-          imageBuilder: (context, imageProvider) => Container(
-            width: 80.0,
-            height: 80.0,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
-            ),
-          ),
-          progressIndicatorBuilder: (context, url, downloadProgress) =>
-              CircularProgressIndicator(value: downloadProgress.progress),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "${child.firstName} ${child.lastName}",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(
-              "توقيت الحضور",
-              style: TextStyle(fontSize: 12),
-            ),
-            Text(
-              child.attendance == null
-                  ? "لم يحضر الطفل الي الان"
-                  : DateFormat('yyyy-MM-dd – kk:mm:a')
-                      .format(DateTime.parse(child.attendance!.time)),
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
+            backgroundColor: Colors.white,
+            builder: (context) => Container(
+                  height: 180.0,
+                  child: Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton.icon(
+                            onPressed: () {},
+                            icon: FaIcon(
+                              FontAwesomeIcons.video,
+                              color: Colors.red,
+                            ),
+                            label: Text(
+                              "create_videos_photos".tr,
+                              style: TextStyle(color: Colors.black),
+                            )),
+                        child.reports != null ? SizedBox() : Divider(),
+                        child.reports != null
+                            ? SizedBox()
+                            : TextButton.icon(
+                                onPressed: () => Get.to(ReportEditorScreen(
+                                      childId: child.id ?? 0,
+                                    )),
+                                icon: FaIcon(
+                                  FontAwesomeIcons.file,
+                                  color: Colors.red,
+                                ),
+                                label: Text(
+                                  "create_daily_report".tr,
+                                  style: TextStyle(color: Colors.black),
+                                )),
+                      ],
+                    ),
+                  ),
+                ));
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 5,
+                blurRadius: 8,
+                offset: Offset(3, 3), // changes position of shadow
+              ),
+            ]),
+        child: ListTile(
+          // trailing: Text("test"),
+          leading: CachedNetworkImage(
+            imageUrl: child.document,
+            imageBuilder: (context, imageProvider) => Container(
+              width: 80.0,
+              height: 80.0,
               decoration: BoxDecoration(
-                color: child.reports == null ? Colors.red : Colors.green,
-                borderRadius: BorderRadius.circular(5),
+                shape: BoxShape.circle,
+                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Text(
-                  "report_status".tr +
-                      " : " +
-                      (child.reports == null
-                          ? "uncompleted".tr
-                          : "completed".tr),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12),
+            ),
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CircularProgressIndicator(value: downloadProgress.progress),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "${child.firstName} ${child.lastName}",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "توقيت الحضور",
+                style: TextStyle(fontSize: 12),
+              ),
+              Text(
+                child.attendance == null
+                    ? "لم يحضر الطفل الي الان"
+                    : DateFormat('yyyy-MM-dd – kk:mm:a')
+                        .format(DateTime.parse(child.attendance!.time)),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: child.reports == null ? Colors.red : Colors.green,
+                  borderRadius: BorderRadius.circular(5),
                 ),
-              ),
-            )
-          ],
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Text(
+                    "report_status".tr +
+                        " : " +
+                        (child.reports == null
+                            ? "uncompleted".tr
+                            : "completed".tr),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

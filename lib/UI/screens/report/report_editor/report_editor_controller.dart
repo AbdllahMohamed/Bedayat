@@ -2,84 +2,69 @@
 
 import 'dart:io';
 
+import 'package:bedayat/UI/screens/children/children_list_screen.dart';
+import 'package:bedayat/models/Activity.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'report_services.dart';
+
 class ReportEditorController extends GetxController {
+  ReportEditorController({required this.childId});
+
+  final int childId;
   RxDouble temp = 37.00.obs;
   RxDouble sleep = 0.00.obs;
   final notes = TextEditingController();
   RxList attachments = [].obs;
+  RxList activites = [].obs;
+  RxList selectedActivites = [].obs;
+  RxInt poe = 0.obs;
+  RxInt pie = 0.obs;
+
+  incremnetPoeBy(value) => this.poe += value;
+  incremnetpieBy(value) => this.pie += value;
+
+  DateTime started_at = DateTime.now();
 
   RxBool isLoading = false.obs;
 
-  /// activities values
-
-  RxBool enjoy_with_morning_activity = false.obs;
-  RxBool love_sharing_with_friends = false.obs;
-  RxBool say_welcome = false.obs;
-  RxBool enjoy_with_halqa = false.obs;
-  RxBool say_wehda = false.obs;
-  RxBool listening_to_quran = false.obs;
-  RxBool repeat_ayat = false.obs;
-  RxBool new_letter = false.obs;
-  RxBool know_the_letter = false.obs;
-  RxBool know_the_letter_sound = false.obs;
-  RxBool mastered_write_letter = false.obs;
-  RxBool enjoy_with_arkan = false.obs;
-  RxBool orgnize_after_play = false.obs;
-  RxBool mastered_the_activity = false.obs;
-  RxBool enjoy_with_art_activity = false.obs;
-  RxBool help_himself_in_art_activity = false.obs;
-  RxBool enjoy_with_the_story = false.obs;
-
   // activities handlers
+  toggleActivites(int value) {
+    if (selectedActivites.contains(value)) {
+      selectedActivites.remove(value);
+    } else {
+      selectedActivites.add(value);
+    }
+  }
 
-  change_enjoy_with_morning_activity(value) =>
-      enjoy_with_morning_activity.value = value;
+  // child mood
+  RxString childMoodMorning = "high".obs;
+  changeChildMoodMorning(newChildMood) => childMoodMorning.value = newChildMood;
 
-  change_love_sharing_with_friends(value) =>
-      love_sharing_with_friends.value = value;
+  RxString childMoodNoon = "low".obs;
+  changeChildMoodNoon(newChildMood) => childMoodNoon.value = newChildMood;
 
-  change_say_welcome(value) => say_welcome.value = value;
+  RxString childMoodAfterNoon = "low".obs;
+  changeChildMoodAfterNoon(newChildMood) =>
+      childMoodAfterNoon.value = newChildMood;
 
-  change_say_wehda(value) => say_wehda.value = value;
+  // food status
 
-  change_enjoy_with_halqa(value) => enjoy_with_halqa.value = value;
+  RxString foodStatusMorning = "high".obs;
+  changeFoodStatusMorning(newFoodStatus) =>
+      foodStatusMorning.value = newFoodStatus;
 
-  change_listening_to_quran(value) => listening_to_quran.value = value;
+  RxString foodStatusNoon = "high".obs;
+  changeFoodStatusNoon(newFoodStatus) => foodStatusNoon.value = newFoodStatus;
 
-  change_repeat_ayat(value) => repeat_ayat.value = value;
+  RxString foodStatusAfterNoon = "high".obs;
+  changeFoodStatusAfterNoon(newFoodStatus) =>
+      foodStatusAfterNoon.value = newFoodStatus;
 
-  change_new_letter(value) => new_letter.value = value;
-
-  change_know_the_letter(value) => know_the_letter.value = value;
-
-  change_know_the_letter_sound(value) => know_the_letter_sound.value = value;
-
-  change_mastered_write_letter(value) => mastered_write_letter.value = value;
-
-  change_enjoy_with_arkan(value) => enjoy_with_arkan.value = value;
-
-  change_orgnize_after_play(value) => orgnize_after_play.value = value;
-
-  change_mastered_the_activity(value) => mastered_the_activity.value = value;
-
-  change_enjoy_with_art_activity(value) =>
-      enjoy_with_art_activity.value = value;
-
-  change_help_himself_in_art_activity(value) =>
-      help_himself_in_art_activity.value = value;
-
-  change_enjoy_with_the_story(value) => enjoy_with_the_story.value = value;
-
-  RxString childMood = "high".obs;
-  changeChildMood(newChildMood) => childMood.value = newChildMood;
-
-  RxString foodStatus = "high".obs;
-  changeFoodStatus(newFoodStatus) => foodStatus.value = newFoodStatus;
+  // drink status
 
   RxString drinkStatus = "high".obs;
   changeDrinkStatus(newDrinkStatus) => drinkStatus.value = newDrinkStatus;
@@ -105,16 +90,50 @@ class ReportEditorController extends GetxController {
     attachments.remove(attachment);
   }
 
-  save() {
+  getActivites() async {
+    activites.value = await ReportsServices.getActivites();
+  }
+
+  uploadHandler(String status) {
+    print("$status");
+  }
+
+  save() async {
     Get.defaultDialog(
         title: "save".tr,
-        // middleText: ,
         content: Column(
           children: [
             Text("theـreportـisـbeingـsentـtoـtheـparent".tr),
             Image.asset("assets/images/rocket_animation.gif")
           ],
         ));
-    print("test");
+
+    await ReportsServices.saveReport(
+        childMoodMorning: childMoodMorning.value,
+        childMoodNoon: childMoodNoon.value,
+        childMoodAfterNoon: childMoodAfterNoon.value,
+        foodStatusMorning: foodStatusMorning.value,
+        foodStatusNoon: foodStatusNoon.value,
+        foodStatusAfterNoon: foodStatusAfterNoon.value,
+        drinkStatus: drinkStatus.value,
+        sleepStatus: sleepStatus.value,
+        temp: temp.value,
+        sleep: sleep.value,
+        notes: notes.text,
+        poe: poe.value,
+        pie: pie.value,
+        selectedActivites: selectedActivites.value,
+        attachments: attachments.value,
+        started_at: started_at,
+        childId: childId,
+        uploadHandler: uploadHandler);
+
+    Get.offAll(ChildrenListScreen());
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getActivites();
   }
 }

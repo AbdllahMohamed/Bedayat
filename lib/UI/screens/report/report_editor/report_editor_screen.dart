@@ -8,7 +8,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class ReportEditorScreen extends StatefulWidget {
-  const ReportEditorScreen({Key? key}) : super(key: key);
+  final int childId;
+
+  ReportEditorScreen({Key? key, required this.childId}) : super(key: key);
 
   @override
   _ReportEditorScreenState createState() => _ReportEditorScreenState();
@@ -25,8 +27,15 @@ class _ReportEditorScreenState extends State<ReportEditorScreen> {
     });
   }
 
-  ReportEditorController reportsEditorController =
-      Get.put(ReportEditorController());
+  late ReportEditorController reportsEditorController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    reportsEditorController =
+        Get.put(ReportEditorController(childId: widget.childId));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +67,7 @@ class _ReportEditorScreenState extends State<ReportEditorScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notes),
-            label: 'notes',
+            label: 'notes'.tr,
           ),
         ],
         currentIndex: _selectedIndex,
@@ -107,66 +116,210 @@ class _ReportEditorScreenState extends State<ReportEditorScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ///// child mood
-                          Text("child_mood".tr, style: headingStyle),
+                          Text("child_mood_morning".tr, style: headingStyle),
                           ListOfOtions(options: [
                             OptionItem(
                               image: "assets/images/good_mood.png",
                               label: "good".tr,
                               value: "high",
                               isSelected:
-                                  reportsEditorController.childMood == "high",
-                              selectHandler:
-                                  reportsEditorController.changeChildMood,
+                                  reportsEditorController.childMoodMorning ==
+                                      "high",
+                              selectHandler: reportsEditorController
+                                  .changeChildMoodMorning,
                             ),
                             OptionItem(
                               image: "assets/images/medium_mood.png",
                               label: "medium".tr,
                               value: "medium",
                               isSelected:
-                                  reportsEditorController.childMood == "medium",
-                              selectHandler:
-                                  reportsEditorController.changeChildMood,
+                                  reportsEditorController.childMoodMorning ==
+                                      "medium",
+                              selectHandler: reportsEditorController
+                                  .changeChildMoodMorning,
                             ),
                             OptionItem(
                               image: "assets/images/bad_mood.png",
                               label: "sad".tr,
                               value: "low",
                               isSelected:
-                                  reportsEditorController.childMood == "low",
-                              selectHandler:
-                                  reportsEditorController.changeChildMood,
+                                  reportsEditorController.childMoodMorning ==
+                                      "low",
+                              selectHandler: reportsEditorController
+                                  .changeChildMoodMorning,
                             ),
                           ]),
 
+                          Text("child_mood_noon".tr, style: headingStyle),
+                          ListOfOtions(options: [
+                            OptionItem(
+                              image: "assets/images/good_mood.png",
+                              label: "good".tr,
+                              value: "high",
+                              isSelected:
+                                  reportsEditorController.childMoodNoon ==
+                                      "high",
+                              selectHandler:
+                                  reportsEditorController.changeChildMoodNoon,
+                            ),
+                            OptionItem(
+                              image: "assets/images/medium_mood.png",
+                              label: "medium".tr,
+                              value: "medium",
+                              isSelected:
+                                  reportsEditorController.childMoodNoon ==
+                                      "medium",
+                              selectHandler:
+                                  reportsEditorController.changeChildMoodNoon,
+                            ),
+                            OptionItem(
+                              image: "assets/images/bad_mood.png",
+                              label: "sad".tr,
+                              value: "low",
+                              isSelected:
+                                  reportsEditorController.childMoodNoon ==
+                                      "low",
+                              selectHandler:
+                                  reportsEditorController.changeChildMoodNoon,
+                            ),
+                          ]),
+
+                          Text("child_mood_afternoon".tr, style: headingStyle),
+                          ListOfOtions(options: [
+                            OptionItem(
+                              image: "assets/images/good_mood.png",
+                              label: "good".tr,
+                              value: "high",
+                              isSelected:
+                                  reportsEditorController.childMoodAfterNoon ==
+                                      "high",
+                              selectHandler: reportsEditorController
+                                  .changeChildMoodAfterNoon,
+                            ),
+                            OptionItem(
+                              image: "assets/images/medium_mood.png",
+                              label: "medium".tr,
+                              value: "medium",
+                              isSelected:
+                                  reportsEditorController.childMoodAfterNoon ==
+                                      "medium",
+                              selectHandler: reportsEditorController
+                                  .changeChildMoodAfterNoon,
+                            ),
+                            OptionItem(
+                              image: "assets/images/bad_mood.png",
+                              label: "sad".tr,
+                              value: "low",
+                              isSelected:
+                                  reportsEditorController.childMoodAfterNoon ==
+                                      "low",
+                              selectHandler: reportsEditorController
+                                  .changeChildMoodAfterNoon,
+                            ),
+                          ]),
+
+                          /////////////////////////////////////////////////////
+
                           ///// food
-                          Text("food_status".tr, style: headingStyle),
+                          Text("food_status_morning".tr, style: headingStyle),
                           ListOfOtions(options: [
                             OptionItem(
                               image: "assets/images/food_high.png",
                               label: "good".tr,
                               value: "high",
                               isSelected:
-                                  reportsEditorController.foodStatus == "high",
-                              selectHandler:
-                                  reportsEditorController.changeFoodStatus,
+                                  reportsEditorController.foodStatusMorning ==
+                                      "high",
+                              selectHandler: reportsEditorController
+                                  .changeFoodStatusMorning,
                             ),
                             OptionItem(
                               image: "assets/images/food_medium.png",
                               label: "medium".tr,
                               value: "medium",
-                              isSelected: reportsEditorController.foodStatus ==
-                                  "medium",
-                              selectHandler:
-                                  reportsEditorController.changeFoodStatus,
+                              isSelected:
+                                  reportsEditorController.foodStatusMorning ==
+                                      "medium",
+                              selectHandler: reportsEditorController
+                                  .changeFoodStatusMorning,
                             ),
                             OptionItem(
                               image: "assets/images/food_low.png",
                               label: "low".tr,
                               value: "low",
                               isSelected:
-                                  reportsEditorController.foodStatus == "low",
+                                  reportsEditorController.foodStatusMorning ==
+                                      "low",
+                              selectHandler: reportsEditorController
+                                  .changeFoodStatusMorning,
+                            ),
+                          ]),
+
+                          Text("food_status_noon".tr, style: headingStyle),
+                          ListOfOtions(options: [
+                            OptionItem(
+                              image: "assets/images/food_high.png",
+                              label: "good".tr,
+                              value: "high",
+                              isSelected:
+                                  reportsEditorController.foodStatusNoon ==
+                                      "high",
                               selectHandler:
-                                  reportsEditorController.changeFoodStatus,
+                                  reportsEditorController.changeFoodStatusNoon,
+                            ),
+                            OptionItem(
+                              image: "assets/images/food_medium.png",
+                              label: "medium".tr,
+                              value: "medium",
+                              isSelected:
+                                  reportsEditorController.foodStatusNoon ==
+                                      "medium",
+                              selectHandler:
+                                  reportsEditorController.changeFoodStatusNoon,
+                            ),
+                            OptionItem(
+                              image: "assets/images/food_low.png",
+                              label: "low".tr,
+                              value: "low",
+                              isSelected:
+                                  reportsEditorController.foodStatusNoon ==
+                                      "low",
+                              selectHandler:
+                                  reportsEditorController.changeFoodStatusNoon,
+                            ),
+                          ]),
+
+                          Text("food_status_afternoon".tr, style: headingStyle),
+                          ListOfOtions(options: [
+                            OptionItem(
+                              image: "assets/images/food_high.png",
+                              label: "good".tr,
+                              value: "high",
+                              isSelected:
+                                  reportsEditorController.foodStatusAfterNoon ==
+                                      "high",
+                              selectHandler: reportsEditorController
+                                  .changeFoodStatusAfterNoon,
+                            ),
+                            OptionItem(
+                              image: "assets/images/food_medium.png",
+                              label: "medium".tr,
+                              value: "medium",
+                              isSelected:
+                                  reportsEditorController.foodStatusAfterNoon ==
+                                      "medium",
+                              selectHandler: reportsEditorController
+                                  .changeFoodStatusAfterNoon,
+                            ),
+                            OptionItem(
+                              image: "assets/images/food_low.png",
+                              label: "low".tr,
+                              value: "low",
+                              isSelected:
+                                  reportsEditorController.foodStatusAfterNoon ==
+                                      "low",
+                              selectHandler: reportsEditorController
+                                  .changeFoodStatusAfterNoon,
                             ),
                           ]),
 
@@ -246,190 +399,140 @@ class _ReportEditorScreenState extends State<ReportEditorScreen> {
                             divisions: 5,
                           ),
 
+                          Text("poe_and_pie".tr, style: headingStyle),
+                          SizedBox(
+                            height: 15,
+                          ),
+
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10)),
+                                border:
+                                    Border.all(color: Colors.white, width: 3),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.1),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ]),
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  leading: Image.asset(
+                                      "assets/images/shitvector.png"),
+                                  title: Row(
+                                    children: [
+                                      InkWell(
+                                          onTap: () => reportsEditorController
+                                              .incremnetPoeBy(1),
+                                          child: FaIcon(
+                                            FontAwesomeIcons.plusCircle,
+                                            color: Colors.red,
+                                          )),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        "${reportsEditorController.poe}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      InkWell(
+                                          onTap: reportsEditorController.poe ==
+                                                  0
+                                              ? null
+                                              : () => reportsEditorController
+                                                  .incremnetPoeBy(-1),
+                                          child: FaIcon(
+                                            FontAwesomeIcons.minusCircle,
+                                            color: Colors.red,
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                ListTile(
+                                  leading: Image.asset(
+                                      "assets/images/yellow_drop.png"),
+                                  title: Row(
+                                    children: [
+                                      InkWell(
+                                          onTap: () => reportsEditorController
+                                              .incremnetpieBy(1),
+                                          child: FaIcon(
+                                            FontAwesomeIcons.plusCircle,
+                                            color: Colors.red,
+                                          )),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        "${reportsEditorController.pie}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      InkWell(
+                                          onTap: reportsEditorController.pie ==
+                                                  0
+                                              ? null
+                                              : () => reportsEditorController
+                                                  .incremnetpieBy(-1),
+                                          child: FaIcon(
+                                            FontAwesomeIcons.minusCircle,
+                                            color: Colors.red,
+                                          )),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: 15,
+                          ),
+
                           Text("activites".tr, style: headingStyle),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("enjoy_with_morning_activity".tr),
-                            value: reportsEditorController
-                                .enjoy_with_morning_activity.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_enjoy_with_morning_activity(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
+                          SizedBox(
+                            height: 15,
                           ),
 
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("love_sharing_with_friends".tr),
-                            value: reportsEditorController
-                                .love_sharing_with_friends.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_love_sharing_with_friends(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("say_welcome".tr),
-                            value: reportsEditorController.say_welcome.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_say_welcome(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("enjoy_with_halqa".tr),
-                            value:
-                                reportsEditorController.enjoy_with_halqa.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_enjoy_with_halqa(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("say_wehda".tr),
-                            value: reportsEditorController.say_wehda.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_say_wehda(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("listening_to_quran".tr),
-                            value: reportsEditorController
-                                .listening_to_quran.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_listening_to_quran(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("repeat_ayat".tr),
-                            value: reportsEditorController.repeat_ayat.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_repeat_ayat(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("new_letter".tr),
-                            value: reportsEditorController.new_letter.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_new_letter(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("know_the_letter".tr),
-                            value:
-                                reportsEditorController.know_the_letter.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_know_the_letter(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("know_the_letter_sound".tr),
-                            value: reportsEditorController
-                                .know_the_letter_sound.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_know_the_letter_sound(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("mastered_write_letter".tr),
-                            value: reportsEditorController
-                                .mastered_write_letter.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_mastered_write_letter(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("enjoy_with_arkan".tr),
-                            value:
-                                reportsEditorController.enjoy_with_arkan.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_enjoy_with_arkan(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("orgnize_after_play".tr),
-                            value: reportsEditorController
-                                .orgnize_after_play.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_orgnize_after_play(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("mastered_the_activity".tr),
-                            value: reportsEditorController
-                                .mastered_the_activity.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_mastered_the_activity(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("enjoy_with_art_activity".tr),
-                            value: reportsEditorController
-                                .enjoy_with_art_activity.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_enjoy_with_art_activity(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("help_himself_in_art_activity".tr),
-                            value: reportsEditorController
-                                .help_himself_in_art_activity.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_help_himself_in_art_activity(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
-
-                          CheckboxListTile(
-                            activeColor: Colors.red,
-                            title: Text("enjoy_with_the_story".tr),
-                            value: reportsEditorController
-                                .enjoy_with_the_story.value,
-                            onChanged: (newValue) => reportsEditorController
-                                .change_enjoy_with_the_story(newValue),
-                            controlAffinity: ListTileControlAffinity
-                                .leading, //  <-- leading Checkbox
-                          ),
+                          if (reportsEditorController.activites.value.length ==
+                              0)
+                            Text("Not available at the moment")
+                          else
+                            ...reportsEditorController.activites.value
+                                .map((activity) => CheckboxListTile(
+                                      activeColor: Colors.red,
+                                      title: Text(activity.arabicTitle),
+                                      value: reportsEditorController
+                                          .selectedActivites
+                                          .contains(activity.id),
+                                      onChanged: (newValue) =>
+                                          reportsEditorController
+                                              .toggleActivites(activity.id),
+                                      controlAffinity:
+                                          ListTileControlAffinity.leading,
+                                    ))
+                                .toList(),
                         ],
                       ),
                     ),

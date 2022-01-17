@@ -6,6 +6,25 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'const/const.dart';
 
+showSuccessSnackbar({required String message, required String title}) {
+  Get.snackbar(
+    title,
+    message,
+    margin: const EdgeInsets.all(10),
+    padding: const EdgeInsets.all(10),
+    colorText: Colors.white,
+    backgroundColor: Colors.green,
+    icon: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: const FaIcon(
+        FontAwesomeIcons.exclamationCircle,
+        color: Colors.white,
+      ),
+    ),
+    snackPosition: SnackPosition.BOTTOM,
+  );
+}
+
 showErrorSnackbar({required String message, required String title}) {
   Get.snackbar(
     title,
