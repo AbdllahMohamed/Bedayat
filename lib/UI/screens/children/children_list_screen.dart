@@ -1,4 +1,5 @@
 import 'package:bedayat/UI/screens/children/children_list_controller.dart';
+import 'package:bedayat/UI/screens/gallery/gallery_editor_screen.dart';
 import 'package:bedayat/UI/screens/report/report_editor/report_editor_screen.dart';
 import 'package:bedayat/models/child.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -77,7 +78,9 @@ class ChildItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton.icon(
-                            onPressed: () {},
+                            onPressed: () => Get.to(GalleryEditor(
+                                  childId: child.id ?? 0,
+                                )),
                             icon: FaIcon(
                               FontAwesomeIcons.video,
                               color: Colors.red,

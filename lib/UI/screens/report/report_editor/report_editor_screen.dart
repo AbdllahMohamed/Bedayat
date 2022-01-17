@@ -27,6 +27,12 @@ class _ReportEditorScreenState extends State<ReportEditorScreen> {
     });
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    Get.delete<ReportEditorController>();
+  }
+
   late ReportEditorController reportsEditorController;
 
   @override

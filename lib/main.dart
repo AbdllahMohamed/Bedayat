@@ -12,6 +12,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'UI/screens/children/children_list_screen.dart';
+import 'UI/screens/gallery/gallery_editor_screen.dart';
 import 'UI/screens/payment_web_view/payment_web_view.dart';
 import 'UI/screens/report/report_editor/report_editor_screen.dart';
 
@@ -118,7 +119,9 @@ class MyApp extends StatelessWidget {
           : "${GetStorage().read('languageCode')}"),
       initialRoute: token != null ? '/home' : '/login',
       onGenerateRoute: RouteGenerator.generateRoute,
-      // home: ReportEditorScreen(),
+      // home: GalleryEditor(
+      //   childId: 201,
+      // ),
 
       // home: PaymentScreen(
       //   childId: '1',

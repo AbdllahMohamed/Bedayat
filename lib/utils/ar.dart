@@ -382,4 +382,6 @@ const Map<String, String> ar = {
   'poe_and_pie': 'المرحاض',
   'reports': 'التقارير',
   'added_successfully': 'تمت الاضافة بنجاح',
+  'delete': 'حذف  ',
+  'select_the_content': 'اختر المحتوي التي تودي مشاركته',
 };

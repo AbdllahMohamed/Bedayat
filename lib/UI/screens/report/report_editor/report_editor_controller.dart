@@ -44,10 +44,10 @@ class ReportEditorController extends GetxController {
   RxString childMoodMorning = "high".obs;
   changeChildMoodMorning(newChildMood) => childMoodMorning.value = newChildMood;
 
-  RxString childMoodNoon = "low".obs;
+  RxString childMoodNoon = "high".obs;
   changeChildMoodNoon(newChildMood) => childMoodNoon.value = newChildMood;
 
-  RxString childMoodAfterNoon = "low".obs;
+  RxString childMoodAfterNoon = "high".obs;
   changeChildMoodAfterNoon(newChildMood) =>
       childMoodAfterNoon.value = newChildMood;
 
