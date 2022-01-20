@@ -13,7 +13,6 @@ class ImageSliderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _deviceWidth = MediaQuery.of(context).size.width;
-
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 12,

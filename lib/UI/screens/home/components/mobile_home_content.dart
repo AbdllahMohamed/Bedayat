@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
+import 'package:bedayat/UI/screens/gallery/gallery_screen.dart';
 import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/UI/screens/report/report.dart';
 import 'package:bedayat/UI/screens/teacher/teacher_screen.dart';
@@ -15,6 +16,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
+
+import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class MobileHomeContentWidget extends StatelessWidget {
@@ -104,92 +107,166 @@ class MobileHomeContentWidget extends StatelessWidget {
                     )
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 30, right: 25.0, top: 5),
-                  child: Text(
-                    "${'Perform of'.tr} $name ${'Today'.tr}",
-                    style: TextStyle(
-                      color: AppColors.accentColor,
-                      fontSize: 13,
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 30, right: 25.0, top: 5),
+                //   child: Text(
+                //     "${'Perform of'.tr} $name ${'Today'.tr}",
+                //     style: TextStyle(
+                //       color: AppColors.accentColor,
+                //       fontSize: 13,
+                //     ),
+                //   ),
+                // ),
+
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 15, left: 15),
+                //   child: SliderTheme(
+                //     data: SliderThemeData(
+                //       trackHeight: 10,
+                //       thumbShape: RoundSliderThumbShape(
+                //         enabledThumbRadius: 6,
+                //         elevation: 0,
+                //       ),
+                //       overlayShape: RoundSliderOverlayShape(
+                //         overlayRadius: 20.0,
+                //       ),
+                //     ),
+                //     child: Slider(
+                //       value: 75,
+                //       onChanged: (v) {},
+                //       min: 0,
+                //       max: 100,
+                //       activeColor: Color(0xff22A8A4),
+                //       inactiveColor: Color(0xffF5F5F5),
+                //     ),
+                //   ),
+                // ),
 
                 Padding(
-                  padding: const EdgeInsets.only(right: 15, left: 15),
-                  child: SliderTheme(
-                    data: SliderThemeData(
-                      trackHeight: 10,
-                      thumbShape: RoundSliderThumbShape(
-                        enabledThumbRadius: 6,
-                        elevation: 0,
-                      ),
-                      overlayShape: RoundSliderOverlayShape(
-                        overlayRadius: 20.0,
-                      ),
-                    ),
-                    child: Slider(
-                      value: 75,
-                      onChanged: (v) {},
-                      min: 0,
-                      max: 100,
-                      activeColor: Color(0xff22A8A4),
-                      inactiveColor: Color(0xffF5F5F5),
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                  onTap: () {
-                    Get.to(
-                      ReportScreen(
-                        name: name,
-                        classNmber: ageGroup,
-                        image: imagePath,
-                        childId: childId,
-                      ),
-                    );
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    margin: EdgeInsets.only(left: 30, right: 30, top: 5),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppColors.primaryColor,
-                        ),
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Text(
-                      'View The Daily Report'.tr,
-                      style: TextStyle(color: AppColors.primaryColor),
-                    ),
-                  ),
-                ),
-
-                InkWell(
-                  onTap: () {
-                    Get.to(
-                      TeacherScreen(
-                          // name: name,
-                          // classNmber: ageGroup,
-                          // image: imagePath,
-                          // childId: childId,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(
+                              ReportScreen(
+                                childId: childId,
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppColors.primaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Center(
+                              child: Text(
+                                'View The Daily Report'.tr,
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
+                            ),
                           ),
-                    );
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    margin: EdgeInsets.only(left: 30, right: 30, top: 5),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppColors.primaryColor,
                         ),
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Text(
-                      'View Teacher Profile'.tr,
-                      style: TextStyle(color: AppColors.primaryColor),
-                    ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(
+                              GalleryScreen(
+                                childId: childId,
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppColors.primaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Center(
+                              child: Text(
+                                'Gallery'.tr,
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+
+                // ignore: unnecessary_null_comparison
+                expireDate != null
+                    ? Center(
+                        child: Text(
+                          "expires_at".tr +
+                              " : ${DateFormat('yyyy-MM-dd').format(DateTime.parse(expireDate))}",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    : Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 6, bottom: 2),
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              Get.to(PaymentScreen(
+                                childId: childId.toString(),
+                                routeName: 'home',
+                              ));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: AppColors.primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(8), // <-- Radius
+                              ),
+                            ),
+                            child: Text(
+                              'Your child is not registered  subscribe now'.tr,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                // InkWell(
+                //   onTap: () {
+                //     Get.to(
+                //       TeacherScreen(
+                //           // name: name,
+                //           // classNmber: ageGroup,
+                //           // image: imagePath,
+                //           // childId: childId,
+                //           ),
+                //     );
+                //   },
+                //   child: Container(
+                //     padding: EdgeInsets.all(5),
+                //     margin: EdgeInsets.only(left: 30, right: 30, top: 5),
+                //     decoration: BoxDecoration(
+                //         border: Border.all(
+                //           color: AppColors.primaryColor,
+                //         ),
+                //         borderRadius: BorderRadius.circular(8)),
+                //     child: Text(
+                //       'View Teacher Profile'.tr,
+                //       style: TextStyle(color: AppColors.primaryColor),
+                //     ),
+                //   ),
+                // ),
 
                 SizedBox(
                   height: 15,
@@ -253,38 +330,6 @@ class MobileHomeContentWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-
-                // ignore: unnecessary_null_comparison
-                expireDate == 'null'
-                    ? Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 6, bottom: 2),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              Get.to(PaymentScreen(
-                                childId: childId.toString(),
-                                routeName: 'home',
-                              ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: AppColors.primaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(8), // <-- Radius
-                              ),
-                            ),
-                            child: Text(
-                              'Your child is not registered  subscribe now'.tr,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    : SizedBox(),
               ],
             ),
           ),

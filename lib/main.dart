@@ -1,3 +1,5 @@
+import 'package:bedayat/UI/screens/home/home.dart';
+import 'package:bedayat/UI/screens/login/login.dart';
 import 'package:bedayat/UI/screens/payment/payment.dart';
 import 'package:bedayat/app_colors/app_colors.dart';
 import 'package:bedayat/controllers/app_bindings.dart';
@@ -117,11 +119,13 @@ class MyApp extends StatelessWidget {
       locale: Locale("${GetStorage().read('languageCode')}" == "null"
           ? 'ar'
           : "${GetStorage().read('languageCode')}"),
-      initialRoute: token != null ? '/home' : '/login',
+      // initialRoute: token != null ? '/home' : '/login',
       onGenerateRoute: RouteGenerator.generateRoute,
-      // home: GalleryEditor(
-      //   childId: 201,
-      // ),
+      home: token != null
+          ? GetStorage().read("userType") == "teacher"
+              ? ChildrenListScreen()
+              : HomeScreen()
+          : LoginScreen(),
 
       // home: PaymentScreen(
       //   childId: '1',

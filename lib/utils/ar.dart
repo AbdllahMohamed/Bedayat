@@ -7,7 +7,7 @@ const Map<String, String> ar = {
   'Change Language': 'تغير اللغة',
   'Not Found Data': 'لا توجد بيانات',
   'Children': 'الابناء',
-  'View The Daily Report': 'عرض التقرير اليومى',
+  'View The Daily Report': 'التقرير اليومى',
   'Perform of': 'اداء',
   'Today': 'اليوم',
   'Your child is not registered  subscribe now':
@@ -384,4 +384,14 @@ const Map<String, String> ar = {
   'added_successfully': 'تمت الاضافة بنجاح',
   'delete': 'حذف  ',
   'select_the_content': 'اختر المحتوي التي تودي مشاركته',
+  'sleep_dration': 'مدة النوم',
+  'minutes': 'دقيقة',
+  'degree': 'درجة',
+  'ُchild_status': 'حالة الطفل',
+  'daily_report': 'التقرير اليومي',
+  'Gallery': 'المعرض',
+  'activities': 'الانشطة',
+  'expires_at': 'ينتهي الاشتراك في',
+  'gallery': 'المعرض',
+  'download': 'تنزيل',
 };

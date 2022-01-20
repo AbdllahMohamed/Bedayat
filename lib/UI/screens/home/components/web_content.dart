@@ -281,9 +281,6 @@ class HomeWebContentWidget extends StatelessWidget {
                                                 onTap: () {
                                                   Get.to(
                                                     ReportScreen(
-                                                      name: name,
-                                                      classNmber: agegroupe,
-                                                      image: imagePath,
                                                       childId: childId,
                                                     ),
                                                   );

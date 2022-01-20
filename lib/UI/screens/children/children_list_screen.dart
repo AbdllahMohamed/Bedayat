@@ -1,11 +1,13 @@
 import 'package:bedayat/UI/screens/children/children_list_controller.dart';
 import 'package:bedayat/UI/screens/gallery/gallery_editor_screen.dart';
+import 'package:bedayat/UI/screens/login/login.dart';
 import 'package:bedayat/UI/screens/report/report_editor/report_editor_screen.dart';
 import 'package:bedayat/models/child.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -28,7 +30,12 @@ class _ChildrenListScreenState extends State<ChildrenListScreen> {
       appBar: AppBar(actions: [
         IconButton(
           icon: FaIcon(FontAwesomeIcons.signOutAlt, color: Colors.white),
-          onPressed: () {},
+          onPressed: () async {
+            final box = GetStorage();
+
+            await box.remove('token');
+            Get.offAll(LoginScreen());
+          },
         ),
       ], title: Text("children_list".tr)),
       body: Padding(

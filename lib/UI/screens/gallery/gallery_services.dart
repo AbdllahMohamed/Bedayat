@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:bedayat/const/const.dart';
+import 'package:bedayat/models/gallery.dart';
 
 import 'package:dio/dio.dart' as Dio;
+import 'package:dio/dio.dart';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
@@ -10,6 +12,31 @@ import '../../../../utilities.dart';
 import '../../../../models/activity.dart';
 
 class GalleryServices {
+  // ignore: non_constant_identifier_names
+  static getGallery({int pageNumber = 1, required int childId}) async {
+    String token = GetStorage().read('token');
+
+    var response = await Dio.Dio().get(
+      '$baseApiUrl/child/gallery/$childId?page=$pageNumber',
+      options: Options(
+          headers: {"Authorization": "Bearer $token"},
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+
+    if (response.statusCode == 200) {
+      List<Media> galleryTemp = [];
+      response.data["data"]
+          .forEach((media) => galleryTemp.add(Media.fromJson(media)));
+      return galleryTemp;
+    } else {
+      showErrorSnackbar(
+          title: "gallery error", message: "not able to get images");
+    }
+  }
+
   static uploadImageOrVideo({
     required File file,
     required String childId,

@@ -29,9 +29,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _email =
-      new TextEditingController(text: 'admin@admin.com');
+      new TextEditingController(text: 'mari.algha@gmail.com');
 
-  TextEditingController _password = new TextEditingController(text: 'admin');
+  // TextEditingController _email =
+  //     new TextEditingController(text: 'admin@admin.com');
 
   bool _obscureText = true;
   bool? rememberme = false;
@@ -62,9 +63,9 @@ class _LoginScreenState extends State<LoginScreen> {
       Get.defaultDialog(title: "Something went wrong".tr, middleText: error);
     } else {
       if (!kIsWeb) {
-        // String? token = await FirebaseMessaging.instance.getToken();
-        // print(token);
-        // authController.sendToken(token!);
+        String? token = await FirebaseMessaging.instance.getToken();
+        print(token);
+        authController.sendToken(token!);
         if (GetStorage().read("userType") == "parent") {
           Get.to(BottomNavigationWidget());
         } else if (GetStorage().read("userType") == "teacher") {
@@ -79,6 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
+
+  TextEditingController _password = new TextEditingController(text: 'admin');
 
   @override
   void initState() {

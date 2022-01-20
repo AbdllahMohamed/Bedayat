@@ -1,13 +1,15 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:bedayat/const/const.dart';
+import 'package:bedayat/models/report.dart';
 
 import 'package:dio/dio.dart' as Dio;
 
 import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
-import '../../../../utilities.dart';
-import '../../../../models/activity.dart';
+import '../../../utilities.dart';
+import '../../../models/activity.dart';
 
 class ReportsServices {
   // ignore: non_constant_identifier_names
@@ -32,6 +34,30 @@ class ReportsServices {
     } else {
       showErrorSnackbar(
           title: "activites error", message: "not able to get activites");
+    }
+  }
+
+  static getLastChildReport(int childId) async {
+    String token = GetStorage().read('token');
+
+    var response = await Dio.Dio().get(
+      '$baseApiUrl/child/report/$childId',
+      options: Dio.Options(
+          headers: {"Authorization": "Bearer $token"},
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 500;
+          }),
+    );
+
+    if (response.statusCode == 200) {
+      if (response.data["data"] != null)
+        return Report.fromJson(response.data["data"]);
+      else
+        return null;
+    } else {
+      showErrorSnackbar(
+          title: "reports error", message: "not able to get reports");
     }
   }
 

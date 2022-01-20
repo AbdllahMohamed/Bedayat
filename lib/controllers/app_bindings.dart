@@ -4,12 +4,11 @@ import 'package:bedayat/controllers/branch_controller.dart';
 import 'package:bedayat/controllers/checkout_status_controller.dart';
 import 'package:bedayat/controllers/childern_controller.dart';
 import 'package:bedayat/controllers/event_controller.dart';
-import 'package:bedayat/controllers/gallery_controller.dart';
 import 'package:bedayat/controllers/group_controller.dart';
 import 'package:bedayat/controllers/notification_cotroller.dart';
 import 'package:bedayat/controllers/package_controller.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
-import 'package:bedayat/controllers/report_controller.dart';
+import 'package:bedayat/UI/screens/report/report_controller.dart';
 import 'package:bedayat/controllers/slider_image_controller.dart';
 import 'package:bedayat/controllers/teacher_controller.dart';
 import 'package:bedayat/controllers/user_controller.dart';
@@ -22,10 +21,9 @@ class AppBinding implements Bindings {
     Get.lazyPut<ChildernController>(() => ChildernController(), fenix: true);
     Get.lazyPut<AddChildController>(() => AddChildController(), fenix: true);
     Get.lazyPut<EventController>(() => EventController(), fenix: true);
-    Get.lazyPut<GalleryController>(() => GalleryController(), fenix: true);
     Get.lazyPut<SliderImagesController>(() => SliderImagesController(),
         fenix: true);
-    Get.lazyPut<ReportController>(() => ReportController(), fenix: true);
+    // Get.lazyPut<ReportController>(() => ReportController(), fenix: true);
     Get.lazyPut<BranchController>(() => BranchController(), fenix: true);
     Get.lazyPut<GroupController>(() => GroupController(), fenix: true);
     Get.lazyPut<TeacherController>(() => TeacherController(), fenix: true);
