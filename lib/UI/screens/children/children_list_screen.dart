@@ -29,6 +29,10 @@ class _ChildrenListScreenState extends State<ChildrenListScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(actions: [
         IconButton(
+          icon: Icon(Icons.refresh, color: Colors.white),
+          onPressed: () => childrenController.refersh(),
+        ),
+        IconButton(
           icon: FaIcon(FontAwesomeIcons.signOutAlt, color: Colors.white),
           onPressed: () async {
             final box = GetStorage();

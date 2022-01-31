@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../utilities.dart';
+
 class GalleryEditorController extends GetxController {
   GalleryEditorController({required this.childId});
 
@@ -18,19 +20,19 @@ class GalleryEditorController extends GetxController {
   DateTime started_at = DateTime.now();
 
   RxBool isLoading = false.obs;
+  final ImagePicker _picker = ImagePicker();
 
   // files handler
   pickupFiles() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowMultiple: false,
-    );
-
+    // XFile? image =
+    final result = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (result != null) {
-      List<File> files = result.paths.map((path) => File(path!)).toList();
-      attachments.value = [...attachments, ...files];
+      //Most people just handle here. So it never returns anything upon cancel (iOS)
     } else {
-      // User canceled the picker
+      //User canceled the picker. You need do something here, or just add return
+      return;
     }
+    attachments.add(result);
   }
 
   deleteFiles(File attachment) {

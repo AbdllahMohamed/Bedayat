@@ -16,6 +16,16 @@ class ChildrenController extends GetxController {
   var listController = ScrollController();
   int pageNumber = 0;
 
+  refersh() {
+    pageNumber = 0;
+    childrenList.value = [];
+    isLoading.value = false;
+    isInit.value = false;
+    isReachForTheLastItem.value = false;
+    isZeroItems.value = false;
+    getChildren();
+  }
+
   getChildren() async {
     if (isReachForTheLastItem.value) {
       NoMoreSnackbar();

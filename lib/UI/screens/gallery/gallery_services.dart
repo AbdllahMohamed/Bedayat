@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../../utilities.dart';
 import '../../../../models/activity.dart';
 
@@ -38,7 +39,7 @@ class GalleryServices {
   }
 
   static uploadImageOrVideo({
-    required File file,
+    required XFile file,
     required String childId,
   }) async {
     String token = GetStorage().read('token');

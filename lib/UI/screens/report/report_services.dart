@@ -104,7 +104,10 @@ class ReportsServices {
         "notes": notes
       },
       options: Dio.Options(
-          headers: {"Authorization": "Bearer $token"},
+          headers: {
+            "Authorization": "Bearer $token",
+            "Accept": "application/json"
+          },
           followRedirects: false,
           validateStatus: (status) {
             return status! < 500;

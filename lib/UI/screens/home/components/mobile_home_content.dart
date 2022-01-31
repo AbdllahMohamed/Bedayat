@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:bedayat/UI/screens/checkout/checkout_screen.dart';
 import 'package:bedayat/UI/screens/child_editor/child_editor.dart';
 import 'package:bedayat/UI/screens/gallery/gallery_screen.dart';
 import 'package:bedayat/UI/screens/payment/payment.dart';
@@ -11,6 +12,7 @@ import 'package:bedayat/app_images/app_images.dart';
 import 'package:bedayat/controllers/payment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -204,43 +206,148 @@ class MobileHomeContentWidget extends StatelessWidget {
                   ),
                 ),
 
+                SizedBox(
+                  height: 10,
+                ),
+                Divider(),
+                SizedBox(
+                  height: 10,
+                ),
+
+                // current subsciption
+                Row(
+                  children: [
+                    // FaIcon(FontAwesomeIcons.child,
+                    //     color: AppColors.accentColor),
+                    // SizedBox(
+                    //   width: 20,
+                    // ),
+                    Text(
+                      "current subscription".tr,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
+                    ),
+                  ],
+                ),
+
+                SizedBox(
+                  height: 5,
+                ),
+
+                Row(
+                  children: [
+                    FaIcon(FontAwesomeIcons.utensils,
+                        color: AppColors.accentColor),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Package Name",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        ),
+                        Text(
+                          "food_package_end_at" + "  : 12/2/2022".tr,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+
+                Row(
+                  children: [
+                    FaIcon(FontAwesomeIcons.calendar,
+                        color: AppColors.accentColor),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Package Name",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        ),
+                        Text(
+                          "food_package_end_at" + "  : 12/2/2022".tr,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+
+                TextButton.icon(
+                  icon: FaIcon(
+                    FontAwesomeIcons.plusCircle,
+                    color: Colors.red,
+                  ),
+                  onPressed: () => Get.to(CheckoutScreen(
+                    childId: childId,
+                  )),
+                  label: Text(
+                    'add_subscription'.tr,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                )
+
                 // ignore: unnecessary_null_comparison
-                expireDate != null
-                    ? Center(
-                        child: Text(
-                          "expires_at".tr +
-                              " : ${DateFormat('yyyy-MM-dd').format(DateTime.parse(expireDate))}",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    : Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 6, bottom: 2),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              Get.to(PaymentScreen(
-                                childId: childId.toString(),
-                                routeName: 'home',
-                              ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: AppColors.primaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(8), // <-- Radius
-                              ),
-                            ),
-                            child: Text(
-                              'Your child is not registered  subscribe now'.tr,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                // expireDate != "null"
+                //     ? Center(
+                //         child: Text(
+                //           "expires_at".tr +
+                //               " : ${DateFormat('yyyy-MM-dd').format(DateTime.parse(expireDate))}",
+                //           style: TextStyle(fontWeight: FontWeight.bold),
+                //         ),
+                //       )
+                //     : Center(
+                //         child: Padding(
+                //           padding: const EdgeInsets.only(top: 6, bottom: 2),
+                //           child: ElevatedButton(
+                //             onPressed: () async {
+                //               Get.to(PaymentScreen(
+                //                 childId: childId.toString(),
+                //                 routeName: 'home',
+                //               ));
+                //             },
+                //             style: ElevatedButton.styleFrom(
+                //               primary: AppColors.primaryColor,
+                //               shape: RoundedRectangleBorder(
+                //                 borderRadius:
+                //                     BorderRadius.circular(8), // <-- Radius
+                //               ),
+                //             ),
+                //             child: Text(
+                //               'Your child is not registered  subscribe now'.tr,
+                //               style: TextStyle(
+                //                 fontSize: 12,
+                //                 fontWeight: FontWeight.bold,
+                //                 color: Colors.white,
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //       ),
 
                 // InkWell(
                 //   onTap: () {
@@ -268,68 +375,69 @@ class MobileHomeContentWidget extends StatelessWidget {
                 //   ),
                 // ),
 
-                SizedBox(
-                  height: 15,
-                ),
-                !isActive
-                    ? SizedBox()
-                    : Center(
-                        child: QrImage(
-                          data: createdAt,
-                          version: QrVersions.auto,
-                          size: 200.0,
-                        ),
-                      ),
+                // SizedBox(
+                //   height: 15,
+                // ),
+                // !isActive
+                //     ? SizedBox()
+                //     : Center(
+                //         child: QrImage(
+                //           data: createdAt,
+                //           version: QrVersions.auto,
+                //           size: 200.0,
+                //         ),
+                //       ),
 
-                SizedBox(
-                  height: 15,
-                ),
-                InkWell(
-                  onTap: () async {
-                    screenshotController
-                        .captureFromWidget(
-                      Container(
-                        color: Colors.white,
-                        child: QrImage(
-                          data: createdAt,
-                          version: QrVersions.auto,
-                          size: 200.0,
-                        ),
-                      ),
-                      context: context,
-                    )
-                        .then((capturedImage) async {
-                      // ignore: unnecessary_null_comparison
-                      if (capturedImage != null) {
-                        final directory =
-                            await getApplicationDocumentsDirectory();
-                        final imagePath =
-                            await File('${directory.path}/image.png').create();
-                        await imagePath.writeAsBytes(capturedImage);
-                        print(imagePath.path);
+                // SizedBox(
+                //   height: 15,
+                // ),
 
-                        Share.shareFiles([imagePath.path]);
-                      }
-                    });
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Share'.tr,
-                        style: TextStyle(
-                          color: Color(0xff818080),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Image.asset(
-                        AppImages.appShareIcon,
-                      )
-                    ],
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () async {
+                //     screenshotController
+                //         .captureFromWidget(
+                //       Container(
+                //         color: Colors.white,
+                //         child: QrImage(
+                //           data: createdAt,
+                //           version: QrVersions.auto,
+                //           size: 200.0,
+                //         ),
+                //       ),
+                //       context: context,
+                //     )
+                //         .then((capturedImage) async {
+                //       // ignore: unnecessary_null_comparison
+                //       if (capturedImage != null) {
+                //         final directory =
+                //             await getApplicationDocumentsDirectory();
+                //         final imagePath =
+                //             await File('${directory.path}/image.png').create();
+                //         await imagePath.writeAsBytes(capturedImage);
+                //         print(imagePath.path);
+
+                //         Share.shareFiles([imagePath.path]);
+                //       }
+                //     });
+                //   },
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text(
+                //         'Share'.tr,
+                //         style: TextStyle(
+                //           color: Color(0xff818080),
+                //         ),
+                //       ),
+                //       SizedBox(
+                //         width: 20,
+                //       ),
+                //       Image.asset(
+                //         AppImages.appShareIcon,
+                //       )
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),

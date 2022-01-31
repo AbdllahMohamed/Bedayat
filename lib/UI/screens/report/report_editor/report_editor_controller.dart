@@ -75,7 +75,9 @@ class ReportEditorController extends GetxController {
   // files handler
   pickupFiles() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowMultiple: true,
+      allowMultiple: false,
+      // type: FileType.custom,
+      // allowedExtensions: ['jpg', 'pdf', 'doc'],
     );
 
     if (result != null) {
